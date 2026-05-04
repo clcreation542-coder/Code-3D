@@ -596,6 +596,9 @@ function drawEditor() {
 
   // Background
   const op = d.gobelet_opacity ?? 1;
+  ctx.globalAlpha = 1;
+  ctx.fillStyle   = '#ffffff';
+  ctx.fillRect(0,0,TEX_W,TEX_H);
   ctx.globalAlpha = op;
   ctx.fillStyle   = d.gobelet_color || '#f5f0eb';
   ctx.fillRect(0,0,TEX_W,TEX_H);
@@ -1322,7 +1325,7 @@ function loadGLB3() {
     bodyMats3 = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
-      const mat = new THREE.MeshStandardMaterial({ map: ptex, roughness: 0.28, metalness: 0.04, side: THREE.DoubleSide });
+      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.28, metalness: 0.04, transparent: false, opacity: 1, side: THREE.FrontSide });
       child.material = mat; bodyMats3.push(mat);
     });
     const box  = new THREE.Box3().setFromObject(gltf.scene);
@@ -1340,7 +1343,7 @@ function loadGLB3() {
 }
 
 function fallback3D() {
-  const mat = new THREE.MeshStandardMaterial({ map: ptex, roughness: 0.3, side: THREE.DoubleSide });
+  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.3, transparent: false, opacity: 1, side: THREE.FrontSide });
   grp3.add(new THREE.Mesh(new THREE.CylinderGeometry(1, 0.82, 2.8, 64, 1, true), mat));
   bodyMats3 = [mat]; update3D();
 }
@@ -1351,12 +1354,15 @@ function update3D() {
   ptexCtx.clearRect(0,0,TEX_W,TEX_H);
   if (d) {
     const op = d.gobelet_opacity ?? 1;
+    ptexCtx.globalAlpha = 1;
+    ptexCtx.fillStyle   = '#ffffff';
+    ptexCtx.fillRect(0,0,TEX_W,TEX_H);
     ptexCtx.globalAlpha = op;
     ptexCtx.fillStyle   = d.gobelet_color || '#f5f0eb';
     ptexCtx.fillRect(0,0,TEX_W,TEX_H);
     ptexCtx.globalAlpha = 1;
     bodyMats3.forEach(m => {
-      m.color.set(d.gobelet_color||'#ffffff');
+      m.color.set(0xffffff);
       m.transparent = false;
       m.opacity     = 1;
     });

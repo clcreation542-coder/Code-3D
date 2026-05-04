@@ -781,8 +781,11 @@ function drawTextZone(zone, text) {
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
 
-  // 1. Fond givré : toujours dessiné, avec globalAlpha = opacité gobelet
+  // 1. Fond givré : blanc opaque, puis couleur gobelet avec globalAlpha = opacité
   const opacity = parseOpacity(state.gobeletColor);
+  ctx2d.globalAlpha = 1;
+  ctx2d.fillStyle   = '#ffffff';
+  ctx2d.fillRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = opacity;
   ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
@@ -916,7 +919,7 @@ function initThree() {
 
   bodyMaterial = new THREE.MeshStandardMaterial({
     map:         gobeletTexture,
-    color:       new THREE.Color(baseColor),
+    color:       new THREE.Color(0xffffff),
     roughness:   0.28,
     metalness:   0.04,
     transparent: false,
@@ -976,7 +979,7 @@ function loadGobelet() {
           console.log(`[kuztom]   mesh #${meshCount} : name="${child.name}", geometry=${child.geometry?.type}, vertices=${child.geometry?.attributes?.position?.count ?? '?'}`);
           const mat = new THREE.MeshStandardMaterial({
             map:         window._gobeletTexture,
-            color:       new THREE.Color(parseHexColor(state.gobeletColor)),
+            color:       new THREE.Color(0xffffff),
             roughness:   0.28,
             metalness:   0.04,
             transparent: false,
@@ -1140,7 +1143,7 @@ function updateGobeletColor(colorConfig) {
   const hex  = colorConfig.hex  || '#ffffff';
   const opac = colorConfig.opacity !== undefined ? colorConfig.opacity : 1;
   state.gobeletColor = opac < 1 ? hex : hex;
-  bodyMaterial.color.set(hex);
+  bodyMaterial.color.set(0xffffff);
   bodyMaterial.transparent = false;
   bodyMaterial.opacity     = 1;
   drawTexture();
