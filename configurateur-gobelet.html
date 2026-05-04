@@ -514,6 +514,7 @@ if (!window.DESIGN_CONFIG) {
     id: "bapteme-croix-pampa",
     name: "Gobelet Baptême — Bohème Croix & Pampa",
     gobelet_color: "#f5f0eb",
+    rotation_y: 3.14,
     model_url: null,
     design_url: null,
     design: { x: 500, y: 0, width: 1000, height: 1024 },
@@ -842,7 +843,7 @@ let autoRotate   = false;
 let rotTimer     = null;
 let isDragging   = false;
 let lastPointerX = 0;
-let rotY         = Math.PI * 0.15;
+let rotY         = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
 
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 function parseOpacity(c)  {
@@ -936,14 +937,16 @@ function loadGobelet() {
       // Appliquer le matériau à tous les meshes
       gltf.scene.traverse(child => {
         if (child.isMesh) {
-          child.material   = bodyMaterial;
-          child.castShadow = false;
+          child.material        = bodyMaterial;
+          child.castShadow      = false;
+          child.material.map    = window._gobeletTexture;
+          child.material.needsUpdate = true;
         }
       });
 
       // Centrer & normaliser l'échelle
-      const box   = new THREE.Box3().setFromObject(gltf.scene);
-      const size  = box.getSize(new THREE.Vector3());
+      const box    = new THREE.Box3().setFromObject(gltf.scene);
+      const size   = box.getSize(new THREE.Vector3());
       const center = box.getCenter(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z);
       const scale  = 3.6 / maxDim;
@@ -954,9 +957,9 @@ function loadGobelet() {
         -center.y * scale,
         -center.z * scale
       );
-      gltf.scene.rotation.y = Math.PI;
 
       gobeletGroup.add(gltf.scene);
+      gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
       drawTexture();
       hideLoading();
     },
