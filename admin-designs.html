@@ -1297,7 +1297,7 @@ function init3D() {
   loadGLB3();
 
   // Drag to rotate
-  let drag = false, lastX3 = 0, rotY3 = 0;
+  let drag = false, lastX3 = 0, rotY3 = Math.PI;
   pCvs.addEventListener('mousedown', e => { drag = true; lastX3 = e.clientX; });
   window.addEventListener('mousemove', e => {
     if (!drag) return;
@@ -1332,7 +1332,8 @@ function loadGLB3() {
     gltf.scene.position.set(-ctr.x*sc, -ctr.y*sc, -ctr.z*sc);
     grp3.add(gltf.scene);
     const d = currentDesign();
-    grp3.rotation.y = d ? (d.rotation_y||0) : 0;
+    rotY3 = Math.PI + (d ? (d.rotation_y||0) : 0);
+    grp3.rotation.y = rotY3;
     update3D();
   }, null, fallback3D);
 }
@@ -1354,7 +1355,7 @@ function update3D() {
       m.color.set(d.gobelet_color||'#ffffff');
       m.opacity = op; m.transparent = op < 1;
     });
-    grp3.rotation.y = d.rotation_y || 0;
+    grp3.rotation.y = Math.PI + (d.rotation_y || 0);
     const img = app.imgCache[d.id];
     if (img) {
       const di = d.design||{x:0,y:0,width:TEX_W,height:TEX_H};
