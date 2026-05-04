@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -310,6 +311,7 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       border: none;
+      border-radius: 50px;
       cursor: pointer;
       transition: background 200ms ease, transform 80ms ease;
     }
@@ -465,6 +467,7 @@
         <span class="loading-text">Chargement</span>
       </div>
     </div>
+    <p style="position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:11px;font-style:italic;color:#6b5b4e;pointer-events:none;">Explorez votre gobelet à 360° ↔</p>
   </div>
 
   <!-- Colonne droite : formulaire -->
@@ -836,7 +839,7 @@ function loadDesignImage() {
 //  THREE.JS — Scène
 // ═══════════════════════════════════════════════════════════════════════
 let renderer, scene, camera, gobeletGroup, bodyMaterial;
-let autoRotate   = true;
+let autoRotate   = false;
 let rotTimer     = null;
 let isDragging   = false;
 let lastPointerX = 0;
@@ -1048,7 +1051,7 @@ function initInteraction() {
 }
 
 function stopAuto()   { autoRotate = false; if (rotTimer) clearTimeout(rotTimer); }
-function resumeAuto() { if (rotTimer) clearTimeout(rotTimer); rotTimer = setTimeout(() => { autoRotate = true; }, 2000); }
+function resumeAuto() { /* auto-rotation désactivée */ }
 
 function onResize() {
   const container = document.getElementById('canvas-container');
@@ -1339,3 +1342,4 @@ if (document.readyState === 'loading') {
 </script>
 </body>
 </html>
+```
