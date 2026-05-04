@@ -1293,6 +1293,7 @@ function init3D() {
   tc.width = TEX_W; tc.height = TEX_H;
   ptexCtx = tc.getContext('2d');
   ptex = new THREE.CanvasTexture(tc);
+  ptex.flipY = false;
 
   loadGLB3();
 
