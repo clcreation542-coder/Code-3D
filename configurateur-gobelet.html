@@ -781,11 +781,12 @@ function drawTextZone(zone, text) {
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
 
-  // 1. Fond couleur gobelet — omis si translucide (opacity < 1)
-  if (parseOpacity(state.gobeletColor) >= 1) {
-    ctx2d.fillStyle = state.gobeletColor || '#ffffff';
-    ctx2d.fillRect(0, 0, TEX_W, TEX_H);
-  }
+  // 1. Fond givré : toujours dessiné, avec globalAlpha = opacité gobelet
+  const opacity = parseOpacity(state.gobeletColor);
+  ctx2d.globalAlpha = opacity;
+  ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
+  ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+  ctx2d.globalAlpha = 1;
 
   // 2. Photos
   CFG.photo_zones.forEach(zone => {
@@ -918,8 +919,8 @@ function initThree() {
     color:       new THREE.Color(baseColor),
     roughness:   0.28,
     metalness:   0.04,
-    transparent: opacity < 1,
-    opacity:     opacity,
+    transparent: false,
+    opacity:     1,
     side:        THREE.DoubleSide,
   });
 
@@ -978,8 +979,8 @@ function loadGobelet() {
             color:       new THREE.Color(parseHexColor(state.gobeletColor)),
             roughness:   0.28,
             metalness:   0.04,
-            transparent: bodyMaterial.transparent,
-            opacity:     bodyMaterial.opacity,
+            transparent: false,
+            opacity:     1,
             side:        THREE.DoubleSide,
           });
           child.material   = mat;
@@ -1138,10 +1139,10 @@ function updateGobeletColor(colorConfig) {
   if (!bodyMaterial) return;
   const hex  = colorConfig.hex  || '#ffffff';
   const opac = colorConfig.opacity !== undefined ? colorConfig.opacity : 1;
-  state.gobeletColor = hex;
+  state.gobeletColor = opac < 1 ? hex : hex;
   bodyMaterial.color.set(hex);
-  bodyMaterial.opacity    = opac;
-  bodyMaterial.transparent = opac < 1;
+  bodyMaterial.transparent = false;
+  bodyMaterial.opacity     = 1;
   drawTexture();
 }
 

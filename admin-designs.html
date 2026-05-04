@@ -597,7 +597,7 @@ function drawEditor() {
   // Background
   const op = d.gobelet_opacity ?? 1;
   ctx.globalAlpha = op;
-  ctx.fillStyle = d.gobelet_color || '#f5f0eb';
+  ctx.fillStyle   = d.gobelet_color || '#f5f0eb';
   ctx.fillRect(0,0,TEX_W,TEX_H);
   ctx.globalAlpha = 1;
 
@@ -1350,10 +1350,14 @@ function update3D() {
   ptexCtx.clearRect(0,0,TEX_W,TEX_H);
   if (d) {
     const op = d.gobelet_opacity ?? 1;
-    if (op >= 1) { ptexCtx.fillStyle = d.gobelet_color||'#f5f0eb'; ptexCtx.fillRect(0,0,TEX_W,TEX_H); }
+    ptexCtx.globalAlpha = op;
+    ptexCtx.fillStyle   = d.gobelet_color || '#f5f0eb';
+    ptexCtx.fillRect(0,0,TEX_W,TEX_H);
+    ptexCtx.globalAlpha = 1;
     bodyMats3.forEach(m => {
       m.color.set(d.gobelet_color||'#ffffff');
-      m.opacity = op; m.transparent = op < 1;
+      m.transparent = false;
+      m.opacity     = 1;
     });
     grp3.rotation.y = Math.PI + (d.rotation_y || 0);
     const img = app.imgCache[d.id];
