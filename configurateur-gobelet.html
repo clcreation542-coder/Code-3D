@@ -936,6 +936,11 @@ function initThree() {
 function loadGobelet() {
   const url = CFG.model_url || 'https://clcreation542-coder.github.io/Code-3D/Goblet.glb';
 
+  console.log('[kuztom] loadGobelet() — début du chargement');
+  console.log('[kuztom] URL GLB :', url);
+  console.log('[kuztom] THREE.GLTFLoader disponible :', typeof THREE.GLTFLoader);
+  console.log('[kuztom] THREE.DRACOLoader disponible :', typeof THREE.DRACOLoader);
+
   if (typeof THREE.GLTFLoader === 'undefined') {
     console.warn('[kuztom] GLTFLoader absent — fallback géométrie');
     fallbackGeometry();
@@ -944,22 +949,28 @@ function loadGobelet() {
 
   const loader = new THREE.GLTFLoader();
 
-  // DRACOLoader — indispensable pour les GLB Shopify (compression Draco)
   if (typeof THREE.DRACOLoader !== 'undefined') {
     const draco = new THREE.DRACOLoader();
-    draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
+    const decoderPath = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/';
+    draco.setDecoderPath(decoderPath);
     loader.setDRACOLoader(draco);
+    console.log('[kuztom] DRACOLoader configuré, decoderPath :', decoderPath);
   } else {
     console.warn('[kuztom] DRACOLoader absent — le GLB peut échouer si compressé Draco');
   }
 
+  console.log('[kuztom] Appel loader.load()...');
+
   loader.load(
     url,
     gltf => {
-      // Appliquer texture canvas sur tous les meshes
+      console.log('[kuztom] GLB reçu — parsing de la scène...');
+
+      let meshCount = 0;
       gltf.scene.traverse(child => {
         if (child.isMesh) {
-          // Remplacer le matériau par un MeshStandardMaterial avec la texture canvas
+          meshCount++;
+          console.log(`[kuztom]   mesh #${meshCount} : name="${child.name}", geometry=${child.geometry?.type}, vertices=${child.geometry?.attributes?.position?.count ?? '?'}`);
           const mat = new THREE.MeshStandardMaterial({
             map:         window._gobeletTexture,
             color:       new THREE.Color(parseHexColor(state.gobeletColor)),
@@ -973,17 +984,22 @@ function loadGobelet() {
           child.castShadow = false;
         }
       });
-      // Mettre à jour la référence bodyMaterial pour updateGobeletColor
+      console.log(`[kuztom] Total meshes trouvés : ${meshCount}`);
+
+      if (meshCount === 0) {
+        console.warn('[kuztom] Aucun mesh trouvé dans la scène GLB — vérifier le fichier');
+      }
+
       gltf.scene.traverse(child => {
         if (child.isMesh) { bodyMaterial = child.material; }
       });
 
-      // Centrer & normaliser l'échelle
       const box    = new THREE.Box3().setFromObject(gltf.scene);
       const size   = box.getSize(new THREE.Vector3());
       const center = box.getCenter(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z);
       const scale  = 3.6 / maxDim;
+      console.log('[kuztom] Bounding box size :', size.x.toFixed(3), size.y.toFixed(3), size.z.toFixed(3), '— scale appliqué :', scale.toFixed(4));
 
       gltf.scene.scale.setScalar(scale);
       gltf.scene.position.set(
@@ -994,8 +1010,8 @@ function loadGobelet() {
 
       gobeletGroup.add(gltf.scene);
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
+      console.log('[kuztom] gobeletGroup.rotation.y :', gobeletGroup.rotation.y.toFixed(4));
 
-      // Forcer le rendu de la texture après le prochain frame
       drawTexture();
       requestAnimationFrame(() => {
         if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
@@ -1005,10 +1021,17 @@ function loadGobelet() {
       console.log('[kuztom] GLB chargé avec succès');
     },
     xhr => {
-      if (xhr.total) console.log(`[kuztom] GLB: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
+      if (xhr.total) {
+        const pct = Math.round(xhr.loaded / xhr.total * 100);
+        console.log(`[kuztom] GLB progression : ${pct}% (${xhr.loaded} / ${xhr.total} octets)`);
+      } else {
+        console.log(`[kuztom] GLB progression : ${xhr.loaded} octets reçus (taille totale inconnue)`);
+      }
     },
     err => {
-      console.error('[kuztom] Erreur GLB:', err);
+      console.error('[kuztom] Erreur GLB — type :', err?.type ?? typeof err);
+      console.error('[kuztom] Erreur GLB — message :', err?.message ?? String(err));
+      console.error('[kuztom] Erreur GLB — objet complet :', err);
       fallbackGeometry();
     }
   );
