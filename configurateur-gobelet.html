@@ -954,8 +954,10 @@ function loadGobelet() {
         -center.y * scale,
         -center.z * scale
       );
+      gltf.scene.rotation.y = Math.PI;
 
       gobeletGroup.add(gltf.scene);
+      drawTexture();
       hideLoading();
     },
     undefined,
