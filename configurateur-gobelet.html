@@ -781,9 +781,11 @@ function drawTextZone(zone, text) {
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
 
-  // 1. Fond couleur gobelet
-  ctx2d.fillStyle = state.gobeletColor || '#ffffff';
-  ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+  // 1. Fond couleur gobelet — omis si translucide (opacity < 1)
+  if (parseOpacity(state.gobeletColor) >= 1) {
+    ctx2d.fillStyle = state.gobeletColor || '#ffffff';
+    ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+  }
 
   // 2. Photos
   CFG.photo_zones.forEach(zone => {
