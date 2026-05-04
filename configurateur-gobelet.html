@@ -45,10 +45,20 @@
       width: 50%;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       background: var(--cream);
       flex-shrink: 0;
+    }
+
+    #viewer-hint {
+      font-size: 14px;
+      font-style: italic;
+      color: #6b5b4e;
+      text-align: center;
+      margin-top: 12px;
+      pointer-events: none;
     }
 
     #form-col {
@@ -152,7 +162,7 @@
 
     .form-header h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 46px;
+      font-size: 42px;
       font-weight: 400;
       line-height: 1.15;
       color: var(--dark);
@@ -169,7 +179,7 @@
 
     .form-header p {
       font-size: 16px;
-      color: #3d3028;
+      color: #4a3d36;
       line-height: 1.9;
       max-width: 400px;
     }
@@ -179,7 +189,7 @@
 
     .zone-label {
       display: block;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -195,7 +205,7 @@
       border-bottom: 1.5px solid var(--border);
       padding: 13px 0;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
+      font-size: 18px;
       font-weight: 400;
       color: var(--dark);
       outline: none;
@@ -306,9 +316,9 @@
       background: var(--dark);
       color: #fff;
       font-family: 'Jost', sans-serif;
-      font-size: 12.5px;
+      font-size: 16px;
       font-weight: 400;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       border: none;
       border-radius: 50px;
@@ -467,7 +477,7 @@
         <span class="loading-text">Chargement</span>
       </div>
     </div>
-    <p style="position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:11px;font-style:italic;color:#6b5b4e;pointer-events:none;">Explorez votre gobelet à 360° ↔</p>
+    <p id="viewer-hint">Explorez votre gobelet à 360° ↔</p>
   </div>
 
   <!-- Colonne droite : formulaire -->
