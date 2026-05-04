@@ -513,8 +513,9 @@
 
 <!-- Three.js r128 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<!-- GLTFLoader pour r128 -->
+<!-- GLTFLoader + DRACOLoader pour r128 (Shopify GLB utilise Draco) -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
 
 <script>
 // ═══════════════════════════════════════════════════════════════════════
@@ -942,17 +943,39 @@ function loadGobelet() {
   }
 
   const loader = new THREE.GLTFLoader();
+
+  // DRACOLoader — indispensable pour les GLB Shopify (compression Draco)
+  if (typeof THREE.DRACOLoader !== 'undefined') {
+    const draco = new THREE.DRACOLoader();
+    draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
+    loader.setDRACOLoader(draco);
+  } else {
+    console.warn('[kuztom] DRACOLoader absent — le GLB peut échouer si compressé Draco');
+  }
+
   loader.load(
     url,
     gltf => {
-      // Appliquer le matériau à tous les meshes
+      // Appliquer texture canvas sur tous les meshes
       gltf.scene.traverse(child => {
         if (child.isMesh) {
-          child.material        = bodyMaterial;
-          child.castShadow      = false;
-          child.material.map    = window._gobeletTexture;
-          child.material.needsUpdate = true;
+          // Remplacer le matériau par un MeshStandardMaterial avec la texture canvas
+          const mat = new THREE.MeshStandardMaterial({
+            map:         window._gobeletTexture,
+            color:       new THREE.Color(parseHexColor(state.gobeletColor)),
+            roughness:   0.28,
+            metalness:   0.04,
+            transparent: bodyMaterial.transparent,
+            opacity:     bodyMaterial.opacity,
+            side:        THREE.DoubleSide,
+          });
+          child.material   = mat;
+          child.castShadow = false;
         }
+      });
+      // Mettre à jour la référence bodyMaterial pour updateGobeletColor
+      gltf.scene.traverse(child => {
+        if (child.isMesh) { bodyMaterial = child.material; }
       });
 
       // Centrer & normaliser l'échelle
@@ -971,12 +994,21 @@ function loadGobelet() {
 
       gobeletGroup.add(gltf.scene);
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
+
+      // Forcer le rendu de la texture après le prochain frame
       drawTexture();
+      requestAnimationFrame(() => {
+        if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
+      });
+
       hideLoading();
+      console.log('[kuztom] GLB chargé avec succès');
     },
-    undefined,
+    xhr => {
+      if (xhr.total) console.log(`[kuztom] GLB: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
+    },
     err => {
-      console.warn('[kuztom] Erreur GLB, fallback:', err);
+      console.error('[kuztom] Erreur GLB:', err);
       fallbackGeometry();
     }
   );
