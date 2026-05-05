@@ -1355,7 +1355,7 @@ function update3D() {
     bodyMats3.forEach(m => {
       m.color.set(d.gobelet_color || '#f5f0eb');
       m.transparent = true;
-      m.opacity     = 0.85;
+      m.opacity     = d.gobelet_opacity ?? 1;
     });
     grp3.rotation.y = Math.PI + (d.rotation_y || 0);
     const img = app.imgCache[d.id];

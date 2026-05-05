@@ -918,7 +918,7 @@ function initThree() {
     roughness:   0.4,
     metalness:   0.04,
     transparent: true,
-    opacity:     0.85,
+    opacity:     opacity,
     side:        THREE.DoubleSide,
   });
 
@@ -978,7 +978,7 @@ function loadGobelet() {
             roughness:   0.4,
             metalness:   0.04,
             transparent: true,
-            opacity:     0.85,
+            opacity:     parseOpacity(state.gobeletColor),
             side:        THREE.DoubleSide,
           });
           child.material   = mat;
@@ -1137,10 +1137,10 @@ function updateGobeletColor(colorConfig) {
   if (!bodyMaterial) return;
   const hex  = colorConfig.hex  || '#ffffff';
   const opac = colorConfig.opacity !== undefined ? colorConfig.opacity : 1;
-  state.gobeletColor = opac < 1 ? hex : hex;
+  state.gobeletColor = hex;
   bodyMaterial.color.set(parseHexColor(hex));
   bodyMaterial.transparent = true;
-  bodyMaterial.opacity     = 0.85;
+  bodyMaterial.opacity     = opac;
   drawTexture();
 }
 
