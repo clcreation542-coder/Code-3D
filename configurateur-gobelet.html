@@ -1043,7 +1043,7 @@ function loadGobelet() {
       // Scale pour que tout le gobelet soit visible
       const scaleFactor = 1.8 / size.y;
       gobeletGroup.scale.setScalar(scaleFactor);
-      gobeletGroup.position.y += 0.2;
+      gobeletGroup.position.y -= 0.15;
 
       // Recalcule après scale
       const box2  = new THREE.Box3().setFromObject(gobeletGroup);
