@@ -780,10 +780,12 @@ function drawTextZone(zone, text) {
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
-  // 1. Fond coloré (couleur du gobelet)
+  // 1. Fond coloré (translucide pour simuler l'ecocup)
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
+  ctx2d.globalAlpha = 0.88;
   ctx2d.fillStyle = parseHexColor(state.gobeletColor);
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+  ctx2d.globalAlpha = 1.0;
 
   // 2. Photos
   CFG.photo_zones.forEach(zone => {
@@ -877,24 +879,39 @@ function initThree() {
   renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: true,
-    preserveDrawingBuffer: true,   // nécessaire pour toDataURL
+    preserveDrawingBuffer: true,
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.setClearColor(0x000000, 0);
+  renderer.setClearColor(0xf0f0f0, 1);
+  renderer.shadowMap.enabled = true;
   container.appendChild(renderer.domElement);
 
   scene  = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
   camera.position.set(0, 0.1, 7);
 
-  // Éclairage
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  // Éclairage studio
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
   scene.add(ambientLight);
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-  directionalLight.position.set(5, 5, 5);
-  scene.add(directionalLight);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 2.0);
+  dirLight.position.set(3, 5, 3);
+  dirLight.castShadow = true;
+  scene.add(dirLight);
+  const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  backLight.position.set(-3, 2, -3);
+  scene.add(backLight);
+
+  // Plan de sol avec ombre
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(10, 10),
+    new THREE.ShadowMaterial({ opacity: 0.15 })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -1.5;
+  floor.receiveShadow = true;
+  scene.add(floor);
 
   // Texture canvas
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
@@ -910,10 +927,11 @@ function initThree() {
   bodyMaterial = new THREE.MeshStandardMaterial({
     map:         gobeletTexture,
     color:       new THREE.Color('#ffffff'),
-    roughness:   0.4,
-    metalness:   0.0,
+    roughness:   0.3,
+    metalness:   0.1,
     transparent: true,
-    opacity:     CFG.gobelet_opacity ?? 0.88,
+    opacity:     0.82,
+    depthWrite:  false,
     alphaTest:   0,
     side:        THREE.FrontSide,
   });
@@ -973,10 +991,11 @@ function loadGobelet() {
           const mat = new THREE.MeshStandardMaterial({
             map:         window._gobeletTexture,
             color:       new THREE.Color('#ffffff'),
-            roughness:   0.4,
-            metalness:   0.0,
+            roughness:   0.3,
+            metalness:   0.1,
             transparent: true,
-            opacity:     CFG.gobelet_opacity ?? 0.88,
+            opacity:     0.82,
+            depthWrite:  false,
             alphaTest:   0,
             side:        THREE.FrontSide,
           });
@@ -1139,10 +1158,11 @@ function updateGobeletColor(colorConfig) {
   const opac = colorConfig.opacity !== undefined ? colorConfig.opacity : 1;
   state.gobeletColor = hex;
   bodyMaterial.color.set('#ffffff');
-  bodyMaterial.roughness    = 0.4;
-  bodyMaterial.metalness    = 0.0;
+  bodyMaterial.roughness    = 0.3;
+  bodyMaterial.metalness    = 0.1;
   bodyMaterial.transparent  = true;
-  bodyMaterial.opacity      = opac;
+  bodyMaterial.opacity      = 0.82;
+  bodyMaterial.depthWrite   = false;
   bodyMaterial.needsUpdate  = true;
   drawTexture();
 }

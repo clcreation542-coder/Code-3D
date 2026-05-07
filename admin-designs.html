@@ -1274,18 +1274,32 @@ let bodyMats3 = [];
 
 function init3D() {
   scene3 = new THREE.Scene();
-  scene3.background = new THREE.Color(0x16213e);
   cam3 = new THREE.PerspectiveCamera(45, 400/300, 0.1, 100);
   cam3.position.set(0, 0, 5.5);
   ren3 = new THREE.WebGLRenderer({ canvas: pCvs, antialias: true });
   ren3.setSize(400, 300);
   ren3.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  ren3.setClearColor(0xf0f0f0, 1);
+  ren3.shadowMap.enabled = true;
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
   scene3.add(ambientLight);
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-  directionalLight.position.set(5, 5, 5);
-  scene3.add(directionalLight);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 2.0);
+  dirLight.position.set(3, 5, 3);
+  dirLight.castShadow = true;
+  scene3.add(dirLight);
+  const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  backLight.position.set(-3, 2, -3);
+  scene3.add(backLight);
+
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(10, 10),
+    new THREE.ShadowMaterial({ opacity: 0.15 })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -1.5;
+  floor.receiveShadow = true;
+  scene3.add(floor);
 
   grp3 = new THREE.Group();
   grp3.rotation.x = 0.35;
@@ -1324,7 +1338,7 @@ function loadGLB3() {
     bodyMats3 = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
-      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: new THREE.Color('#ffffff'), roughness: 0.4, metalness: 0.0, transparent: true, opacity: 0.88, alphaTest: 0, side: THREE.FrontSide });
+      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: new THREE.Color('#ffffff'), roughness: 0.3, metalness: 0.1, transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide });
       mat.needsUpdate = true;
       child.material = mat; bodyMats3.push(mat);
     });
@@ -1343,7 +1357,7 @@ function loadGLB3() {
 }
 
 function fallback3D() {
-  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: new THREE.Color('#ffffff'), roughness: 0.4, metalness: 0.0, transparent: true, opacity: 0.88, alphaTest: 0, side: THREE.FrontSide });
+  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: new THREE.Color('#ffffff'), roughness: 0.3, metalness: 0.1, transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide });
   grp3.add(new THREE.Mesh(new THREE.CylinderGeometry(1, 0.82, 2.8, 64, 1, true), mat));
   bodyMats3 = [mat]; update3D();
 }
@@ -1354,16 +1368,19 @@ function update3D() {
   // 1. Fond coloré sur le canvas texture
   ptexCtx.clearRect(0,0,TEX_W,TEX_H);
   if (d) {
+    ptexCtx.globalAlpha = 0.88;
     ptexCtx.fillStyle = d.gobelet_color || '#f5f0eb';
     ptexCtx.fillRect(0,0,TEX_W,TEX_H);
+    ptexCtx.globalAlpha = 1.0;
 
-    // 2. Matériau toujours blanc, opacité seule change
+    // 2. Matériau toujours blanc translucide
     bodyMats3.forEach(m => {
       m.color.set('#ffffff');
-      m.roughness   = 0.4;
-      m.metalness   = 0.0;
+      m.roughness   = 0.3;
+      m.metalness   = 0.1;
       m.transparent = true;
-      m.opacity     = d.gobelet_opacity ?? 0.88;
+      m.opacity     = 0.82;
+      m.depthWrite  = false;
       m.alphaTest   = 0;
       m.needsUpdate = true;
     });
