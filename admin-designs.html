@@ -1282,9 +1282,9 @@ function init3D() {
   ren3.setClearColor(0xeeeeee, 1);
   ren3.shadowMap.enabled = true;
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
   scene3.add(ambientLight);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 2.0);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
   dirLight.position.set(3, 5, 3);
   dirLight.castShadow = true;
   scene3.add(dirLight);
@@ -1302,7 +1302,7 @@ function init3D() {
   scene3.add(floor);
 
   grp3 = new THREE.Group();
-  grp3.rotation.x = 0.35;
+  grp3.rotation.x = 0.2;
   scene3.add(grp3);
 
   const tc = document.createElement('canvas');
