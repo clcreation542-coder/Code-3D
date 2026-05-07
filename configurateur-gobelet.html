@@ -1076,6 +1076,17 @@ function loadGobelet() {
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
       console.log('[kuztom] gobeletGroup.rotation.y :', gobeletGroup.rotation.y.toFixed(4));
 
+      // Cache les triangles du fond du gobelet
+      const boxDisc    = new THREE.Box3().setFromObject(gobeletGroup);
+      const bottomY    = boxDisc.min.y;
+      const radius     = (boxDisc.max.x - boxDisc.min.x) / 2;
+      const discGeo    = new THREE.CircleGeometry(radius * 0.95, 64);
+      const discMat    = new THREE.MeshStandardMaterial({ color: 0xffffff, side: THREE.FrontSide });
+      const disc       = new THREE.Mesh(discGeo, discMat);
+      disc.rotation.x  = -Math.PI / 2;
+      disc.position.y  = bottomY + 0.01;
+      gobeletGroup.add(disc);
+
       onResize();
       drawTexture();
       requestAnimationFrame(() => {
