@@ -889,8 +889,8 @@ function initThree() {
   container.appendChild(renderer.domElement);
 
   scene  = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(25, w / h, 0.1, 100);
-  camera.position.set(0, 0, 8);
+  camera = new THREE.PerspectiveCamera(20, w / h, 0.1, 100);
+  camera.position.set(0, 0, 12);
 
   // Éclairage studio
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
