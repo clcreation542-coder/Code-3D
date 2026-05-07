@@ -525,7 +525,8 @@ if (!window.DESIGN_CONFIG) {
   window.DESIGN_CONFIG = {
     id: "bapteme-croix-pampa",
     name: "Gobelet Baptême — Bohème Croix & Pampa",
-    gobelet_color: "#f5f0eb",
+    gobelet_color:   "#f5f0eb",
+    gobelet_opacity: 1,
     rotation_y: 0,
     model_url: null,
     design_url: "https://clcreation542-coder.github.io/Code-3D/Designsanstitre31-ezgif.com-jpg-to-webp-converter.webp",
@@ -918,7 +919,7 @@ function initThree() {
     roughness:   0.3,
     metalness:   0.04,
     transparent: true,
-    opacity:     0.88,
+    opacity:     CFG.gobelet_opacity ?? 1,
     side:        THREE.DoubleSide,
   });
 
@@ -979,7 +980,7 @@ function loadGobelet() {
             roughness:   0.3,
             metalness:   0.04,
             transparent: true,
-            opacity:     0.88,
+            opacity:     CFG.gobelet_opacity ?? 1,
             side:        THREE.DoubleSide,
           });
           child.material   = mat;
@@ -1140,9 +1141,9 @@ function updateGobeletColor(colorConfig) {
   const opac = colorConfig.opacity !== undefined ? colorConfig.opacity : 1;
   state.gobeletColor = hex;
   bodyMaterial.color.set(parseHexColor(hex));
-  bodyMaterial.roughness    = 0.3;
-  bodyMaterial.transparent  = true;
-  bodyMaterial.opacity      = opac < 1 ? opac : 0.88;
+  bodyMaterial.roughness   = 0.3;
+  bodyMaterial.transparent = true;
+  bodyMaterial.opacity     = opac;
   drawTexture();
 }
 

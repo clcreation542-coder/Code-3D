@@ -594,9 +594,8 @@ function drawEditor() {
     return;
   }
 
-  // Background — blanc opaque (la transparence givrée vient du matériau Three.js)
   ctx.globalAlpha = 1;
-  ctx.fillStyle   = d.gobelet_color || '#f5f0eb';
+  ctx.fillStyle   = '#ffffff';
   ctx.fillRect(0,0,TEX_W,TEX_H);
 
   // Design image
@@ -1354,12 +1353,11 @@ function update3D() {
     ptexCtx.globalAlpha = 1;
     ptexCtx.fillStyle   = '#ffffff';
     ptexCtx.fillRect(0,0,TEX_W,TEX_H);
-    const configOpac = d.gobelet_opacity ?? 1;
     bodyMats3.forEach(m => {
       m.color.set(d.gobelet_color || '#f5f0eb');
       m.roughness   = 0.3;
       m.transparent = true;
-      m.opacity     = configOpac < 1 ? configOpac : 0.88;
+      m.opacity     = d.gobelet_opacity ?? 1;
     });
     grp3.rotation.y = Math.PI + (d.rotation_y || 0);
     const img = app.imgCache[d.id];
