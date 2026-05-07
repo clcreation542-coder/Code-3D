@@ -897,6 +897,11 @@ function initThree() {
   renderer.domElement.style.margin  = '0 auto';
   container.appendChild(renderer.domElement);
 
+  container.style.width     = '100%';
+  container.style.height    = window.innerWidth <= 768 ? '100vw' : '500px';
+  container.style.minHeight = '350px';
+  container.style.overflow  = 'hidden';
+
   scene  = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
   camera.position.set(0, 0, 5);
@@ -1173,6 +1178,8 @@ function resumeAuto() { /* auto-rotation désactivée */ }
 
 function onResize() {
   const container = renderer.domElement.parentElement;
+  const isMobile  = window.innerWidth <= 768;
+  container.style.height = isMobile ? '100vw' : '500px';
   const width  = container.clientWidth;
   const height = container.clientHeight;
   renderer.setSize(width, height);
