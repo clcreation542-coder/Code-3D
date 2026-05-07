@@ -526,7 +526,7 @@ if (!window.DESIGN_CONFIG) {
     id: "bapteme-croix-pampa",
     name: "Gobelet Baptême — Bohème Croix & Pampa",
     gobelet_color:   "#f5f0eb",
-    gobelet_opacity: 1,
+    gobelet_opacity: 0.88,
     rotation_y: 0,
     model_url: null,
     design_url: "https://clcreation542-coder.github.io/Code-3D/Designsanstitre31-ezgif.com-jpg-to-webp-converter.webp",
@@ -780,14 +780,17 @@ function drawTextZone(zone, text) {
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
+  // 1. Fond coloré (couleur du gobelet)
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
+  ctx2d.fillStyle = parseHexColor(state.gobeletColor);
+  ctx2d.fillRect(0, 0, TEX_W, TEX_H);
 
-  // 1. Photos
+  // 2. Photos
   CFG.photo_zones.forEach(zone => {
     if (state.photos[zone.id]) drawPhotoZone(zone, state.photos[zone.id]);
   });
 
-  // 2. Design (image ou placeholder)
+  // 3. Design PNG par-dessus, couleurs intactes
   ctx2d.globalCompositeOperation = 'source-over';
   ctx2d.globalAlpha = 1.0;
   if (state.designImage) {
@@ -797,7 +800,7 @@ function drawTexture() {
     drawPlaceholderDesign();
   }
 
-  // 3. Textes
+  // 4. Textes
   CFG.text_zones.forEach(zone => {
     drawTextZone(zone, state.texts[zone.id] || '');
   });
@@ -906,11 +909,11 @@ function initThree() {
 
   bodyMaterial = new THREE.MeshStandardMaterial({
     map:         gobeletTexture,
-    color:       new THREE.Color(parseHexColor(state.gobeletColor)),
+    color:       new THREE.Color('#ffffff'),
     roughness:   0.4,
     metalness:   0.0,
     transparent: true,
-    opacity:     Math.min(0.92, Math.max(0.80, CFG.gobelet_opacity ?? 0.88)),
+    opacity:     CFG.gobelet_opacity ?? 0.88,
     alphaTest:   0,
     side:        THREE.FrontSide,
   });
@@ -969,11 +972,11 @@ function loadGobelet() {
           console.log(`[kuztom]   mesh #${meshCount} : name="${child.name}", geometry=${child.geometry?.type}, vertices=${child.geometry?.attributes?.position?.count ?? '?'}`);
           const mat = new THREE.MeshStandardMaterial({
             map:         window._gobeletTexture,
-            color:       new THREE.Color(parseHexColor(state.gobeletColor)),
+            color:       new THREE.Color('#ffffff'),
             roughness:   0.4,
             metalness:   0.0,
             transparent: true,
-            opacity:     Math.min(0.92, Math.max(0.80, CFG.gobelet_opacity ?? 0.88)),
+            opacity:     CFG.gobelet_opacity ?? 0.88,
             alphaTest:   0,
             side:        THREE.FrontSide,
           });
@@ -1135,11 +1138,11 @@ function updateGobeletColor(colorConfig) {
   const hex  = colorConfig.hex  || '#ffffff';
   const opac = colorConfig.opacity !== undefined ? colorConfig.opacity : 1;
   state.gobeletColor = hex;
-  bodyMaterial.color.set(parseHexColor(hex));
+  bodyMaterial.color.set('#ffffff');
   bodyMaterial.roughness    = 0.4;
   bodyMaterial.metalness    = 0.0;
   bodyMaterial.transparent  = true;
-  bodyMaterial.opacity      = Math.min(0.92, Math.max(0.80, opac));
+  bodyMaterial.opacity      = opac;
   bodyMaterial.needsUpdate  = true;
   drawTexture();
 }
