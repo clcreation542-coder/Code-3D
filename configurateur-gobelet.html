@@ -889,8 +889,8 @@ function initThree() {
   container.appendChild(renderer.domElement);
 
   scene  = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
-  camera.position.set(0, 0, 4.5);
+  camera = new THREE.PerspectiveCamera(25, w / h, 0.1, 100);
+  camera.position.set(0, 0, 8);
 
   // Éclairage studio
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
@@ -943,6 +943,7 @@ function initThree() {
   gobeletGroup.rotation.z = 0;
   gobeletGroup.position.set(0, 0, 0);
   gobeletGroup.rotation.y = rotY;
+  gobeletGroup.scale.set(1, 1, 1);
   scene.add(gobeletGroup);
 
   loadGobelet();
