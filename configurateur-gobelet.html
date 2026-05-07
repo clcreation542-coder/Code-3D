@@ -955,7 +955,7 @@ function initThree() {
 
   // Groupe gobelet
   gobeletGroup = new THREE.Group();
-  gobeletGroup.rotation.x = 0.15;
+  gobeletGroup.rotation.x = 0.18;
   gobeletGroup.rotation.z = 0;
   gobeletGroup.position.set(0, 0, 0);
   gobeletGroup.rotation.y = rotY;
@@ -1043,7 +1043,7 @@ function loadGobelet() {
       gobeletGroup.position.sub(center);
 
       // Scale pour que tout le gobelet soit visible
-      const scaleFactor = 1.8 / size.y;
+      const scaleFactor = 1.746 / size.y;
       gobeletGroup.scale.setScalar(scaleFactor);
       gobeletGroup.position.y -= 0.05;
       if (window.innerWidth <= 768) {
