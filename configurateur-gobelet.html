@@ -1041,7 +1041,7 @@ function loadGobelet() {
       gobeletGroup.position.sub(center);
 
       // Scale pour que tout le gobelet soit visible
-      const scaleFactor = 2.2 / size.y;
+      const scaleFactor = 1.8 / size.y;
       gobeletGroup.scale.setScalar(scaleFactor);
       gobeletGroup.position.y += 0.2;
 
@@ -1059,7 +1059,7 @@ function loadGobelet() {
       camera.updateProjectionMatrix();
 
       // Inclinaison
-      gobeletGroup.rotation.x = 0.05;
+      gobeletGroup.rotation.x = 0.18;
       gobeletGroup.rotation.z = 0;
 
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
