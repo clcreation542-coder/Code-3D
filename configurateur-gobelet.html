@@ -915,15 +915,16 @@ function initThree() {
   bodyMaterial = new THREE.MeshStandardMaterial({
     map:         gobeletTexture,
     color:       new THREE.Color(parseHexColor(state.gobeletColor)),
-    roughness:   0.4,
+    roughness:   0.3,
     metalness:   0.04,
     transparent: true,
-    opacity:     opacity,
+    opacity:     0.88,
     side:        THREE.DoubleSide,
   });
 
   // Groupe gobelet
   gobeletGroup = new THREE.Group();
+  gobeletGroup.rotation.x = 0.15;
   gobeletGroup.rotation.y = rotY;
   scene.add(gobeletGroup);
 
@@ -975,10 +976,10 @@ function loadGobelet() {
           const mat = new THREE.MeshStandardMaterial({
             map:         window._gobeletTexture,
             color:       new THREE.Color(parseHexColor(state.gobeletColor)),
-            roughness:   0.4,
+            roughness:   0.3,
             metalness:   0.04,
             transparent: true,
-            opacity:     parseOpacity(state.gobeletColor),
+            opacity:     0.88,
             side:        THREE.DoubleSide,
           });
           child.material   = mat;
@@ -1139,8 +1140,9 @@ function updateGobeletColor(colorConfig) {
   const opac = colorConfig.opacity !== undefined ? colorConfig.opacity : 1;
   state.gobeletColor = hex;
   bodyMaterial.color.set(parseHexColor(hex));
-  bodyMaterial.transparent = true;
-  bodyMaterial.opacity     = opac;
+  bodyMaterial.roughness    = 0.3;
+  bodyMaterial.transparent  = true;
+  bodyMaterial.opacity      = opac < 1 ? opac : 0.88;
   drawTexture();
 }
 

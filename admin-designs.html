@@ -1285,7 +1285,9 @@ function init3D() {
   const dl = new THREE.DirectionalLight(0xfff5e0, 1.2);
   dl.position.set(3, 5, 5); scene3.add(dl);
 
-  grp3 = new THREE.Group(); scene3.add(grp3);
+  grp3 = new THREE.Group();
+  grp3.rotation.x = 0.15;
+  scene3.add(grp3);
 
   const tc = document.createElement('canvas');
   tc.width = TEX_W; tc.height = TEX_H;
@@ -1320,7 +1322,7 @@ function loadGLB3() {
     bodyMats3 = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
-      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.28, metalness: 0.04, transparent: false, opacity: 1, side: THREE.FrontSide });
+      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.3, metalness: 0.04, transparent: true, opacity: 0.88, side: THREE.FrontSide });
       child.material = mat; bodyMats3.push(mat);
     });
     const box  = new THREE.Box3().setFromObject(gltf.scene);
@@ -1338,7 +1340,7 @@ function loadGLB3() {
 }
 
 function fallback3D() {
-  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.3, transparent: false, opacity: 1, side: THREE.FrontSide });
+  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.3, metalness: 0.04, transparent: true, opacity: 0.88, side: THREE.FrontSide });
   grp3.add(new THREE.Mesh(new THREE.CylinderGeometry(1, 0.82, 2.8, 64, 1, true), mat));
   bodyMats3 = [mat]; update3D();
 }
@@ -1352,10 +1354,12 @@ function update3D() {
     ptexCtx.globalAlpha = 1;
     ptexCtx.fillStyle   = '#ffffff';
     ptexCtx.fillRect(0,0,TEX_W,TEX_H);
+    const configOpac = d.gobelet_opacity ?? 1;
     bodyMats3.forEach(m => {
       m.color.set(d.gobelet_color || '#f5f0eb');
+      m.roughness   = 0.3;
       m.transparent = true;
-      m.opacity     = d.gobelet_opacity ?? 1;
+      m.opacity     = configOpac < 1 ? configOpac : 0.88;
     });
     grp3.rotation.y = Math.PI + (d.rotation_y || 0);
     const img = app.imgCache[d.id];
