@@ -594,7 +594,8 @@ function drawEditor() {
     return;
   }
 
-  ctx.globalAlpha = 1;
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.globalAlpha = 1.0;
   ctx.fillStyle   = '#ffffff';
   ctx.fillRect(0,0,TEX_W,TEX_H);
 
@@ -1285,7 +1286,7 @@ function init3D() {
   dl.position.set(3, 5, 5); scene3.add(dl);
 
   grp3 = new THREE.Group();
-  grp3.rotation.x = 0.15;
+  grp3.rotation.x = 0.35;
   scene3.add(grp3);
 
   const tc = document.createElement('canvas');
@@ -1321,7 +1322,8 @@ function loadGLB3() {
     bodyMats3 = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
-      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.3, metalness: 0.04, transparent: true, opacity: 0.88, side: THREE.FrontSide });
+      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.15, metalness: 0.05, transparent: true, opacity: 0.75, side: THREE.FrontSide });
+      mat.needsUpdate = true;
       child.material = mat; bodyMats3.push(mat);
     });
     const box  = new THREE.Box3().setFromObject(gltf.scene);
@@ -1339,7 +1341,7 @@ function loadGLB3() {
 }
 
 function fallback3D() {
-  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.3, metalness: 0.04, transparent: true, opacity: 0.88, side: THREE.FrontSide });
+  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.15, metalness: 0.05, transparent: true, opacity: 0.75, side: THREE.FrontSide });
   grp3.add(new THREE.Mesh(new THREE.CylinderGeometry(1, 0.82, 2.8, 64, 1, true), mat));
   bodyMats3 = [mat]; update3D();
 }
@@ -1355,9 +1357,11 @@ function update3D() {
     ptexCtx.fillRect(0,0,TEX_W,TEX_H);
     bodyMats3.forEach(m => {
       m.color.set(d.gobelet_color || '#f5f0eb');
-      m.roughness   = 0.3;
+      m.roughness   = 0.15;
+      m.metalness   = 0.05;
       m.transparent = true;
-      m.opacity     = d.gobelet_opacity ?? 1;
+      m.opacity     = d.gobelet_opacity ?? 0.75;
+      m.needsUpdate = true;
     });
     grp3.rotation.y = Math.PI + (d.rotation_y || 0);
     const img = app.imgCache[d.id];

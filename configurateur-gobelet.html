@@ -783,7 +783,8 @@ function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
 
   // 1. Fond blanc opaque — la transparence givrée vient du matériau Three.js
-  ctx2d.globalAlpha = 1;
+  ctx2d.globalCompositeOperation = 'source-over';
+  ctx2d.globalAlpha = 1.0;
   ctx2d.fillStyle   = '#ffffff';
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
 
@@ -916,17 +917,17 @@ function initThree() {
   bodyMaterial = new THREE.MeshStandardMaterial({
     map:         gobeletTexture,
     color:       new THREE.Color(parseHexColor(state.gobeletColor)),
-    roughness:   0.3,
-    metalness:   0.04,
+    roughness:   0.15,
+    metalness:   0.05,
     transparent: true,
-    opacity:     CFG.gobelet_opacity ?? 1,
+    opacity:     CFG.gobelet_opacity ?? 0.75,
     side:        THREE.DoubleSide,
   });
   bodyMaterial.needsUpdate = true;
 
   // Groupe gobelet
   gobeletGroup = new THREE.Group();
-  gobeletGroup.rotation.x = 0.15;
+  gobeletGroup.rotation.x = 0.35;
   gobeletGroup.rotation.y = rotY;
   scene.add(gobeletGroup);
 
@@ -1143,7 +1144,8 @@ function updateGobeletColor(colorConfig) {
   const opac = colorConfig.opacity !== undefined ? colorConfig.opacity : 1;
   state.gobeletColor = hex;
   bodyMaterial.color.set(parseHexColor(hex));
-  bodyMaterial.roughness    = 0.3;
+  bodyMaterial.roughness    = 0.15;
+  bodyMaterial.metalness    = 0.05;
   bodyMaterial.transparent  = true;
   bodyMaterial.opacity      = opac;
   bodyMaterial.needsUpdate  = true;
