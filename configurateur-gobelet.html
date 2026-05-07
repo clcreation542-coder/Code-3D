@@ -1069,6 +1069,9 @@ function loadGobelet() {
 
       // Descend légèrement pour dégager le haut
       gobeletGroup.position.y -= 0.02;
+      if (window.innerWidth <= 768) {
+        gobeletGroup.position.y += 0.05;
+      }
 
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
       console.log('[kuztom] gobeletGroup.rotation.y :', gobeletGroup.rotation.y.toFixed(4));
