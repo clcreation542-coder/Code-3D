@@ -6,20 +6,21 @@
   <title>Configurateur Gobelet — Kuztom</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     /* ─── Reset & Variables ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:    #faf8f5;
+      --cream:    #f8f7f4;
       --gold:     #c9a96e;
-      --gold-lt:  rgba(201,169,110,0.15);
-      --dark:     #2c2521;
+      --gold-lt:  rgba(201,169,110,0.12);
+      --dark:     #1a1a1a;
       --mid:      #6b5b4e;
-      --border:   #e8e0d5;
-      --border-lt:#f0ebe4;
+      --border:   #e0ddd8;
+      --border-lt:#ece9e3;
+      --viewer-bg:#efefed;
     }
 
     html { scroll-behavior: smooth; }
@@ -27,63 +28,57 @@
     body {
       background: var(--cream);
       color: var(--dark);
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      line-height: 1.8;
+      font-family: 'Inter', 'Jost', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
     /* ─── Layout principal ─── */
     #configurateur {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       min-height: 100vh;
     }
 
     #viewer-col {
       position: sticky;
       top: 0;
-      width: 50%;
-      height: 100vh;
+      height: 70vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: var(--cream);
-      flex-shrink: 0;
+      background: var(--viewer-bg);
     }
 
     #viewer-hint {
-      font-size: 14px;
-      font-style: italic;
-      color: #6b5b4e;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: #aaa;
       text-align: center;
-      margin-top: 12px;
+      margin-top: 10px;
       pointer-events: none;
+      text-transform: uppercase;
     }
 
     #form-col {
-      width: 50%;
-      padding: 64px 56px 80px;
+      padding: 56px 48px 80px;
       min-height: 100vh;
+      background: var(--cream);
       border-left: 1px solid var(--border-lt);
+      overflow-y: auto;
     }
 
     /* ─── Canvas container ─── */
     #canvas-container {
       position: relative;
       width: 100%;
-      height: 500px;
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-    }
-
-    @media (max-width: 768px) {
-      #canvas-container {
-        width: 100%;
-        height: 100vw;
-      }
     }
 
     #canvas-container canvas {
@@ -92,7 +87,7 @@
     }
 
     @keyframes gobeletEnter {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -105,7 +100,7 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      background: var(--cream);
+      background: var(--viewer-bg);
       z-index: 5;
       transition: opacity 400ms ease;
     }
@@ -113,8 +108,8 @@
     #loading-indicator.hidden { opacity: 0; pointer-events: none; }
 
     .loading-ring {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       border: 1.5px solid var(--border);
       border-top-color: var(--gold);
       border-radius: 50%;
@@ -122,10 +117,10 @@
     }
 
     .loading-text {
-      font-size: 11px;
-      letter-spacing: 0.18em;
+      font-size: 10px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--mid);
+      color: #aaa;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -152,88 +147,88 @@
       width: 60px;
       height: 60px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(44,37,33,0.18));
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
     }
 
     /* ─── Form header ─── */
-    .form-header { margin-bottom: 44px; }
+    .form-header { margin-bottom: 40px; }
 
     .eyebrow {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .form-header h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 42px;
+      font-size: 38px;
       font-weight: 400;
       line-height: 1.15;
       color: var(--dark);
-      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
     }
 
     .form-divider {
-      width: 36px;
+      width: 32px;
       height: 1px;
       background: var(--gold);
-      opacity: 0.55;
-      margin: 24px 0;
+      opacity: 0.5;
+      margin: 20px 0;
     }
 
     .form-header p {
-      font-size: 16px;
-      color: #4a3d36;
-      line-height: 1.9;
-      max-width: 400px;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.8;
+      max-width: 380px;
     }
 
     /* ─── Zone sections ─── */
-    .zone-section { margin-bottom: 44px; }
+    .zone-section { margin-bottom: 32px; }
 
     .zone-label {
       display: block;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #3d3028;
-      margin-bottom: 14px;
+      color: #888;
+      margin-bottom: 8px;
     }
 
     .zone-input,
     .zone-textarea {
       width: 100%;
-      background: transparent;
-      border: none;
-      border-bottom: 1.5px solid var(--border);
-      padding: 13px 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
       font-weight: 400;
       color: var(--dark);
       outline: none;
-      transition: border-color 220ms ease;
+      transition: border-color 200ms ease;
       resize: none;
       line-height: 1.5;
     }
 
     .zone-input::placeholder,
     .zone-textarea::placeholder {
-      color: #c8bdb6;
-      font-style: italic;
+      color: #bbb;
     }
 
     .zone-input:focus,
     .zone-textarea:focus {
-      border-bottom-color: var(--gold);
+      border-color: var(--gold);
     }
 
     .zone-textarea {
-      min-height: 110px;
+      min-height: 100px;
       display: block;
       line-height: 1.6;
     }
@@ -242,11 +237,12 @@
     .photo-upload-wrap { position: relative; }
 
     .photo-upload-area {
-      border: 1px dashed var(--border);
-      padding: 28px 24px;
+      border: 1.5px dashed var(--border);
+      border-radius: 10px;
+      padding: 24px;
       text-align: center;
       cursor: pointer;
-      transition: border-color 220ms, background 220ms;
+      transition: border-color 200ms, background 200ms;
       position: relative;
       overflow: hidden;
     }
@@ -265,21 +261,13 @@
     }
 
     .upload-icon {
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 18px;
+      margin-bottom: 6px;
       color: var(--gold);
     }
 
-    .upload-text {
-      font-size: 14px;
-      color: #4a3d36;
-    }
-
-    .upload-hint {
-      font-size: 12px;
-      color: var(--mid);
-      margin-top: 6px;
-    }
+    .upload-text { font-size: 13px; color: #555; }
+    .upload-hint { font-size: 11px; color: #aaa; margin-top: 4px; }
 
     .photo-preview-row {
       display: flex;
@@ -289,18 +277,18 @@
     }
 
     .photo-preview {
-      width: 64px;
-      height: 64px;
+      width: 60px;
+      height: 60px;
       object-fit: cover;
-      border-radius: 2px;
+      border-radius: 8px;
       display: none;
     }
 
     .photo-preview.visible { display: block; }
 
     .photo-remove {
-      font-size: 13px;
-      color: #4a3d36;
+      font-size: 12px;
+      color: #888;
       background: none;
       border: none;
       cursor: pointer;
@@ -314,26 +302,26 @@
     .photo-remove:hover { opacity: 1; }
 
     /* ─── Actions ─── */
-    .form-actions { margin-top: 48px; }
+    .form-actions { margin-top: 40px; }
 
     .btn-cart {
       display: block;
       width: 100%;
-      padding: 17px 24px;
+      padding: 16px 24px;
       background: var(--dark);
       color: #fff;
-      font-family: 'Jost', sans-serif;
-      font-size: 16px;
-      font-weight: 400;
-      letter-spacing: 0.15em;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       border: none;
-      border-radius: 50px;
+      border-radius: 12px;
       cursor: pointer;
       transition: background 200ms ease, transform 80ms ease;
     }
 
-    .btn-cart:hover { background: #1a1210; }
+    .btn-cart:hover { background: #333; }
     .btn-cart:active { transform: scale(0.99); }
 
     .btn-cart:disabled {
@@ -346,7 +334,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
     .btn-reset {
@@ -355,14 +343,14 @@
       gap: 5px;
       background: none;
       border: none;
-      color: #4a3d36;
-      font-family: 'Jost', sans-serif;
-      font-size: 13px;
+      color: #888;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
       font-weight: 400;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       cursor: pointer;
       padding: 4px 0;
-      opacity: 0.6;
+      opacity: 0.7;
       transition: opacity 200ms;
     }
 
@@ -372,7 +360,7 @@
     #confirmation-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(250,248,245,0.93);
+      background: rgba(248,247,244,0.93);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -434,23 +422,23 @@
 
     /* ─── Mobile ─── */
     @media (max-width: 768px) {
-      #configurateur { flex-direction: column; }
+      #configurateur {
+        grid-template-columns: 1fr;
+      }
 
       #viewer-col {
         position: relative;
         top: auto;
-        width: 100%;
-        height: max(70vw, 320px);
+        height: 55vh;
         border-bottom: 1px solid var(--border-lt);
       }
 
       #form-col {
-        width: 100%;
-        padding: 40px 24px 72px;
+        padding: 36px 20px 72px;
         border-left: none;
       }
 
-      .form-header h1 { font-size: 34px; }
+      .form-header h1 { font-size: 30px; }
       .form-header p  { max-width: none; }
 
       #mini-viewer { display: block; }
@@ -862,6 +850,7 @@ function loadDesignImage() {
 //  THREE.JS — Scène
 // ═══════════════════════════════════════════════════════════════════════
 let renderer, scene, camera, gobeletGroup, bodyMaterial;
+let storedCameraZ = 5;
 let autoRotate   = false;
 let rotTimer     = null;
 let isDragging   = false;
@@ -1053,6 +1042,7 @@ function loadGobelet() {
       const fov    = 45;
       camera.fov   = fov;
       const cameraZ = (maxDim / 2) / Math.tan((fov * Math.PI / 180) / 2) * 1.15;
+      storedCameraZ = cameraZ;
       camera.position.set(0, 0, cameraZ);
       camera.lookAt(0, 0, 0);
       camera.updateProjectionMatrix();
@@ -1178,12 +1168,16 @@ function resumeAuto() { /* auto-rotation désactivée */ }
 
 function onResize() {
   const container = renderer.domElement.parentElement;
-  const isMobile  = window.innerWidth <= 768;
-  container.style.height = isMobile ? '100vw' : '500px';
   const width  = container.clientWidth;
   const height = container.clientHeight;
+  if (width === 0 || height === 0) return;
   renderer.setSize(width, height);
   camera.aspect = width / height;
+  if (window.innerWidth <= 768) {
+    camera.position.set(0, 0.4, storedCameraZ);
+  } else {
+    camera.position.set(0, 0, storedCameraZ);
+  }
   camera.updateProjectionMatrix();
 }
 
