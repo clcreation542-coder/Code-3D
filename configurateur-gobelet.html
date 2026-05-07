@@ -1087,6 +1087,18 @@ function loadGobelet() {
       disc.position.y  = bottomY + 0.01;
       gobeletGroup.add(disc);
 
+      // Disque scène — recalcule après tout le positionnement
+      gobeletGroup.updateMatrixWorld(true);
+      const boxFond    = new THREE.Box3().setFromObject(gobeletGroup);
+      const fondY      = boxFond.min.y;
+      const fondRadius = (boxFond.max.x - boxFond.min.x) / 2;
+      const discGeo2   = new THREE.CircleGeometry(fondRadius * 0.92, 64);
+      const discMat2   = new THREE.MeshStandardMaterial({ color: 0xffffff, depthWrite: true, side: THREE.DoubleSide });
+      const disc2      = new THREE.Mesh(discGeo2, discMat2);
+      disc2.rotation.x = -Math.PI / 2;
+      disc2.position.set(gobeletGroup.position.x, fondY + 0.02, gobeletGroup.position.z);
+      scene.add(disc2);
+
       onResize();
       drawTexture();
       requestAnimationFrame(() => {
