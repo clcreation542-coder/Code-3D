@@ -72,11 +72,20 @@
     #canvas-container {
       position: relative;
       width: 100%;
-      height: 100%;
+      height: 60vw;
+      min-height: 300px;
+      max-height: 600px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      #canvas-container {
+        height: 80vw;
+        max-height: 400px;
+      }
     }
 
     #canvas-container canvas {
@@ -951,6 +960,7 @@ function initThree() {
   loadGobelet();
   initInteraction();
   window.addEventListener('resize', onResize);
+  onResize();
   animate();
 }
 
@@ -1051,6 +1061,7 @@ function loadGobelet() {
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
       console.log('[kuztom] gobeletGroup.rotation.y :', gobeletGroup.rotation.y.toFixed(4));
 
+      onResize();
       drawTexture();
       requestAnimationFrame(() => {
         if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
@@ -1163,11 +1174,12 @@ function stopAuto()   { autoRotate = false; if (rotTimer) clearTimeout(rotTimer)
 function resumeAuto() { /* auto-rotation désactivée */ }
 
 function onResize() {
-  const container = document.getElementById('canvas-container');
-  const w = container.clientWidth, h = container.clientHeight;
-  camera.aspect = w / h;
+  const container = renderer.domElement.parentElement;
+  const width  = container.clientWidth;
+  const height = container.clientHeight;
+  renderer.setSize(width, height);
+  camera.aspect = width / height;
   camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
 }
 
 // ─── Mise à jour couleur variante ─────────────────────────────────────
