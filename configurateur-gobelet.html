@@ -886,6 +886,8 @@ function initThree() {
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.setClearColor(0xeeeeee, 1);
   renderer.shadowMap.enabled = true;
+  renderer.domElement.style.display = 'block';
+  renderer.domElement.style.margin  = '0 auto';
   container.appendChild(renderer.domElement);
 
   scene  = new THREE.Scene();
@@ -1026,7 +1028,7 @@ function loadGobelet() {
       gobeletGroup.position.sub(center);
 
       // Scale pour hauteur 2.8 unités
-      const scaleFactor = 2.8 / size.y;
+      const scaleFactor = 4.5 / size.y;
       gobeletGroup.scale.setScalar(scaleFactor);
 
       // Recalcule après scale
