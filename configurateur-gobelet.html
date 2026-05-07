@@ -1045,10 +1045,6 @@ function loadGobelet() {
       // Scale pour que tout le gobelet soit visible
       const scaleFactor = 1.746 / size.y;
       gobeletGroup.scale.setScalar(scaleFactor);
-      gobeletGroup.position.y -= 0.05;
-      if (window.innerWidth <= 768) {
-        gobeletGroup.position.y += 0.03;
-      }
 
       // Recalcule après scale
       const box2  = new THREE.Box3().setFromObject(gobeletGroup);
@@ -1063,9 +1059,15 @@ function loadGobelet() {
       camera.lookAt(0, 0, 0);
       camera.updateProjectionMatrix();
 
-      // Inclinaison
-      gobeletGroup.rotation.x = 0.18;
+      // Inclinaison vers le client
+      gobeletGroup.rotation.x = -0.18;
       gobeletGroup.rotation.z = 0;
+
+      // Légèrement plus petit pour ne pas toucher les bords
+      gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.88);
+
+      // Descend légèrement pour dégager le haut
+      gobeletGroup.position.y -= 0.1;
 
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
       console.log('[kuztom] gobeletGroup.rotation.y :', gobeletGroup.rotation.y.toFixed(4));
