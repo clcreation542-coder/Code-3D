@@ -782,18 +782,14 @@ function drawTextZone(zone, text) {
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
 
-  // 1. Fond blanc opaque — la transparence givrée vient du matériau Three.js
-  ctx2d.globalCompositeOperation = 'source-over';
-  ctx2d.globalAlpha = 1.0;
-  ctx2d.fillStyle   = '#ffffff';
-  ctx2d.fillRect(0, 0, TEX_W, TEX_H);
-
-  // 2. Photos
+  // 1. Photos
   CFG.photo_zones.forEach(zone => {
     if (state.photos[zone.id]) drawPhotoZone(zone, state.photos[zone.id]);
   });
 
-  // 3. Design (image ou placeholder)
+  // 2. Design (image ou placeholder)
+  ctx2d.globalCompositeOperation = 'source-over';
+  ctx2d.globalAlpha = 1.0;
   if (state.designImage) {
     const d = CFG.design;
     ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
@@ -801,7 +797,7 @@ function drawTexture() {
     drawPlaceholderDesign();
   }
 
-  // 4. Textes
+  // 3. Textes
   CFG.text_zones.forEach(zone => {
     drawTextZone(zone, state.texts[zone.id] || '');
   });
@@ -921,6 +917,7 @@ function initThree() {
     metalness:   0.05,
     transparent: true,
     opacity:     CFG.gobelet_opacity ?? 0.75,
+    alphaTest:   0,
     side:        THREE.DoubleSide,
   });
   bodyMaterial.needsUpdate = true;
@@ -979,10 +976,11 @@ function loadGobelet() {
           const mat = new THREE.MeshStandardMaterial({
             map:         window._gobeletTexture,
             color:       new THREE.Color(parseHexColor(state.gobeletColor)),
-            roughness:   0.3,
-            metalness:   0.04,
+            roughness:   0.15,
+            metalness:   0.05,
             transparent: true,
-            opacity:     CFG.gobelet_opacity ?? 1,
+            opacity:     CFG.gobelet_opacity ?? 0.75,
+            alphaTest:   0,
             side:        THREE.DoubleSide,
           });
           mat.needsUpdate  = true;

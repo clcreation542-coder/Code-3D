@@ -1322,7 +1322,7 @@ function loadGLB3() {
     bodyMats3 = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
-      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.15, metalness: 0.05, transparent: true, opacity: 0.75, side: THREE.FrontSide });
+      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.15, metalness: 0.05, transparent: true, opacity: 0.75, alphaTest: 0, side: THREE.FrontSide });
       mat.needsUpdate = true;
       child.material = mat; bodyMats3.push(mat);
     });
@@ -1341,7 +1341,7 @@ function loadGLB3() {
 }
 
 function fallback3D() {
-  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.15, metalness: 0.05, transparent: true, opacity: 0.75, side: THREE.FrontSide });
+  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: 0xffffff, roughness: 0.15, metalness: 0.05, transparent: true, opacity: 0.75, alphaTest: 0, side: THREE.FrontSide });
   grp3.add(new THREE.Mesh(new THREE.CylinderGeometry(1, 0.82, 2.8, 64, 1, true), mat));
   bodyMats3 = [mat]; update3D();
 }
@@ -1351,22 +1351,21 @@ function update3D() {
   const d = currentDesign();
   ptexCtx.clearRect(0,0,TEX_W,TEX_H);
   if (d) {
-    // Fond blanc opaque — la transparence givrée vient du matériau Three.js
-    ptexCtx.globalAlpha = 1;
-    ptexCtx.fillStyle   = '#ffffff';
-    ptexCtx.fillRect(0,0,TEX_W,TEX_H);
     bodyMats3.forEach(m => {
       m.color.set(d.gobelet_color || '#f5f0eb');
       m.roughness   = 0.15;
       m.metalness   = 0.05;
       m.transparent = true;
       m.opacity     = d.gobelet_opacity ?? 0.75;
+      m.alphaTest   = 0;
       m.needsUpdate = true;
     });
     grp3.rotation.y = Math.PI + (d.rotation_y || 0);
     const img = app.imgCache[d.id];
     if (img) {
       const di = d.design||{x:0,y:0,width:TEX_W,height:TEX_H};
+      ptexCtx.globalCompositeOperation = 'source-over';
+      ptexCtx.globalAlpha = 1.0;
       ptexCtx.drawImage(img, di.x, di.y, di.width, di.height);
     }
     (d.text_zones||[]).forEach(z => {
