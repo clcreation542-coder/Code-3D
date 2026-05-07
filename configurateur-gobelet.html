@@ -893,7 +893,6 @@ function initThree() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.setClearColor(0xeeeeee, 1);
   renderer.shadowMap.enabled = true;
   renderer.domElement.style.display = 'block';
   renderer.domElement.style.margin  = '0 auto';
@@ -905,6 +904,18 @@ function initThree() {
   container.style.overflow  = 'hidden';
 
   scene  = new THREE.Scene();
+
+  // Fond dégradé radial style studio photo
+  const bgCanvas = document.createElement('canvas');
+  bgCanvas.width = 512; bgCanvas.height = 512;
+  const bgCtx = bgCanvas.getContext('2d');
+  const gradient = bgCtx.createRadialGradient(256, 256, 0, 256, 256, 380);
+  gradient.addColorStop(0, '#edeae5');
+  gradient.addColorStop(1, '#c8c4be');
+  bgCtx.fillStyle = gradient;
+  bgCtx.fillRect(0, 0, 512, 512);
+  const bgTexture = new THREE.CanvasTexture(bgCanvas);
+  scene.background = bgTexture;
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
   camera.position.set(0, 0, 5);
 
