@@ -1019,20 +1019,30 @@ function loadGobelet() {
 
       gobeletGroup.add(gltf.scene);
 
-      // Calcule la taille réelle du modèle
+      // Centre le modèle
       const box    = new THREE.Box3().setFromObject(gobeletGroup);
       const size   = box.getSize(new THREE.Vector3());
       const center = box.getCenter(new THREE.Vector3());
-
-      // Centre le modèle
       gobeletGroup.position.sub(center);
 
-      // Scale pour que le gobelet fasse exactement 2 unités de haut
-      const targetHeight = 2.0;
-      const scaleFactor  = targetHeight / size.y;
+      // Scale pour hauteur 2.8 unités
+      const scaleFactor = 2.8 / size.y;
       gobeletGroup.scale.setScalar(scaleFactor);
 
-      // Inclinaison légère
+      // Recalcule après scale
+      const box2  = new THREE.Box3().setFromObject(gobeletGroup);
+      const size2 = box2.getSize(new THREE.Vector3());
+
+      // Caméra ajustée automatiquement pour voir tout le gobelet
+      const maxDim = Math.max(size2.x, size2.y, size2.z);
+      const fov    = 45;
+      camera.fov   = fov;
+      const cameraZ = (maxDim / 2) / Math.tan((fov * Math.PI / 180) / 2) * 1.15;
+      camera.position.set(0, 0, cameraZ);
+      camera.lookAt(0, 0, 0);
+      camera.updateProjectionMatrix();
+
+      // Inclinaison
       gobeletGroup.rotation.x = 0.15;
       gobeletGroup.rotation.z = 0;
 
