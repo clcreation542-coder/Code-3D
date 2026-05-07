@@ -889,8 +889,8 @@ function initThree() {
   container.appendChild(renderer.domElement);
 
   scene  = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(20, w / h, 0.1, 100);
-  camera.position.set(0, 0.3, 12);
+  camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+  camera.position.set(0, 0, 5);
 
   // Éclairage studio
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
@@ -1017,27 +1017,24 @@ function loadGobelet() {
         if (child.isMesh) { bodyMaterial = child.material; }
       });
 
-      const box    = new THREE.Box3().setFromObject(gltf.scene);
-      const size   = box.getSize(new THREE.Vector3());
-      const center = box.getCenter(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const scale  = 3.6 / maxDim;
-      console.log('[kuztom] Bounding box size :', size.x.toFixed(3), size.y.toFixed(3), size.z.toFixed(3), '— scale appliqué :', scale.toFixed(4));
-
-      gltf.scene.scale.setScalar(scale);
-      gltf.scene.position.set(
-        -center.x * scale,
-        -center.y * scale,
-        -center.z * scale
-      );
-
       gobeletGroup.add(gltf.scene);
 
-      // Recentre le groupe sur le modèle chargé
-      const groupBox = new THREE.Box3().setFromObject(gobeletGroup);
-      const groupCenter = groupBox.getCenter(new THREE.Vector3());
-      gobeletGroup.position.sub(groupCenter);
-      gobeletGroup.position.y += 0;
+      // Calcule la taille réelle du modèle
+      const box    = new THREE.Box3().setFromObject(gobeletGroup);
+      const size   = box.getSize(new THREE.Vector3());
+      const center = box.getCenter(new THREE.Vector3());
+
+      // Centre le modèle
+      gobeletGroup.position.sub(center);
+
+      // Scale pour que le gobelet fasse exactement 2 unités de haut
+      const targetHeight = 2.0;
+      const scaleFactor  = targetHeight / size.y;
+      gobeletGroup.scale.setScalar(scaleFactor);
+
+      // Inclinaison légère
+      gobeletGroup.rotation.x = 0.15;
+      gobeletGroup.rotation.z = 0;
 
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
       console.log('[kuztom] gobeletGroup.rotation.y :', gobeletGroup.rotation.y.toFixed(4));
