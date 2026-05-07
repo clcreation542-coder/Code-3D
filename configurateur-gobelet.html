@@ -890,7 +890,7 @@ function initThree() {
 
   scene  = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
-  camera.position.set(0, 0.5, 3);
+  camera.position.set(0, 0, 4.5);
 
   // Éclairage studio
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
@@ -939,7 +939,8 @@ function initThree() {
 
   // Groupe gobelet
   gobeletGroup = new THREE.Group();
-  gobeletGroup.rotation.x = 0.2;
+  gobeletGroup.rotation.x = 0.15;
+  gobeletGroup.rotation.z = 0;
   gobeletGroup.position.set(0, 0, 0);
   gobeletGroup.rotation.y = rotY;
   scene.add(gobeletGroup);
@@ -1030,6 +1031,13 @@ function loadGobelet() {
       );
 
       gobeletGroup.add(gltf.scene);
+
+      // Recentre le groupe sur le modèle chargé
+      const groupBox = new THREE.Box3().setFromObject(gobeletGroup);
+      const groupCenter = groupBox.getCenter(new THREE.Vector3());
+      gobeletGroup.position.sub(groupCenter);
+      gobeletGroup.position.y += 0;
+
       gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
       console.log('[kuztom] gobeletGroup.rotation.y :', gobeletGroup.rotation.y.toFixed(4));
 
