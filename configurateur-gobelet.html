@@ -1060,8 +1060,9 @@ function loadGobelet() {
       camera.updateProjectionMatrix();
 
       // Inclinaison vers le client
-      gobeletGroup.rotation.x = -0.18;
+      gobeletGroup.rotation.x = 0.18;
       gobeletGroup.rotation.z = 0;
+      gobeletGroup.position.x = 0;
 
       // Légèrement plus petit pour ne pas toucher les bords
       gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.88);
