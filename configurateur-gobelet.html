@@ -94,6 +94,18 @@
       animation: gobeletEnter 600ms cubic-bezier(0.4,0,0.2,1) both;
     }
 
+    #sol-line {
+      position: absolute;
+      bottom: 22%;
+      left: 5%;
+      width: 90%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #aaaaaa 30%, #aaaaaa 70%, transparent);
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 2;
+    }
+
     @keyframes gobeletEnter {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -484,6 +496,7 @@
         <div class="loading-ring"></div>
         <span class="loading-text">Chargement</span>
       </div>
+      <div id="sol-line"></div>
     </div>
     <p id="viewer-hint">Explorez votre gobelet à 360° ↔</p>
   </div>
