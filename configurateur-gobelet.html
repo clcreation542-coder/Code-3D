@@ -95,15 +95,25 @@
     }
 
     #sol-line {
+      display: none;
+    }
+
+    #sol-left, #sol-right {
       position: absolute;
       bottom: 22%;
-      left: 5%;
-      width: 90%;
+      width: 18%;
       height: 1px;
-      background: linear-gradient(to right, transparent, #aaaaaa 30%, #aaaaaa 70%, transparent);
       opacity: 0.5;
       pointer-events: none;
       z-index: 2;
+    }
+    #sol-left {
+      left: 0;
+      background: linear-gradient(to right, transparent, #999999);
+    }
+    #sol-right {
+      right: 0;
+      background: linear-gradient(to left, transparent, #999999);
     }
 
     @keyframes gobeletEnter {
@@ -497,6 +507,8 @@
         <span class="loading-text">Chargement</span>
       </div>
       <div id="sol-line"></div>
+      <div id="sol-left"></div>
+      <div id="sol-right"></div>
     </div>
     <p id="viewer-hint">Explorez votre gobelet à 360° ↔</p>
   </div>
