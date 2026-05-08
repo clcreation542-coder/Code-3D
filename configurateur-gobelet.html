@@ -1110,21 +1110,28 @@ function loadGobelet() {
       disc2.position.set(gobeletGroup.position.x, fondY + 0.02, gobeletGroup.position.z);
       scene.add(disc2);
 
-      // Ligne de sol sous le gobelet
-      const lineGeo = new THREE.PlaneGeometry(3, 0.008);
-      const lineMat = new THREE.MeshBasicMaterial({ color: 0xaaaaaa, transparent: true, opacity: 0.4 });
-      const line    = new THREE.Mesh(lineGeo, lineMat);
-      line.rotation.x = -Math.PI / 2;
-      line.position.set(gobeletGroup.position.x, boxFond.min.y - 0.01, gobeletGroup.position.z);
-      scene.add(line);
+      // Recalcule la position du bas après tout le reste
+      gobeletGroup.updateMatrixWorld(true);
+      const tempBox  = new THREE.Box3().setFromObject(gobeletGroup);
+      const solY     = tempBox.min.y - 0.01;
+      const centreX  = gobeletGroup.position.x;
+      const centreZ  = gobeletGroup.position.z;
 
-      // Ombre elliptique sous le gobelet
-      const shadowGeo = new THREE.CircleGeometry(0.55, 64);
-      const shadowMat = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.12 });
-      const shadow    = new THREE.Mesh(shadowGeo, shadowMat);
-      shadow.rotation.x = -Math.PI / 2;
-      shadow.position.set(gobeletGroup.position.x, boxFond.min.y - 0.005, gobeletGroup.position.z);
-      scene.add(shadow);
+      // Ombre elliptique
+      const shadowGeo  = new THREE.CircleGeometry(0.55, 64);
+      const shadowMat  = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.12, depthWrite: false });
+      const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+      shadowMesh.rotation.x = -Math.PI / 2;
+      shadowMesh.position.set(centreX, solY, centreZ);
+      scene.add(shadowMesh);
+
+      // Ligne de sol
+      const lineGeo  = new THREE.PlaneGeometry(3, 0.006);
+      const lineMat  = new THREE.MeshBasicMaterial({ color: 0x999999, transparent: true, opacity: 0.35, depthWrite: false });
+      const lineMesh = new THREE.Mesh(lineGeo, lineMat);
+      lineMesh.rotation.x = -Math.PI / 2;
+      lineMesh.position.set(centreX, solY, centreZ);
+      scene.add(lineMesh);
 
       onResize();
       drawTexture();
