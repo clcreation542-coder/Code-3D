@@ -1162,14 +1162,19 @@ function loadGobelet() {
       gobeletGroup.traverse((child) => {
         if (child.isMesh) {
           child.geometry.computeVertexNormals();
-          child.material.transparent = true;
-          child.material.opacity     = 0.85;
-          child.material.roughness   = 0.6;
-          child.material.metalness   = 0.0;
-          child.material.side        = THREE.FrontSide;
-          child.material.needsUpdate = true;
+          child.material.color.set('#ffffff');
+          child.material.transparent      = true;
+          child.material.opacity          = 0.82;
+          child.material.roughness        = 0.75;
+          child.material.metalness        = 0.05;
+          child.material.side             = THREE.DoubleSide;
+          child.material.envMapIntensity  = 0.3;
+          child.material.needsUpdate      = true;
         }
       });
+
+      // Couture UV placée à l'arrière
+      gobeletGroup.rotation.y = Math.PI;
 
       onResize();
       drawTexture();
