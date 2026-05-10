@@ -1158,6 +1158,17 @@ function loadGobelet() {
       lineMesh.position.set(centreX, solY, centreZ);
       scene.add(lineMesh);
 
+      // Matériau translucide givré sur tous les meshes
+      gobeletGroup.traverse((child) => {
+        if (child.isMesh) {
+          child.material.transparent = true;
+          child.material.opacity     = 0.88;
+          child.material.roughness   = 0.55;
+          child.material.metalness   = 0.0;
+          child.material.needsUpdate = true;
+        }
+      });
+
       onResize();
       drawTexture();
       requestAnimationFrame(() => {
