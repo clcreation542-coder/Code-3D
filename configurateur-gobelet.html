@@ -607,7 +607,7 @@ const TEX_W = 2000, TEX_H = 1024;
 const textureCanvas = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
 textureCanvas.height = TEX_H;
-const ctx2d = textureCanvas.getContext('2d');
+let ctx2d = textureCanvas.getContext('2d');
 
 // ─── Dessin du design placeholder (élégant baptême) ───────────────────
 function drawPlaceholderDesign() {
@@ -807,16 +807,20 @@ function drawTextZone(zone, text) {
   else if (zone.align === 'right') startX = zone.x + zone.width;
 
   lines.forEach((line, i) => {
-    ctx2d.save();
-    ctx2d.setTransform(1, 0, 0, 1, 0, 0);
-    ctx2d.fillText(line, TEX_W - startX, startY + i * lineH);
-    ctx2d.restore();
+    ctx2d.fillText(line, startX, startY + i * lineH);
   });
 }
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
-  // 1. Fond coloré (translucide pour simuler l'ecocup)
+  // Dessin sur canvas intermédiaire (normal, sans miroir)
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width  = TEX_W;
+  tempCanvas.height = TEX_H;
+  const mainCtx = ctx2d;
+  ctx2d = tempCanvas.getContext('2d');
+
+  // 1. Fond coloré
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = 0.88;
   ctx2d.fillStyle = parseHexColor(state.gobeletColor);
@@ -828,10 +832,7 @@ function drawTexture() {
     if (state.photos[zone.id]) drawPhotoZone(zone, state.photos[zone.id]);
   });
 
-  // 3. Design PNG — scale(-1,1) uniquement ici pour corriger l'UV miroir
-  ctx2d.save();
-  ctx2d.scale(-1, 1);
-  ctx2d.translate(-TEX_W, 0);
+  // 3. Design PNG
   ctx2d.globalCompositeOperation = 'source-over';
   ctx2d.globalAlpha = 1.0;
   if (state.designImage) {
@@ -840,12 +841,20 @@ function drawTexture() {
   } else {
     drawPlaceholderDesign();
   }
-  ctx2d.restore();
 
-  // 4. Textes (transform réinitialisé dans drawTextZone)
+  // 4. Textes
   CFG.text_zones.forEach(zone => {
     drawTextZone(zone, state.texts[zone.id] || '');
   });
+
+  // Restaure le contexte principal et applique le miroir horizontal
+  ctx2d = mainCtx;
+  ctx2d.clearRect(0, 0, TEX_W, TEX_H);
+  ctx2d.save();
+  ctx2d.scale(-1, 1);
+  ctx2d.translate(-TEX_W, 0);
+  ctx2d.drawImage(tempCanvas, 0, 0);
+  ctx2d.restore();
 
   // Signal Three.js
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
