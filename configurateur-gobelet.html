@@ -945,7 +945,7 @@ function initThree() {
   camera.position.set(0, 0, 5);
 
   // Éclairage studio
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
   scene.add(ambientLight);
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
   dirLight.position.set(3, 5, 3);
@@ -954,6 +954,9 @@ function initThree() {
   const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
   backLight.position.set(-3, 2, -3);
   scene.add(backLight);
+  const fillLight = new THREE.DirectionalLight(0xffffff, 1.0);
+  fillLight.position.set(-5, 3, -5);
+  scene.add(fillLight);
 
   // Plan de sol avec ombre
   const floor = new THREE.Mesh(
@@ -1159,6 +1162,7 @@ function loadGobelet() {
       scene.add(lineMesh);
 
       // Matériau translucide givré sur tous les meshes
+      // Étape 1 — FrontSide + matériau givré extérieur
       gobeletGroup.traverse((child) => {
         if (child.isMesh) {
           child.geometry.computeVertexNormals();
@@ -1167,13 +1171,34 @@ function loadGobelet() {
           child.material.opacity          = 0.82;
           child.material.roughness        = 0.75;
           child.material.metalness        = 0.05;
-          child.material.side             = THREE.DoubleSide;
+          child.material.side             = THREE.FrontSide;
           child.material.envMapIntensity  = 0.3;
           child.material.needsUpdate      = true;
         }
       });
 
-      // Couture UV placée à l'arrière
+      // Étape 2 — Mesh intérieur pour l'effet givré (BackSide)
+      const innerMeshes = [];
+      gobeletGroup.traverse((child) => {
+        if (child.isMesh) {
+          const innerMat = new THREE.MeshStandardMaterial({
+            side:        THREE.BackSide,
+            color:       new THREE.Color('#ffffff'),
+            transparent: true,
+            opacity:     0.4,
+            roughness:   0.9,
+            metalness:   0.0,
+          });
+          const innerMesh = new THREE.Mesh(child.geometry.clone(), innerMat);
+          innerMesh.position.copy(child.position);
+          innerMesh.rotation.copy(child.rotation);
+          innerMesh.scale.copy(child.scale);
+          innerMeshes.push({ parent: child.parent, mesh: innerMesh });
+        }
+      });
+      innerMeshes.forEach(({ parent, mesh }) => (parent || gobeletGroup).add(mesh));
+
+      // Étape 4 — Couture UV placée à l'arrière
       gobeletGroup.rotation.y = Math.PI;
 
       onResize();
