@@ -976,8 +976,9 @@ function initThree() {
 
   // Texture canvas
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
-  gobeletTexture.wrapS          = THREE.ClampToEdgeWrapping;
+  gobeletTexture.wrapS          = THREE.RepeatWrapping;
   gobeletTexture.wrapT          = THREE.ClampToEdgeWrapping;
+  gobeletTexture.offset.x       = 0.0;
   gobeletTexture.flipY          = false;
   gobeletTexture.encoding       = THREE.sRGBEncoding;
   gobeletTexture.anisotropy     = renderer.capabilities.getMaxAnisotropy();
@@ -1201,8 +1202,7 @@ function loadGobelet() {
         }
       });
 
-      // Couture UV placée à l'arrière
-      gobeletGroup.rotation.y = Math.PI;
+      gobeletGroup.rotation.y = 0;
 
       onResize();
       drawTexture();
