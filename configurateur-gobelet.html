@@ -840,23 +840,6 @@ function drawTexture() {
     drawTextZone(zone, state.texts[zone.id] || '');
   });
 
-  // 5. Fondu bords gauche/droit pour masquer la couture UV
-  const edgeW = TEX_W * 0.05;
-  const gradL = ctx2d.createLinearGradient(0, 0, edgeW, 0);
-  gradL.addColorStop(0, 'rgba(255,255,255,0)');
-  gradL.addColorStop(1, 'rgba(255,255,255,1)');
-  ctx2d.globalCompositeOperation = 'destination-out';
-  ctx2d.globalAlpha = 1.0;
-  ctx2d.fillStyle = gradL;
-  ctx2d.fillRect(0, 0, edgeW, TEX_H);
-  const gradR = ctx2d.createLinearGradient(TEX_W - edgeW, 0, TEX_W, 0);
-  gradR.addColorStop(0, 'rgba(255,255,255,1)');
-  gradR.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx2d.fillStyle = gradR;
-  ctx2d.fillRect(TEX_W - edgeW, 0, edgeW, TEX_H);
-  ctx2d.globalCompositeOperation = 'source-over';
-  ctx2d.globalAlpha = 1.0;
-
   // Signal Three.js
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
 }
@@ -1187,9 +1170,9 @@ function loadGobelet() {
           child.geometry.computeVertexNormals();
           child.material.color.set('#ffffff');
           child.material.transparent      = true;
-          child.material.opacity          = 0.78;
+          child.material.opacity          = 0.85;
           child.material.roughness        = 0.6;
-          child.material.metalness        = 0.05;
+          child.material.metalness        = 0.0;
           child.material.side             = THREE.FrontSide;
           child.material.envMapIntensity  = 0.3;
           child.material.needsUpdate      = true;
@@ -1202,9 +1185,9 @@ function loadGobelet() {
         if (child.isMesh) {
           const innerMat = new THREE.MeshStandardMaterial({
             side:        THREE.BackSide,
-            color:       new THREE.Color('#ffffff'),
+            color:       new THREE.Color('#eeeeee'),
             transparent: true,
-            opacity:     0.4,
+            opacity:     0.3,
             roughness:   0.9,
             metalness:   0.0,
           });
