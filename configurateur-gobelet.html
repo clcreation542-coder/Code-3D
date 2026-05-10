@@ -813,10 +813,10 @@ function drawTextZone(zone, text) {
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
-  // 1. Fond coloré opaque (évite les pixels transparents sur les bords)
+  // 1. Fond quasi transparent pour laisser voir la translucidité du matériau
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = 1.0;
-  ctx2d.fillStyle = parseHexColor(state.gobeletColor);
+  ctx2d.fillStyle = 'rgba(255, 255, 255, 0.15)';
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
 
   // 2. Photos
@@ -1176,15 +1176,15 @@ function loadGobelet() {
           child.geometry.computeVertexNormals();
           child.material = new THREE.MeshPhysicalMaterial({
             map:              window._gobeletTexture,
-            transmission:     0.35,
-            thickness:        1.8,
-            roughness:        0.62,
+            transmission:     0.55,
+            thickness:        2.5,
+            roughness:        0.58,
             metalness:        0,
             ior:              1.45,
             transparent:      false,
             side:             THREE.FrontSide,
-            color:            new THREE.Color(0xffffff),
-            envMapIntensity:  1.0,
+            color:            new THREE.Color(0xf0f4f8),
+            envMapIntensity:  1.2,
           });
           child.material.needsUpdate = true;
         }
