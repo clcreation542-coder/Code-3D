@@ -957,9 +957,9 @@ function initThree() {
   camera.position.set(0, 0, 5);
 
   // Éclairage studio
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
   scene.add(ambientLight);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
   dirLight.position.set(3, 5, 3);
   dirLight.castShadow = true;
   scene.add(dirLight);
@@ -976,10 +976,8 @@ function initThree() {
 
   // Texture canvas
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
-  gobeletTexture.wrapS          = THREE.RepeatWrapping;
+  gobeletTexture.wrapS          = THREE.ClampToEdgeWrapping;
   gobeletTexture.wrapT          = THREE.ClampToEdgeWrapping;
-  gobeletTexture.repeat.x       = -1;
-  gobeletTexture.offset.x       = 0.5;
   gobeletTexture.flipY          = false;
   gobeletTexture.encoding       = THREE.sRGBEncoding;
   gobeletTexture.anisotropy     = renderer.capabilities.getMaxAnisotropy();
@@ -1172,27 +1170,39 @@ function loadGobelet() {
       lineMesh.position.set(centreX, solY, centreZ);
       scene.add(lineMesh);
 
-      // MeshPhysicalMaterial avec transmission pour translucidité sans bug de tri
+      // Correction normales inversées du GLB
       gobeletGroup.traverse((child) => {
         if (child.isMesh) {
-          child.geometry.computeVertexNormals();
+          const normals = child.geometry.attributes.normal;
+          for (let i = 0; i < normals.count; i++) {
+            normals.setXYZ(i, -normals.getX(i), -normals.getY(i), -normals.getZ(i));
+          }
+          normals.needsUpdate = true;
+          const index = child.geometry.index;
+          if (index) {
+            for (let i = 0; i < index.count; i += 3) {
+              const tmp = index.getX(i + 1);
+              index.setX(i + 1, index.getX(i + 2));
+              index.setX(i + 2, tmp);
+            }
+            index.needsUpdate = true;
+          }
           child.material = new THREE.MeshPhysicalMaterial({
-            map:          window._gobeletTexture,
-            transmission: 0.0,
-            roughness:    0.65,
-            metalness:    0.02,
-            ior:          1.45,
-            transparent:  true,
-            opacity:      0.84,
-            depthWrite:   false,
-            side:         THREE.BackSide,
-            color:        new THREE.Color(0xffffff),
+            map:         window._gobeletTexture,
+            transparent: true,
+            opacity:     0.85,
+            roughness:   0.6,
+            metalness:   0,
+            depthWrite:  false,
+            side:        THREE.FrontSide,
+            color:       new THREE.Color(0xffffff),
           });
           child.material.needsUpdate = true;
         }
       });
 
-      // Pas de rotation Y — la couture est gérée par texture.offset.x = 0.5
+      // Couture UV placée à l'arrière
+      gobeletGroup.rotation.y = Math.PI;
 
       onResize();
       drawTexture();
