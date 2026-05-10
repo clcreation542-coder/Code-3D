@@ -813,11 +813,12 @@ function drawTextZone(zone, text) {
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
-  // 1. Fond opaque — la translucidité est gérée par le matériau Three.js
+  // 1. Fond coloré (translucide pour simuler l'ecocup)
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
-  ctx2d.globalAlpha = 1.0;
-  ctx2d.fillStyle = 'rgba(255, 255, 255, 1.0)';
+  ctx2d.globalAlpha = 0.88;
+  ctx2d.fillStyle = parseHexColor(state.gobeletColor);
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+  ctx2d.globalAlpha = 1.0;
 
   // 2. Photos
   CFG.photo_zones.forEach(zone => {
@@ -918,7 +919,6 @@ function initThree() {
   renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.shadowMap.enabled = true;
-  renderer.physicallyCorrectLights = true;
   renderer.domElement.style.display = 'block';
   renderer.domElement.style.margin  = '0 auto';
   container.appendChild(renderer.domElement);
@@ -941,28 +941,19 @@ function initThree() {
   bgCtx.fillRect(0, 0, 512, 512);
   const bgTexture = new THREE.CanvasTexture(bgCanvas);
   scene.background = bgTexture;
-
-  // Environment PMREM neutre (PMREMGenerator.fromScene compatible r128)
-  const pmremGenerator = new THREE.PMREMGenerator(renderer);
-  const envScene = new THREE.Scene();
-  const envBox = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: 0xe8e8e8, side: THREE.BackSide })
-  );
-  envScene.add(envBox);
-  scene.environment = pmremGenerator.fromScene(envScene).texture;
-  pmremGenerator.dispose();
-
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
   camera.position.set(0, 0, 5);
 
   // Éclairage studio
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
   scene.add(ambientLight);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
   dirLight.position.set(3, 5, 3);
   dirLight.castShadow = true;
   scene.add(dirLight);
+  const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  backLight.position.set(-3, 2, -3);
+  scene.add(backLight);
 
   // Plan de sol avec ombre
   const floor = new THREE.Mesh(
@@ -976,16 +967,10 @@ function initThree() {
 
   // Texture canvas
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
-  gobeletTexture.wrapS          = THREE.ClampToEdgeWrapping;
-  gobeletTexture.wrapT          = THREE.ClampToEdgeWrapping;
-  gobeletTexture.offset.x       = 0;
-  gobeletTexture.rotation       = Math.PI / 2;
-  gobeletTexture.center.set(0.5, 0.5);
+  gobeletTexture.wrapS          = THREE.RepeatWrapping;
   gobeletTexture.flipY          = false;
   gobeletTexture.encoding       = THREE.sRGBEncoding;
-  gobeletTexture.anisotropy     = renderer.capabilities.getMaxAnisotropy();
   window._gobeletTexture        = gobeletTexture;
-  window.gobeletTexture         = gobeletTexture;
 
   // Matériau
   const baseColor = parseHexColor(state.gobeletColor);
@@ -1011,9 +996,7 @@ function initThree() {
   gobeletGroup.position.set(0, 0, 0);
   gobeletGroup.rotation.y = rotY;
   gobeletGroup.scale.set(1, 1, 1);
-  gobeletGroup.renderOrder = 1;
   scene.add(gobeletGroup);
-  window.gobeletGroup = gobeletGroup;
 
   loadGobelet();
   initInteraction();
@@ -1024,7 +1007,7 @@ function initThree() {
 
 // ─── Chargement GLB ───────────────────────────────────────────────────
 function loadGobelet() {
-  const url = CFG.model_url || 'https://clcreation542-coder.github.io/Code-3D/Gobelet.glb';
+  const url = CFG.model_url || 'https://clcreation542-coder.github.io/Code-3D/Goblet.glb';
 
   console.log('[kuztom] loadGobelet() — début du chargement');
   console.log('[kuztom] URL GLB :', url);
@@ -1174,26 +1157,6 @@ function loadGobelet() {
       lineMesh.rotation.x = -Math.PI / 2;
       lineMesh.position.set(centreX, solY, centreZ);
       scene.add(lineMesh);
-
-      gobeletGroup.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.computeVertexNormals();
-          child.material = new THREE.MeshStandardMaterial({
-            map:         window._gobeletTexture,
-            transparent: true,
-            opacity:     0.85,
-            roughness:   0.62,
-            metalness:   0.02,
-            depthWrite:  false,
-            side:        THREE.FrontSide,
-            color:       new THREE.Color(0xffffff),
-          });
-          child.material.needsUpdate = true;
-        }
-      });
-
-      gobeletGroup.rotation.y = 0;
-      gobeletGroup.rotation.x = 0.18;
 
       onResize();
       drawTexture();
@@ -1604,7 +1567,6 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
-
 </script>
 </body>
 </html>
