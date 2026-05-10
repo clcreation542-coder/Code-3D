@@ -957,9 +957,9 @@ function initThree() {
   camera.position.set(0, 0, 5);
 
   // Éclairage studio
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
   scene.add(ambientLight);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
   dirLight.position.set(3, 5, 3);
   dirLight.castShadow = true;
   scene.add(dirLight);
@@ -976,9 +976,8 @@ function initThree() {
 
   // Texture canvas
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
-  gobeletTexture.wrapS          = THREE.RepeatWrapping;
+  gobeletTexture.wrapS          = THREE.ClampToEdgeWrapping;
   gobeletTexture.wrapT          = THREE.ClampToEdgeWrapping;
-  gobeletTexture.offset.x       = 0.0;
   gobeletTexture.flipY          = false;
   gobeletTexture.encoding       = THREE.sRGBEncoding;
   gobeletTexture.anisotropy     = renderer.capabilities.getMaxAnisotropy();
@@ -1192,8 +1191,8 @@ function loadGobelet() {
             map:         window._gobeletTexture,
             transparent: true,
             opacity:     0.85,
-            roughness:   0.6,
-            metalness:   0,
+            roughness:   0.62,
+            metalness:   0.02,
             depthWrite:  false,
             side:        THREE.FrontSide,
             color:       new THREE.Color(0xffffff),
@@ -1203,6 +1202,7 @@ function loadGobelet() {
       });
 
       gobeletGroup.rotation.y = 0;
+      gobeletGroup.rotation.x = 0.18;
 
       onResize();
       drawTexture();
