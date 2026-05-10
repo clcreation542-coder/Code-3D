@@ -513,6 +513,14 @@
     <p id="viewer-hint">Explorez votre gobelet à 360° ↔</p>
   </div>
 
+<div id="debug-seam" style="position:fixed;bottom:20px;left:20px;background:black;color:white;padding:10px;z-index:9999;border-radius:8px;">
+  <label>Offset couture : <span id="offset-val">0.00</span></label><br>
+  <input type="range" id="seam-slider" min="0" max="100" value="0" style="width:200px">
+  <br>
+  <label>Rotation Y : <span id="rot-val">0.00</span></label><br>
+  <input type="range" id="rot-slider" min="0" max="628" value="0" style="width:200px">
+</div>
+
   <!-- Colonne droite : formulaire -->
   <div id="form-col">
     <div class="form-header">
@@ -982,6 +990,7 @@ function initThree() {
   gobeletTexture.encoding       = THREE.sRGBEncoding;
   gobeletTexture.anisotropy     = renderer.capabilities.getMaxAnisotropy();
   window._gobeletTexture        = gobeletTexture;
+  window.gobeletTexture         = gobeletTexture;
 
   // Matériau
   const baseColor = parseHexColor(state.gobeletColor);
@@ -1009,6 +1018,7 @@ function initThree() {
   gobeletGroup.scale.set(1, 1, 1);
   gobeletGroup.renderOrder = 1;
   scene.add(gobeletGroup);
+  window.gobeletGroup = gobeletGroup;
 
   loadGobelet();
   initInteraction();
@@ -1613,6 +1623,22 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+document.getElementById('seam-slider').addEventListener('input', function() {
+  const val = this.value / 100;
+  document.getElementById('offset-val').textContent = val.toFixed(2);
+  if (window.gobeletTexture) {
+    window.gobeletTexture.offset.x = val;
+    window.gobeletTexture.needsUpdate = true;
+  }
+});
+document.getElementById('rot-slider').addEventListener('input', function() {
+  const val = this.value / 100;
+  document.getElementById('rot-val').textContent = val.toFixed(2);
+  if (window.gobeletGroup) {
+    window.gobeletGroup.rotation.y = val;
+  }
+});
 </script>
 </body>
 </html>
