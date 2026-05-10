@@ -976,8 +976,9 @@ function initThree() {
 
   // Texture canvas
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
-  gobeletTexture.wrapS          = THREE.ClampToEdgeWrapping;
+  gobeletTexture.wrapS          = THREE.RepeatWrapping;
   gobeletTexture.wrapT          = THREE.ClampToEdgeWrapping;
+  gobeletTexture.offset.x       = 0.5;
   gobeletTexture.flipY          = false;
   gobeletTexture.encoding       = THREE.sRGBEncoding;
   gobeletTexture.anisotropy     = renderer.capabilities.getMaxAnisotropy();
@@ -1177,11 +1178,11 @@ function loadGobelet() {
           child.material = new THREE.MeshPhysicalMaterial({
             map:          window._gobeletTexture,
             transmission: 0.0,
-            roughness:    0.68,
+            roughness:    0.65,
             metalness:    0.02,
             ior:          1.45,
             transparent:  true,
-            opacity:      0.82,
+            opacity:      0.84,
             depthWrite:   false,
             side:         THREE.FrontSide,
             color:        new THREE.Color(0xffffff),
@@ -1190,8 +1191,7 @@ function loadGobelet() {
         }
       });
 
-      // Couture UV placée à l'arrière
-      gobeletGroup.rotation.y = Math.PI;
+      // Pas de rotation Y — la couture est gérée par texture.offset.x = 0.5
 
       onResize();
       drawTexture();
