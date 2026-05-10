@@ -918,6 +918,7 @@ function initThree() {
   renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.shadowMap.enabled = true;
+  renderer.physicallyCorrectLights = true;
   renderer.domElement.style.display = 'block';
   renderer.domElement.style.margin  = '0 auto';
   container.appendChild(renderer.domElement);
@@ -944,15 +945,12 @@ function initThree() {
   camera.position.set(0, 0, 5);
 
   // Éclairage studio
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
   scene.add(ambientLight);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
-  dirLight.position.set(5, 3, 5);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  dirLight.position.set(3, 5, 3);
   dirLight.castShadow = true;
   scene.add(dirLight);
-  const backLight = new THREE.DirectionalLight(0xffffff, 0.4);
-  backLight.position.set(-3, 2, -3);
-  scene.add(backLight);
 
   // Plan de sol avec ombre
   const floor = new THREE.Mesh(
@@ -1160,48 +1158,26 @@ function loadGobelet() {
       lineMesh.position.set(centreX, solY, centreZ);
       scene.add(lineMesh);
 
-      // Matériau translucide givré sur tous les meshes
-      // Étape 1 — FrontSide + matériau givré extérieur
+      // MeshPhysicalMaterial avec transmission pour translucidité sans bug de tri
       gobeletGroup.traverse((child) => {
         if (child.isMesh) {
           child.geometry.computeVertexNormals();
-          child.material.color.set('#ffffff');
-          child.material.transparent      = true;
-          child.material.opacity          = 0.88;
-          child.material.roughness        = 0.65;
-          child.material.metalness        = 0.05;
-          child.material.depthWrite       = false;
-          child.material.depthTest        = true;
-          child.material.side             = THREE.FrontSide;
-          child.material.envMapIntensity  = 0.3;
-          child.material.needsUpdate      = true;
-        }
-      });
-
-      // Étape 2 — Mesh intérieur pour l'effet givré (BackSide)
-      const innerMeshes = [];
-      gobeletGroup.traverse((child) => {
-        if (child.isMesh) {
-          const innerMat = new THREE.MeshStandardMaterial({
-            side:        THREE.BackSide,
-            color:       new THREE.Color('#ddeeff'),
-            transparent: true,
-            opacity:     0.22,
-            roughness:   0.85,
-            metalness:   0.0,
-            depthWrite:  false,
-            depthTest:   true,
+          child.material = new THREE.MeshPhysicalMaterial({
+            map:          window._gobeletTexture,
+            transmission: 0.35,
+            thickness:    1.8,
+            roughness:    0.62,
+            metalness:    0,
+            ior:          1.45,
+            transparent:  false,
+            side:         THREE.FrontSide,
+            color:        new THREE.Color(0xffffff),
           });
-          const innerMesh = new THREE.Mesh(child.geometry.clone(), innerMat);
-          innerMesh.position.copy(child.position);
-          innerMesh.rotation.copy(child.rotation);
-          innerMesh.scale.copy(child.scale);
-          innerMeshes.push({ parent: child.parent, mesh: innerMesh });
+          child.material.needsUpdate = true;
         }
       });
-      innerMeshes.forEach(({ parent, mesh }) => (parent || gobeletGroup).add(mesh));
 
-      // Étape 4 — Couture UV placée à l'arrière
+      // Couture UV placée à l'arrière
       gobeletGroup.rotation.y = Math.PI;
 
       onResize();
