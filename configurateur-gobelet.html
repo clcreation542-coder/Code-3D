@@ -941,6 +941,18 @@ function initThree() {
   bgCtx.fillRect(0, 0, 512, 512);
   const bgTexture = new THREE.CanvasTexture(bgCanvas);
   scene.background = bgTexture;
+
+  // Environment PMREM neutre (PMREMGenerator.fromScene compatible r128)
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  const envScene = new THREE.Scene();
+  const envBox = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1),
+    new THREE.MeshBasicMaterial({ color: 0xe8e8e8, side: THREE.BackSide })
+  );
+  envScene.add(envBox);
+  scene.environment = pmremGenerator.fromScene(envScene).texture;
+  pmremGenerator.dispose();
+
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
   camera.position.set(0, 0, 5);
 
@@ -1163,22 +1175,23 @@ function loadGobelet() {
         if (child.isMesh) {
           child.geometry.computeVertexNormals();
           child.material = new THREE.MeshPhysicalMaterial({
-            map:          window._gobeletTexture,
-            transmission: 0.35,
-            thickness:    1.8,
-            roughness:    0.62,
-            metalness:    0,
-            ior:          1.45,
-            transparent:  false,
-            side:         THREE.FrontSide,
-            color:        new THREE.Color(0xffffff),
+            map:              window._gobeletTexture,
+            transmission:     0.35,
+            thickness:        1.8,
+            roughness:        0.62,
+            metalness:        0,
+            ior:              1.45,
+            transparent:      false,
+            side:             THREE.FrontSide,
+            color:            new THREE.Color(0xffffff),
+            envMapIntensity:  1.0,
           });
           child.material.needsUpdate = true;
         }
       });
 
-      // Couture UV placée à l'arrière
-      gobeletGroup.rotation.y = Math.PI;
+      // Couture UV placée à l'arrière (décalage fin pour masquer la ligne)
+      gobeletGroup.rotation.y = Math.PI * 1.15;
 
       onResize();
       drawTexture();
