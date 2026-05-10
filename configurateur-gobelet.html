@@ -969,8 +969,8 @@ function initThree() {
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
   gobeletTexture.wrapS          = THREE.RepeatWrapping;
   gobeletTexture.wrapT          = THREE.RepeatWrapping;
-  gobeletTexture.repeat.set(-1, -1);
-  gobeletTexture.offset.set(1, 1);
+  gobeletTexture.repeat.set(-1, 1);
+  gobeletTexture.offset.set(1, 0);
   gobeletTexture.flipY          = false;
   gobeletTexture.encoding       = THREE.sRGBEncoding;
   window._gobeletTexture        = gobeletTexture;
