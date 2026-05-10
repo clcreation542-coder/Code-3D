@@ -978,7 +978,8 @@ function initThree() {
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
   gobeletTexture.wrapS          = THREE.RepeatWrapping;
   gobeletTexture.wrapT          = THREE.ClampToEdgeWrapping;
-  gobeletTexture.offset.x       = 0.5;
+  gobeletTexture.repeat.x       = -1;
+  gobeletTexture.offset.x       = 1.0;
   gobeletTexture.flipY          = false;
   gobeletTexture.encoding       = THREE.sRGBEncoding;
   gobeletTexture.anisotropy     = renderer.capabilities.getMaxAnisotropy();
@@ -1184,7 +1185,7 @@ function loadGobelet() {
             transparent:  true,
             opacity:      0.84,
             depthWrite:   false,
-            side:         THREE.FrontSide,
+            side:         THREE.BackSide,
             color:        new THREE.Color(0xffffff),
           });
           child.material.needsUpdate = true;
