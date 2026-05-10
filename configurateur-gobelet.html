@@ -807,16 +807,15 @@ function drawTextZone(zone, text) {
   else if (zone.align === 'right') startX = zone.x + zone.width;
 
   lines.forEach((line, i) => {
-    ctx2d.fillText(line, startX, startY + i * lineH);
+    ctx2d.save();
+    ctx2d.setTransform(1, 0, 0, 1, 0, 0);
+    ctx2d.fillText(line, TEX_W - startX, startY + i * lineH);
+    ctx2d.restore();
   });
 }
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
-  ctx2d.save();
-  ctx2d.scale(-1, 1);
-  ctx2d.translate(-TEX_W, 0);
-
   // 1. Fond coloré (translucide pour simuler l'ecocup)
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = 0.88;
@@ -829,7 +828,10 @@ function drawTexture() {
     if (state.photos[zone.id]) drawPhotoZone(zone, state.photos[zone.id]);
   });
 
-  // 3. Design PNG par-dessus, couleurs intactes
+  // 3. Design PNG — scale(-1,1) uniquement ici pour corriger l'UV miroir
+  ctx2d.save();
+  ctx2d.scale(-1, 1);
+  ctx2d.translate(-TEX_W, 0);
   ctx2d.globalCompositeOperation = 'source-over';
   ctx2d.globalAlpha = 1.0;
   if (state.designImage) {
@@ -838,13 +840,12 @@ function drawTexture() {
   } else {
     drawPlaceholderDesign();
   }
+  ctx2d.restore();
 
-  // 4. Textes
+  // 4. Textes (transform réinitialisé dans drawTextZone)
   CFG.text_zones.forEach(zone => {
     drawTextZone(zone, state.texts[zone.id] || '');
   });
-
-  ctx2d.restore();
 
   // Signal Three.js
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
