@@ -1174,24 +1174,10 @@ function loadGobelet() {
       lineMesh.position.set(centreX, solY, centreZ);
       scene.add(lineMesh);
 
-      // Correction normales inversées du GLB
       gobeletGroup.traverse((child) => {
         if (child.isMesh) {
-          const normals = child.geometry.attributes.normal;
-          for (let i = 0; i < normals.count; i++) {
-            normals.setXYZ(i, -normals.getX(i), -normals.getY(i), -normals.getZ(i));
-          }
-          normals.needsUpdate = true;
-          const index = child.geometry.index;
-          if (index) {
-            for (let i = 0; i < index.count; i += 3) {
-              const tmp = index.getX(i + 1);
-              index.setX(i + 1, index.getX(i + 2));
-              index.setX(i + 2, tmp);
-            }
-            index.needsUpdate = true;
-          }
-          child.material = new THREE.MeshPhysicalMaterial({
+          child.geometry.computeVertexNormals();
+          child.material = new THREE.MeshStandardMaterial({
             map:         window._gobeletTexture,
             transparent: true,
             opacity:     0.85,
