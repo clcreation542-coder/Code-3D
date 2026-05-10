@@ -813,12 +813,11 @@ function drawTextZone(zone, text) {
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
-  // 1. Fond coloré (translucide pour simuler l'ecocup)
+  // 1. Fond coloré opaque (évite les pixels transparents sur les bords)
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
-  ctx2d.globalAlpha = 0.88;
+  ctx2d.globalAlpha = 1.0;
   ctx2d.fillStyle = parseHexColor(state.gobeletColor);
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
-  ctx2d.globalAlpha = 1.0;
 
   // 2. Photos
   CFG.photo_zones.forEach(zone => {
@@ -945,18 +944,15 @@ function initThree() {
   camera.position.set(0, 0, 5);
 
   // Éclairage studio
-  const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
   scene.add(ambientLight);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
-  dirLight.position.set(3, 5, 3);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
+  dirLight.position.set(5, 3, 5);
   dirLight.castShadow = true;
   scene.add(dirLight);
-  const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  const backLight = new THREE.DirectionalLight(0xffffff, 0.4);
   backLight.position.set(-3, 2, -3);
   scene.add(backLight);
-  const fillLight = new THREE.DirectionalLight(0xffffff, 1.0);
-  fillLight.position.set(-5, 3, -5);
-  scene.add(fillLight);
 
   // Plan de sol avec ombre
   const floor = new THREE.Mesh(
@@ -1001,6 +997,7 @@ function initThree() {
   gobeletGroup.position.set(0, 0, 0);
   gobeletGroup.rotation.y = rotY;
   gobeletGroup.scale.set(1, 1, 1);
+  gobeletGroup.renderOrder = 1;
   scene.add(gobeletGroup);
 
   loadGobelet();
@@ -1170,9 +1167,11 @@ function loadGobelet() {
           child.geometry.computeVertexNormals();
           child.material.color.set('#ffffff');
           child.material.transparent      = true;
-          child.material.opacity          = 0.85;
-          child.material.roughness        = 0.6;
-          child.material.metalness        = 0.0;
+          child.material.opacity          = 0.88;
+          child.material.roughness        = 0.65;
+          child.material.metalness        = 0.05;
+          child.material.depthWrite       = false;
+          child.material.depthTest        = true;
           child.material.side             = THREE.FrontSide;
           child.material.envMapIntensity  = 0.3;
           child.material.needsUpdate      = true;
@@ -1185,11 +1184,13 @@ function loadGobelet() {
         if (child.isMesh) {
           const innerMat = new THREE.MeshStandardMaterial({
             side:        THREE.BackSide,
-            color:       new THREE.Color('#eeeeee'),
+            color:       new THREE.Color('#ddeeff'),
             transparent: true,
-            opacity:     0.3,
-            roughness:   0.9,
+            opacity:     0.22,
+            roughness:   0.85,
             metalness:   0.0,
+            depthWrite:  false,
+            depthTest:   true,
           });
           const innerMesh = new THREE.Mesh(child.geometry.clone(), innerMat);
           innerMesh.position.copy(child.position);
