@@ -979,7 +979,8 @@ function initThree() {
   gobeletTexture.wrapS          = THREE.ClampToEdgeWrapping;
   gobeletTexture.wrapT          = THREE.ClampToEdgeWrapping;
   gobeletTexture.offset.x       = 0;
-  gobeletTexture.rotation       = 0;
+  gobeletTexture.rotation       = Math.PI / 2;
+  gobeletTexture.center.set(0.5, 0.5);
   gobeletTexture.flipY          = false;
   gobeletTexture.encoding       = THREE.sRGBEncoding;
   gobeletTexture.anisotropy     = renderer.capabilities.getMaxAnisotropy();
