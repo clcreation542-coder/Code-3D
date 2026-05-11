@@ -883,6 +883,11 @@ function renderGlobalProps(d) {
         <input type="text" id="p-name" value="${esc(d.name)}">
       </div>
       <div class="field">
+        <label>Handle Shopify</label>
+        <input type="text" id="p-handle" value="${esc(d.shopify_handle||'')}" placeholder="ex: gobelet-mariage-eucalyptus">
+        <small style="color:var(--text-muted);font-size:11px">URL du produit sur Shopify (sans les /)</small>
+      </div>
+      <div class="field">
         <label>Fichier WebP</label>
         <div class="upload-area" id="p-upload">
           ${d.design_url ? '<span style="color:var(--gold)">✓ Design chargé — cliquer pour changer</span>' : 'Cliquer pour uploader un WebP'}
@@ -936,6 +941,7 @@ function renderGlobalProps(d) {
   `;
 
   on('p-name',    'input',  v => { d.name = v; renderDesignList(); persist(); });
+  on('p-handle',  'input',  v => { d.shopify_handle = v; persist(); });
   on('p-color',   'input',  v => { d.gobelet_color = v; document.getElementById('p-hex').value = v; onDesignChange(); });
   on('p-hex',     'input',  v => { if (/^#[0-9a-f]{6}$/i.test(v)) { d.gobelet_color = v; document.getElementById('p-color').value = v; onDesignChange(); }});
   on('p-opacity', 'input',  v => { d.gobelet_opacity = parseFloat(v); onDesignChange(); });
