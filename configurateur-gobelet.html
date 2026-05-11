@@ -813,10 +813,6 @@ function drawTextZone(zone, text) {
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
-  ctx2d.save();
-  ctx2d.scale(-1, 1);
-  ctx2d.translate(-TEX_W, 0);
-
   // 1. Fond coloré (translucide pour simuler l'ecocup)
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = 0.88;
@@ -843,8 +839,6 @@ function drawTexture() {
   CFG.text_zones.forEach(zone => {
     drawTextZone(zone, state.texts[zone.id] || '');
   });
-
-  ctx2d.restore();
 
   // Signal Three.js
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
