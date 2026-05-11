@@ -171,7 +171,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid #B8860B;
+      border: 3px solid #D4A843;
       border-radius: 10px;
       overflow: hidden;
     }
@@ -1333,9 +1333,15 @@ function scheduleMiniSnapshot() {
     miniSnapshotQueued = false;
     if (!renderer) return;
     try {
-      const dataUrl = renderer.domElement.toDataURL('image/jpeg', 0.55);
+      const snapshotCanvas = document.createElement('canvas');
+      snapshotCanvas.width = 72;
+      snapshotCanvas.height = 90;
+      const sCtx = snapshotCanvas.getContext('2d');
+      const srcX = renderer.domElement.width * 0.15;
+      const srcW = renderer.domElement.width * 0.7;
+      sCtx.drawImage(renderer.domElement, srcX, 0, srcW, renderer.domElement.height, 0, 0, 72, 90);
       const img = document.getElementById('mini-snapshot');
-      if (img) img.src = dataUrl;
+      if (img) img.src = snapshotCanvas.toDataURL();
     } catch (_) {}
   });
 }
