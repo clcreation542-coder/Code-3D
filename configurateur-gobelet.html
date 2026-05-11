@@ -607,7 +607,7 @@ const TEX_W = 2000, TEX_H = 1024;
 const textureCanvas = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
 textureCanvas.height = TEX_H;
-let ctx2d = textureCanvas.getContext('2d');
+const ctx2d = textureCanvas.getContext('2d');
 
 // ─── Dessin du design placeholder (élégant baptême) ───────────────────
 function drawPlaceholderDesign() {
@@ -813,14 +813,11 @@ function drawTextZone(zone, text) {
 
 // ─── Rendu principal de la texture ───────────────────────────────────
 function drawTexture() {
-  // Dessin sur canvas intermédiaire (normal, sans miroir)
-  const tempCanvas = document.createElement('canvas');
-  tempCanvas.width  = TEX_W;
-  tempCanvas.height = TEX_H;
-  const mainCtx = ctx2d;
-  ctx2d = tempCanvas.getContext('2d');
+  ctx2d.save();
+  ctx2d.scale(-1, 1);
+  ctx2d.translate(-TEX_W, 0);
 
-  // 1. Fond coloré
+  // 1. Fond coloré (translucide pour simuler l'ecocup)
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = 0.88;
   ctx2d.fillStyle = parseHexColor(state.gobeletColor);
@@ -832,7 +829,7 @@ function drawTexture() {
     if (state.photos[zone.id]) drawPhotoZone(zone, state.photos[zone.id]);
   });
 
-  // 3. Design PNG
+  // 3. Design PNG par-dessus, couleurs intactes
   ctx2d.globalCompositeOperation = 'source-over';
   ctx2d.globalAlpha = 1.0;
   if (state.designImage) {
@@ -847,13 +844,6 @@ function drawTexture() {
     drawTextZone(zone, state.texts[zone.id] || '');
   });
 
-  // Restaure le contexte principal et applique le miroir horizontal
-  ctx2d = mainCtx;
-  ctx2d.clearRect(0, 0, TEX_W, TEX_H);
-  ctx2d.save();
-  ctx2d.scale(-1, 1);
-  ctx2d.translate(-TEX_W, 0);
-  ctx2d.drawImage(tempCanvas, 0, 0);
   ctx2d.restore();
 
   // Signal Three.js
