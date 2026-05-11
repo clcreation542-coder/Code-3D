@@ -458,7 +458,7 @@ input[type="color"] {
 // ═══════════════════════════════════════════
 const STORAGE_KEY = 'kuztom_designs';
 const TEX_W = 2000, TEX_H = 1024;
-const GLB_URL = 'https://clcreation542-coder.github.io/Code-3D/Gobelet.glb';
+const GLB_URL = 'https://clcreation542-coder.github.io/Code-3D/Gobelet 25 33.glb';
 
 const GOOGLE_FONTS = [
   'Dancing Script','Great Vibes','Parisienne','Pacifico','Satisfy','Allura',
@@ -1338,7 +1338,7 @@ function loadGLB3() {
     bodyMats3 = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
-      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: new THREE.Color('#ffffff'), roughness: 0.3, metalness: 0.1, transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide });
+      const mat = new THREE.MeshStandardMaterial({ map: ptex, color: new THREE.Color('#ffffff'), roughness: 0.62, metalness: 0.02, transparent: true, opacity: 0.85, depthWrite: false, side: THREE.FrontSide });
       mat.needsUpdate = true;
       child.material = mat; bodyMats3.push(mat);
     });
@@ -1357,7 +1357,7 @@ function loadGLB3() {
 }
 
 function fallback3D() {
-  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: new THREE.Color('#ffffff'), roughness: 0.3, metalness: 0.1, transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide });
+  const mat = new THREE.MeshStandardMaterial({ map: ptex, color: new THREE.Color('#ffffff'), roughness: 0.62, metalness: 0.02, transparent: true, opacity: 0.85, depthWrite: false, side: THREE.FrontSide });
   grp3.add(new THREE.Mesh(new THREE.CylinderGeometry(1, 0.82, 2.8, 64, 1, true), mat));
   bodyMats3 = [mat]; update3D();
 }
