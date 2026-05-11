@@ -880,7 +880,7 @@ function loadDesignImage() {
     img.crossOrigin = 'anonymous';
     img.onload = () => { state.designImage = img; resolve(); };
     img.onerror = () => resolve();
-    img.src = CFG.design_url;
+    img.src = CFG.design_url + '?v=' + Date.now();
   });
 }
 
