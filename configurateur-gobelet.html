@@ -171,7 +171,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid #F0C040;
+      border: 3px solid #E8C060;
       border-radius: 10px;
       overflow: hidden;
     }
@@ -179,13 +179,11 @@
     #mini-viewer.visible { opacity: 1; pointer-events: all; }
 
     #mini-viewer img {
-      width: 72px;
-      height: 90px;
-      object-fit: contain;
-      object-position: 15% center;
-      border-radius: 7px;
-      opacity: 1;
-      margin: 0 auto;
+      width: 160%;
+      height: 160%;
+      object-fit: cover;
+      transform: translateX(-20%);
+      margin: 0;
       display: block;
     }
 
@@ -1333,11 +1331,9 @@ function scheduleMiniSnapshot() {
     miniSnapshotQueued = false;
     if (!renderer) return;
     try {
-      camera.position.x += 1.5;
-      renderer.render(scene, camera);
+      const dataUrl = renderer.domElement.toDataURL('image/jpeg', 0.55);
       const img = document.getElementById('mini-snapshot');
-      if (img) img.src = renderer.domElement.toDataURL();
-      camera.position.x -= 1.5;
+      if (img) img.src = dataUrl;
     } catch (_) {}
   });
 }
