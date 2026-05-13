@@ -939,7 +939,7 @@ let autoRotate   = false;
 let rotTimer     = null;
 let isDragging   = false;
 let lastPointerX = 0;
-let rotY         = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
+let rotY         = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
 
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 function parseOpacity(c)  {
@@ -1158,7 +1158,7 @@ function loadGobelet() {
         gobeletGroup.position.y += 0.05;
       }
 
-      gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? CFG.rotation_y : Math.PI;
+      gobeletGroup.rotation.y = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
       console.log('[kuztom] gobeletGroup.rotation.y :', gobeletGroup.rotation.y.toFixed(4));
 
       // Cache les triangles du fond du gobelet
