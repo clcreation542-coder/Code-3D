@@ -782,6 +782,8 @@ function drawPhotoZone(zone, img) {
   if (shape === 'circle') {
     const r  = Math.min(w, h) / 2;
     ctx2d.arc(x + w / 2, y + h / 2, r, 0, Math.PI * 2);
+  } else if (shape === 'oval') {
+    ctx2d.ellipse(x + w / 2, y + h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
   } else if (shape === 'phone') {
     const r = w * 0.18;
     roundRectPath(ctx2d, x, y, w, h, r);
@@ -1515,48 +1517,27 @@ function buildPhotoZone(section, zone) {
   panWrap.appendChild(panHint);
   wrap.appendChild(panWrap);
 
-  let panDragging = false, panStartX = 0, panStartY = 0, panStartFx = 0, panStartFy = 0;
-
   function updatePanVisual() {
     const off = state.photoOffsets[zone.id] || {fx: 0, fy: 0};
     panImg.style.objectPosition = `${50 + off.fx * 50}% ${50 + off.fy * 50}%`;
   }
 
-  function doPanMove(clientX, clientY) {
-    if (!panDragging) return;
-    const img = state.photos[zone.id];
-    if (!img) return;
-    const iw = img.naturalWidth, ih = img.naturalHeight;
-    const zw = zone.width, zh = zone.height;
-    const sc = Math.max(zw / iw, zh / ih);
-    const slackX = iw * sc - zw, slackY = ih * sc - zh;
-    const dispW = panWrap.clientWidth || 1;
-    const dispScale = dispW / zw;
-    const fx = slackX > 0 ? Math.max(-1, Math.min(1, panStartFx + (clientX - panStartX) / dispScale / (slackX / 2))) : 0;
-    const fy = slackY > 0 ? Math.max(-1, Math.min(1, panStartFy + (clientY - panStartY) / dispScale / (slackY / 2))) : 0;
-    state.photoOffsets[zone.id] = {fx, fy};
-    updatePanVisual();
-    drawTexture();
-  }
-
   panWrap.addEventListener('mousedown', e => {
-    panDragging = true;
-    panStartX = e.clientX; panStartY = e.clientY;
+    _pan.active = true; _pan.zone = zone; _pan.wrap = panWrap;
+    _pan.updateFn = updatePanVisual;
+    _pan.startX = e.clientX; _pan.startY = e.clientY;
     const off = state.photoOffsets[zone.id] || {fx: 0, fy: 0};
-    panStartFx = off.fx; panStartFy = off.fy;
+    _pan.startFx = off.fx; _pan.startFy = off.fy;
     e.preventDefault();
   });
   panWrap.addEventListener('touchstart', e => {
-    panDragging = true;
-    panStartX = e.touches[0].clientX; panStartY = e.touches[0].clientY;
+    _pan.active = true; _pan.zone = zone; _pan.wrap = panWrap;
+    _pan.updateFn = updatePanVisual;
+    _pan.startX = e.touches[0].clientX; _pan.startY = e.touches[0].clientY;
     const off = state.photoOffsets[zone.id] || {fx: 0, fy: 0};
-    panStartFx = off.fx; panStartFy = off.fy;
+    _pan.startFx = off.fx; _pan.startFy = off.fy;
     e.preventDefault();
   }, {passive: false});
-  window.addEventListener('mousemove', e => doPanMove(e.clientX, e.clientY));
-  window.addEventListener('touchmove', e => { if (panDragging) { doPanMove(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); } }, {passive: false});
-  window.addEventListener('mouseup',  () => { panDragging = false; });
-  window.addEventListener('touchend', () => { panDragging = false; });
 
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
@@ -1594,6 +1575,34 @@ function buildPhotoZone(section, zone) {
 
   section.appendChild(wrap);
 }
+
+// État de pan global — un seul listener par événement pour toutes les zones photo
+const _pan = { active: false, zone: null, wrap: null, updateFn: null,
+               startX: 0, startY: 0, startFx: 0, startFy: 0 };
+
+function _doPanMove(clientX, clientY) {
+  if (!_pan.active || !_pan.zone) return;
+  const img = state.photos[_pan.zone.id];
+  if (!img) return;
+  const iw = img.naturalWidth, ih = img.naturalHeight;
+  const zw = _pan.zone.width, zh = _pan.zone.height;
+  const sc = Math.max(zw / iw, zh / ih);
+  const slackX = iw * sc - zw, slackY = ih * sc - zh;
+  const dispW = _pan.wrap.clientWidth || 1;
+  const dispScale = dispW / zw;
+  const fx = slackX > 0 ? Math.max(-1, Math.min(1, _pan.startFx + (clientX - _pan.startX) / dispScale / (slackX / 2))) : 0;
+  const fy = slackY > 0 ? Math.max(-1, Math.min(1, _pan.startFy + (clientY - _pan.startY) / dispScale / (slackY / 2))) : 0;
+  state.photoOffsets[_pan.zone.id] = {fx, fy};
+  if (_pan.updateFn) _pan.updateFn();
+  drawTexture();
+}
+
+window.addEventListener('mousemove', e => _doPanMove(e.clientX, e.clientY));
+window.addEventListener('touchmove', e => {
+  if (_pan.active) { _doPanMove(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }
+}, {passive: false});
+window.addEventListener('mouseup',  () => { _pan.active = false; });
+window.addEventListener('touchend', () => { _pan.active = false; });
 
 // ═══════════════════════════════════════════════════════════════════════
 //  RESET
