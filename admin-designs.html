@@ -1309,17 +1309,55 @@ function onDesignChange() {
 function exportDesign() {
   const d = currentDesign();
   if (!d) return alert('Aucun design sélectionné');
+
+  const normalizeTextZone = z => ({
+    id:          z.id          || '',
+    label:       z.label       || '',
+    order:       z.order       || 1,
+    x:           z.x           ?? 0,
+    y:           z.y           ?? 0,
+    width:       z.width       ?? 0,
+    height:      z.height      ?? 0,
+    shape:       z.shape       || 'rectangle',
+    lineHeight:  z.lineHeight  ?? 1.5,
+    font_size:   z.font_size   ?? 24,
+    color:       z.color       || '#000000',
+    placeholder: z.placeholder || '',
+    font_family: z.font_family || 'Arial',
+    align:       z.align       || 'center',
+    multiline:   z.multiline   ?? true,
+  });
+
+  const normalizePhotoZone = z => ({
+    id:     z.id     || '',
+    label:  z.label  || '',
+    order:  z.order  || 1,
+    x:      z.x      ?? 0,
+    y:      z.y      ?? 0,
+    width:  z.width  ?? 0,
+    height: z.height ?? 0,
+    shape:  z.shape  || 'circle',
+  });
+
+  const normalizeVariant = v => ({
+    name:    v.name    || '',
+    hex:     v.hex     || '#ffffff',
+    opacity: v.opacity ?? 1,
+  });
+
   const out = {
-    id: d.id, name: d.name,
-    gobelet_color: d.gobelet_color,
+    id:             d.id             || '',
+    name:           d.name           || '',
+    shopify_handle: d.shopify_handle || '',
+    gobelet_color:  d.gobelet_color  || '#ffffff',
     gobelet_opacity: d.gobelet_opacity ?? 1,
-    model_url: d.model_url || null,
-    rotation_y: d.rotation_y || 0,
-    design_url: d.design_url || null,
-    design: d.design,
-    variant_colors: d.variant_colors || [],
-    text_zones: d.text_zones || [],
-    photo_zones: d.photo_zones || []
+    model_url:      d.model_url      || null,
+    rotation_y:     d.rotation_y     ?? 0,
+    design_url:     d.design_url     || null,
+    design:         d.design         || null,
+    variant_colors: (d.variant_colors || []).map(normalizeVariant),
+    text_zones:     (d.text_zones    || []).map(normalizeTextZone),
+    photo_zones:    (d.photo_zones   || []).map(normalizePhotoZone),
   };
   const blob = new Blob([JSON.stringify(out, null, 2)], { type:'application/json' });
   const a = document.createElement('a');
