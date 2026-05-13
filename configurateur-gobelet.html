@@ -228,6 +228,25 @@
     /* ─── Zone sections ─── */
     .zone-section { margin-bottom: 32px; }
 
+    .color-variants {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .color-swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+      transition: border-color 150ms, transform 150ms;
+      flex-shrink: 0;
+    }
+    .color-swatch:hover { transform: scale(1.1); }
+    .color-swatch.active { border-color: #C9A84C; }
+
     .zone-label {
       display: block;
       font-size: 11px;
@@ -1408,6 +1427,37 @@ function buildForm() {
 
   const titleEl = document.getElementById('config-title');
   if (titleEl && CFG.name) titleEl.textContent = CFG.name;
+
+  // Variantes couleur (si > 1)
+  const variants = CFG.variant_colors || [];
+  if (variants.length > 1) {
+    const variantWrap = document.createElement('div');
+    variantWrap.className = 'color-variants';
+
+    const variantLabel = document.createElement('div');
+    variantLabel.className = 'zone-label';
+    variantLabel.textContent = 'Couleur';
+    container.appendChild(variantLabel);
+
+    variants.forEach((v, i) => {
+      const swatch = document.createElement('button');
+      swatch.className = 'color-swatch' + (i === 0 ? ' active' : '');
+      swatch.style.background = v.hex || '#ffffff';
+      swatch.title = v.name || v.hex;
+      swatch.type = 'button';
+      swatch.addEventListener('click', () => {
+        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        updateGobeletColor(v);
+      });
+      variantWrap.appendChild(swatch);
+    });
+
+    container.appendChild(variantWrap);
+
+    // Appliquer la première variante par défaut
+    updateGobeletColor(variants[0]);
+  }
 
   // Fusionner et trier par order
   const allZones = [
