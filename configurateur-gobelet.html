@@ -612,6 +612,8 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
 
 <script>
+const isShopify = new URLSearchParams(window.location.search).get('shopify') === '1';
+
 // ═══════════════════════════════════════════════════════════════════════
 //  CONFIG PAR DÉFAUT
 // ═══════════════════════════════════════════════════════════════════════
@@ -1371,6 +1373,7 @@ function updateGobeletColor(colorConfig) {
   bodyMaterial.depthWrite   = false;
   bodyMaterial.needsUpdate  = true;
   drawTexture();
+  sendToShopify();
 }
 
 // Écoute Shopify variant:changed
@@ -1380,6 +1383,20 @@ document.addEventListener('variant:changed', e => {
     updateGobeletColor(window.VARIANT_COLORS[v.id]);
   }
 });
+
+function sendToShopify() {
+  if (!isShopify) return;
+  const textes = [];
+  document.querySelectorAll('.zone-input, .zone-textarea').forEach(function(input) {
+    if (input.value) textes.push(input.value);
+  });
+  window.parent.postMessage({
+    type:    'kuztom_config',
+    texte:   textes.join(' | '),
+    couleur: state.gobeletColor || '',
+    photo:   Object.values(state.photos).some(Boolean) ? 'oui' : ''
+  }, '*');
+}
 
 // ═══════════════════════════════════════════════════════════════════════
 //  MINI VIEWER (mobile sticky)
@@ -1501,6 +1518,7 @@ function buildTextZone(section, zone) {
   input.addEventListener('input', () => {
     state.texts[zone.id] = input.value;
     if (state.fontsReady) drawTexture();
+    sendToShopify();
   });
   section.appendChild(input);
 }
@@ -1605,6 +1623,7 @@ function buildPhotoZone(section, zone) {
         panWrap.classList.add('visible');
         updatePanVisual();
         drawTexture();
+        sendToShopify();
       };
       img.src = ev.target.result;
     };
@@ -1729,6 +1748,7 @@ async function init() {
 
   // 4. Premier rendu texture
   drawTexture();
+  sendToShopify();
 
   // 5. Lancer Three.js
   initThree();

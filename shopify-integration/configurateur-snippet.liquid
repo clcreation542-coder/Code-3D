@@ -1,0 +1,29 @@
+{% assign design_handle = product.metafields.custom.design_handle %}
+{% if design_handle != blank %}
+
+<div id="configurateur-3d-wrapper" style="position:relative;width:100%;padding-bottom:100%;background:#1a1a1a;border-radius:12px;overflow:hidden;">
+  <iframe id="configurateur-iframe"
+    src="https://clcreation542-coder.github.io/Code-3D/configurateur-gobelet.html?design={{ design_handle | url_encode }}&shopify=1"
+    style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+    allow="camera"
+    loading="lazy">
+  </iframe>
+</div>
+
+<input type="hidden" name="properties[Design]" id="prop-design" value="{{ design_handle }}">
+<input type="hidden" name="properties[Texte personnalisé]" id="prop-texte" value="">
+<input type="hidden" name="properties[Couleur gobelet]" id="prop-couleur" value="">
+<input type="hidden" name="properties[Photo]" id="prop-photo" value="">
+
+<script>
+window.addEventListener('message', function(event) {
+  if (event.origin !== 'https://clcreation542-coder.github.io') return;
+  var data = event.data;
+  if (!data || data.type !== 'kuztom_config') return;
+  if (data.texte   !== undefined) document.getElementById('prop-texte').value   = data.texte;
+  if (data.couleur !== undefined) document.getElementById('prop-couleur').value = data.couleur;
+  if (data.photo   !== undefined) document.getElementById('prop-photo').value   = data.photo;
+});
+</script>
+
+{% endif %}
