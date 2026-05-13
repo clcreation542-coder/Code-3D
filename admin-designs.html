@@ -632,7 +632,7 @@ function drawZoneShape(zone) {
   const shape = zone.shape || 'rectangle';
   const { x, y, width: w, height: h } = zone;
   ctx.beginPath();
-  if (shape === 'circle' || shape === 'oval') {
+  if (shape === 'circle') {
     ctx.ellipse(x + w/2, y + h/2, w/2, h/2, 0, 0, Math.PI*2);
   } else {
     ctx.rect(x, y, w, h);
@@ -1132,8 +1132,15 @@ function renderPhotoProps(d, zone) {
         <label>Forme de la zone</label>
         <div class="shape-selector">
           <button class="shape-btn${(!zone.shape||zone.shape==='rectangle')?' active':''}" data-shape="rectangle" title="Rectangle">▭</button>
-          <button class="shape-btn${zone.shape==='oval'?' active':''}" data-shape="oval" title="Ovale">⬭</button>
-          <button class="shape-btn${zone.shape==='circle'?' active':''}" data-shape="circle" title="Cercle">○</button>
+          <button class="shape-btn${zone.shape==='circle'?' active':''}" data-shape="circle" title="Cercle / Ovale">○</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Format rapide</label>
+        <div class="shape-selector">
+          <button class="shape-btn" data-preset="square" title="Carré 1:1">Carré</button>
+          <button class="shape-btn" data-preset="phone" title="Portrait 3:4">3:4</button>
+          <button class="shape-btn" data-preset="round" title="Rond">Rond</button>
         </div>
       </div>
     </div>
@@ -1158,11 +1165,28 @@ function renderPhotoProps(d, zone) {
   on('p-back',  'click',  () => { app.selectedZone = null; renderProps(); });
   on('p-del-z', 'click',  () => deleteSelectedZone());
 
-  document.querySelectorAll('.shape-btn').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('.shape-btn[data-shape]').forEach(btn => btn.addEventListener('click', () => {
     zone.shape = btn.dataset.shape;
-    document.querySelectorAll('.shape-btn').forEach(b => b.classList.toggle('active', b.dataset.shape === zone.shape));
+    document.querySelectorAll('.shape-btn[data-shape]').forEach(b => b.classList.toggle('active', b.dataset.shape === zone.shape));
     drawEditor(); persist();
   }));
+
+  document.querySelectorAll('.shape-btn[data-preset]').forEach(btn => btn.addEventListener('click', () => {
+    const preset = btn.dataset.preset;
+    if (preset === 'square') {
+      zone.height = zone.width;
+      zone.shape = zone.shape || 'rectangle';
+    } else if (preset === 'phone') {
+      zone.height = Math.round(zone.width * 4 / 3);
+      zone.shape = zone.shape || 'rectangle';
+    } else if (preset === 'round') {
+      zone.height = zone.width;
+      zone.shape = 'circle';
+    }
+    drawEditor(); persist();
+    renderPhotoProps(d, zone);
+  }));
+
   document.querySelectorAll('.p-coord').forEach(el => el.addEventListener('input', () => {
     zone[el.dataset.k] = parseInt(el.value)||0;
     drawEditor(); persist();
