@@ -237,6 +237,17 @@ input[type="color"] {
 .align-btn:hover { color: var(--text); }
 .align-btn.active { background: var(--gold-lt); border-color: var(--gold); color: var(--gold); }
 
+.shape-selector { display: flex; gap: 4px; }
+.shape-btn {
+  flex: 1; padding: 5px 4px;
+  background: var(--bg); border: 1px solid var(--border-lt);
+  border-radius: var(--rsm); color: var(--muted);
+  cursor: pointer; font-size: 15px; text-align: center;
+  transition: all 0.12s; font-family: 'Jost', sans-serif;
+}
+.shape-btn:hover { color: var(--text); }
+.shape-btn.active { background: var(--gold-lt); border-color: var(--gold); color: var(--gold); }
+
 /* Toggle */
 .toggle-row { display: flex; align-items: center; justify-content: space-between; }
 .toggle-row span { font-size: 12px; color: var(--text); }
@@ -617,16 +628,30 @@ function drawEditor() {
   (d.photo_zones||[]).forEach(z => drawZone(z, 'photo'));
 }
 
+function drawZoneShape(zone) {
+  const shape = zone.shape || 'rectangle';
+  const { x, y, width: w, height: h } = zone;
+  ctx.beginPath();
+  if (shape === 'circle' || shape === 'oval') {
+    ctx.ellipse(x + w/2, y + h/2, w/2, h/2, 0, 0, Math.PI*2);
+  } else {
+    ctx.rect(x, y, w, h);
+  }
+  ctx.closePath();
+}
+
 function drawZone(zone, type) {
   const sel = app.selectedZone && app.selectedZone.id === zone.id;
   ctx.fillStyle = type === 'text'
     ? 'rgba(100,150,255,0.35)'
     : 'rgba(100,220,150,0.35)';
-  ctx.fillRect(zone.x, zone.y, zone.width, zone.height);
+  drawZoneShape(zone);
+  ctx.fill();
 
   ctx.strokeStyle = sel ? '#ffffff' : (type === 'text' ? 'rgba(100,150,255,0.85)' : 'rgba(100,220,150,0.85)');
   ctx.lineWidth = sel ? 3 : 2;
-  ctx.strokeRect(zone.x, zone.y, zone.width, zone.height);
+  drawZoneShape(zone);
+  ctx.stroke();
 
   // Tag label
   ctx.fillStyle = type === 'text' ? 'rgba(130,170,255,0.9)' : 'rgba(100,220,150,0.9)';
@@ -987,6 +1012,14 @@ function renderTextProps(d, zone) {
         <label>Label (visible client)</label>
         <input type="text" id="p-label" value="${esc(zone.label)}">
       </div>
+      <div class="field">
+        <label>Forme de la zone</label>
+        <div class="shape-selector">
+          <button class="shape-btn${(!zone.shape||zone.shape==='rectangle')?' active':''}" data-shape="rectangle" title="Rectangle">▭</button>
+          <button class="shape-btn${zone.shape==='oval'?' active':''}" data-shape="oval" title="Ovale">⬭</button>
+          <button class="shape-btn${zone.shape==='circle'?' active':''}" data-shape="circle" title="Cercle">○</button>
+        </div>
+      </div>
       <div class="frow">
         <div class="field">
           <label>Ordre</label>
@@ -1070,6 +1103,11 @@ function renderTextProps(d, zone) {
     document.querySelectorAll('.align-btn').forEach(b => b.classList.toggle('active', b.dataset.align === zone.align));
     drawEditor(); persist();
   }));
+  document.querySelectorAll('.shape-btn').forEach(btn => btn.addEventListener('click', () => {
+    zone.shape = btn.dataset.shape;
+    document.querySelectorAll('.shape-btn').forEach(b => b.classList.toggle('active', b.dataset.shape === zone.shape));
+    drawEditor(); persist();
+  }));
   document.querySelectorAll('.p-coord').forEach(el => el.addEventListener('input', () => {
     zone[el.dataset.k] = parseInt(el.value)||0;
     drawEditor(); persist();
@@ -1086,18 +1124,16 @@ function renderPhotoProps(d, zone) {
         <label>Label</label>
         <input type="text" id="p-label" value="${esc(zone.label)}">
       </div>
-      <div class="frow">
-        <div class="field">
-          <label>Ordre</label>
-          <input type="number" id="p-order" value="${zone.order||1}" min="1">
-        </div>
-        <div class="field">
-          <label>Forme</label>
-          <select id="p-shape">
-            <option value="rectangle"${zone.shape==='rectangle'?' selected':''}>Rectangle</option>
-            <option value="circle"${zone.shape==='circle'?' selected':''}>Cercle</option>
-            <option value="phone"${zone.shape==='phone'?' selected':''}>Téléphone</option>
-          </select>
+      <div class="field">
+        <label>Ordre</label>
+        <input type="number" id="p-order" value="${zone.order||1}" min="1">
+      </div>
+      <div class="field">
+        <label>Forme de la zone</label>
+        <div class="shape-selector">
+          <button class="shape-btn${(!zone.shape||zone.shape==='rectangle')?' active':''}" data-shape="rectangle" title="Rectangle">▭</button>
+          <button class="shape-btn${zone.shape==='oval'?' active':''}" data-shape="oval" title="Ovale">⬭</button>
+          <button class="shape-btn${zone.shape==='circle'?' active':''}" data-shape="circle" title="Cercle">○</button>
         </div>
       </div>
     </div>
@@ -1119,10 +1155,14 @@ function renderPhotoProps(d, zone) {
 
   on('p-label', 'input',  v => { zone.label = v; drawEditor(); persist(); });
   on('p-order', 'input',  v => { zone.order = parseInt(v); persist(); });
-  on('p-shape', 'change', v => { zone.shape = v; persist(); });
   on('p-back',  'click',  () => { app.selectedZone = null; renderProps(); });
   on('p-del-z', 'click',  () => deleteSelectedZone());
 
+  document.querySelectorAll('.shape-btn').forEach(btn => btn.addEventListener('click', () => {
+    zone.shape = btn.dataset.shape;
+    document.querySelectorAll('.shape-btn').forEach(b => b.classList.toggle('active', b.dataset.shape === zone.shape));
+    drawEditor(); persist();
+  }));
   document.querySelectorAll('.p-coord').forEach(el => el.addEventListener('input', () => {
     zone[el.dataset.k] = parseInt(el.value)||0;
     drawEditor(); persist();
