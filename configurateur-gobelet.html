@@ -827,9 +827,9 @@ function getFontSize(zone, text) {
   while (size > 8) {
     ctx2d.font = `${size}px "${zone.font_family}"`;
     const maxW   = Math.max(...lines.map(l => ctx2d.measureText(l).width));
-    const totalH = lines.length * size * 1.4;
+    const totalH = lines.length * size * 1.3;
     if (maxW <= zone.width && totalH <= zone.height) break;
-    size -= 0.5;
+    size -= 1;
   }
   return size;
 }
@@ -844,7 +844,7 @@ function drawTextZone(zone, text) {
   ctx2d.textBaseline = 'middle';
 
   const lines  = zone.multiline ? text.split('\n') : [text];
-  const lineH  = size * 1.4;
+  const lineH  = size * 1.3;
   const totalH = lines.length * lineH;
   const startY = zone.y + zone.height / 2 - totalH / 2 + lineH / 2;
 
