@@ -548,6 +548,26 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* ─── Mode viewer seul (shopify=1) ─── */
+    body.shopify-viewer #mini-viewer       { display: none !important; }
+    body.shopify-viewer #form-col          { display: none !important; }
+    body.shopify-viewer #configurateur     { grid-template-columns: 1fr; height: 100vh; }
+    body.shopify-viewer #viewer-col        { height: 100vh; width: 100%; }
+    body.shopify-viewer #confirmation-overlay { display: none !important; }
+
+    #shopify-viewer-info {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      text-align: center;
+    }
+    body.shopify-viewer #shopify-viewer-info { display: flex; }
+    #shopify-viewer-info .svi-hint  { font-size: 0.7rem; color: #888; letter-spacing: 0.1em; }
+    #shopify-viewer-info .svi-name  { font-size: 1rem; color: #fff; font-weight: 500; }
+    #shopify-viewer-info .svi-badge { font-size: 0.72rem; color: #7ec87e; letter-spacing: 0.04em; }
   </style>
 </head>
 <body>
@@ -572,6 +592,11 @@
       <div id="sol-right"></div>
     </div>
     <p id="viewer-hint">Explorez votre gobelet à 360° ↔</p>
+    <div id="shopify-viewer-info">
+      <span class="svi-hint">Explorez votre gobelet à 360° ↔</span>
+      <span class="svi-name" id="svi-design-name"></span>
+      <span class="svi-badge">✓ Vérifié et optimisé par notre graphiste</span>
+    </div>
   </div>
 
   <!-- Colonne droite : formulaire -->
@@ -613,6 +638,25 @@
 
 <script>
 const isShopify = new URLSearchParams(window.location.search).get('shopify') === '1';
+
+if (isShopify) {
+  document.body.classList.add('shopify-viewer');
+}
+
+// Listener postMessage depuis le parent Shopify
+window.addEventListener('message', function(e) {
+  if (!isShopify) return;
+  const data = e.data;
+  if (!data || data.type !== 'kuztom_update' || !Array.isArray(data.zones)) return;
+  data.zones.forEach(function(item) {
+    const zone = (window.DESIGN_CONFIG && window.DESIGN_CONFIG.text_zones || [])
+                   .find(function(z) { return z.id === item.id; });
+    if (zone && item.text !== undefined) {
+      if (typeof state !== 'undefined') state.texts[zone.id] = item.text;
+    }
+  });
+  if (typeof drawTexture === 'function') drawTexture();
+});
 
 // ═══════════════════════════════════════════════════════════════════════
 //  CONFIG PAR DÉFAUT
@@ -1745,6 +1789,8 @@ async function init() {
 
   // 3. Construire le formulaire
   buildForm();
+  const sviName = document.getElementById('svi-design-name');
+  if (sviName && CFG.name) sviName.textContent = CFG.name;
 
   // 4. Premier rendu texture
   drawTexture();
