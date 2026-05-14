@@ -1832,6 +1832,18 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+//  HAUTEUR AUTO (pour iframe sans scroll interne)
+// ═══════════════════════════════════════════════════════════════════════
+function sendHeightToParent() {
+  var h = document.body.scrollHeight;
+  window.parent.postMessage({ type: 'kuztom_height', height: h }, '*');
+}
+window.addEventListener('load', function () {
+  setTimeout(sendHeightToParent, 2000);
+});
+window.addEventListener('resize', sendHeightToParent);
 </script>
 </body>
 </html>
