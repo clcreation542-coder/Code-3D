@@ -571,7 +571,22 @@
   </style>
 </head>
 <body>
-<script>if(new URLSearchParams(location.search).get('shopify')==='1')document.body.classList.add('shopify-viewer');</script>
+<script>
+(function(){
+  if(new URLSearchParams(location.search).get('shopify')==='1'){
+    document.body.classList.add('shopify-viewer');
+    // Apply inline hide immediately so no flash of form is possible
+    document.addEventListener('DOMContentLoaded', function(){
+      var fc = document.getElementById('form-col');
+      if(fc) fc.style.setProperty('display','none','important');
+      var mini = document.getElementById('mini-viewer');
+      if(mini) mini.style.setProperty('display','none','important');
+      var cfg = document.getElementById('configurateur');
+      if(cfg){ cfg.style.gridTemplateColumns='1fr'; cfg.style.width='100vw'; }
+    });
+  }
+})();
+</script>
 
 <!-- Mini viewer sticky (mobile) -->
 <div id="mini-viewer" role="button" tabindex="0" aria-label="Voir le gobelet">
@@ -1784,14 +1799,14 @@ async function init() {
   // 2. Charger l'image design si nécessaire
   await loadDesignImage();
 
-  // Mode shopify : cacher le formulaire par JS (double sécurité)
+  // Mode shopify : cacher le formulaire par JS (triple sécurité)
   if (isShopify) {
     const formCol = document.getElementById('form-col');
-    if (formCol) formCol.style.cssText = 'display:none!important';
+    if (formCol) formCol.style.setProperty('display', 'none', 'important');
     const cfg = document.getElementById('configurateur');
     if (cfg) { cfg.style.gridTemplateColumns = '1fr'; cfg.style.width = '100vw'; }
     const mini = document.getElementById('mini-viewer');
-    if (mini) mini.style.cssText = 'display:none!important';
+    if (mini) mini.style.setProperty('display', 'none', 'important');
   }
 
   // 3. Construire le formulaire
