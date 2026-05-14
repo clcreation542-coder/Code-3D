@@ -1784,6 +1784,16 @@ async function init() {
   // 2. Charger l'image design si nécessaire
   await loadDesignImage();
 
+  // Mode shopify : cacher le formulaire par JS (double sécurité)
+  if (isShopify) {
+    const formCol = document.getElementById('form-col');
+    if (formCol) formCol.style.cssText = 'display:none!important';
+    const cfg = document.getElementById('configurateur');
+    if (cfg) { cfg.style.gridTemplateColumns = '1fr'; cfg.style.width = '100vw'; }
+    const mini = document.getElementById('mini-viewer');
+    if (mini) mini.style.cssText = 'display:none!important';
+  }
+
   // 3. Construire le formulaire
   buildForm();
   const sviName = document.getElementById('svi-design-name');
