@@ -571,6 +571,7 @@
   </style>
 </head>
 <body>
+<script>if(new URLSearchParams(location.search).get('shopify')==='1')document.body.classList.add('shopify-viewer');</script>
 
 <!-- Mini viewer sticky (mobile) -->
 <div id="mini-viewer" role="button" tabindex="0" aria-label="Voir le gobelet">
@@ -638,10 +639,6 @@
 
 <script>
 const isShopify = new URLSearchParams(window.location.search).get('shopify') === '1';
-
-if (isShopify) {
-  document.body.classList.add('shopify-viewer');
-}
 
 // Listener postMessage depuis le parent Shopify
 window.addEventListener('message', function(e) {
