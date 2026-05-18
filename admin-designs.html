@@ -341,6 +341,10 @@ input[type="color"] {
 /* Save button */
 #btn-save { min-width: 90px; }
 #btn-save.saved { background: #4caf50; color: #fff; }
+#btn-deploy { min-width: 90px; }
+#btn-deploy.deploying { background: #e8a020; color: #fff; pointer-events: none; }
+#btn-deploy.success   { background: #4caf50; color: #fff; }
+#btn-deploy.error     { background: #c0392b; color: #fff; }
 
 /* ── Modal ── */
 #modal-overlay {
@@ -387,6 +391,7 @@ input[type="color"] {
   <input type="file" id="import-file" accept=".json" style="display:none">
   <button class="btn-secondary" id="btn-export">↓ Exporter JSON</button>
   <button class="btn-primary" id="btn-save">Sauvegarder</button>
+  <button class="btn-primary" id="btn-deploy">🚀 Déployer sur GitHub</button>
 </header>
 
 <div id="layout">
@@ -1604,6 +1609,96 @@ document.getElementById('modal-name').addEventListener('keydown', e => {
 });
 
 // ═══════════════════════════════════════════
+//  DEPLOY TO GITHUB
+// ═══════════════════════════════════════════
+async function deployDesign() {
+  const d = currentDesign();
+  if (!d) return alert('Aucun design sélectionné');
+
+  const handle = d.shopify_handle || '';
+  if (!handle) return alert('Remplis le Handle Shopify avant de déployer');
+
+  const btn = document.getElementById('btn-deploy');
+  const reset = (cls, label, ms) => {
+    btn.className = 'btn-primary ' + cls;
+    btn.textContent = label;
+    if (ms) setTimeout(() => { btn.className = 'btn-primary'; btn.textContent = '🚀 Déployer sur GitHub'; }, ms);
+  };
+
+  reset('deploying', '⏳ Déploiement…');
+
+  const REPO  = 'clcreation542-coder/Code-3D';
+  let TOKEN = localStorage.getItem('kuztom_gh_token') || '';
+  if (!TOKEN) {
+    TOKEN = prompt('Token GitHub Personnel (PAT) :\n(sera mémorisé dans le navigateur)') || '';
+    if (!TOKEN) { reset('', '🚀 Déployer sur GitHub'); return; }
+    localStorage.setItem('kuztom_gh_token', TOKEN.trim());
+  }
+  TOKEN = TOKEN.trim();
+  const path  = `designs/${handle}.json`;
+  const api   = `https://api.github.com/repos/${REPO}/contents/${path}`;
+
+  // Normaliser le JSON (même logique qu'exportDesign)
+  const normalizeTextZone = z => ({
+    id: z.id||'', label: z.label||'', order: z.order||1,
+    x: z.x??0, y: z.y??0, width: z.width??0, height: z.height??0,
+    shape: z.shape||'rectangle', lineHeight: z.lineHeight??1.5,
+    font_size: z.font_size??24, color: z.color||'#000000',
+    placeholder: z.placeholder||'', font_family: z.font_family||'Arial',
+    align: z.align||'center', multiline: z.multiline??true,
+  });
+  const normalizePhotoZone = z => ({
+    id: z.id||'', label: z.label||'', order: z.order||1,
+    x: z.x??0, y: z.y??0, width: z.width??0, height: z.height??0,
+    shape: z.shape||'circle',
+  });
+  const normalizeVariant = v => ({
+    name: v.name||'', hex: v.hex||'#ffffff', opacity: v.opacity??1,
+  });
+  const out = {
+    id: d.id||'', name: d.name||'', shopify_handle: handle,
+    gobelet_color: d.gobelet_color||'#ffffff', gobelet_opacity: d.gobelet_opacity??1,
+    model_url: d.model_url||null, rotation_y: d.rotation_y??0,
+    design_url: d.design_url||null, design: d.design||null,
+    variant_colors: (d.variant_colors||[]).map(normalizeVariant),
+    text_zones:     (d.text_zones||[]).map(normalizeTextZone),
+    photo_zones:    (d.photo_zones||[]).map(normalizePhotoZone),
+  };
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(out, null, 2))));
+
+  try {
+    // Récupérer le SHA si le fichier existe déjà
+    let sha;
+    const getRes = await fetch(api, {
+      headers: { Authorization: 'token ' + TOKEN, Accept: 'application/vnd.github+json' }
+    });
+    if (getRes.ok) {
+      const existing = await getRes.json();
+      sha = existing.sha;
+    }
+
+    // PUT pour créer ou mettre à jour
+    const body = { message: 'deploy: ' + handle, content };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(api, {
+      method:  'PUT',
+      headers: { Authorization: 'token ' + TOKEN, 'Content-Type': 'application/json', Accept: 'application/vnd.github+json' },
+      body:    JSON.stringify(body),
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(err.message || putRes.statusText);
+    }
+
+    reset('success', '✅ Design déployé !', 3000);
+  } catch (e) {
+    reset('error', '❌ Erreur : ' + e.message, 5000);
+  }
+}
+
+// ═══════════════════════════════════════════
 //  HEADER ACTIONS
 // ═══════════════════════════════════════════
 document.getElementById('btn-save').addEventListener('click', () => {
@@ -1613,6 +1708,7 @@ document.getElementById('btn-save').addEventListener('click', () => {
   setTimeout(() => { btn.textContent = 'Sauvegarder'; btn.classList.remove('saved'); }, 1800);
 });
 document.getElementById('btn-export').addEventListener('click', exportDesign);
+document.getElementById('btn-deploy').addEventListener('click', deployDesign);
 document.getElementById('btn-import').addEventListener('click', () =>
   document.getElementById('import-file').click()
 );
