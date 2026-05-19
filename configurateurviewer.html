@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewer Gobelet — Kuztom</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #efefed;
+    }
+
+    #viewer {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    #canvas-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #canvas-container canvas { display: block; }
+
+    #loading-indicator {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: #efefed;
+      z-index: 5;
+      transition: opacity 400ms ease;
+    }
+
+    #loading-indicator.hidden { opacity: 0; pointer-events: none; }
+
+    .loading-ring {
+      width: 32px;
+      height: 32px;
+      border: 1.5px solid #e0ddd8;
+      border-top-color: #c9a96e;
+      border-radius: 50%;
+      animation: spin 900ms linear infinite;
+    }
+
+    .loading-text {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #aaa;
+      font-family: 'Inter', sans-serif;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #error-msg {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #888;
+      text-align: center;
+      padding: 24px;
+      background: #efefed;
+      z-index: 10;
+    }
+    #error-msg.visible { display: flex; }
+  </style>
+</head>
+<body>
+
+<div id="viewer">
+  <div id="canvas-container">
+    <div id="loading-indicator">
+      <div class="loading-ring"></div>
+      <span class="loading-text">Chargement</span>
+    </div>
+  </div>
+  <div id="error-msg">
+    <span style="font-size:24px">⚠️</span>
+    <span id="error-text">Design introuvable.</span>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+
+<script>
+// ── Paramètres URL ──────────────────────────────────────────────────────
+const params     = new URLSearchParams(window.location.search);
+const designName = params.get('design') || '';
+const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
+
+// ── Config (chargée depuis /designs/{name}.json) ────────────────────────
+let CFG = {
+  id: '', name: '',
+  gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
+  rotation_y: 0, model_url: null,
+  design_url: null,
+  design: { x: 0, y: 0, width: 2000, height: 1024 },
+  variant_colors: [], text_zones: [], photo_zones: []
+};
+
+// ── État ────────────────────────────────────────────────────────────────
+const state = {
+  texts:       {},
+  gobeletColor: '#f5f0eb',
+  designImage:  null,
+  fontsReady:   false,
+};
+
+// ── Canvas texture 2000×1024 ────────────────────────────────────────────
+const TEX_W = 2000, TEX_H = 1024;
+const textureCanvas  = document.createElement('canvas');
+textureCanvas.width  = TEX_W;
+textureCanvas.height = TEX_H;
+const ctx2d = textureCanvas.getContext('2d');
+
+function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
+
+// ── Auto-fit texte (identique à configurateur-gobelet.html) ─────────────
+function getFontSize(zone, text) {
+  let size = zone.font_size || 48;
+  const lh = zone.lineHeight || 1.3;
+  const lines = zone.multiline ? text.split('\n') : [text];
+  while (size > 8) {
+    ctx2d.font = `${size}px "${zone.font_family}"`;
+    const maxW   = Math.max(...lines.map(l => ctx2d.measureText(l).width));
+    const totalH = lines.length * size * lh;
+    if (maxW <= zone.width && totalH <= zone.height) break;
+    size -= 1;
+  }
+  return size;
+}
+
+function drawTextZone(zone, text) {
+  if (!text || !text.trim()) return;
+  const lh    = zone.lineHeight || 1.3;
+  const size  = getFontSize(zone, text);
+  ctx2d.font         = `${size}px "${zone.font_family}"`;
+  ctx2d.fillStyle    = zone.color || '#2c2521';
+  ctx2d.textAlign    = zone.align || 'center';
+  ctx2d.textBaseline = 'middle';
+
+  const lines  = zone.multiline ? text.split('\n') : [text];
+  const lineH  = size * lh;
+  const totalH = lines.length * lineH;
+  const startY = zone.y + zone.height / 2 - totalH / 2 + lineH / 2;
+  const startX = zone.align === 'center' ? zone.x + zone.width / 2
+               : zone.align === 'right'  ? zone.x + zone.width
+               : zone.x;
+
+  lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
+}
+
+// ── Rendu texture — même ordre que configurateur-gobelet.html ───────────
+function drawTexture() {
+  // 1. Fond coloré
+  ctx2d.clearRect(0, 0, TEX_W, TEX_H);
+  ctx2d.globalAlpha = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
+  ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
+  ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+  ctx2d.globalAlpha = 1.0;
+
+  // 2. Design PNG/WebP par-dessus le fond, couleurs intactes
+  ctx2d.globalCompositeOperation = 'source-over';
+  ctx2d.globalAlpha = 1.0;
+  if (state.designImage) {
+    const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
+    ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
+  }
+
+  // 3. Textes
+  (CFG.text_zones || []).forEach(zone => {
+    drawTextZone(zone, state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || ''));
+  });
+
+  if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
+}
+
+// ── Chargement config JSON ──────────────────────────────────────────────
+async function loadDesignConfig() {
+  if (!designName) return;
+  const url = `${REPO_BASE}/designs/${encodeURIComponent(designName)}.json`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    CFG = data;
+    state.gobeletColor = CFG.gobelet_color || '#f5f0eb';
+    (CFG.text_zones || []).forEach(z => { state.texts[z.id] = z.placeholder || ''; });
+  } catch (e) {
+    showError(`Design "${designName}" introuvable (${e.message})`);
+  }
+}
+
+// ── Chargement polices — attend la fin du chargement CSS ────────────────
+// FIX: on attend l'événement onload de la stylesheet avant document.fonts.load(),
+//      sinon les polices ne sont pas encore déclarées et la promesse résout vide.
+async function loadFonts() {
+  const families = [...new Set((CFG.text_zones || []).map(z => z.font_family).filter(Boolean))];
+  if (!families.length) { state.fontsReady = true; return; }
+
+  await new Promise(resolve => {
+    const link  = document.createElement('link');
+    link.rel    = 'stylesheet';
+    link.href   = 'https://fonts.googleapis.com/css2?family=' +
+      families.map(f => f.replace(/ /g, '+')).join('&family=') + '&display=swap';
+    link.onload  = resolve;
+    link.onerror = resolve;  // on continue même si Google Fonts est bloqué
+    document.head.appendChild(link);
+  });
+
+  try {
+    await Promise.all(families.map(f => {
+      const zone = (CFG.text_zones || []).find(z => z.font_family === f);
+      return document.fonts.load(`${(zone && zone.font_size) || 48}px "${f}"`);
+    }));
+  } catch (_) {}
+
+  state.fontsReady = true;
+}
+
+// ── Chargement image design ─────────────────────────────────────────────
+// FIX: ne pas ajouter ?v=timestamp aux data URLs (data:image/... devient invalide)
+//      ne pas mettre crossOrigin='anonymous' sur les data URLs
+function loadDesignImage() {
+  if (!CFG.design_url) return Promise.resolve();
+
+  return new Promise(resolve => {
+    const img = new Image();
+    const isDataUrl = CFG.design_url.startsWith('data:');
+
+    if (!isDataUrl) img.crossOrigin = 'anonymous';
+
+    img.onload  = () => { state.designImage = img; resolve(); };
+    img.onerror = () => {
+      // Retry sans crossOrigin si CORS échoue
+      if (!isDataUrl && img.crossOrigin) {
+        const retry = new Image();
+        retry.onload  = () => { state.designImage = retry; resolve(); };
+        retry.onerror = () => resolve();
+        retry.src = CFG.design_url;
+      } else {
+        resolve();
+      }
+    };
+
+    if (isDataUrl) {
+      img.src = CFG.design_url;
+    } else {
+      // Résoudre les URLs relatives par rapport à REPO_BASE
+      let url = CFG.design_url;
+      if (!url.startsWith('http') && !url.startsWith('//')) {
+        url = REPO_BASE + '/' + url.replace(/^\//, '');
+      }
+      img.src = url + (url.includes('?') ? '&' : '?') + '_v=' + Date.now();
+    }
+  });
+}
+
+// ── Three.js ────────────────────────────────────────────────────────────
+let renderer, scene, camera, gobeletGroup, bodyMaterial;
+let storedCameraZ = 5;
+let isDragging = false, lastPointerX = 0;
+let rotY = Math.PI;
+
+function initThree() {
+  const container = document.getElementById('canvas-container');
+  const w = container.clientWidth  || window.innerWidth;
+  const h = container.clientHeight || window.innerHeight;
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(w, h);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.shadowMap.enabled = true;
+  renderer.domElement.style.display = 'block';
+  container.appendChild(renderer.domElement);
+
+  scene = new THREE.Scene();
+
+  const bgCanvas  = document.createElement('canvas');
+  bgCanvas.width  = bgCanvas.height = 512;
+  const bgCtx     = bgCanvas.getContext('2d');
+  const gradient  = bgCtx.createRadialGradient(256, 256, 0, 256, 256, 380);
+  gradient.addColorStop(0, '#edeae5');
+  gradient.addColorStop(1, '#c8c4be');
+  bgCtx.fillStyle = gradient;
+  bgCtx.fillRect(0, 0, 512, 512);
+  scene.background = new THREE.CanvasTexture(bgCanvas);
+
+  camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+  camera.position.set(0, 0, 5);
+
+  // Éclairage studio (identique à configurateur-gobelet.html)
+  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+  dirLight.position.set(3, 5, 3);
+  dirLight.castShadow = true;
+  scene.add(dirLight);
+  const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  backLight.position.set(-3, 2, -3);
+  scene.add(backLight);
+
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(10, 10),
+    new THREE.ShadowMaterial({ opacity: 0.15 })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -1.5;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  // Texture canvas — même config que configurateur-gobelet.html
+  const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
+  gobeletTexture.wrapS          = THREE.RepeatWrapping;
+  gobeletTexture.wrapT          = THREE.RepeatWrapping;
+  gobeletTexture.repeat.set(1, 1);
+  gobeletTexture.offset.set(0, 0);
+  gobeletTexture.flipY          = false;
+  gobeletTexture.encoding       = THREE.sRGBEncoding;
+  window._gobeletTexture        = gobeletTexture;
+
+  bodyMaterial = new THREE.MeshStandardMaterial({
+    map:         gobeletTexture,
+    color:       new THREE.Color('#ffffff'),
+    roughness:   0.3,
+    metalness:   0.1,
+    transparent: true,
+    opacity:     0.82,
+    depthWrite:  false,
+    alphaTest:   0,
+    side:        THREE.FrontSide,
+  });
+  bodyMaterial.needsUpdate = true;
+
+  rotY = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
+
+  gobeletGroup = new THREE.Group();
+  gobeletGroup.rotation.x = 0.18;
+  gobeletGroup.rotation.y = rotY;
+  scene.add(gobeletGroup);
+
+  loadGobelet();
+  initInteraction();
+  window.addEventListener('resize', onResize);
+  if (window.ResizeObserver) {
+    new ResizeObserver(onResize).observe(container);
+  }
+  onResize();
+  animate();
+}
+
+function loadGobelet() {
+  const url = CFG.model_url || `${REPO_BASE}/Gobelet 25 33.glb`;
+
+  if (typeof THREE.GLTFLoader === 'undefined') { fallbackGeometry(); return; }
+
+  const loader = new THREE.GLTFLoader();
+  if (typeof THREE.DRACOLoader !== 'undefined') {
+    const draco = new THREE.DRACOLoader();
+    draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
+    loader.setDRACOLoader(draco);
+  }
+
+  loader.load(url, gltf => {
+    gltf.scene.traverse(child => {
+      if (!child.isMesh) return;
+      child.material = new THREE.MeshStandardMaterial({
+        map:         window._gobeletTexture,
+        color:       new THREE.Color('#ffffff'),
+        roughness:   0.3,
+        metalness:   0.1,
+        transparent: true,
+        opacity:     0.82,
+        depthWrite:  false,
+        alphaTest:   0,
+        side:        THREE.FrontSide,
+      });
+      child.material.needsUpdate = true;
+      child.castShadow = false;
+    });
+
+    gltf.scene.traverse(child => { if (child.isMesh) bodyMaterial = child.material; });
+
+    gobeletGroup.add(gltf.scene);
+
+    // Centre + scale (identique à configurateur-gobelet.html)
+    const box    = new THREE.Box3().setFromObject(gobeletGroup);
+    const size   = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    gobeletGroup.position.sub(center);
+
+    const scaleFactor = 1.746 / size.y;
+    gobeletGroup.scale.setScalar(scaleFactor);
+
+    const box2   = new THREE.Box3().setFromObject(gobeletGroup);
+    const size2  = box2.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size2.x, size2.y, size2.z);
+    storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.15;
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix();
+
+    gobeletGroup.rotation.x = 0.18;
+    gobeletGroup.rotation.z = 0;
+    gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.805);
+    gobeletGroup.position.y -= 0.02;
+    gobeletGroup.rotation.y  = rotY;
+
+    // Disque fond opaque (cache les triangles du bas)
+    gobeletGroup.updateMatrixWorld(true);
+    const boxFond    = new THREE.Box3().setFromObject(gobeletGroup);
+    const fondRadius = (boxFond.max.x - boxFond.min.x) / 2;
+    const disc = new THREE.Mesh(
+      new THREE.CircleGeometry(fondRadius * 0.92, 64),
+      new THREE.MeshStandardMaterial({ color: 0xffffff, depthWrite: true, side: THREE.DoubleSide })
+    );
+    disc.rotation.x = -Math.PI / 2;
+    disc.position.set(gobeletGroup.position.x, boxFond.min.y + 0.02, gobeletGroup.position.z);
+    scene.add(disc);
+
+    // Ombre elliptique
+    gobeletGroup.updateMatrixWorld(true);
+    const tempBox = new THREE.Box3().setFromObject(gobeletGroup);
+    const shadow  = new THREE.Mesh(
+      new THREE.CircleGeometry(0.55, 64),
+      new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.12, depthWrite: false })
+    );
+    shadow.rotation.x = -Math.PI / 2;
+    shadow.position.set(gobeletGroup.position.x, tempBox.min.y - 0.01, gobeletGroup.position.z);
+    scene.add(shadow);
+
+    onResize();
+    drawTexture();
+    requestAnimationFrame(() => { if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true; });
+    hideLoading();
+  }, null, () => fallbackGeometry());
+}
+
+function fallbackGeometry() {
+  gobeletGroup.add(new THREE.Mesh(
+    new THREE.CylinderGeometry(1.12, 0.88, 2.9, 64, 1, true),
+    bodyMaterial
+  ));
+  const bottom = new THREE.Mesh(
+    new THREE.CircleGeometry(0.88, 64),
+    new THREE.MeshStandardMaterial({
+      color: new THREE.Color(parseHexColor(state.gobeletColor)),
+      roughness: 0.35, metalness: 0.04,
+    })
+  );
+  bottom.rotation.x = -Math.PI / 2;
+  bottom.position.y = -1.45;
+  gobeletGroup.add(bottom);
+  drawTexture();
+  hideLoading();
+}
+
+function hideLoading() {
+  const el = document.getElementById('loading-indicator');
+  if (el) {
+    el.classList.add('hidden');
+    setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500);
+  }
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+
+function initInteraction() {
+  const el = renderer.domElement;
+
+  el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    rotY += (e.clientX - lastPointerX) * 0.01;
+    lastPointerX = e.clientX;
+    gobeletGroup.rotation.y = rotY;
+  });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  el.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    isDragging = true; lastPointerX = e.touches[0].clientX;
+  }, { passive: true });
+  el.addEventListener('touchmove', e => {
+    if (!isDragging || e.touches.length !== 1) return;
+    rotY += (e.touches[0].clientX - lastPointerX) * 0.01;
+    lastPointerX = e.touches[0].clientX;
+    gobeletGroup.rotation.y = rotY;
+    e.preventDefault();
+  }, { passive: false });
+  el.addEventListener('touchend', () => { isDragging = false; });
+}
+
+function onResize() {
+  if (!renderer) return;
+  const container = document.getElementById('canvas-container');
+  const w = container.clientWidth  || window.innerWidth;
+  const h = container.clientHeight || window.innerHeight;
+  if (w === 0 || h === 0) return;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.position.set(0, 0, storedCameraZ);
+  camera.updateProjectionMatrix();
+}
+
+// ── postMessage depuis Shopify parent ───────────────────────────────────
+// FIX: suppression du gate state.fontsReady — on dessine dès réception
+//      Les textes du JSON sont déjà dans state.texts grâce à loadFonts()
+window.addEventListener('message', function(e) {
+  const data = e.data;
+  if (!data || typeof data !== 'object') return;
+
+  // Mettre à jour les textes :
+  // { type: 'kuztom_update', zones: [{id: 'prenom', text: 'Emma'}, ...] }
+  if (data.type === 'kuztom_update' && Array.isArray(data.zones)) {
+    let changed = false;
+    data.zones.forEach(function(item) {
+      const zone = (CFG.text_zones || []).find(function(z) { return z.id === item.id; });
+      if (zone && item.text !== undefined) {
+        state.texts[zone.id] = item.text;
+        changed = true;
+      }
+    });
+    if (changed) drawTexture();
+  }
+
+  // Mettre à jour la couleur :
+  // { type: 'kuztom_color', hex: '#f5f0eb', opacity: 0.88 }
+  if (data.type === 'kuztom_color' && data.hex) {
+    state.gobeletColor = data.hex;
+    if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
+    drawTexture();
+  }
+});
+
+function showError(msg) {
+  const el  = document.getElementById('error-msg');
+  const txt = document.getElementById('error-text');
+  if (txt) txt.textContent = msg;
+  if (el)  el.classList.add('visible');
+  hideLoading();
+}
+
+// ── Init ────────────────────────────────────────────────────────────────
+async function init() {
+  await loadDesignConfig();
+  // Charger polices et image en parallèle — loadFonts() attend maintenant
+  // la fin du chargement CSS avant de résoudre, garantissant que les polices
+  // sont disponibles pour ctx2d avant le premier drawTexture().
+  await Promise.all([loadFonts(), loadDesignImage()]);
+  drawTexture();
+  initThree();
+  // Signale au parent Shopify que le viewer est prêt à recevoir des messages.
+  // Cela permet un second envoi des textes/couleurs si le parent était déjà chargé.
+  window.parent.postMessage({ type: 'kuztom_ready' }, '*');
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+</body>
+</html>
