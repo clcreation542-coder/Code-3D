@@ -217,11 +217,13 @@ function drawTexture() {
 
 async function loadDesignConfig() {
   if (!designName) return;
-  const url = `${REPO_BASE}/designs/${encodeURIComponent(designName)}.json`;
+  const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json?t=' + Date.now();
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+    const designs = await res.json();
+    const data = Array.isArray(designs) ? designs.find(d => d.id === designName) : null;
+    if (!data) throw new Error('design non trouvé dans designs.json');
     CFG = data;
     state.gobeletColor = CFG.gobelet_color || '#f5f0eb';
     (CFG.text_zones || []).forEach(z => { state.texts[z.id] = z.placeholder || ''; });
