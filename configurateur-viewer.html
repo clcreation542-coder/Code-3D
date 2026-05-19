@@ -546,23 +546,33 @@ function onResize() {
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
+  console.log('[kuztom viewer] MESSAGE REÇU:', data.type, data);
 
   // UPDATE_TEXT : { type, zoneId, value }
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(function(z) { return z.id === data.zoneId; });
-    if (zone) { state.texts[zone.id] = data.value; drawTexture(); }
+    if (zone) {
+      state.texts[zone.id] = data.value;
+      drawTexture();
+      if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+    }
   }
 
   // UPDATE_COLOR : { type, value: "#hex" }
   if (data.type === 'UPDATE_COLOR' && data.value) {
     state.gobeletColor = data.value;
     drawTexture();
+    if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
 
   // UPDATE_PHOTO : { type, zoneId, value: "base64..." }
   if (data.type === 'UPDATE_PHOTO' && data.zoneId && data.value) {
     const img = new Image();
-    img.onload = function() { state.photos[data.zoneId] = img; drawTexture(); };
+    img.onload = function() {
+      state.photos[data.zoneId] = img;
+      drawTexture();
+      if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+    };
     img.src = data.value;
   }
 });
