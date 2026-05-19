@@ -95,7 +95,7 @@
     </div>
   </div>
   <div id="error-msg">
-    <span style="font-size:24px">⚠️</span>
+    <span style="font-size:24px">&#9888;</span>
     <span id="error-text">Design introuvable.</span>
   </div>
 </div>
@@ -119,7 +119,8 @@ let CFG = {
 };
 
 const state = {
-  texts:       {},
+  texts:        {},
+  photos:       {},
   gobeletColor: '#f5f0eb',
   designImage:  null,
   fontsReady:   false,
@@ -167,7 +168,21 @@ function drawTextZone(zone, text) {
   lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
 }
 
-// Rendu texture — même ordre que configurateur-gobelet.html
+function drawPhotoZone(zone, img) {
+  const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
+  const iw = img.naturalWidth  || img.width  || 1;
+  const ih = img.naturalHeight || img.height || 1;
+  const scale = Math.max(zw / iw, zh / ih);
+  const sw = iw * scale, sh = ih * scale;
+  const ox = zx + (zw - sw) / 2, oy = zy + (zh - sh) / 2;
+  ctx2d.save();
+  ctx2d.beginPath();
+  ctx2d.rect(zx, zy, zw, zh);
+  ctx2d.clip();
+  ctx2d.drawImage(img, ox, oy, sw, sh);
+  ctx2d.restore();
+}
+
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
 
@@ -185,7 +200,13 @@ function drawTexture() {
     ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
   }
 
-  // 3. Textes
+  // 3. Photos uploadées
+  (CFG.photo_zones || []).forEach(zone => {
+    const img = state.photos[zone.id];
+    if (img) drawPhotoZone(zone, img);
+  });
+
+  // 4. Textes
   (CFG.text_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     drawTextZone(zone, txt);
@@ -209,8 +230,6 @@ async function loadDesignConfig() {
   }
 }
 
-// FIX: attend l'onload de la stylesheet avant document.fonts.load()
-// Sans ça, les polices ne sont pas encore dans la CSS et la promesse résout vide.
 async function loadFonts() {
   const families = [...new Set((CFG.text_zones || []).map(z => z.font_family).filter(Boolean))];
   if (!families.length) { state.fontsReady = true; return; }
@@ -235,7 +254,6 @@ async function loadFonts() {
   state.fontsReady = true;
 }
 
-// FIX: ne pas ajouter ?v= aux data URLs — ça les rend invalides
 function loadDesignImage() {
   if (!CFG.design_url) return Promise.resolve();
 
@@ -413,7 +431,7 @@ function loadGobelet() {
     gobeletGroup.position.y -= 0.02;
     gobeletGroup.rotation.y  = rotY;
 
-    // Disc 1 — inside gobeletGroup (covers GLB bottom triangles)
+    // Disc 1 — inside gobeletGroup (couvre le fond du GLB)
     const boxDisc = new THREE.Box3().setFromObject(gobeletGroup);
     const disc1   = new THREE.Mesh(
       new THREE.CircleGeometry((boxDisc.max.x - boxDisc.min.x) / 2 * 0.95, 64),
@@ -423,7 +441,7 @@ function loadGobelet() {
     disc1.position.y = boxDisc.min.y + 0.01;
     gobeletGroup.add(disc1);
 
-    // Disc 2 — in scene
+    // Disc 2 — dans la scène
     gobeletGroup.updateMatrixWorld(true);
     const boxFond    = new THREE.Box3().setFromObject(gobeletGroup);
     const fondRadius = (boxFond.max.x - boxFond.min.x) / 2;
@@ -435,6 +453,7 @@ function loadGobelet() {
     disc2.position.set(gobeletGroup.position.x, boxFond.min.y + 0.02, gobeletGroup.position.z);
     scene.add(disc2);
 
+    // Ombre fine ellipse
     gobeletGroup.updateMatrixWorld(true);
     const tempBox = new THREE.Box3().setFromObject(gobeletGroup);
     const shadow  = new THREE.Mesh(
@@ -522,27 +541,40 @@ function onResize() {
   camera.updateProjectionMatrix();
 }
 
-// FIX: suppression du gate state.fontsReady — drawTexture() appelé dès réception
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
 
-  if (data.type === 'kuztom_update' && Array.isArray(data.zones)) {
-    let changed = false;
-    data.zones.forEach(function(item) {
-      const zone = (CFG.text_zones || []).find(function(z) { return z.id === item.id; });
-      if (zone && item.text !== undefined) {
-        state.texts[zone.id] = item.text;
-        changed = true;
-      }
-    });
-    if (changed) drawTexture();
+  if (data.type === 'kuztom_update') {
+    // Format : { type, zoneId, value }
+    if (data.zoneId !== undefined && data.value !== undefined) {
+      const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId);
+      if (zone) { state.texts[zone.id] = data.value; drawTexture(); }
+    }
+    // Format legacy : { type, zones: [{id, text}] }
+    else if (Array.isArray(data.zones)) {
+      let changed = false;
+      data.zones.forEach(function(item) {
+        const zone = (CFG.text_zones || []).find(function(z) { return z.id === item.id; });
+        if (zone && item.text !== undefined) { state.texts[zone.id] = item.text; changed = true; }
+      });
+      if (changed) drawTexture();
+    }
   }
 
-  if (data.type === 'kuztom_color' && data.hex) {
-    state.gobeletColor = data.hex;
-    if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
-    drawTexture();
+  if (data.type === 'kuztom_color') {
+    const colorVal = data.color || data.hex;
+    if (colorVal) {
+      state.gobeletColor = colorVal;
+      if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
+      drawTexture();
+    }
+  }
+
+  if (data.type === 'kuztom_photo' && data.zoneId && data.dataUrl) {
+    const img = new Image();
+    img.onload = function() { state.photos[data.zoneId] = img; drawTexture(); };
+    img.src = data.dataUrl;
   }
 });
 
@@ -559,7 +591,6 @@ async function init() {
   await Promise.all([loadFonts(), loadDesignImage()]);
   drawTexture();
   initThree();
-  // Signale au parent Shopify que l'init est terminée
   window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
 
