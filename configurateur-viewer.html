@@ -30,9 +30,7 @@
       overflow: hidden;
     }
 
-    #canvas-container canvas {
-      display: block;
-    }
+    #canvas-container canvas { display: block; }
 
     #loading-indicator {
       position: absolute;
@@ -107,17 +105,12 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════════
-//  PARAMÈTRES URL
-//  Usage : configurateur-viewer.html?design=nom-du-design
-// ═══════════════════════════════════════════════════════════════════════
+// ── Paramètres URL ──────────────────────────────────────────────────────
 const params     = new URLSearchParams(window.location.search);
 const designName = params.get('design') || '';
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
 
-// ═══════════════════════════════════════════════════════════════════════
-//  CONFIG (chargée depuis /designs/{designName}.json)
-// ═══════════════════════════════════════════════════════════════════════
+// ── Config (chargée depuis /designs/{name}.json) ────────────────────────
 let CFG = {
   id: '', name: '',
   gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
@@ -127,9 +120,7 @@ let CFG = {
   variant_colors: [], text_zones: [], photo_zones: []
 };
 
-// ═══════════════════════════════════════════════════════════════════════
-//  ÉTAT
-// ═══════════════════════════════════════════════════════════════════════
+// ── État ────────────────────────────────────────────────────────────────
 const state = {
   texts:       {},
   gobeletColor: '#f5f0eb',
@@ -137,9 +128,7 @@ const state = {
   fontsReady:   false,
 };
 
-// ═══════════════════════════════════════════════════════════════════════
-//  CANVAS TEXTURE 2000×1024
-// ═══════════════════════════════════════════════════════════════════════
+// ── Canvas texture 2000×1024 ────────────────────────────────────────────
 const TEX_W = 2000, TEX_H = 1024;
 const textureCanvas  = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
@@ -148,12 +137,11 @@ const ctx2d = textureCanvas.getContext('2d');
 
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 
-function drawTextZone(zone, text) {
-  if (!text || !text.trim()) return;
-  const lh    = zone.lineHeight || 1.3;
-  let size    = zone.font_size  || 48;
-  const lines = zone.multiline  ? text.split('\n') : [text];
-
+// ── Auto-fit texte (identique à configurateur-gobelet.html) ─────────────
+function getFontSize(zone, text) {
+  let size = zone.font_size || 48;
+  const lh = zone.lineHeight || 1.3;
+  const lines = zone.multiline ? text.split('\n') : [text];
   while (size > 8) {
     ctx2d.font = `${size}px "${zone.font_family}"`;
     const maxW   = Math.max(...lines.map(l => ctx2d.measureText(l).width));
@@ -161,12 +149,19 @@ function drawTextZone(zone, text) {
     if (maxW <= zone.width && totalH <= zone.height) break;
     size -= 1;
   }
+  return size;
+}
 
-  ctx2d.font          = `${size}px "${zone.font_family}"`;
-  ctx2d.fillStyle     = zone.color || '#2c2521';
-  ctx2d.textAlign     = zone.align || 'center';
-  ctx2d.textBaseline  = 'middle';
+function drawTextZone(zone, text) {
+  if (!text || !text.trim()) return;
+  const lh    = zone.lineHeight || 1.3;
+  const size  = getFontSize(zone, text);
+  ctx2d.font         = `${size}px "${zone.font_family}"`;
+  ctx2d.fillStyle    = zone.color || '#2c2521';
+  ctx2d.textAlign    = zone.align || 'center';
+  ctx2d.textBaseline = 'middle';
 
+  const lines  = zone.multiline ? text.split('\n') : [text];
   const lineH  = size * lh;
   const totalH = lines.length * lineH;
   const startY = zone.y + zone.height / 2 - totalH / 2 + lineH / 2;
@@ -177,35 +172,32 @@ function drawTextZone(zone, text) {
   lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
 }
 
+// ── Rendu texture — même ordre que configurateur-gobelet.html ───────────
 function drawTexture() {
+  // 1. Fond coloré
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
-
-  // Fond coloré (simule l'ecocup translucide)
-  ctx2d.globalAlpha = CFG.gobelet_opacity ?? 0.88;
+  ctx2d.globalAlpha = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
   ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = 1.0;
 
+  // 2. Design PNG/WebP par-dessus le fond, couleurs intactes
   ctx2d.globalCompositeOperation = 'source-over';
-
-  // Design PNG
+  ctx2d.globalAlpha = 1.0;
   if (state.designImage) {
     const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
     ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
   }
 
-  // Textes (avec placeholder)
+  // 3. Textes
   (CFG.text_zones || []).forEach(zone => {
-    drawTextZone(zone, state.texts[zone.id] || zone.placeholder || '');
+    drawTextZone(zone, state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || ''));
   });
 
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  CHARGEMENT DU DESIGN JSON
-//  Fetch depuis /designs/{designName}.json sur GitHub Pages
-// ═══════════════════════════════════════════════════════════════════════
+// ── Chargement config JSON ──────────────────────────────────────────────
 async function loadDesignConfig() {
   if (!designName) return;
   const url = `${REPO_BASE}/designs/${encodeURIComponent(designName)}.json`;
@@ -221,43 +213,72 @@ async function loadDesignConfig() {
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  CHARGEMENT POLICES & IMAGE
-// ═══════════════════════════════════════════════════════════════════════
+// ── Chargement polices — attend la fin du chargement CSS ────────────────
+// FIX: on attend l'événement onload de la stylesheet avant document.fonts.load(),
+//      sinon les polices ne sont pas encore déclarées et la promesse résout vide.
 async function loadFonts() {
   const families = [...new Set((CFG.text_zones || []).map(z => z.font_family).filter(Boolean))];
   if (!families.length) { state.fontsReady = true; return; }
 
-  const link  = document.createElement('link');
-  link.rel    = 'stylesheet';
-  link.href   = 'https://fonts.googleapis.com/css2?family=' +
-    families.map(f => f.replace(/ /g, '+')).join('&family=') + '&display=swap';
-  document.head.appendChild(link);
+  await new Promise(resolve => {
+    const link  = document.createElement('link');
+    link.rel    = 'stylesheet';
+    link.href   = 'https://fonts.googleapis.com/css2?family=' +
+      families.map(f => f.replace(/ /g, '+')).join('&family=') + '&display=swap';
+    link.onload  = resolve;
+    link.onerror = resolve;  // on continue même si Google Fonts est bloqué
+    document.head.appendChild(link);
+  });
 
   try {
     await Promise.all(families.map(f => {
-      const zone = CFG.text_zones.find(z => z.font_family === f);
-      return document.fonts.load(`${zone?.font_size || 48}px "${f}"`);
+      const zone = (CFG.text_zones || []).find(z => z.font_family === f);
+      return document.fonts.load(`${(zone && zone.font_size) || 48}px "${f}"`);
     }));
   } catch (_) {}
 
   state.fontsReady = true;
 }
 
+// ── Chargement image design ─────────────────────────────────────────────
+// FIX: ne pas ajouter ?v=timestamp aux data URLs (data:image/... devient invalide)
+//      ne pas mettre crossOrigin='anonymous' sur les data URLs
 function loadDesignImage() {
   if (!CFG.design_url) return Promise.resolve();
+
   return new Promise(resolve => {
-    const img      = new Image();
-    img.crossOrigin = 'anonymous';
+    const img = new Image();
+    const isDataUrl = CFG.design_url.startsWith('data:');
+
+    if (!isDataUrl) img.crossOrigin = 'anonymous';
+
     img.onload  = () => { state.designImage = img; resolve(); };
-    img.onerror = () => resolve();
-    img.src = CFG.design_url + (CFG.design_url.includes('?') ? '&' : '?') + 'v=' + Date.now();
+    img.onerror = () => {
+      // Retry sans crossOrigin si CORS échoue
+      if (!isDataUrl && img.crossOrigin) {
+        const retry = new Image();
+        retry.onload  = () => { state.designImage = retry; resolve(); };
+        retry.onerror = () => resolve();
+        retry.src = CFG.design_url;
+      } else {
+        resolve();
+      }
+    };
+
+    if (isDataUrl) {
+      img.src = CFG.design_url;
+    } else {
+      // Résoudre les URLs relatives par rapport à REPO_BASE
+      let url = CFG.design_url;
+      if (!url.startsWith('http') && !url.startsWith('//')) {
+        url = REPO_BASE + '/' + url.replace(/^\//, '');
+      }
+      img.src = url + (url.includes('?') ? '&' : '?') + '_v=' + Date.now();
+    }
   });
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  THREE.JS
-// ═══════════════════════════════════════════════════════════════════════
+// ── Three.js ────────────────────────────────────────────────────────────
 let renderer, scene, camera, gobeletGroup, bodyMaterial;
 let storedCameraZ = 5;
 let isDragging = false, lastPointerX = 0;
@@ -268,7 +289,7 @@ function initThree() {
   const w = container.clientWidth  || window.innerWidth;
   const h = container.clientHeight || window.innerHeight;
 
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
@@ -278,7 +299,6 @@ function initThree() {
 
   scene = new THREE.Scene();
 
-  // Fond dégradé radial style studio photo
   const bgCanvas  = document.createElement('canvas');
   bgCanvas.width  = bgCanvas.height = 512;
   const bgCtx     = bgCanvas.getContext('2d');
@@ -292,7 +312,7 @@ function initThree() {
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
   camera.position.set(0, 0, 5);
 
-  // Éclairage studio
+  // Éclairage studio (identique à configurateur-gobelet.html)
   scene.add(new THREE.AmbientLight(0xffffff, 0.7));
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
   dirLight.position.set(3, 5, 3);
@@ -302,7 +322,6 @@ function initThree() {
   backLight.position.set(-3, 2, -3);
   scene.add(backLight);
 
-  // Sol avec ombre
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(10, 10),
     new THREE.ShadowMaterial({ opacity: 0.15 })
@@ -312,13 +331,15 @@ function initThree() {
   floor.receiveShadow = true;
   scene.add(floor);
 
-  // Texture canvas
-  const gobeletTexture    = new THREE.CanvasTexture(textureCanvas);
-  gobeletTexture.wrapS    = THREE.RepeatWrapping;
-  gobeletTexture.wrapT    = THREE.RepeatWrapping;
-  gobeletTexture.flipY    = false;
-  gobeletTexture.encoding = THREE.sRGBEncoding;
-  window._gobeletTexture  = gobeletTexture;
+  // Texture canvas — même config que configurateur-gobelet.html
+  const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
+  gobeletTexture.wrapS          = THREE.RepeatWrapping;
+  gobeletTexture.wrapT          = THREE.RepeatWrapping;
+  gobeletTexture.repeat.set(1, 1);
+  gobeletTexture.offset.set(0, 0);
+  gobeletTexture.flipY          = false;
+  gobeletTexture.encoding       = THREE.sRGBEncoding;
+  window._gobeletTexture        = gobeletTexture;
 
   bodyMaterial = new THREE.MeshStandardMaterial({
     map:         gobeletTexture,
@@ -331,6 +352,7 @@ function initThree() {
     alphaTest:   0,
     side:        THREE.FrontSide,
   });
+  bodyMaterial.needsUpdate = true;
 
   rotY = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
 
@@ -342,7 +364,6 @@ function initThree() {
   loadGobelet();
   initInteraction();
   window.addEventListener('resize', onResize);
-  // ResizeObserver pour iframe redimensionnée sans resize window
   if (window.ResizeObserver) {
     new ResizeObserver(onResize).observe(container);
   }
@@ -380,12 +401,11 @@ function loadGobelet() {
       child.castShadow = false;
     });
 
-    // Garde une référence au matériau principal
     gltf.scene.traverse(child => { if (child.isMesh) bodyMaterial = child.material; });
 
     gobeletGroup.add(gltf.scene);
 
-    // Centre + scale
+    // Centre + scale (identique à configurateur-gobelet.html)
     const box    = new THREE.Box3().setFromObject(gobeletGroup);
     const size   = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
@@ -407,7 +427,7 @@ function loadGobelet() {
     gobeletGroup.position.y -= 0.02;
     gobeletGroup.rotation.y  = rotY;
 
-    // Disque fond opaque (cache le bas du gobelet)
+    // Disque fond opaque (cache les triangles du bas)
     gobeletGroup.updateMatrixWorld(true);
     const boxFond    = new THREE.Box3().setFromObject(gobeletGroup);
     const fondRadius = (boxFond.max.x - boxFond.min.x) / 2;
@@ -445,9 +465,8 @@ function fallbackGeometry() {
   const bottom = new THREE.Mesh(
     new THREE.CircleGeometry(0.88, 64),
     new THREE.MeshStandardMaterial({
-      color:     new THREE.Color(parseHexColor(state.gobeletColor)),
-      roughness: 0.35,
-      metalness: 0.04,
+      color: new THREE.Color(parseHexColor(state.gobeletColor)),
+      roughness: 0.35, metalness: 0.04,
     })
   );
   bottom.rotation.x = -Math.PI / 2;
@@ -473,10 +492,7 @@ function animate() {
 function initInteraction() {
   const el = renderer.domElement;
 
-  el.addEventListener('mousedown', e => {
-    isDragging   = true;
-    lastPointerX = e.clientX;
-  });
+  el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; });
   window.addEventListener('mousemove', e => {
     if (!isDragging) return;
     rotY += (e.clientX - lastPointerX) * 0.01;
@@ -487,8 +503,7 @@ function initInteraction() {
 
   el.addEventListener('touchstart', e => {
     if (e.touches.length !== 1) return;
-    isDragging   = true;
-    lastPointerX = e.touches[0].clientX;
+    isDragging = true; lastPointerX = e.touches[0].clientX;
   }, { passive: true });
   el.addEventListener('touchmove', e => {
     if (!isDragging || e.touches.length !== 1) return;
@@ -512,38 +527,29 @@ function onResize() {
   camera.updateProjectionMatrix();
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  POSTMESSAGE — écoute les mises à jour depuis la page Shopify parente
-//
-//  Mettre à jour les textes :
-//    window.frames[0].postMessage({
-//      type: 'kuztom_update',
-//      zones: [{ id: 'texte', text: 'Emma' }, { id: 'date', text: '18.10.2025' }]
-//    }, '*')
-//
-//  Mettre à jour la couleur :
-//    window.frames[0].postMessage({
-//      type: 'kuztom_color',
-//      hex: '#f5f0eb',
-//      opacity: 0.88
-//    }, '*')
-// ═══════════════════════════════════════════════════════════════════════
+// ── postMessage depuis Shopify parent ───────────────────────────────────
+// FIX: suppression du gate state.fontsReady — on dessine dès réception
+//      Les textes du JSON sont déjà dans state.texts grâce à loadFonts()
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
 
+  // Mettre à jour les textes :
+  // { type: 'kuztom_update', zones: [{id: 'prenom', text: 'Emma'}, ...] }
   if (data.type === 'kuztom_update' && Array.isArray(data.zones)) {
     let changed = false;
-    data.zones.forEach(item => {
-      const zone = (CFG.text_zones || []).find(z => z.id === item.id);
+    data.zones.forEach(function(item) {
+      const zone = (CFG.text_zones || []).find(function(z) { return z.id === item.id; });
       if (zone && item.text !== undefined) {
         state.texts[zone.id] = item.text;
         changed = true;
       }
     });
-    if (changed && state.fontsReady) drawTexture();
+    if (changed) drawTexture();
   }
 
+  // Mettre à jour la couleur :
+  // { type: 'kuztom_color', hex: '#f5f0eb', opacity: 0.88 }
   if (data.type === 'kuztom_color' && data.hex) {
     state.gobeletColor = data.hex;
     if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
@@ -551,9 +557,6 @@ window.addEventListener('message', function(e) {
   }
 });
 
-// ═══════════════════════════════════════════════════════════════════════
-//  ERREUR
-// ═══════════════════════════════════════════════════════════════════════
 function showError(msg) {
   const el  = document.getElementById('error-msg');
   const txt = document.getElementById('error-text');
@@ -562,14 +565,18 @@ function showError(msg) {
   hideLoading();
 }
 
-// ═══════════════════════════════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════════════════════════════
+// ── Init ────────────────────────────────────────────────────────────────
 async function init() {
   await loadDesignConfig();
+  // Charger polices et image en parallèle — loadFonts() attend maintenant
+  // la fin du chargement CSS avant de résoudre, garantissant que les polices
+  // sont disponibles pour ctx2d avant le premier drawTexture().
   await Promise.all([loadFonts(), loadDesignImage()]);
   drawTexture();
   initThree();
+  // Signale au parent Shopify que le viewer est prêt à recevoir des messages.
+  // Cela permet un second envoi des textes/couleurs si le parent était déjà chargé.
+  window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
 
 if (document.readyState === 'loading') {
