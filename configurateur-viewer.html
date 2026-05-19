@@ -105,12 +105,10 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
 
 <script>
-// ── Paramètres URL ──────────────────────────────────────────────────────
 const params     = new URLSearchParams(window.location.search);
 const designName = params.get('design') || '';
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
 
-// ── Config (chargée depuis /designs/{name}.json) ────────────────────────
 let CFG = {
   id: '', name: '',
   gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
@@ -120,7 +118,6 @@ let CFG = {
   variant_colors: [], text_zones: [], photo_zones: []
 };
 
-// ── État ────────────────────────────────────────────────────────────────
 const state = {
   texts:       {},
   gobeletColor: '#f5f0eb',
@@ -128,7 +125,6 @@ const state = {
   fontsReady:   false,
 };
 
-// ── Canvas texture 2000×1024 ────────────────────────────────────────────
 const TEX_W = 2000, TEX_H = 1024;
 const textureCanvas  = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
@@ -137,11 +133,10 @@ const ctx2d = textureCanvas.getContext('2d');
 
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 
-// ── Auto-fit texte (identique à configurateur-gobelet.html) ─────────────
 function getFontSize(zone, text) {
   let size = zone.font_size || 48;
   const lh = zone.lineHeight || 1.3;
-  const lines = zone.multiline ? text.split('\n') : [text];
+  const lines = text.split('\n');
   while (size > 8) {
     ctx2d.font = `${size}px "${zone.font_family}"`;
     const maxW   = Math.max(...lines.map(l => ctx2d.measureText(l).width));
@@ -161,7 +156,7 @@ function drawTextZone(zone, text) {
   ctx2d.textAlign    = zone.align || 'center';
   ctx2d.textBaseline = 'middle';
 
-  const lines  = zone.multiline ? text.split('\n') : [text];
+  const lines  = text.split('\n');
   const lineH  = size * lh;
   const totalH = lines.length * lineH;
   const startY = zone.y + zone.height / 2 - totalH / 2 + lineH / 2;
@@ -172,16 +167,17 @@ function drawTextZone(zone, text) {
   lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
 }
 
-// ── Rendu texture — même ordre que configurateur-gobelet.html ───────────
+// Rendu texture — même ordre que configurateur-gobelet.html
 function drawTexture() {
-  // 1. Fond coloré
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
+
+  // 1. Fond coloré
   ctx2d.globalAlpha = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
   ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = 1.0;
 
-  // 2. Design PNG/WebP par-dessus le fond, couleurs intactes
+  // 2. Design PNG/WebP par-dessus
   ctx2d.globalCompositeOperation = 'source-over';
   ctx2d.globalAlpha = 1.0;
   if (state.designImage) {
@@ -191,13 +187,13 @@ function drawTexture() {
 
   // 3. Textes
   (CFG.text_zones || []).forEach(zone => {
-    drawTextZone(zone, state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || ''));
+    const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
+    drawTextZone(zone, txt);
   });
 
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
 }
 
-// ── Chargement config JSON ──────────────────────────────────────────────
 async function loadDesignConfig() {
   if (!designName) return;
   const url = `${REPO_BASE}/designs/${encodeURIComponent(designName)}.json`;
@@ -213,9 +209,8 @@ async function loadDesignConfig() {
   }
 }
 
-// ── Chargement polices — attend la fin du chargement CSS ────────────────
-// FIX: on attend l'événement onload de la stylesheet avant document.fonts.load(),
-//      sinon les polices ne sont pas encore déclarées et la promesse résout vide.
+// FIX: attend l'onload de la stylesheet avant document.fonts.load()
+// Sans ça, les polices ne sont pas encore dans la CSS et la promesse résout vide.
 async function loadFonts() {
   const families = [...new Set((CFG.text_zones || []).map(z => z.font_family).filter(Boolean))];
   if (!families.length) { state.fontsReady = true; return; }
@@ -226,7 +221,7 @@ async function loadFonts() {
     link.href   = 'https://fonts.googleapis.com/css2?family=' +
       families.map(f => f.replace(/ /g, '+')).join('&family=') + '&display=swap';
     link.onload  = resolve;
-    link.onerror = resolve;  // on continue même si Google Fonts est bloqué
+    link.onerror = resolve;
     document.head.appendChild(link);
   });
 
@@ -240,9 +235,7 @@ async function loadFonts() {
   state.fontsReady = true;
 }
 
-// ── Chargement image design ─────────────────────────────────────────────
-// FIX: ne pas ajouter ?v=timestamp aux data URLs (data:image/... devient invalide)
-//      ne pas mettre crossOrigin='anonymous' sur les data URLs
+// FIX: ne pas ajouter ?v= aux data URLs — ça les rend invalides
 function loadDesignImage() {
   if (!CFG.design_url) return Promise.resolve();
 
@@ -254,7 +247,6 @@ function loadDesignImage() {
 
     img.onload  = () => { state.designImage = img; resolve(); };
     img.onerror = () => {
-      // Retry sans crossOrigin si CORS échoue
       if (!isDataUrl && img.crossOrigin) {
         const retry = new Image();
         retry.onload  = () => { state.designImage = retry; resolve(); };
@@ -268,7 +260,6 @@ function loadDesignImage() {
     if (isDataUrl) {
       img.src = CFG.design_url;
     } else {
-      // Résoudre les URLs relatives par rapport à REPO_BASE
       let url = CFG.design_url;
       if (!url.startsWith('http') && !url.startsWith('//')) {
         url = REPO_BASE + '/' + url.replace(/^\//, '');
@@ -278,7 +269,6 @@ function loadDesignImage() {
   });
 }
 
-// ── Three.js ────────────────────────────────────────────────────────────
 let renderer, scene, camera, gobeletGroup, bodyMaterial;
 let storedCameraZ = 5;
 let isDragging = false, lastPointerX = 0;
@@ -312,7 +302,6 @@ function initThree() {
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
   camera.position.set(0, 0, 5);
 
-  // Éclairage studio (identique à configurateur-gobelet.html)
   scene.add(new THREE.AmbientLight(0xffffff, 0.7));
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
   dirLight.position.set(3, 5, 3);
@@ -331,7 +320,6 @@ function initThree() {
   floor.receiveShadow = true;
   scene.add(floor);
 
-  // Texture canvas — même config que configurateur-gobelet.html
   const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
   gobeletTexture.wrapS          = THREE.RepeatWrapping;
   gobeletTexture.wrapT          = THREE.RepeatWrapping;
@@ -402,10 +390,8 @@ function loadGobelet() {
     });
 
     gltf.scene.traverse(child => { if (child.isMesh) bodyMaterial = child.material; });
-
     gobeletGroup.add(gltf.scene);
 
-    // Centre + scale (identique à configurateur-gobelet.html)
     const box    = new THREE.Box3().setFromObject(gobeletGroup);
     const size   = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
@@ -427,19 +413,28 @@ function loadGobelet() {
     gobeletGroup.position.y -= 0.02;
     gobeletGroup.rotation.y  = rotY;
 
-    // Disque fond opaque (cache les triangles du bas)
+    // Disc 1 — inside gobeletGroup (covers GLB bottom triangles)
+    const boxDisc = new THREE.Box3().setFromObject(gobeletGroup);
+    const disc1   = new THREE.Mesh(
+      new THREE.CircleGeometry((boxDisc.max.x - boxDisc.min.x) / 2 * 0.95, 64),
+      new THREE.MeshStandardMaterial({ color: 0xffffff, side: THREE.FrontSide })
+    );
+    disc1.rotation.x = -Math.PI / 2;
+    disc1.position.y = boxDisc.min.y + 0.01;
+    gobeletGroup.add(disc1);
+
+    // Disc 2 — in scene
     gobeletGroup.updateMatrixWorld(true);
     const boxFond    = new THREE.Box3().setFromObject(gobeletGroup);
     const fondRadius = (boxFond.max.x - boxFond.min.x) / 2;
-    const disc = new THREE.Mesh(
+    const disc2 = new THREE.Mesh(
       new THREE.CircleGeometry(fondRadius * 0.92, 64),
       new THREE.MeshStandardMaterial({ color: 0xffffff, depthWrite: true, side: THREE.DoubleSide })
     );
-    disc.rotation.x = -Math.PI / 2;
-    disc.position.set(gobeletGroup.position.x, boxFond.min.y + 0.02, gobeletGroup.position.z);
-    scene.add(disc);
+    disc2.rotation.x = -Math.PI / 2;
+    disc2.position.set(gobeletGroup.position.x, boxFond.min.y + 0.02, gobeletGroup.position.z);
+    scene.add(disc2);
 
-    // Ombre elliptique
     gobeletGroup.updateMatrixWorld(true);
     const tempBox = new THREE.Box3().setFromObject(gobeletGroup);
     const shadow  = new THREE.Mesh(
@@ -527,15 +522,11 @@ function onResize() {
   camera.updateProjectionMatrix();
 }
 
-// ── postMessage depuis Shopify parent ───────────────────────────────────
-// FIX: suppression du gate state.fontsReady — on dessine dès réception
-//      Les textes du JSON sont déjà dans state.texts grâce à loadFonts()
+// FIX: suppression du gate state.fontsReady — drawTexture() appelé dès réception
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
 
-  // Mettre à jour les textes :
-  // { type: 'kuztom_update', zones: [{id: 'prenom', text: 'Emma'}, ...] }
   if (data.type === 'kuztom_update' && Array.isArray(data.zones)) {
     let changed = false;
     data.zones.forEach(function(item) {
@@ -548,8 +539,6 @@ window.addEventListener('message', function(e) {
     if (changed) drawTexture();
   }
 
-  // Mettre à jour la couleur :
-  // { type: 'kuztom_color', hex: '#f5f0eb', opacity: 0.88 }
   if (data.type === 'kuztom_color' && data.hex) {
     state.gobeletColor = data.hex;
     if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
@@ -565,17 +554,12 @@ function showError(msg) {
   hideLoading();
 }
 
-// ── Init ────────────────────────────────────────────────────────────────
 async function init() {
   await loadDesignConfig();
-  // Charger polices et image en parallèle — loadFonts() attend maintenant
-  // la fin du chargement CSS avant de résoudre, garantissant que les polices
-  // sont disponibles pour ctx2d avant le premier drawTexture().
   await Promise.all([loadFonts(), loadDesignImage()]);
   drawTexture();
   initThree();
-  // Signale au parent Shopify que le viewer est prêt à recevoir des messages.
-  // Cela permet un second envoi des textes/couleurs si le parent était déjà chargé.
+  // Signale au parent Shopify que l'init est terminée
   window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
 
