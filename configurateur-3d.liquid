@@ -1,536 +1,262 @@
 {% comment %}
-  Section : configurateur-3d.liquid
-  À placer dans : sections/configurateur-3d.liquid
-  Compatible OS 2.0 — ajouter via le customizer sur le template produit
+  Kuztom — Section configurateur 3D
+  Contenu : iframe viewer + champs texte + couleurs uniquement
 {% endcomment %}
 
-{%- assign design_name = section.settings.design_name | default: product.handle -%}
-{%- assign viewer_url = 'https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html?design=' | append: design_name | url_encode -%}
-{%- assign current_variant = product.selected_or_first_available_variant -%}
-{%- assign text_blocks = section.blocks | where: 'type', 'text_zone' -%}
-{%- assign color_blocks = section.blocks | where: 'type', 'color_swatch' -%}
+{%- liquid
+  assign design_name = section.settings.design_name | strip
+  assign viewer_base = 'https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html'
+  assign viewer_url  = viewer_base | append: '?design=' | append: design_name
+-%}
+
+<div
+  id="kuztom-configurateur"
+  data-section-id="{{ section.id }}"
+  style="width:100%;max-width:1200px;margin:0 auto;"
+>
+  <div class="kuztom-layout">
+
+    <div class="kuztom-viewer">
+      <iframe
+        id="kuztom-iframe"
+        src="{{ viewer_url }}"
+        allow="cross-origin-isolated"
+        loading="lazy"
+        style="width:100%;height:100%;border:none;display:block;"
+      ></iframe>
+    </div>
+
+    <div class="kuztom-fields">
+
+      {%- assign color_blocks = section.blocks | where: 'type', 'color_swatch' -%}
+      {%- if color_blocks.size > 0 -%}
+        <div class="kuztom-group">
+          {%- for block in color_blocks -%}
+            <div class="kuztom-swatches" {{ block.shopify_attributes }}>
+              {%- if block.settings.label != blank -%}
+                <p class="kuztom-label">{{ block.settings.label }}</p>
+              {%- endif -%}
+              <div class="kuztom-swatch-row">
+                {%- assign colors = block.settings.colors | split: ',' -%}
+                {%- assign opacities = block.settings.opacities | split: ',' -%}
+                {%- for color in colors -%}
+                  {%- assign hex = color | strip -%}
+                  {%- assign op_raw = opacities[forloop.index0] | strip -%}
+                  {%- assign op = op_raw | default: '0.88' -%}
+                  <button
+                    type="button"
+                    class="kuztom-swatch"
+                    data-hex="{{ hex }}"
+                    data-opacity="{{ op }}"
+                    style="background:{{ hex }};"
+                    aria-label="{{ hex }}"
+                  ></button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'text_zone' -%}
+          <div class="kuztom-group" {{ block.shopify_attributes }}>
+            {%- if block.settings.label != blank -%}
+              <label class="kuztom-label" for="kuztom-field-{{ block.id }}">
+                {{ block.settings.label }}
+              </label>
+            {%- endif -%}
+            {%- if block.settings.multiline -%}
+              <textarea
+                id="kuztom-field-{{ block.id }}"
+                class="kuztom-input"
+                data-zone-id="{{ block.settings.zone_id }}"
+                placeholder="{{ block.settings.placeholder | escape }}"
+                rows="3"
+              ></textarea>
+            {%- else -%}
+              <input
+                type="text"
+                id="kuztom-field-{{ block.id }}"
+                class="kuztom-input"
+                data-zone-id="{{ block.settings.zone_id }}"
+                placeholder="{{ block.settings.placeholder | escape }}"
+              >
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div>
+  </div>
+</div>
 
 <style>
-  .cfg3d-section-{{ section.id }} {
+  .kuztom-layout {
     display: flex;
-    flex-wrap: wrap;
-    min-height: {{ section.settings.viewer_height }}px;
-    font-family: var(--font-body-family, 'Inter', sans-serif);
-    background: {{ section.settings.bg_color }};
-  }
-
-  /* ── Viewer ── */
-  .cfg3d-viewer-{{ section.id }} {
-    flex: 0 0 50%;
-    position: relative;
-    min-height: {{ section.settings.viewer_height }}px;
-    background: #efefed;
-    overflow: hidden;
-  }
-
-  .cfg3d-viewer-{{ section.id }} iframe {
-    position: absolute;
-    inset: 0;
+    flex-direction: row;
+    gap: 0;
     width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
+    min-height: 520px;
   }
 
-  /* ── Formulaire ── */
-  .cfg3d-form-{{ section.id }} {
+  .kuztom-viewer {
     flex: 0 0 50%;
-    padding: 40px 48px;
+    width: 50%;
+    min-height: 400px;
+    position: relative;
+  }
+
+  .kuztom-fields {
+    flex: 0 0 50%;
+    width: 50%;
+    padding: 32px 28px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
     overflow-y: auto;
-    max-height: {{ section.settings.viewer_height }}px;
-    box-sizing: border-box;
   }
 
-  .cfg3d-form-{{ section.id }} .cfg3d-product-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: #2c2521;
-    margin: 0;
-    line-height: 1.3;
-  }
-
-  .cfg3d-form-{{ section.id }} .cfg3d-price {
-    font-size: 18px;
-    color: #c9a96e;
-    font-weight: 500;
-    margin-top: -12px;
-  }
-
-  /* ── Champs ── */
-  .cfg3d-field {
+  .kuztom-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
 
-  .cfg3d-label {
-    font-size: 11px;
+  .kuztom-label {
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: #7a7068;
+    color: #2c2521;
+    margin: 0;
   }
 
-  .cfg3d-input,
-  .cfg3d-textarea,
-  .cfg3d-select {
+  .kuztom-input {
     width: 100%;
-    padding: 11px 14px;
-    border: 1px solid #ddd9d4;
+    padding: 10px 14px;
+    border: 1px solid #d8d4cf;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 15px;
     font-family: inherit;
     color: #2c2521;
     background: #fff;
-    box-sizing: border-box;
-    transition: border-color 200ms;
     outline: none;
+    transition: border-color 150ms ease;
+    resize: vertical;
   }
 
-  .cfg3d-input:focus,
-  .cfg3d-textarea:focus,
-  .cfg3d-select:focus {
+  .kuztom-input:focus {
     border-color: #c9a96e;
-    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
   }
 
-  .cfg3d-textarea { resize: vertical; min-height: 72px; }
-
-  .cfg3d-char-count {
-    font-size: 11px;
-    color: #aaa;
-    text-align: right;
-    margin-top: -4px;
-  }
-
-  /* ── Couleurs ── */
-  .cfg3d-swatches {
+  .kuztom-swatch-row {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  .cfg3d-swatch {
+  .kuztom-swatch {
     width: 36px;
     height: 36px;
     border-radius: 50%;
+    border: 2px solid transparent;
     cursor: pointer;
-    border: 2.5px solid transparent;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
-    transition: transform 150ms, box-shadow 150ms, border-color 150ms;
-    position: relative;
+    transition: border-color 150ms ease, transform 150ms ease;
+    padding: 0;
+    outline: none;
   }
 
-  .cfg3d-swatch:hover { transform: scale(1.1); }
+  .kuztom-swatch:hover  { transform: scale(1.12); }
+  .kuztom-swatch.active { border-color: #2c2521; }
 
-  .cfg3d-swatch.active {
-    border-color: #c9a96e;
-    box-shadow: 0 0 0 1px #c9a96e, 0 0 0 4px rgba(201,169,110,0.25);
-    transform: scale(1.08);
-  }
-
-  .cfg3d-swatch-label {
-    font-size: 11px;
-    color: #7a7068;
-    text-align: center;
-    margin-top: 4px;
-    width: 36px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .cfg3d-swatch-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* ── Variante ── */
-  .cfg3d-divider {
-    border: none;
-    border-top: 1px solid #ece8e3;
-    margin: 0;
-  }
-
-  /* ── Bouton ── */
-  .cfg3d-btn-cart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 16px 24px;
-    background: #2c2521;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    cursor: pointer;
-    transition: background 200ms, transform 100ms;
-    font-family: inherit;
-    margin-top: auto;
-  }
-
-  .cfg3d-btn-cart:hover:not(:disabled) { background: #3d3530; }
-  .cfg3d-btn-cart:active:not(:disabled) { transform: scale(0.98); }
-
-  .cfg3d-btn-cart:disabled {
-    background: #b0a89e;
-    cursor: not-allowed;
-  }
-
-  .cfg3d-btn-cart.loading { background: #3d3530; }
-
-  .cfg3d-spinner {
-    display: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: cfg3d-spin 700ms linear infinite;
-  }
-
-  .cfg3d-btn-cart.loading .cfg3d-spinner { display: block; }
-
-  @keyframes cfg3d-spin { to { transform: rotate(360deg); } }
-
-  /* ── Message panier ── */
-  .cfg3d-cart-msg {
-    font-size: 13px;
-    text-align: center;
-    padding: 10px 14px;
-    border-radius: 6px;
-    display: none;
-  }
-
-  .cfg3d-cart-msg.success {
-    display: block;
-    background: #f0f9f0;
-    color: #2d7a2d;
-    border: 1px solid #c3e6c3;
-  }
-
-  .cfg3d-cart-msg.error {
-    display: block;
-    background: #fdf0f0;
-    color: #b33;
-    border: 1px solid #f0c0c0;
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 768px) {
-    .cfg3d-viewer-{{ section.id }},
-    .cfg3d-form-{{ section.id }} {
-      flex: 0 0 100%;
-      max-height: none;
+  @media (max-width: 767px) {
+    .kuztom-layout {
+      flex-direction: column;
+      min-height: unset;
     }
-
-    .cfg3d-viewer-{{ section.id }} {
+    .kuztom-viewer {
+      flex: none;
+      width: 100%;
       min-height: 320px;
     }
-
-    .cfg3d-form-{{ section.id }} {
-      padding: 28px 20px;
+    .kuztom-fields {
+      flex: none;
+      width: 100%;
+      padding: 24px 16px;
     }
   }
 </style>
 
-<div class="cfg3d-section-{{ section.id }}" id="cfg3d-{{ section.id }}">
-
-  {%- comment %} ── GAUCHE : Viewer 3D ── {% endcomment -%}
-  <div class="cfg3d-viewer-{{ section.id }}">
-    <iframe
-      id="cfg3d-iframe-{{ section.id }}"
-      src="{{ viewer_url }}"
-      title="Configurateur 3D {{ product.title }}"
-      loading="lazy"
-      allow="accelerometer"
-    ></iframe>
-  </div>
-
-  {%- comment %} ── DROITE : Formulaire ── {% endcomment -%}
-  <div class="cfg3d-form-{{ section.id }}">
-
-    {%- if section.settings.show_product_title -%}
-      <h2 class="cfg3d-product-title">{{ product.title }}</h2>
-      <p class="cfg3d-price" id="cfg3d-price-{{ section.id }}">
-        {{ current_variant.price | money }}
-      </p>
-    {%- endif -%}
-
-    {%- comment %} ── Zones de texte (blocks) ── {% endcomment -%}
-    {%- for block in text_blocks -%}
-      <div class="cfg3d-field" {{ block.shopify_attributes }}>
-        <label class="cfg3d-label" for="cfg3d-zone-{{ block.id }}">
-          {{ block.settings.label }}
-          {%- if block.settings.required -%}<span style="color:#c9a96e"> *</span>{%- endif -%}
-        </label>
-
-        {%- if block.settings.multiline -%}
-          <textarea
-            id="cfg3d-zone-{{ block.id }}"
-            class="cfg3d-textarea cfg3d-text-zone"
-            data-zone-id="{{ block.settings.zone_id }}"
-            placeholder="{{ block.settings.placeholder }}"
-            rows="3"
-            maxlength="{{ block.settings.max_chars | default: 120 }}"
-          ></textarea>
-        {%- else -%}
-          <input
-            type="text"
-            id="cfg3d-zone-{{ block.id }}"
-            class="cfg3d-input cfg3d-text-zone"
-            data-zone-id="{{ block.settings.zone_id }}"
-            placeholder="{{ block.settings.placeholder }}"
-            maxlength="{{ block.settings.max_chars | default: 60 }}"
-          >
-        {%- endif -%}
-
-        {%- if block.settings.max_chars > 0 -%}
-          <span class="cfg3d-char-count" id="cfg3d-count-{{ block.id }}">
-            0 / {{ block.settings.max_chars }}
-          </span>
-        {%- endif -%}
-      </div>
-    {%- endfor -%}
-
-    {%- comment %} ── Palette de couleurs (blocks) ── {% endcomment -%}
-    {%- if color_blocks.size > 0 -%}
-      <div class="cfg3d-field">
-        <span class="cfg3d-label">{{ section.settings.color_label | default: 'Couleur du gobelet' }}</span>
-        <div class="cfg3d-swatches" id="cfg3d-swatches-{{ section.id }}">
-          {%- for block in color_blocks -%}
-            <div class="cfg3d-swatch-item" {{ block.shopify_attributes }}>
-              <button
-                type="button"
-                class="cfg3d-swatch {% if forloop.first %}active{% endif %}"
-                data-hex="{{ block.settings.hex_color }}"
-                data-opacity="{{ block.settings.opacity | default: 0.88 }}"
-                title="{{ block.settings.label }}"
-                style="background-color: {{ block.settings.hex_color }};"
-                aria-label="{{ block.settings.label }}"
-              ></button>
-              {%- if block.settings.label != blank -%}
-                <span class="cfg3d-swatch-label">{{ block.settings.label }}</span>
-              {%- endif -%}
-            </div>
-          {%- endfor -%}
-        </div>
-      </div>
-    {%- endif -%}
-
-    {%- comment %} ── Sélecteur de variante ── {% endcomment -%}
-    {%- if product.variants.size > 1 -%}
-      <hr class="cfg3d-divider">
-      <div class="cfg3d-field">
-        <label class="cfg3d-label" for="cfg3d-variant-{{ section.id }}">
-          {{ section.settings.variant_label | default: 'Taille / Format' }}
-        </label>
-        <select id="cfg3d-variant-{{ section.id }}" class="cfg3d-select">
-          {%- for variant in product.variants -%}
-            <option
-              value="{{ variant.id }}"
-              data-price="{{ variant.price | money }}"
-              {% unless variant.available %}disabled{% endunless %}
-              {%- if variant == current_variant %} selected{%- endif -%}
-            >
-              {{ variant.title }}
-              {%- unless variant.available %} — Épuisé{%- endunless -%}
-              — {{ variant.price | money }}
-            </option>
-          {%- endfor -%}
-        </select>
-      </div>
-    {%- endif -%}
-
-    {%- comment %} ── Bouton panier ── {% endcomment -%}
-    <hr class="cfg3d-divider">
-
-    <button
-      type="button"
-      id="cfg3d-btn-{{ section.id }}"
-      class="cfg3d-btn-cart"
-      data-variant-id="{{ current_variant.id }}"
-      {% unless current_variant.available %}disabled{% endunless %}
-    >
-      <span class="cfg3d-spinner"></span>
-      <span class="cfg3d-btn-label">
-        {%- if current_variant.available -%}
-          {{ section.settings.btn_label | default: 'Ajouter au panier' }}
-        {%- else -%}
-          Produit indisponible
-        {%- endif -%}
-      </span>
-    </button>
-
-    <div class="cfg3d-cart-msg" id="cfg3d-msg-{{ section.id }}"></div>
-
-  </div>
-</div>
-
 <script>
 (function () {
-  var sectionId  = {{ section.id | json }};
-  var sectionEl  = document.getElementById('cfg3d-' + sectionId);
-  if (!sectionEl) return;
+  const VIEWER_ORIGIN = 'https://clcreation542-coder.github.io';
+  const iframe        = document.getElementById('kuztom-iframe');
 
-  var iframe    = document.getElementById('cfg3d-iframe-' + sectionId);
-  var btnCart   = document.getElementById('cfg3d-btn-' + sectionId);
-  var msgEl     = document.getElementById('cfg3d-msg-' + sectionId);
-  var swatches  = sectionEl.querySelectorAll('.cfg3d-swatch');
-  var textZones = sectionEl.querySelectorAll('.cfg3d-text-zone');
-  var varSelect = document.getElementById('cfg3d-variant-' + sectionId);
-  var priceEl   = document.getElementById('cfg3d-price-' + sectionId);
+  let activeHex     = null;
+  let activeOpacity = 0.88;
+  let viewerReady   = false;
 
-  // ── Couleur active au démarrage ──
-  var activeHex     = '';
-  var activeOpacity = 0.88;
-  var firstSwatch   = sectionEl.querySelector('.cfg3d-swatch.active');
-  if (firstSwatch) {
-    activeHex     = firstSwatch.dataset.hex;
-    activeOpacity = parseFloat(firstSwatch.dataset.opacity) || 0.88;
+  function postToViewer(data) {
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(data, VIEWER_ORIGIN);
+    }
   }
 
-  // ── Envoyer la couleur initiale dès que l'iframe est prête ──
-  iframe.addEventListener('load', function () {
+  function collectTexts() {
+    const zones = [];
+    document.querySelectorAll('#kuztom-configurateur .kuztom-input[data-zone-id]').forEach(function (el) {
+      zones.push({ id: el.dataset.zoneId, text: el.value });
+    });
+    return zones;
+  }
+
+  function sendAllTexts() {
+    const zones = collectTexts();
+    if (zones.length) postToViewer({ type: 'kuztom_update', zones: zones });
+  }
+
+  function sendColor(hex, opacity) {
+    postToViewer({ type: 'kuztom_color', hex: hex, opacity: parseFloat(opacity) });
+  }
+
+  function syncViewer() {
     if (activeHex) sendColor(activeHex, activeOpacity);
     sendAllTexts();
+  }
+
+  // Réception du signal kuztom_ready depuis l'iframe
+  window.addEventListener('message', function (e) {
+    if (e.data && e.data.type === 'kuztom_ready') {
+      viewerReady = true;
+      syncViewer();
+    }
   });
 
-  // ── Couleurs ──
-  swatches.forEach(function (btn) {
+  // Champs texte — mise à jour à chaque frappe
+  document.querySelectorAll('#kuztom-configurateur .kuztom-input[data-zone-id]').forEach(function (el) {
+    el.addEventListener('input', function () {
+      postToViewer({ type: 'kuztom_update', zones: [{ id: el.dataset.zoneId, text: el.value }] });
+    });
+  });
+
+  // Couleurs
+  document.querySelectorAll('#kuztom-configurateur .kuztom-swatch').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      swatches.forEach(function (b) { b.classList.remove('active'); });
+      document.querySelectorAll('#kuztom-configurateur .kuztom-swatch').forEach(function (b) {
+        b.classList.remove('active');
+      });
       btn.classList.add('active');
       activeHex     = btn.dataset.hex;
-      activeOpacity = parseFloat(btn.dataset.opacity) || 0.88;
+      activeOpacity = btn.dataset.opacity || 0.88;
       sendColor(activeHex, activeOpacity);
     });
   });
 
-  function sendColor(hex, opacity) {
-    postToViewer({ type: 'kuztom_color', hex: hex, opacity: opacity });
-  }
+  // Sélectionner la première couleur par défaut
+  var firstSwatch = document.querySelector('#kuztom-configurateur .kuztom-swatch');
+  if (firstSwatch) firstSwatch.click();
 
-  // ── Textes ──
-  textZones.forEach(function (input) {
-    var blockId = input.id.replace('cfg3d-zone-', '');
-    var countEl = document.getElementById('cfg3d-count-' + blockId);
-    var max     = parseInt(input.getAttribute('maxlength'), 10) || 0;
-
-    input.addEventListener('input', function () {
-      if (countEl && max) countEl.textContent = input.value.length + ' / ' + max;
-      sendZoneText(input.dataset.zoneId, input.value);
-    });
-  });
-
-  function sendAllTexts() {
-    var zones = [];
-    textZones.forEach(function (input) {
-      zones.push({ id: input.dataset.zoneId, text: input.value });
-    });
-    if (zones.length) postToViewer({ type: 'kuztom_update', zones: zones });
-  }
-
-  function sendZoneText(zoneId, text) {
-    postToViewer({ type: 'kuztom_update', zones: [{ id: zoneId, text: text }] });
-  }
-
-  // ── postMessage vers iframe ──
-  function postToViewer(data) {
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(data, 'https://clcreation542-coder.github.io');
-    }
-  }
-
-  // ── Variante : mise à jour prix + bouton ──
-  if (varSelect) {
-    varSelect.addEventListener('change', function () {
-      var opt = varSelect.options[varSelect.selectedIndex];
-      btnCart.dataset.variantId = opt.value;
-      if (priceEl && opt.dataset.price) priceEl.textContent = opt.dataset.price;
-      btnCart.disabled = opt.disabled;
-      btnCart.querySelector('.cfg3d-btn-label').textContent = opt.disabled
-        ? 'Produit indisponible'
-        : {{ section.settings.btn_label | default: 'Ajouter au panier' | json }};
-    });
-  }
-
-  // ── Ajouter au panier ──
-  btnCart.addEventListener('click', function () {
-    if (btnCart.disabled) return;
-
-    var variantId = parseInt(btnCart.dataset.variantId, 10);
-    if (!variantId) return;
-
-    // Propriétés de personnalisation → line item properties
-    var properties = {};
-
-    if (activeHex) properties['Couleur gobelet'] = activeHex;
-
-    textZones.forEach(function (input) {
-      var label = input.closest('.cfg3d-field')
-                        .querySelector('.cfg3d-label');
-      var key   = label ? label.textContent.replace(/\s*\*\s*$/, '').trim() : input.dataset.zoneId;
-      if (input.value.trim()) properties[key] = input.value.trim();
-    });
-
-    // Animation bouton
-    btnCart.classList.add('loading');
-    btnCart.disabled = true;
-    showMsg('', '');
-
-    fetch('/cart/add.js', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-      body:    JSON.stringify({
-        id:         variantId,
-        quantity:   1,
-        properties: properties
-      })
-    })
-    .then(function (res) {
-      if (!res.ok) return res.json().then(function (d) { throw new Error(d.description || 'Erreur'); });
-      return res.json();
-    })
-    .then(function () {
-      showMsg('success', '{{ section.settings.success_msg | default: '✓ Produit ajouté au panier !' }}');
-      // Rafraîchit le mini-cart Shopify si disponible
-      document.dispatchEvent(new CustomEvent('cart:refresh'));
-      // Fallback Dawn / Prestige : met à jour le compteur du header
-      fetch('/cart.js')
-        .then(function (r) { return r.json(); })
-        .then(function (cart) {
-          var counters = document.querySelectorAll('[data-cart-count],[data-cart-item-count],.cart-count');
-          counters.forEach(function (el) { el.textContent = cart.item_count; });
-        })
-        .catch(function () {});
-    })
-    .catch(function (err) {
-      showMsg('error', err.message || '{{ section.settings.error_msg | default: 'Une erreur est survenue.' }}');
-    })
-    .finally(function () {
-      btnCart.classList.remove('loading');
-      btnCart.disabled = false;
-    });
-  });
-
-  function showMsg(type, text) {
-    msgEl.className = 'cfg3d-cart-msg' + (type ? ' ' + type : '');
-    msgEl.textContent = text;
-  }
 })();
 </script>
 
@@ -538,86 +264,13 @@
 {
   "name": "Configurateur 3D",
   "tag": "section",
-  "class": "configurateur-3d",
+  "class": "kuztom-section",
   "settings": [
-    {
-      "type": "header",
-      "content": "Viewer 3D"
-    },
     {
       "type": "text",
       "id": "design_name",
-      "label": "Nom du design (handle)",
-      "info": "Correspond au fichier /designs/{handle}.json sur GitHub Pages. Laisser vide pour utiliser le handle produit.",
-      "placeholder": "gobelet-mariage-couronne-florale-or"
-    },
-    {
-      "type": "range",
-      "id": "viewer_height",
-      "min": 360,
-      "max": 900,
-      "step": 10,
-      "unit": "px",
-      "label": "Hauteur du viewer",
-      "default": 560
-    },
-    {
-      "type": "header",
-      "content": "Affichage"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_product_title",
-      "label": "Afficher le titre et le prix du produit",
-      "default": true
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Couleur de fond de la section",
-      "default": "#ffffff"
-    },
-    {
-      "type": "header",
-      "content": "Couleur du gobelet"
-    },
-    {
-      "type": "text",
-      "id": "color_label",
-      "label": "Libellé de la palette",
-      "default": "Couleur du gobelet"
-    },
-    {
-      "type": "header",
-      "content": "Variante"
-    },
-    {
-      "type": "text",
-      "id": "variant_label",
-      "label": "Libellé du sélecteur de variante",
-      "default": "Format"
-    },
-    {
-      "type": "header",
-      "content": "Bouton panier"
-    },
-    {
-      "type": "text",
-      "id": "btn_label",
-      "label": "Texte du bouton",
-      "default": "Ajouter au panier"
-    },
-    {
-      "type": "text",
-      "id": "success_msg",
-      "label": "Message de succès",
-      "default": "✓ Produit ajouté au panier !"
-    },
-    {
-      "type": "text",
-      "id": "error_msg",
-      "label": "Message d'erreur",
-      "default": "Une erreur est survenue. Réessaie."
+      "label": "Nom du design",
+      "default": ""
     }
   ],
   "blocks": [
@@ -628,126 +281,57 @@
         {
           "type": "text",
           "id": "zone_id",
-          "label": "ID de la zone (doit correspondre au JSON design)",
-          "placeholder": "prenom"
+          "label": "ID de zone",
+          "default": "zone_1"
         },
         {
           "type": "text",
           "id": "label",
-          "label": "Libellé affiché",
-          "default": "Prénom"
+          "label": "Label du champ",
+          "default": "Votre texte"
         },
         {
           "type": "text",
           "id": "placeholder",
-          "label": "Texte d'exemple (placeholder)",
-          "default": "ex. Emma"
-        },
-        {
-          "type": "range",
-          "id": "max_chars",
-          "min": 0,
-          "max": 200,
-          "step": 5,
-          "label": "Caractères max (0 = illimité)",
-          "default": 40
+          "label": "Placeholder",
+          "default": ""
         },
         {
           "type": "checkbox",
           "id": "multiline",
-          "label": "Zone multiligne (textarea)",
-          "default": false
-        },
-        {
-          "type": "checkbox",
-          "id": "required",
-          "label": "Champ obligatoire (indicateur visuel)",
+          "label": "Multiligne",
           "default": false
         }
       ]
     },
     {
       "type": "color_swatch",
-      "name": "Couleur du gobelet",
+      "name": "Palette de couleurs",
       "settings": [
         {
           "type": "text",
-          "id": "hex_color",
-          "label": "Code couleur HEX",
-          "default": "#f5f0eb",
-          "placeholder": "#f5f0eb"
-        },
-        {
-          "type": "text",
           "id": "label",
-          "label": "Nom de la couleur",
-          "default": "Naturel"
+          "label": "Label",
+          "default": "Couleur du gobelet"
         },
         {
           "type": "text",
-          "id": "opacity",
-          "label": "Opacité (0.0 → 1.0)",
-          "default": "0.88",
-          "placeholder": "0.88"
+          "id": "colors",
+          "label": "Couleurs HEX (séparées par des virgules)",
+          "default": "#f5f0eb,#d4b896,#2c2521"
+        },
+        {
+          "type": "text",
+          "id": "opacities",
+          "label": "Opacités (séparées par des virgules, ex: 0.88,0.88,0.88)",
+          "default": "0.88,0.88,0.88"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Configurateur 3D",
-      "blocks": [
-        {
-          "type": "text_zone",
-          "settings": {
-            "zone_id": "prenom",
-            "label": "Prénom",
-            "placeholder": "ex. Emma",
-            "max_chars": 30
-          }
-        },
-        {
-          "type": "text_zone",
-          "settings": {
-            "zone_id": "date",
-            "label": "Date",
-            "placeholder": "ex. 18.10.2025",
-            "max_chars": 20
-          }
-        },
-        {
-          "type": "color_swatch",
-          "settings": {
-            "hex_color": "#f5f0eb",
-            "label": "Naturel",
-            "opacity": "0.88"
-          }
-        },
-        {
-          "type": "color_swatch",
-          "settings": {
-            "hex_color": "#fde8e8",
-            "label": "Rose poudré",
-            "opacity": "0.88"
-          }
-        },
-        {
-          "type": "color_swatch",
-          "settings": {
-            "hex_color": "#e8f0e8",
-            "label": "Sauge",
-            "opacity": "0.88"
-          }
-        },
-        {
-          "type": "color_swatch",
-          "settings": {
-            "hex_color": "#e8eaf6",
-            "label": "Lavande",
-            "opacity": "0.88"
-          }
-        }
-      ]
+      "name": "Configurateur 3D"
     }
   ]
 }
