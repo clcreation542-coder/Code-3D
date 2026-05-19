@@ -1612,11 +1612,9 @@ document.getElementById('modal-name').addEventListener('keydown', e => {
 //  DEPLOY TO GITHUB
 // ═══════════════════════════════════════════
 async function deployDesign() {
-  const d = currentDesign();
-  if (!d) return alert('Aucun design sélectionné');
-
-  const handle = d.shopify_handle || '';
-  if (!handle) return alert('Remplis le Handle Shopify avant de déployer');
+  if (!app.designs || app.designs.length === 0) {
+    return alert('Aucun design à déployer');
+  }
 
   const btn = document.getElementById('btn-deploy');
   const reset = (cls, label, ms) => {
@@ -1627,18 +1625,17 @@ async function deployDesign() {
 
   reset('deploying', '⏳ Déploiement…');
 
-  const REPO  = 'clcreation542-coder/Code-3D';
+  // ── Token ──────────────────────────────────────────────────
+  const REPO = 'clcreation542-coder/Code-3D';
   let TOKEN = localStorage.getItem('kuztom_gh_token') || '';
   if (!TOKEN) {
-    TOKEN = prompt('Token GitHub Personnel (PAT) :\n(sera mémorisé dans le navigateur)') || '';
+    TOKEN = prompt('Token GitHub Personnel (PAT) avec permission "repo" :\n(mémorisé dans le navigateur, jamais envoyé ailleurs que l\'API GitHub)') || '';
     if (!TOKEN) { reset('', '🚀 Déployer sur GitHub'); return; }
     localStorage.setItem('kuztom_gh_token', TOKEN.trim());
   }
   TOKEN = TOKEN.trim();
-  const path  = `designs/${handle}.json`;
-  const api   = `https://api.github.com/repos/${REPO}/contents/${path}`;
 
-  // Normaliser le JSON (même logique qu'exportDesign)
+  // ── Normalisation de tous les designs ─────────────────────
   const normalizeTextZone = z => ({
     id: z.id||'', label: z.label||'', order: z.order||1,
     x: z.x??0, y: z.y??0, width: z.width??0, height: z.height??0,
@@ -1655,19 +1652,22 @@ async function deployDesign() {
   const normalizeVariant = v => ({
     name: v.name||'', hex: v.hex||'#ffffff', opacity: v.opacity??1,
   });
-  const out = {
-    id: d.id||'', name: d.name||'', shopify_handle: handle,
+
+  const allDesigns = app.designs.map(d => ({
+    id: d.id||'', name: d.name||'', shopify_handle: d.shopify_handle||'',
     gobelet_color: d.gobelet_color||'#ffffff', gobelet_opacity: d.gobelet_opacity??1,
     model_url: d.model_url||null, rotation_y: d.rotation_y??0,
     design_url: d.design_url||null, design: d.design||null,
     variant_colors: (d.variant_colors||[]).map(normalizeVariant),
     text_zones:     (d.text_zones||[]).map(normalizeTextZone),
     photo_zones:    (d.photo_zones||[]).map(normalizePhotoZone),
-  };
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(out, null, 2))));
+  }));
+
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(allDesigns, null, 2))));
+  const api     = `https://api.github.com/repos/${REPO}/contents/designs.json`;
 
   try {
-    // Récupérer le SHA si le fichier existe déjà
+    // Récupérer le SHA si designs.json existe déjà
     let sha;
     const getRes = await fetch(api, {
       headers: { Authorization: 'token ' + TOKEN, Accept: 'application/vnd.github+json' }
@@ -1675,26 +1675,39 @@ async function deployDesign() {
     if (getRes.ok) {
       const existing = await getRes.json();
       sha = existing.sha;
+    } else if (getRes.status !== 404) {
+      // Erreur inattendue (pas "non trouvé")
+      const err = await getRes.json();
+      throw new Error(err.message || getRes.statusText);
     }
 
-    // PUT pour créer ou mettre à jour
-    const body = { message: 'deploy: ' + handle, content };
+    // PUT pour créer ou mettre à jour designs.json
+    const body = {
+      message: `deploy: designs.json (${allDesigns.length} design${allDesigns.length > 1 ? 's' : ''})`,
+      content,
+    };
     if (sha) body.sha = sha;
 
     const putRes = await fetch(api, {
       method:  'PUT',
-      headers: { Authorization: 'token ' + TOKEN, 'Content-Type': 'application/json', Accept: 'application/vnd.github+json' },
-      body:    JSON.stringify(body),
+      headers: {
+        Authorization: 'token ' + TOKEN,
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.github+json',
+      },
+      body: JSON.stringify(body),
     });
 
     if (!putRes.ok) {
       const err = await putRes.json();
+      // Token invalide : effacer pour redeamander au prochain clic
+      if (putRes.status === 401) localStorage.removeItem('kuztom_gh_token');
       throw new Error(err.message || putRes.statusText);
     }
 
-    reset('success', '✅ Design déployé !', 3000);
+    reset('success', `✅ Déployé ! (${allDesigns.length} design${allDesigns.length > 1 ? 's' : ''})`, 4000);
   } catch (e) {
-    reset('error', '❌ Erreur : ' + e.message, 5000);
+    reset('error', '❌ Erreur : ' + e.message, 6000);
   }
 }
 
