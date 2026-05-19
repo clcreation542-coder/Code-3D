@@ -1,133 +1,135 @@
 {% comment %}
-  Kuztom — Section configurateur 3D
+  Kuztom — Configurateur 3D
   Gauche/haut : iframe viewer 3D
-  Droite/bas  : nom shop + produit, couleurs (blocs), zones texte (blocs), zones photo (blocs)
+  Droite/bas  : nom shop, titre produit, zones texte, zones photo, couleurs
 {% endcomment %}
 
 {%- liquid
-  assign design_name = section.settings.design_name | strip
-  assign viewer_url  = 'https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html?design=' | append: design_name
-  assign color_blocks = section.blocks | where: 'type', 'color_swatch'
-  assign text_blocks  = section.blocks | where: 'type', 'text_zone'
-  assign photo_blocks = section.blocks | where: 'type', 'photo_zone'
+  assign design_handle = section.settings.design_handle | strip
+  if design_handle == blank
+    assign design_handle = product.handle
+  endif
+  assign viewer_height = section.settings.viewer_height | default: 560
+  assign viewer_url    = 'https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html?design=' | append: design_handle
+  assign couleur_blocks = section.blocks | where: 'type', 'couleur'
 -%}
 
-<div id="kz-root" data-design="{{ design_name }}">
+<div id="kz-root" data-design="{{ design_handle }}">
   <div class="kz-layout">
 
-    {{- '<!-- ─── GAUCHE : viewer ──────────────────────────────── -->' }}
-    <div class="kz-left">
+    <div class="kz-left" style="--kz-h:{{ viewer_height }}px;">
       <div class="kz-iframe-wrap">
         <iframe
           id="kz-iframe"
           src="{{ viewer_url }}"
-          allow="cross-origin-isolated"
+          title="Aperçu 3D"
           style="width:100%;height:100%;border:none;display:block;"
-          title="Aperçu 3D de votre gobelet"
         ></iframe>
       </div>
-      <p class="kz-hint">Explorez votre gobelet à 360° &rarr;</p>
+      <p class="kz-hint">Explorer &agrave; 360&deg; &rarr;</p>
     </div>
 
-    {{- '<!-- ─── DROITE : champs ──────────────────────────────── -->' }}
     <div class="kz-right">
 
-      {{- '<!-- Nom du shop + produit -->' }}
-      <div class="kz-product-header">
-        {%- if shop.name != blank -%}
-          <p class="kz-shop-name">{{ shop.name }}</p>
-        {%- endif -%}
-        {%- if product.title != blank -%}
-          <h1 class="kz-product-title">{{ product.title }}</h1>
-        {%- endif -%}
+      <div class="kz-header">
+        <p class="kz-shop">{{ shop.name }}</p>
+        <h1 class="kz-title">{{ product.title }}</h1>
       </div>
 
-      {{- '<!-- Couleurs (seulement si des blocs color_swatch existent) -->' }}
-      {%- if color_blocks.size > 0 -%}
-        {%- for block in color_blocks -%}
-          <div class="kz-field-group" {{ block.shopify_attributes }}>
+      {%- for block in section.blocks -%}
+
+        {%- if block.type == 'zone_texte' -%}
+          <div class="kz-group" {{ block.shopify_attributes }}>
             {%- if block.settings.label != blank -%}
-              <p class="kz-label">{{ block.settings.label }}</p>
+              <label class="kz-label" for="kz-ta-{{ block.id }}">
+                {{- block.settings.label -}}
+              </label>
             {%- endif -%}
-            <div class="kz-swatches" role="group" aria-label="Couleurs disponibles">
-              {%- assign hex_list = block.settings.colors | split: ',' -%}
-              {%- for hex_raw in hex_list -%}
-                {%- assign hex = hex_raw | strip -%}
-                {%- if hex != blank -%}
-                  <button
-                    type="button"
-                    class="kz-swatch"
-                    data-color="{{ hex }}"
-                    style="background:{{ hex }};"
-                    aria-label="Couleur {{ hex }}"
-                  ></button>
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-          </div>
-        {%- endfor -%}
-      {%- endif -%}
-
-      {{- '<!-- Zones texte -->' }}
-      {%- for block in text_blocks -%}
-        <div class="kz-field-group" {{ block.shopify_attributes }}>
-          {%- if block.settings.label != blank -%}
-            <label class="kz-label" for="kz-ta-{{ block.id }}">
-              {{ block.settings.label }}
-            </label>
-          {%- endif -%}
-          <textarea
-            id="kz-ta-{{ block.id }}"
-            class="kz-textarea"
-            data-zone-id="{{ block.settings.zone_id }}"
-            rows="3"
-          ></textarea>
-        </div>
-      {%- endfor -%}
-
-      {{- '<!-- Zones photo -->' }}
-      {%- for block in photo_blocks -%}
-        <div class="kz-field-group" {{ block.shopify_attributes }}>
-          {%- if block.settings.label != blank -%}
-            <p class="kz-label">{{ block.settings.label }}</p>
-          {%- endif -%}
-          <label class="kz-upload-btn" for="kz-ph-{{ block.id }}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="17 8 12 3 7 8"/>
-              <line x1="12" y1="3" x2="12" y2="15"/>
-            </svg>
-            <span class="kz-upload-text">Ajouter une photo</span>
-            <input
-              type="file"
-              id="kz-ph-{{ block.id }}"
-              class="kz-file-input"
+            <textarea
+              id="kz-ta-{{ block.id }}"
+              class="kz-textarea"
               data-zone-id="{{ block.settings.zone_id }}"
-              accept="image/*"
-            >
-          </label>
-        </div>
+              rows="3"
+            ></textarea>
+          </div>
+        {%- endif -%}
+
+        {%- if block.type == 'zone_photo' -%}
+          <div class="kz-group" {{ block.shopify_attributes }}>
+            {%- if block.settings.label != blank -%}
+              <p class="kz-label">{{- block.settings.label -}}</p>
+            {%- endif -%}
+            <label class="kz-upload" for="kz-ph-{{ block.id }}">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="16 16 12 12 8 16"></polyline>
+                <line x1="12" y1="12" x2="12" y2="21"></line>
+                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+              </svg>
+              <span class="kz-upload-text">Choisir une photo</span>
+              <input
+                type="file"
+                id="kz-ph-{{ block.id }}"
+                class="kz-file"
+                data-zone-id="{{ block.settings.zone_id }}"
+                accept="image/*"
+              >
+            </label>
+          </div>
+        {%- endif -%}
+
+        {%- if block.type == 'couleur' -%}
+          {%- assign hex = block.settings.couleur_hex | strip -%}
+          {%- if hex != blank -%}
+            {%- unless forloop.first == false and forloop.index0 > 0 -%}{%- endunless -%}
+            <button
+              type="button"
+              class="kz-swatch"
+              data-color="{{ hex }}"
+              style="background:{{ hex }};"
+              aria-label="{%- if block.settings.label != blank -%}{{ block.settings.label }}{%- else -%}{{ hex }}{%- endif -%}"
+              {{ block.shopify_attributes }}
+            ></button>
+          {%- endif -%}
+        {%- endif -%}
+
       {%- endfor -%}
 
     </div>
   </div>
 </div>
 
+{%- if couleur_blocks.size > 0 -%}
+<script>
+// Regroup swatches into a wrapper injected before first swatch
+(function () {
+  var root = document.getElementById('kz-root');
+  if (!root) return;
+  var swatches = root.querySelectorAll('.kz-swatch');
+  if (!swatches.length) return;
+  var wrapper = document.createElement('div');
+  wrapper.className = 'kz-swatches-wrap';
+  swatches[0].parentNode.insertBefore(wrapper, swatches[0]);
+  swatches.forEach(function (s) { wrapper.appendChild(s); });
+})();
+</script>
+{%- endif -%}
+
 <style>
   #kz-root {
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
+    font-family: inherit;
   }
 
   .kz-layout {
     display: flex;
     flex-direction: row;
     width: 100%;
-    min-height: 560px;
   }
 
-  /* ── Colonne gauche (viewer) ─────────────────────────── */
+  /* ── Gauche : viewer ───────────────────────────────────── */
+
   .kz-left {
     flex: 0 0 50%;
     width: 50%;
@@ -137,133 +139,119 @@
 
   .kz-iframe-wrap {
     flex: 1;
-    min-height: 400px;
+    min-height: var(--kz-h, 560px);
     position: relative;
+  }
+
+  .kz-iframe-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
   }
 
   .kz-hint {
     text-align: center;
     font-size: 12px;
-    color: #999;
-    padding: 10px 0 14px;
-    letter-spacing: 0.03em;
-    font-family: inherit;
+    color: #a0a0a0;
+    padding: 10px 0 12px;
+    letter-spacing: 0.04em;
   }
 
-  /* ── Colonne droite (champs) ─────────────────────────── */
+  /* ── Droite : champs ───────────────────────────────────── */
+
   .kz-right {
     flex: 0 0 50%;
     width: 50%;
-    padding: 36px 32px;
+    padding: 40px 36px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 22px;
     overflow-y: auto;
+    box-sizing: border-box;
   }
 
-  /* ── En-tête produit ─────────────────────────────────── */
-  .kz-product-header {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+  .kz-header { display: flex; flex-direction: column; gap: 5px; }
 
-  .kz-shop-name {
+  .kz-shop {
     font-size: 11px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #999;
+    color: #aaa;
     margin: 0;
   }
 
-  .kz-product-title {
-    font-size: 22px;
+  .kz-title {
+    font-size: 20px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: #1c1c1c;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.25;
   }
 
-  /* ── Groupe de champ ─────────────────────────────────── */
-  .kz-field-group {
+  /* ── Groupe champ ──────────────────────────────────────── */
+
+  .kz-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 7px;
   }
 
   .kz-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #3a3530;
+    color: #333;
     margin: 0;
   }
 
-  /* ── Textarea ────────────────────────────────────────── */
+  /* ── Textarea ──────────────────────────────────────────── */
+
   .kz-textarea {
     width: 100%;
-    padding: 10px 14px;
-    border: 1px solid #d8d4cf;
-    border-radius: 6px;
+    padding: 10px 13px;
+    border: 1px solid #d4d0cb;
+    border-radius: 5px;
     font-size: 15px;
     font-family: inherit;
-    color: #2c2521;
+    color: #1c1c1c;
     background: #fff;
     outline: none;
     resize: vertical;
-    transition: border-color 150ms ease;
-    line-height: 1.5;
+    min-height: 80px;
+    line-height: 1.55;
+    transition: border-color 120ms;
+    box-sizing: border-box;
+    white-space: pre-wrap;
   }
 
-  .kz-textarea:focus {
-    border-color: #c9a96e;
-  }
+  .kz-textarea:focus { border-color: #c9a96e; }
 
-  /* ── Swatches ────────────────────────────────────────── */
-  .kz-swatches {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+  /* ── Upload photo ──────────────────────────────────────── */
 
-  .kz-swatch {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 2.5px solid transparent;
-    cursor: pointer;
-    padding: 0;
-    outline: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
-    transition: transform 140ms ease, border-color 140ms ease;
-  }
-
-  .kz-swatch:hover  { transform: scale(1.14); }
-  .kz-swatch.active { border-color: #2c2521; }
-
-  /* ── Upload photo ────────────────────────────────────── */
-  .kz-upload-btn {
+  .kz-upload {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 9px 16px;
-    border: 1.5px dashed #c0bbb5;
-    border-radius: 6px;
+    padding: 10px 16px;
+    border: 1.5px dashed #c4bfb9;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    color: #5a5550;
+    color: #555;
     background: #fafaf8;
-    transition: border-color 150ms ease, background 150ms ease;
+    transition: border-color 120ms, background 120ms;
     user-select: none;
+    width: fit-content;
   }
 
-  .kz-upload-btn:hover {
+  .kz-upload:hover {
     border-color: #c9a96e;
-    background: #fff;
+    background: #fffdf8;
   }
 
-  .kz-file-input {
+  .kz-file {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -271,27 +259,39 @@
     pointer-events: none;
   }
 
-  /* ── Mobile ──────────────────────────────────────────── */
+  /* ── Swatches couleur ──────────────────────────────────── */
+
+  .kz-swatches-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .kz-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.20);
+    transition: transform 120ms, border-color 120ms;
+    flex-shrink: 0;
+  }
+
+  .kz-swatch:hover  { transform: scale(1.15); }
+  .kz-swatch.active { border-color: #1c1c1c; }
+
+  /* ── Mobile ────────────────────────────────────────────── */
+
   @media (max-width: 767px) {
-    .kz-layout {
-      flex-direction: column;
-      min-height: unset;
-    }
+    .kz-layout { flex-direction: column; }
 
-    .kz-left {
-      flex: none;
-      width: 100%;
-    }
+    .kz-left  { flex: none; width: 100%; }
+    .kz-right { flex: none; width: 100%; padding: 24px 16px; }
 
-    .kz-iframe-wrap {
-      min-height: 300px;
-    }
-
-    .kz-right {
-      flex: none;
-      width: 100%;
-      padding: 24px 16px;
-    }
+    .kz-iframe-wrap { min-height: 280px; position: relative; }
   }
 </style>
 
@@ -301,56 +301,70 @@
   var REPO_BASE     = 'https://clcreation542-coder.github.io/Code-3D';
   var root          = document.getElementById('kz-root');
   var iframe        = document.getElementById('kz-iframe');
-  var designName    = root ? root.dataset.design : '';
+  if (!root || !iframe) return;
 
+  var designHandle = root.dataset.design || '';
+  var viewerReady  = false;
+  var pendingSync  = false;
+
+  /* ── postMessage helper ─────────────────────────────── */
   function post(data) {
-    if (iframe && iframe.contentWindow) {
+    if (iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, VIEWER_ORIGIN);
     }
   }
 
+  /* ── Envoyer toutes les valeurs courantes au viewer ─── */
   function syncAll() {
-    var activeSwatch = root.querySelector('.kz-swatch.active');
-    if (activeSwatch) {
-      post({ type: 'kuztom_color', color: activeSwatch.dataset.color });
-    }
     root.querySelectorAll('.kz-textarea[data-zone-id]').forEach(function (ta) {
       post({ type: 'kuztom_update', zoneId: ta.dataset.zoneId, value: ta.value });
     });
+    var active = root.querySelector('.kz-swatch.active');
+    if (active) {
+      post({ type: 'kuztom_color', color: active.dataset.color });
+    }
   }
 
-  // Quand le viewer est prêt, on lui envoie l'état courant
+  /* ── Quand le viewer signale qu'il est prêt ─────────── */
   window.addEventListener('message', function (e) {
-    if (e.data && e.data.type === 'kuztom_ready') {
-      syncAll();
-    }
+    if (!e.data || e.data.type !== 'kuztom_ready') return;
+    viewerReady = true;
+    if (pendingSync) { syncAll(); pendingSync = false; }
   });
 
-  // Charger les placeholders depuis le JSON du design
-  if (designName) {
-    fetch(REPO_BASE + '/designs/' + encodeURIComponent(designName) + '.json')
-      .then(function (r) { return r.ok ? r.json() : null; })
+  /* ── Charger le JSON du design pour valeurs par défaut ─ */
+  if (designHandle) {
+    fetch(REPO_BASE + '/designs/' + encodeURIComponent(designHandle) + '.json')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function (cfg) {
-        if (!cfg || !Array.isArray(cfg.text_zones)) return;
-        cfg.text_zones.forEach(function (zone) {
-          if (!zone.placeholder) return;
+        var zones = (cfg && Array.isArray(cfg.text_zones)) ? cfg.text_zones : [];
+        zones.forEach(function (zone) {
+          if (!zone.id || !zone.placeholder) return;
           var ta = root.querySelector('.kz-textarea[data-zone-id="' + zone.id + '"]');
           if (ta && ta.value === '') {
+            /* Respecte les \n — textarea.value les préserve nativement */
             ta.value = zone.placeholder;
           }
         });
+        if (viewerReady) {
+          syncAll();
+        } else {
+          pendingSync = true;
+        }
       })
-      .catch(function () {});
+      .catch(function () {
+        if (viewerReady) { syncAll(); } else { pendingSync = true; }
+      });
   }
 
-  // Textareas — postMessage à chaque frappe
+  /* ── Textareas : postMessage à chaque frappe ─────────── */
   root.querySelectorAll('.kz-textarea[data-zone-id]').forEach(function (ta) {
     ta.addEventListener('input', function () {
       post({ type: 'kuztom_update', zoneId: ta.dataset.zoneId, value: ta.value });
     });
   });
 
-  // Swatches couleur
+  /* ── Swatches couleur ───────────────────────────────── */
   root.querySelectorAll('.kz-swatch').forEach(function (btn) {
     btn.addEventListener('click', function () {
       root.querySelectorAll('.kz-swatch').forEach(function (b) { b.classList.remove('active'); });
@@ -359,23 +373,20 @@
     });
   });
 
-  // Sélection automatique du premier swatch
-  var firstSwatch = root.querySelector('.kz-swatch');
-  if (firstSwatch) firstSwatch.click();
+  /* Premier swatch actif par défaut */
+  var first = root.querySelector('.kz-swatch');
+  if (first) first.classList.add('active');
 
-  // Upload photos
-  root.querySelectorAll('.kz-file-input[data-zone-id]').forEach(function (input) {
+  /* ── Photos : lire en base64 puis postMessage ─────────── */
+  root.querySelectorAll('.kz-file[data-zone-id]').forEach(function (input) {
     input.addEventListener('change', function () {
       var file = input.files && input.files[0];
       if (!file) return;
       var reader = new FileReader();
       reader.onload = function (ev) {
         post({ type: 'kuztom_photo', zoneId: input.dataset.zoneId, dataUrl: ev.target.result });
-        var textEl = input.closest('.kz-upload-btn');
-        if (textEl) {
-          var span = textEl.querySelector('.kz-upload-text');
-          if (span) span.textContent = file.name;
-        }
+        var span = input.closest('.kz-upload') && input.closest('.kz-upload').querySelector('.kz-upload-text');
+        if (span) span.textContent = file.name;
       };
       reader.readAsDataURL(file);
     });
@@ -388,43 +399,34 @@
 {
   "name": "Configurateur 3D",
   "tag": "section",
-  "class": "kuztom-section",
+  "class": "kuztom-3d-section",
   "settings": [
     {
       "type": "text",
-      "id": "design_name",
-      "label": "Nom du design (fichier JSON)",
-      "info": "Correspond au fichier designs/<nom>.json sur GitHub Pages",
+      "id": "design_handle",
+      "label": "Handle du design (laisser vide = handle produit Shopify)",
+      "info": "Correspond au fichier designs/<handle>.json sur GitHub Pages",
       "default": ""
+    },
+    {
+      "type": "range",
+      "id": "viewer_height",
+      "label": "Hauteur du viewer (px)",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "default": 560
     }
   ],
   "blocks": [
     {
-      "type": "color_swatch",
-      "name": "Palette de couleurs",
-      "settings": [
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Couleur du gobelet"
-        },
-        {
-          "type": "text",
-          "id": "colors",
-          "label": "Couleurs HEX (séparées par des virgules)",
-          "default": "#f5f0eb,#d4b896,#2c2521"
-        }
-      ]
-    },
-    {
-      "type": "text_zone",
+      "type": "zone_texte",
       "name": "Zone de texte",
       "settings": [
         {
           "type": "text",
           "id": "zone_id",
-          "label": "ID de zone (doit correspondre à l'ID dans le JSON)",
+          "label": "ID de la zone (doit correspondre à l'ID dans le JSON design)",
           "default": "zone_1"
         },
         {
@@ -436,13 +438,13 @@
       ]
     },
     {
-      "type": "photo_zone",
+      "type": "zone_photo",
       "name": "Zone photo",
       "settings": [
         {
           "type": "text",
           "id": "zone_id",
-          "label": "ID de zone (doit correspondre à l'ID dans le JSON)",
+          "label": "ID de la zone (doit correspondre à l'ID dans le JSON design)",
           "default": "photo_1"
         },
         {
@@ -450,6 +452,24 @@
           "id": "label",
           "label": "Label affiché au client",
           "default": "Votre photo"
+        }
+      ]
+    },
+    {
+      "type": "couleur",
+      "name": "Couleur",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Nom de la couleur (optionnel)",
+          "default": ""
+        },
+        {
+          "type": "text",
+          "id": "couleur_hex",
+          "label": "Couleur HEX",
+          "default": "#f5f0eb"
         }
       ]
     }
