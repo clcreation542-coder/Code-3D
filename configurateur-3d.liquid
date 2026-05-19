@@ -1,90 +1,112 @@
 {% comment %}
   Kuztom — Section configurateur 3D
-  Contenu : iframe viewer + champs texte + couleurs uniquement
+  Gauche/haut : iframe viewer 3D
+  Droite/bas  : nom shop + produit, couleurs (blocs), zones texte (blocs), zones photo (blocs)
 {% endcomment %}
 
 {%- liquid
   assign design_name = section.settings.design_name | strip
-  assign viewer_base = 'https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html'
-  assign viewer_url  = viewer_base | append: '?design=' | append: design_name
+  assign viewer_url  = 'https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html?design=' | append: design_name
+  assign color_blocks = section.blocks | where: 'type', 'color_swatch'
+  assign text_blocks  = section.blocks | where: 'type', 'text_zone'
+  assign photo_blocks = section.blocks | where: 'type', 'photo_zone'
 -%}
 
-<div
-  id="kuztom-configurateur"
-  data-section-id="{{ section.id }}"
-  style="width:100%;max-width:1200px;margin:0 auto;"
->
-  <div class="kuztom-layout">
+<div id="kz-root" data-design="{{ design_name }}">
+  <div class="kz-layout">
 
-    <div class="kuztom-viewer">
-      <iframe
-        id="kuztom-iframe"
-        src="{{ viewer_url }}"
-        allow="cross-origin-isolated"
-        loading="lazy"
-        style="width:100%;height:100%;border:none;display:block;"
-      ></iframe>
+    {{- '<!-- ─── GAUCHE : viewer ──────────────────────────────── -->' }}
+    <div class="kz-left">
+      <div class="kz-iframe-wrap">
+        <iframe
+          id="kz-iframe"
+          src="{{ viewer_url }}"
+          allow="cross-origin-isolated"
+          style="width:100%;height:100%;border:none;display:block;"
+          title="Aperçu 3D de votre gobelet"
+        ></iframe>
+      </div>
+      <p class="kz-hint">Explorez votre gobelet à 360° &rarr;</p>
     </div>
 
-    <div class="kuztom-fields">
+    {{- '<!-- ─── DROITE : champs ──────────────────────────────── -->' }}
+    <div class="kz-right">
 
-      {%- assign color_blocks = section.blocks | where: 'type', 'color_swatch' -%}
+      {{- '<!-- Nom du shop + produit -->' }}
+      <div class="kz-product-header">
+        {%- if shop.name != blank -%}
+          <p class="kz-shop-name">{{ shop.name }}</p>
+        {%- endif -%}
+        {%- if product.title != blank -%}
+          <h1 class="kz-product-title">{{ product.title }}</h1>
+        {%- endif -%}
+      </div>
+
+      {{- '<!-- Couleurs (seulement si des blocs color_swatch existent) -->' }}
       {%- if color_blocks.size > 0 -%}
-        <div class="kuztom-group">
-          {%- for block in color_blocks -%}
-            <div class="kuztom-swatches" {{ block.shopify_attributes }}>
-              {%- if block.settings.label != blank -%}
-                <p class="kuztom-label">{{ block.settings.label }}</p>
-              {%- endif -%}
-              <div class="kuztom-swatch-row">
-                {%- assign colors = block.settings.colors | split: ',' -%}
-                {%- assign opacities = block.settings.opacities | split: ',' -%}
-                {%- for color in colors -%}
-                  {%- assign hex = color | strip -%}
-                  {%- assign op_raw = opacities[forloop.index0] | strip -%}
-                  {%- assign op = op_raw | default: '0.88' -%}
+        {%- for block in color_blocks -%}
+          <div class="kz-field-group" {{ block.shopify_attributes }}>
+            {%- if block.settings.label != blank -%}
+              <p class="kz-label">{{ block.settings.label }}</p>
+            {%- endif -%}
+            <div class="kz-swatches" role="group" aria-label="Couleurs disponibles">
+              {%- assign hex_list = block.settings.colors | split: ',' -%}
+              {%- for hex_raw in hex_list -%}
+                {%- assign hex = hex_raw | strip -%}
+                {%- if hex != blank -%}
                   <button
                     type="button"
-                    class="kuztom-swatch"
-                    data-hex="{{ hex }}"
-                    data-opacity="{{ op }}"
+                    class="kz-swatch"
+                    data-color="{{ hex }}"
                     style="background:{{ hex }};"
-                    aria-label="{{ hex }}"
+                    aria-label="Couleur {{ hex }}"
                   ></button>
-                {%- endfor -%}
-              </div>
+                {%- endif -%}
+              {%- endfor -%}
             </div>
-          {%- endfor -%}
-        </div>
+          </div>
+        {%- endfor -%}
       {%- endif -%}
 
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'text_zone' -%}
-          <div class="kuztom-group" {{ block.shopify_attributes }}>
-            {%- if block.settings.label != blank -%}
-              <label class="kuztom-label" for="kuztom-field-{{ block.id }}">
-                {{ block.settings.label }}
-              </label>
-            {%- endif -%}
-            {%- if block.settings.multiline -%}
-              <textarea
-                id="kuztom-field-{{ block.id }}"
-                class="kuztom-input"
-                data-zone-id="{{ block.settings.zone_id }}"
-                placeholder="{{ block.settings.placeholder | escape }}"
-                rows="3"
-              ></textarea>
-            {%- else -%}
-              <input
-                type="text"
-                id="kuztom-field-{{ block.id }}"
-                class="kuztom-input"
-                data-zone-id="{{ block.settings.zone_id }}"
-                placeholder="{{ block.settings.placeholder | escape }}"
-              >
-            {%- endif -%}
-          </div>
-        {%- endif -%}
+      {{- '<!-- Zones texte -->' }}
+      {%- for block in text_blocks -%}
+        <div class="kz-field-group" {{ block.shopify_attributes }}>
+          {%- if block.settings.label != blank -%}
+            <label class="kz-label" for="kz-ta-{{ block.id }}">
+              {{ block.settings.label }}
+            </label>
+          {%- endif -%}
+          <textarea
+            id="kz-ta-{{ block.id }}"
+            class="kz-textarea"
+            data-zone-id="{{ block.settings.zone_id }}"
+            rows="3"
+          ></textarea>
+        </div>
+      {%- endfor -%}
+
+      {{- '<!-- Zones photo -->' }}
+      {%- for block in photo_blocks -%}
+        <div class="kz-field-group" {{ block.shopify_attributes }}>
+          {%- if block.settings.label != blank -%}
+            <p class="kz-label">{{ block.settings.label }}</p>
+          {%- endif -%}
+          <label class="kz-upload-btn" for="kz-ph-{{ block.id }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <span class="kz-upload-text">Ajouter une photo</span>
+            <input
+              type="file"
+              id="kz-ph-{{ block.id }}"
+              class="kz-file-input"
+              data-zone-id="{{ block.settings.zone_id }}"
+              accept="image/*"
+            >
+          </label>
+        </div>
       {%- endfor -%}
 
     </div>
@@ -92,47 +114,94 @@
 </div>
 
 <style>
-  .kuztom-layout {
-    display: flex;
-    flex-direction: row;
-    gap: 0;
+  #kz-root {
     width: 100%;
-    min-height: 520px;
+    max-width: 1280px;
+    margin: 0 auto;
   }
 
-  .kuztom-viewer {
+  .kz-layout {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 560px;
+  }
+
+  /* ── Colonne gauche (viewer) ─────────────────────────── */
+  .kz-left {
     flex: 0 0 50%;
     width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .kz-iframe-wrap {
+    flex: 1;
     min-height: 400px;
     position: relative;
   }
 
-  .kuztom-fields {
+  .kz-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 10px 0 14px;
+    letter-spacing: 0.03em;
+    font-family: inherit;
+  }
+
+  /* ── Colonne droite (champs) ─────────────────────────── */
+  .kz-right {
     flex: 0 0 50%;
     width: 50%;
-    padding: 32px 28px;
+    padding: 36px 32px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     overflow-y: auto;
   }
 
-  .kuztom-group {
+  /* ── En-tête produit ─────────────────────────────────── */
+  .kz-product-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .kz-shop-name {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0;
+  }
+
+  .kz-product-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  /* ── Groupe de champ ─────────────────────────────────── */
+  .kz-field-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
 
-  .kuztom-label {
-    font-size: 13px;
+  .kz-label {
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #2c2521;
+    color: #3a3530;
     margin: 0;
   }
 
-  .kuztom-input {
+  /* ── Textarea ────────────────────────────────────────── */
+  .kz-textarea {
     width: 100%;
     padding: 10px 14px;
     border: 1px solid #d8d4cf;
@@ -142,45 +211,83 @@
     color: #2c2521;
     background: #fff;
     outline: none;
-    transition: border-color 150ms ease;
     resize: vertical;
+    transition: border-color 150ms ease;
+    line-height: 1.5;
   }
 
-  .kuztom-input:focus {
+  .kz-textarea:focus {
     border-color: #c9a96e;
   }
 
-  .kuztom-swatch-row {
+  /* ── Swatches ────────────────────────────────────────── */
+  .kz-swatches {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  .kuztom-swatch {
-    width: 36px;
-    height: 36px;
+  .kz-swatch {
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    border: 2px solid transparent;
+    border: 2.5px solid transparent;
     cursor: pointer;
-    transition: border-color 150ms ease, transform 150ms ease;
     padding: 0;
     outline: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+    transition: transform 140ms ease, border-color 140ms ease;
   }
 
-  .kuztom-swatch:hover  { transform: scale(1.12); }
-  .kuztom-swatch.active { border-color: #2c2521; }
+  .kz-swatch:hover  { transform: scale(1.14); }
+  .kz-swatch.active { border-color: #2c2521; }
 
+  /* ── Upload photo ────────────────────────────────────── */
+  .kz-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border: 1.5px dashed #c0bbb5;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #5a5550;
+    background: #fafaf8;
+    transition: border-color 150ms ease, background 150ms ease;
+    user-select: none;
+  }
+
+  .kz-upload-btn:hover {
+    border-color: #c9a96e;
+    background: #fff;
+  }
+
+  .kz-file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ── Mobile ──────────────────────────────────────────── */
   @media (max-width: 767px) {
-    .kuztom-layout {
+    .kz-layout {
       flex-direction: column;
       min-height: unset;
     }
-    .kuztom-viewer {
+
+    .kz-left {
       flex: none;
       width: 100%;
-      min-height: 320px;
     }
-    .kuztom-fields {
+
+    .kz-iframe-wrap {
+      min-height: 300px;
+    }
+
+    .kz-right {
       flex: none;
       width: 100%;
       padding: 24px 16px;
@@ -190,72 +297,89 @@
 
 <script>
 (function () {
-  const VIEWER_ORIGIN = 'https://clcreation542-coder.github.io';
-  const iframe        = document.getElementById('kuztom-iframe');
+  var VIEWER_ORIGIN = 'https://clcreation542-coder.github.io';
+  var REPO_BASE     = 'https://clcreation542-coder.github.io/Code-3D';
+  var root          = document.getElementById('kz-root');
+  var iframe        = document.getElementById('kz-iframe');
+  var designName    = root ? root.dataset.design : '';
 
-  let activeHex     = null;
-  let activeOpacity = 0.88;
-  let viewerReady   = false;
-
-  function postToViewer(data) {
+  function post(data) {
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(data, VIEWER_ORIGIN);
     }
   }
 
-  function collectTexts() {
-    const zones = [];
-    document.querySelectorAll('#kuztom-configurateur .kuztom-input[data-zone-id]').forEach(function (el) {
-      zones.push({ id: el.dataset.zoneId, text: el.value });
+  function syncAll() {
+    var activeSwatch = root.querySelector('.kz-swatch.active');
+    if (activeSwatch) {
+      post({ type: 'kuztom_color', color: activeSwatch.dataset.color });
+    }
+    root.querySelectorAll('.kz-textarea[data-zone-id]').forEach(function (ta) {
+      post({ type: 'kuztom_update', zoneId: ta.dataset.zoneId, value: ta.value });
     });
-    return zones;
   }
 
-  function sendAllTexts() {
-    const zones = collectTexts();
-    if (zones.length) postToViewer({ type: 'kuztom_update', zones: zones });
-  }
-
-  function sendColor(hex, opacity) {
-    postToViewer({ type: 'kuztom_color', hex: hex, opacity: parseFloat(opacity) });
-  }
-
-  function syncViewer() {
-    if (activeHex) sendColor(activeHex, activeOpacity);
-    sendAllTexts();
-  }
-
-  // Réception du signal kuztom_ready depuis l'iframe
+  // Quand le viewer est prêt, on lui envoie l'état courant
   window.addEventListener('message', function (e) {
     if (e.data && e.data.type === 'kuztom_ready') {
-      viewerReady = true;
-      syncViewer();
+      syncAll();
     }
   });
 
-  // Champs texte — mise à jour à chaque frappe
-  document.querySelectorAll('#kuztom-configurateur .kuztom-input[data-zone-id]').forEach(function (el) {
-    el.addEventListener('input', function () {
-      postToViewer({ type: 'kuztom_update', zones: [{ id: el.dataset.zoneId, text: el.value }] });
+  // Charger les placeholders depuis le JSON du design
+  if (designName) {
+    fetch(REPO_BASE + '/designs/' + encodeURIComponent(designName) + '.json')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (cfg) {
+        if (!cfg || !Array.isArray(cfg.text_zones)) return;
+        cfg.text_zones.forEach(function (zone) {
+          if (!zone.placeholder) return;
+          var ta = root.querySelector('.kz-textarea[data-zone-id="' + zone.id + '"]');
+          if (ta && ta.value === '') {
+            ta.value = zone.placeholder;
+          }
+        });
+      })
+      .catch(function () {});
+  }
+
+  // Textareas — postMessage à chaque frappe
+  root.querySelectorAll('.kz-textarea[data-zone-id]').forEach(function (ta) {
+    ta.addEventListener('input', function () {
+      post({ type: 'kuztom_update', zoneId: ta.dataset.zoneId, value: ta.value });
     });
   });
 
-  // Couleurs
-  document.querySelectorAll('#kuztom-configurateur .kuztom-swatch').forEach(function (btn) {
+  // Swatches couleur
+  root.querySelectorAll('.kz-swatch').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      document.querySelectorAll('#kuztom-configurateur .kuztom-swatch').forEach(function (b) {
-        b.classList.remove('active');
-      });
+      root.querySelectorAll('.kz-swatch').forEach(function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
-      activeHex     = btn.dataset.hex;
-      activeOpacity = btn.dataset.opacity || 0.88;
-      sendColor(activeHex, activeOpacity);
+      post({ type: 'kuztom_color', color: btn.dataset.color });
     });
   });
 
-  // Sélectionner la première couleur par défaut
-  var firstSwatch = document.querySelector('#kuztom-configurateur .kuztom-swatch');
+  // Sélection automatique du premier swatch
+  var firstSwatch = root.querySelector('.kz-swatch');
   if (firstSwatch) firstSwatch.click();
+
+  // Upload photos
+  root.querySelectorAll('.kz-file-input[data-zone-id]').forEach(function (input) {
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        post({ type: 'kuztom_photo', zoneId: input.dataset.zoneId, dataUrl: ev.target.result });
+        var textEl = input.closest('.kz-upload-btn');
+        if (textEl) {
+          var span = textEl.querySelector('.kz-upload-text');
+          if (span) span.textContent = file.name;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  });
 
 })();
 </script>
@@ -269,41 +393,12 @@
     {
       "type": "text",
       "id": "design_name",
-      "label": "Nom du design",
+      "label": "Nom du design (fichier JSON)",
+      "info": "Correspond au fichier designs/<nom>.json sur GitHub Pages",
       "default": ""
     }
   ],
   "blocks": [
-    {
-      "type": "text_zone",
-      "name": "Zone de texte",
-      "settings": [
-        {
-          "type": "text",
-          "id": "zone_id",
-          "label": "ID de zone",
-          "default": "zone_1"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label du champ",
-          "default": "Votre texte"
-        },
-        {
-          "type": "text",
-          "id": "placeholder",
-          "label": "Placeholder",
-          "default": ""
-        },
-        {
-          "type": "checkbox",
-          "id": "multiline",
-          "label": "Multiligne",
-          "default": false
-        }
-      ]
-    },
     {
       "type": "color_swatch",
       "name": "Palette de couleurs",
@@ -319,12 +414,42 @@
           "id": "colors",
           "label": "Couleurs HEX (séparées par des virgules)",
           "default": "#f5f0eb,#d4b896,#2c2521"
+        }
+      ]
+    },
+    {
+      "type": "text_zone",
+      "name": "Zone de texte",
+      "settings": [
+        {
+          "type": "text",
+          "id": "zone_id",
+          "label": "ID de zone (doit correspondre à l'ID dans le JSON)",
+          "default": "zone_1"
         },
         {
           "type": "text",
-          "id": "opacities",
-          "label": "Opacités (séparées par des virgules, ex: 0.88,0.88,0.88)",
-          "default": "0.88,0.88,0.88"
+          "id": "label",
+          "label": "Label affiché au client",
+          "default": "Votre texte"
+        }
+      ]
+    },
+    {
+      "type": "photo_zone",
+      "name": "Zone photo",
+      "settings": [
+        {
+          "type": "text",
+          "id": "zone_id",
+          "label": "ID de zone (doit correspondre à l'ID dans le JSON)",
+          "default": "photo_1"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label affiché au client",
+          "default": "Votre photo"
         }
       ]
     }
