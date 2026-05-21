@@ -121,13 +121,12 @@ const forcedH    = parseInt(params.get('h')) || 0;
    Sur Android, getBoundingClientRect().height peut être 0 au init.
    On utilise forcedH (passé via URL) comme fallback fiable. */
 function getSize(container) {
-  var rect = container.getBoundingClientRect();
-  /* rect.width est toujours fiable (même sur Android).
-     rect.height peut être 0 sur Android (viewport != container height).
-     On utilise forcedH (passé via ?h=380) comme fallback pour la hauteur. */
-  var w = rect.width > 10 ? rect.width : window.innerWidth;
-  var h = forcedH > 0 ? forcedH : (rect.height > 50 ? rect.height : window.innerHeight);
-  return { w: w, h: h };
+  /* Utilise window.innerWidth pour les deux dimensions.
+     Sur Android, rect.height = viewport entier (800px+).
+     window.innerWidth = largeur CSS réelle du téléphone (360-375px).
+     Canvas carré = gobelet centré sur tous les appareils. */
+  var w = window.innerWidth || 375;
+  return { w: w, h: w };
 }
 
 let CFG = {
@@ -381,6 +380,7 @@ function initThree() {
         renderer.setSize(s.w, s.h);
         camera.aspect = s.w / s.h;
         camera.updateProjectionMatrix();
+        camera.lookAt(0, 0, 0);
       }
     }).observe(container);
   }
@@ -533,10 +533,7 @@ function onResize() {
   renderer.setSize(w, h);
   camera.aspect = w / h;
   camera.position.set(0, 0, storedCameraZ);
-  /* Sur mobile (forcedH > 0), le gobelet incliné apparaît trop haut.
-     On regarde légèrement vers le haut pour recentrer le gobelet. */
-  var lookY = (forcedH > 0) ? 0.4 : 0;
-  camera.lookAt(0, lookY, 0);
+  camera.lookAt(0, 0, 0);
   camera.updateProjectionMatrix();
 }
 
@@ -546,8 +543,11 @@ window.addEventListener('message', function(e) {
 
   if (data.type === 'SET_SIZE' && data.width && data.height) {
     if (renderer) {
-      renderer.setSize(data.width, data.height);
-      camera.aspect = data.width / data.height;
+      /* Sur mobile, ignorer la hauteur si elle dépasse la largeur */
+      var sizeW = data.width;
+      var sizeH = Math.min(data.height, data.width);
+      renderer.setSize(sizeW, sizeH);
+      camera.aspect = sizeW / sizeH;
       camera.updateProjectionMatrix();
     }
   }
