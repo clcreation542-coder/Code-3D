@@ -117,6 +117,16 @@ const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
 const forcedW    = parseInt(params.get('w')) || 0;
 const forcedH    = parseInt(params.get('h')) || 0;
 
+/* Retourne les dimensions réelles du container.
+   Sur Android, getBoundingClientRect().height peut être 0 au init.
+   On utilise forcedH (passé via URL) comme fallback fiable. */
+function getSize(container) {
+  var rect = container.getBoundingClientRect();
+  var w = rect.width  > 10 ? rect.width  : (forcedW || window.innerWidth);
+  var h = rect.height > 50 ? rect.height : (forcedH || window.innerHeight);
+  return { w: w, h: h };
+}
+
 let CFG = {
   id: '', name: '',
   gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
@@ -193,33 +203,23 @@ function drawPhotoZone(zone, img) {
 
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
-
-  // 1. Fond coloré
   ctx2d.globalAlpha = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
   ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
   ctx2d.fillRect(0, 0, TEX_W, TEX_H);
   ctx2d.globalAlpha = 1.0;
-
-  // 2. Design PNG/WebP par-dessus
   ctx2d.globalCompositeOperation = 'source-over';
-  ctx2d.globalAlpha = 1.0;
   if (state.designImage) {
     const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
     ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
   }
-
-  // 3. Photos uploadées
   (CFG.photo_zones || []).forEach(zone => {
     const img = state.photos[zone.id];
     if (img) drawPhotoZone(zone, img);
   });
-
-  // 4. Textes
   (CFG.text_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     drawTextZone(zone, txt);
   });
-
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
 }
 
@@ -243,7 +243,6 @@ async function loadDesignConfig() {
 async function loadFonts() {
   const families = [...new Set((CFG.text_zones || []).map(z => z.font_family).filter(Boolean))];
   if (!families.length) { state.fontsReady = true; return; }
-
   await new Promise(resolve => {
     const link  = document.createElement('link');
     link.rel    = 'stylesheet';
@@ -253,26 +252,21 @@ async function loadFonts() {
     link.onerror = resolve;
     document.head.appendChild(link);
   });
-
   try {
     await Promise.all(families.map(f => {
       const zone = (CFG.text_zones || []).find(z => z.font_family === f);
       return document.fonts.load(`${(zone && zone.font_size) || 48}px "${f}"`);
     }));
   } catch (_) {}
-
   state.fontsReady = true;
 }
 
 function loadDesignImage() {
   if (!CFG.design_url) return Promise.resolve();
-
   return new Promise(resolve => {
     const img = new Image();
     const isDataUrl = CFG.design_url.startsWith('data:');
-
     if (!isDataUrl) img.crossOrigin = 'anonymous';
-
     img.onload  = () => { state.designImage = img; resolve(); };
     img.onerror = () => {
       if (!isDataUrl && img.crossOrigin) {
@@ -280,11 +274,8 @@ function loadDesignImage() {
         retry.onload  = () => { state.designImage = retry; resolve(); };
         retry.onerror = () => resolve();
         retry.src = CFG.design_url;
-      } else {
-        resolve();
-      }
+      } else { resolve(); }
     };
-
     if (isDataUrl) {
       img.src = CFG.design_url;
     } else {
@@ -304,10 +295,8 @@ let rotY = Math.PI;
 
 function initThree() {
   const container = document.getElementById('canvas-container');
-  var rect = container.getBoundingClientRect();
-  var w = rect.width  || window.innerWidth;
-  var h = rect.height || window.innerHeight;
-  if (h < 50) h = window.innerHeight;
+  var size = getSize(container);
+  var w = size.w, h = size.h;
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -384,10 +373,10 @@ function initThree() {
   window.addEventListener('resize', onResize);
   if (window.ResizeObserver) {
     new ResizeObserver(function() {
-      var r = container.getBoundingClientRect();
-      if (r.width > 0 && r.height > 0) {
-        renderer.setSize(r.width, r.height);
-        camera.aspect = r.width / r.height;
+      var s = getSize(container);
+      if (s.w > 0 && s.h > 0) {
+        renderer.setSize(s.w, s.h);
+        camera.aspect = s.w / s.h;
         camera.updateProjectionMatrix();
       }
     }).observe(container);
@@ -398,16 +387,13 @@ function initThree() {
 
 function loadGobelet() {
   const url = CFG.model_url || `${REPO_BASE}/Gobelet 25 33.glb`;
-
   if (typeof THREE.GLTFLoader === 'undefined') { fallbackGeometry(); return; }
-
   const loader = new THREE.GLTFLoader();
   if (typeof THREE.DRACOLoader !== 'undefined') {
     const draco = new THREE.DRACOLoader();
     draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
     loader.setDRACOLoader(draco);
   }
-
   loader.load(url, gltf => {
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
@@ -425,32 +411,25 @@ function loadGobelet() {
       child.material.needsUpdate = true;
       child.castShadow = false;
     });
-
     gltf.scene.traverse(child => { if (child.isMesh) bodyMaterial = child.material; });
     gobeletGroup.add(gltf.scene);
-
     const box    = new THREE.Box3().setFromObject(gobeletGroup);
     const size   = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
     gobeletGroup.position.sub(center);
-
     const scaleFactor = 1.746 / size.y;
     gobeletGroup.scale.setScalar(scaleFactor);
-
     const box2   = new THREE.Box3().setFromObject(gobeletGroup);
     const size2  = box2.getSize(new THREE.Vector3());
     const maxDim = Math.max(size2.x, size2.y, size2.z);
     storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.15;
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
-
     gobeletGroup.rotation.x = 0.18;
     gobeletGroup.rotation.z = 0;
     gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.805);
     gobeletGroup.position.y -= 0.02;
     gobeletGroup.rotation.y  = rotY;
-
-    // Disc 1 — inside gobeletGroup (couvre le fond du GLB)
     const boxDisc = new THREE.Box3().setFromObject(gobeletGroup);
     const disc1   = new THREE.Mesh(
       new THREE.CircleGeometry((boxDisc.max.x - boxDisc.min.x) / 2 * 0.95, 64),
@@ -459,8 +438,6 @@ function loadGobelet() {
     disc1.rotation.x = -Math.PI / 2;
     disc1.position.y = boxDisc.min.y + 0.01;
     gobeletGroup.add(disc1);
-
-    // Disc 2 — dans la scène
     gobeletGroup.updateMatrixWorld(true);
     const boxFond    = new THREE.Box3().setFromObject(gobeletGroup);
     const fondRadius = (boxFond.max.x - boxFond.min.x) / 2;
@@ -471,8 +448,6 @@ function loadGobelet() {
     disc2.rotation.x = -Math.PI / 2;
     disc2.position.set(gobeletGroup.position.x, boxFond.min.y + 0.02, gobeletGroup.position.z);
     scene.add(disc2);
-
-    // Ombre fine ellipse
     gobeletGroup.updateMatrixWorld(true);
     const tempBox = new THREE.Box3().setFromObject(gobeletGroup);
     const shadow  = new THREE.Mesh(
@@ -482,7 +457,6 @@ function loadGobelet() {
     shadow.rotation.x = -Math.PI / 2;
     shadow.position.set(gobeletGroup.position.x, tempBox.min.y - 0.01, gobeletGroup.position.z);
     scene.add(shadow);
-
     onResize();
     drawTexture();
     requestAnimationFrame(() => { if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true; });
@@ -524,7 +498,6 @@ function animate() {
 
 function initInteraction() {
   const el = renderer.domElement;
-
   el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; });
   window.addEventListener('mousemove', e => {
     if (!isDragging) return;
@@ -533,7 +506,6 @@ function initInteraction() {
     gobeletGroup.rotation.y = rotY;
   });
   window.addEventListener('mouseup', () => { isDragging = false; });
-
   el.addEventListener('touchstart', e => {
     if (e.touches.length !== 1) return;
     isDragging = true; lastPointerX = e.touches[0].clientX;
@@ -551,10 +523,8 @@ function initInteraction() {
 function onResize() {
   if (!renderer) return;
   var container = document.getElementById('canvas-container');
-  var rect = container.getBoundingClientRect();
-  var w = rect.width  || window.innerWidth;
-  var h = rect.height || window.innerHeight;
-  if (h < 50) h = window.innerHeight;
+  var size = getSize(container);
+  var w = size.w, h = size.h;
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
@@ -566,16 +536,15 @@ function onResize() {
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
-  console.log('[kuztom viewer] MESSAGE REÇU:', data.type, data);
 
-  // SET_SIZE : { type, width, height } — dimensions réelles du container
   if (data.type === 'SET_SIZE' && data.width && data.height) {
-    renderer.setSize(data.width, data.height);
-    camera.aspect = data.width / data.height;
-    camera.updateProjectionMatrix();
+    if (renderer) {
+      renderer.setSize(data.width, data.height);
+      camera.aspect = data.width / data.height;
+      camera.updateProjectionMatrix();
+    }
   }
 
-  // UPDATE_TEXT : { type, zoneId, value }
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(function(z) { return z.id === data.zoneId; });
     if (zone) {
@@ -585,14 +554,12 @@ window.addEventListener('message', function(e) {
     }
   }
 
-  // UPDATE_COLOR : { type, value: "#hex" }
   if (data.type === 'UPDATE_COLOR' && data.value) {
     state.gobeletColor = data.value;
     drawTexture();
     if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
 
-  // UPDATE_PHOTO : { type, zoneId, value: "base64..." }
   if (data.type === 'UPDATE_PHOTO' && data.zoneId && data.value) {
     const img = new Image();
     img.onload = function() {
