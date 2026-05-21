@@ -121,9 +121,10 @@ const forcedH    = parseInt(params.get('h')) || 0;
    On utilise forcedH (passé via URL) comme fallback fiable. */
 function getSize(container) {
   var rect = container.getBoundingClientRect();
-  /* forcedH/forcedW passés via URL par Shopify = dimensions exactes du container.
-     On les priorise sur rect qui peut être erroné sur Android (viewport != container). */
-  var w = forcedW > 0 ? forcedW : (rect.width  > 10 ? rect.width  : window.innerWidth);
+  /* rect.width est toujours fiable (même sur Android).
+     rect.height peut être 0 sur Android (viewport != container height).
+     On utilise forcedH (passé via ?h=380) comme fallback pour la hauteur. */
+  var w = rect.width > 10 ? rect.width : window.innerWidth;
   var h = forcedH > 0 ? forcedH : (rect.height > 50 ? rect.height : window.innerHeight);
   return { w: w, h: h };
 }
