@@ -302,8 +302,9 @@ let rotY = Math.PI;
 
 function initThree() {
   const container = document.getElementById('canvas-container');
+  const urlParams = new URLSearchParams(window.location.search);
   const w = window.innerWidth;
-  const h = window.innerHeight;
+  const h = parseInt(urlParams.get('h')) || window.innerHeight;
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -539,8 +540,9 @@ function initInteraction() {
 
 function onResize() {
   if (!renderer) return;
+  const urlParams = new URLSearchParams(window.location.search);
   const w = window.innerWidth;
-  const h = window.innerHeight;
+  const h = parseInt(urlParams.get('h')) || window.innerHeight;
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
