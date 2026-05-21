@@ -434,17 +434,6 @@ function loadGobelet() {
     gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.805);
     gobeletGroup.position.y -= 0.02;
     gobeletGroup.rotation.y  = rotY;
-
-    /* Recalculer storedCameraZ avec les dimensions FINALES du gobelet
-       (après rotation.x=0.18 et scale*0.805) pour centrer correctement */
-    gobeletGroup.updateMatrixWorld(true);
-    var finalBox = new THREE.Box3().setFromObject(gobeletGroup);
-    var finalSize = finalBox.getSize(new THREE.Vector3());
-    var finalCenter = finalBox.getCenter(new THREE.Vector3());
-    var finalMax = Math.max(finalSize.x, finalSize.y, finalSize.z);
-    storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.1;
-    camera.lookAt(finalCenter.x, finalCenter.y, finalCenter.z);
-    camera.updateProjectionMatrix();
     const boxDisc = new THREE.Box3().setFromObject(gobeletGroup);
     const disc1   = new THREE.Mesh(
       new THREE.CircleGeometry((boxDisc.max.x - boxDisc.min.x) / 2 * 0.95, 64),
