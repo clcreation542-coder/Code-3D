@@ -302,11 +302,12 @@ let rotY = Math.PI;
 
 function initThree() {
   const container = document.getElementById('canvas-container');
+  const w = container.clientWidth  || window.innerWidth;
+  const h = container.clientHeight || window.innerHeight;
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  adjustForMobile();
+  renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.shadowMap.enabled = true;
   renderer.domElement.style.display = 'block';
@@ -536,26 +537,14 @@ function initInteraction() {
   el.addEventListener('touchend', () => { isDragging = false; });
 }
 
-function adjustForMobile() {
-  var w = renderer.domElement.width;
-  var h = renderer.domElement.height;
-  if (h > 0 && w / h < 1.2) {
-    renderer.domElement.style.transform = 'scale(1.6)';
-    renderer.domElement.style.transformOrigin = 'center 35%';
-    renderer.domElement.style.position = 'relative';
-    renderer.domElement.style.zIndex = '1';
-  }
-}
-
 function onResize() {
   if (!renderer) return;
   const container = document.getElementById('canvas-container');
-  const w = container.clientWidth;
-  const h = container.clientHeight;
+  const w = container.clientWidth  || window.innerWidth;
+  const h = container.clientHeight || window.innerHeight;
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
-  adjustForMobile();
   camera.aspect = w / h;
   camera.position.set(0, 0, storedCameraZ);
   camera.updateProjectionMatrix();
@@ -608,6 +597,9 @@ async function init() {
   await Promise.all([loadFonts(), loadDesignImage()]);
   drawTexture();
   initThree();
+  // Retry resize after layout settles (iframe height may not be set at init time)
+  setTimeout(onResize, 200);
+  setTimeout(onResize, 600);
   window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
 
