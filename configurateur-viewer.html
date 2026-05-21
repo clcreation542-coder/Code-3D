@@ -122,12 +122,12 @@ const forcedH    = parseInt(params.get('h')) || 0;
    Sur Android, getBoundingClientRect().height peut être 0 au init.
    On utilise forcedH (passé via URL) comme fallback fiable. */
 function getSize(container) {
-  /* Utilise window.innerWidth pour les deux dimensions.
-     Sur Android, rect.height = viewport entier (800px+).
-     window.innerWidth = largeur CSS réelle du téléphone (360-375px).
-     Canvas carré = gobelet centré sur tous les appareils. */
-  var w = window.innerWidth || 375;
-  return { w: w, h: w };
+  /* Utiliser les vraies dimensions CSS du container.
+     offsetWidth/Height = dimensions réelles indépendamment du viewport. */
+  var w = container.offsetWidth || window.innerWidth || 375;
+  var h = container.offsetHeight || w;
+  if (h < 100) h = w; // Fallback carré si hauteur pas encore calculée
+  return { w: w, h: h };
 }
 
 let CFG = {
@@ -426,7 +426,7 @@ function loadGobelet() {
     const box2   = new THREE.Box3().setFromObject(gobeletGroup);
     const size2  = box2.getSize(new THREE.Vector3());
     const maxDim = Math.max(size2.x, size2.y, size2.z);
-    storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.15;
+    storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 0.85;
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
     gobeletGroup.rotation.x = 0.18;
