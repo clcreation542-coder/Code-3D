@@ -556,6 +556,13 @@ window.addEventListener('message', function(e) {
   if (!data || typeof data !== 'object') return;
   console.log('[kuztom viewer] MESSAGE REÇU:', data.type, data);
 
+  // SET_SIZE : { type, width, height } — dimensions réelles du container
+  if (data.type === 'SET_SIZE' && data.width && data.height) {
+    renderer.setSize(data.width, data.height);
+    camera.aspect = data.width / data.height;
+    camera.updateProjectionMatrix();
+  }
+
   // UPDATE_TEXT : { type, zoneId, value }
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(function(z) { return z.id === data.zoneId; });
