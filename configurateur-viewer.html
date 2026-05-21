@@ -302,12 +302,10 @@ let rotY = Math.PI;
 
 function initThree() {
   const container = document.getElementById('canvas-container');
-  const w = container.offsetWidth  || window.innerWidth;
-  const h = container.offsetHeight || window.innerHeight;
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(w, h);
+  renderer.setSize(container.clientWidth, container.clientHeight);
   adjustForMobile();
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.shadowMap.enabled = true;
@@ -552,8 +550,8 @@ function adjustForMobile() {
 function onResize() {
   if (!renderer) return;
   const container = document.getElementById('canvas-container');
-  const w = container.offsetWidth  || window.innerWidth;
-  const h = container.offsetHeight || window.innerHeight;
+  const w = container.clientWidth;
+  const h = container.clientHeight;
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
