@@ -296,8 +296,8 @@ let rotY = Math.PI;
 
 function initThree() {
   const container = document.getElementById('canvas-container');
-  const w = container.clientWidth  || window.innerWidth;
-  const h = container.clientHeight || window.innerHeight;
+  const w = container.offsetWidth  || window.innerWidth;
+  const h = container.offsetHeight || window.innerHeight;
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -534,8 +534,8 @@ function initInteraction() {
 function onResize() {
   if (!renderer) return;
   const container = document.getElementById('canvas-container');
-  const w = container.clientWidth  || window.innerWidth;
-  const h = container.clientHeight || window.innerHeight;
+  const w = container.offsetWidth  || window.innerWidth;
+  const h = container.offsetHeight || window.innerHeight;
   if (w === 0 || h === 0) return;
   renderer.setSize(w, h);
   camera.aspect = w / h;
