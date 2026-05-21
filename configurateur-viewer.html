@@ -304,8 +304,10 @@ let rotY = Math.PI;
 
 function initThree() {
   const container = document.getElementById('canvas-container');
-  const w = forcedW || window.innerWidth;
-  const h = forcedH || window.innerHeight;
+  var rect = container.getBoundingClientRect();
+  var w = rect.width  || window.innerWidth;
+  var h = rect.height || window.innerHeight;
+  if (h < 50) h = window.innerHeight;
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -381,7 +383,14 @@ function initThree() {
   initInteraction();
   window.addEventListener('resize', onResize);
   if (window.ResizeObserver) {
-    new ResizeObserver(onResize).observe(container);
+    new ResizeObserver(function() {
+      var r = container.getBoundingClientRect();
+      if (r.width > 0 && r.height > 0) {
+        renderer.setSize(r.width, r.height);
+        camera.aspect = r.width / r.height;
+        camera.updateProjectionMatrix();
+      }
+    }).observe(container);
   }
   onResize();
   animate();
@@ -541,8 +550,11 @@ function initInteraction() {
 
 function onResize() {
   if (!renderer) return;
-  const w = forcedW || window.innerWidth;
-  const h = forcedH || window.innerHeight;
+  var container = document.getElementById('canvas-container');
+  var rect = container.getBoundingClientRect();
+  var w = rect.width  || window.innerWidth;
+  var h = rect.height || window.innerHeight;
+  if (h < 50) h = window.innerHeight;
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
