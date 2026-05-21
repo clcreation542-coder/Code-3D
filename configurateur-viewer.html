@@ -426,7 +426,7 @@ function loadGobelet() {
     const box2   = new THREE.Box3().setFromObject(gobeletGroup);
     const size2  = box2.getSize(new THREE.Vector3());
     const maxDim = Math.max(size2.x, size2.y, size2.z);
-    storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.15;
+    storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 0.6;
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
     gobeletGroup.rotation.x = 0.18;
