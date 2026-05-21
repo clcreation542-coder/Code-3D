@@ -308,6 +308,7 @@ function initThree() {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
+  adjustForMobile();
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.shadowMap.enabled = true;
   renderer.domElement.style.display = 'block';
@@ -537,6 +538,17 @@ function initInteraction() {
   el.addEventListener('touchend', () => { isDragging = false; });
 }
 
+function adjustForMobile() {
+  var w = renderer.domElement.width;
+  var h = renderer.domElement.height;
+  if (h > 0 && w / h < 1.2) {
+    renderer.domElement.style.transform = 'scale(1.6)';
+    renderer.domElement.style.transformOrigin = 'center 35%';
+    renderer.domElement.style.position = 'relative';
+    renderer.domElement.style.zIndex = '1';
+  }
+}
+
 function onResize() {
   if (!renderer) return;
   const container = document.getElementById('canvas-container');
@@ -545,6 +557,7 @@ function onResize() {
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
+  adjustForMobile();
   camera.aspect = w / h;
   camera.position.set(0, 0, storedCameraZ);
   camera.updateProjectionMatrix();
