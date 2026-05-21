@@ -300,17 +300,10 @@ let storedCameraZ = 5;
 let isDragging = false, lastPointerX = 0;
 let rotY = Math.PI;
 
-function getContainerSize() {
-  var container = document.getElementById('canvas-container');
-  var w = container.clientWidth || window.innerWidth;
-  var h = container.clientHeight || window.innerHeight;
-  // Sur Android dans iframe, forcer une hauteur minimale
-  if (h < 100) h = window.innerHeight || 400;
-  return { w: w, h: h };
-}
-
 function initThree() {
-  const { w, h } = getContainerSize();
+  const container = document.getElementById('canvas-container');
+  const w = window.innerWidth;
+  const h = window.innerHeight;
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -546,7 +539,8 @@ function initInteraction() {
 
 function onResize() {
   if (!renderer) return;
-  const { w, h } = getContainerSize();
+  const w = window.innerWidth;
+  const h = window.innerHeight;
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
