@@ -94,7 +94,6 @@
 </head>
 <body>
 
-<div id="kuztom-debug" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);color:#fff;font-size:11px;padding:4px;z-index:9999;pointer-events:none;"></div>
 <div id="viewer">
   <div id="canvas-container">
     <div id="loading-indicator">
@@ -427,7 +426,7 @@ function loadGobelet() {
     const box2   = new THREE.Box3().setFromObject(gobeletGroup);
     const size2  = box2.getSize(new THREE.Vector3());
     const maxDim = Math.max(size2.x, size2.y, size2.z);
-    storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 0.3;
+    storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.15;
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
     gobeletGroup.rotation.x = 0.18;
@@ -537,8 +536,6 @@ function onResize() {
   camera.position.set(0, 0, storedCameraZ);
   camera.lookAt(0, 0, 0);
   camera.updateProjectionMatrix();
-  var dbg = document.getElementById('kuztom-debug');
-  if (dbg) dbg.textContent = 'r:'+w+'x'+h+' cam:'+storedCameraZ.toFixed(2)+' iW:'+window.innerWidth;
 }
 
 window.addEventListener('message', function(e) {
