@@ -28,6 +28,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: #edeae5;
     }
 
     #canvas-container canvas {
@@ -300,7 +301,7 @@ function initThree() {
   var size = getSize(container);
   var w = size.w, h = size.h;
 
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
@@ -532,6 +533,10 @@ function onResize() {
   renderer.setSize(w, h);
   camera.aspect = w / h;
   camera.position.set(0, 0, storedCameraZ);
+  /* Sur mobile (forcedH > 0), le gobelet incliné apparaît trop haut.
+     On regarde légèrement vers le haut pour recentrer le gobelet. */
+  var lookY = (forcedH > 0) ? 0.4 : 0;
+  camera.lookAt(0, lookY, 0);
   camera.updateProjectionMatrix();
 }
 
