@@ -300,10 +300,17 @@ let storedCameraZ = 5;
 let isDragging = false, lastPointerX = 0;
 let rotY = Math.PI;
 
+function getContainerSize() {
+  var container = document.getElementById('canvas-container');
+  var w = container.clientWidth || window.innerWidth;
+  var h = container.clientHeight || window.innerHeight;
+  // Sur Android dans iframe, forcer une hauteur minimale
+  if (h < 100) h = window.innerHeight || 400;
+  return { w: w, h: h };
+}
+
 function initThree() {
-  const container = document.getElementById('canvas-container');
-  const w = container.clientWidth  || window.innerWidth;
-  const h = container.clientHeight || window.innerHeight;
+  const { w, h } = getContainerSize();
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -539,9 +546,7 @@ function initInteraction() {
 
 function onResize() {
   if (!renderer) return;
-  const container = document.getElementById('canvas-container');
-  const w = container.clientWidth  || window.innerWidth;
-  const h = container.clientHeight || window.innerHeight;
+  const { w, h } = getContainerSize();
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
@@ -600,6 +605,7 @@ async function init() {
   // Retry resize after layout settles (iframe height may not be set at init time)
   setTimeout(onResize, 200);
   setTimeout(onResize, 600);
+  setTimeout(onResize, 1500);
   window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
 
