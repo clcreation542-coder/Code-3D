@@ -34,9 +34,9 @@
     #canvas-container canvas {
       display: block;
       position: absolute;
-      inset: 0;
-      width: 100% !important;
-      height: 100% !important;
+      top: 0;
+      left: 0;
+      /* Pas de width/height 100% : le renderer contrôle la taille exacte */
     }
 
     #loading-indicator {
@@ -122,12 +122,11 @@ const forcedH    = parseInt(params.get('h')) || 0;
    Sur Android, getBoundingClientRect().height peut être 0 au init.
    On utilise forcedH (passé via URL) comme fallback fiable. */
 function getSize(container) {
-  /* Utiliser les vraies dimensions CSS du container.
-     offsetWidth/Height = dimensions réelles indépendamment du viewport. */
-  var w = container.offsetWidth || window.innerWidth || 375;
-  var h = container.offsetHeight || w;
-  if (h < 100) h = w; // Fallback carré si hauteur pas encore calculée
-  return { w: w, h: h };
+  /* Toujours carré basé sur window.innerWidth.
+     Ignore innerHeight (150px défaut iframe, ou 800px viewport Android).
+     window.innerWidth est toujours fiable dans un iframe. */
+  var w = window.innerWidth || 375;
+  return { w: w, h: w };
 }
 
 let CFG = {
@@ -374,17 +373,7 @@ function initThree() {
   loadGobelet();
   initInteraction();
   window.addEventListener('resize', onResize);
-  if (window.ResizeObserver) {
-    new ResizeObserver(function() {
-      var s = getSize(container);
-      if (s.w > 0 && s.h > 0) {
-        renderer.setSize(s.w, s.h);
-        camera.aspect = s.w / s.h;
-        camera.updateProjectionMatrix();
-        camera.lookAt(0, 0, 0);
-      }
-    }).observe(container);
-  }
+  /* ResizeObserver désactivé : il écrasait les bonnes dimensions sur Android */
   onResize();
   animate();
 }
@@ -426,14 +415,20 @@ function loadGobelet() {
     const box2   = new THREE.Box3().setFromObject(gobeletGroup);
     const size2  = box2.getSize(new THREE.Vector3());
     const maxDim = Math.max(size2.x, size2.y, size2.z);
-    storedCameraZ = (maxDim / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.15;
-    camera.lookAt(0, 0, 0);
-    camera.updateProjectionMatrix();
     gobeletGroup.rotation.x = 0.18;
     gobeletGroup.rotation.z = 0;
     gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.805);
     gobeletGroup.position.y -= 0.02;
     gobeletGroup.rotation.y  = rotY;
+
+    /* storedCameraZ recalculé avec dimensions finales après scale 0.805 */
+    gobeletGroup.updateMatrixWorld(true);
+    var finalBox = new THREE.Box3().setFromObject(gobeletGroup);
+    var finalSize = finalBox.getSize(new THREE.Vector3());
+    var finalMax = Math.max(finalSize.x, finalSize.y, finalSize.z);
+    storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.1;
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix();
     const boxDisc = new THREE.Box3().setFromObject(gobeletGroup);
     const disc1   = new THREE.Mesh(
       new THREE.CircleGeometry((boxDisc.max.x - boxDisc.min.x) / 2 * 0.95, 64),
@@ -542,16 +537,7 @@ window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
 
-  if (data.type === 'SET_SIZE' && data.width && data.height) {
-    if (renderer) {
-      /* Sur mobile, ignorer la hauteur si elle dépasse la largeur */
-      var sizeW = data.width;
-      var sizeH = Math.min(data.height, data.width);
-      renderer.setSize(sizeW, sizeH);
-      camera.aspect = sizeW / sizeH;
-      camera.updateProjectionMatrix();
-    }
-  }
+  /* SET_SIZE ignoré : le viewer gère ses dimensions via getSize() */
 
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(function(z) { return z.id === data.zoneId; });
