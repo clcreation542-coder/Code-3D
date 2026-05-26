@@ -36,7 +36,6 @@
       position: absolute;
       top: 0;
       left: 0;
-      /* Pas de width/height 100% : le renderer contrôle la taille exacte */
     }
 
     #loading-indicator {
@@ -118,13 +117,7 @@ const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
 const forcedW    = parseInt(params.get('w')) || 0;
 const forcedH    = parseInt(params.get('h')) || 0;
 
-/* Retourne les dimensions réelles du container.
-   Sur Android, getBoundingClientRect().height peut être 0 au init.
-   On utilise forcedH (passé via URL) comme fallback fiable. */
 function getSize(container) {
-  /* Toujours carré basé sur window.innerWidth.
-     Ignore innerHeight (150px défaut iframe, ou 800px viewport Android).
-     window.innerWidth est toujours fiable dans un iframe. */
   var w = window.innerWidth || 375;
   return { w: w, h: w };
 }
@@ -176,7 +169,6 @@ function drawTextZone(zone, text) {
   ctx2d.fillStyle    = zone.color || '#2c2521';
   ctx2d.textAlign    = zone.align || 'center';
   ctx2d.textBaseline = 'middle';
-
   const lines  = text.split('\n');
   const lineH  = size * lh;
   const totalH = lines.length * lineH;
@@ -184,7 +176,6 @@ function drawTextZone(zone, text) {
   const startX = zone.align === 'center' ? zone.x + zone.width / 2
                : zone.align === 'right'  ? zone.x + zone.width
                : zone.x;
-
   lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
 }
 
@@ -310,14 +301,36 @@ function initThree() {
 
   scene = new THREE.Scene();
 
+  /* ── Fond avec dégradé + lignes de perspective ─────────────────
+     Les lignes sont dessinées directement dans le canvas de fond
+     Three.js → naturellement derrière le gobelet, aucun z-index,
+     aucun risque Android. ──────────────────────────────────────── */
   const bgCanvas  = document.createElement('canvas');
   bgCanvas.width  = bgCanvas.height = 512;
   const bgCtx     = bgCanvas.getContext('2d');
+
+  /* Dégradé radial (fond existant) */
   const gradient  = bgCtx.createRadialGradient(256, 256, 0, 256, 256, 380);
   gradient.addColorStop(0, '#edeae5');
   gradient.addColorStop(1, '#c8c4be');
   bgCtx.fillStyle = gradient;
   bgCtx.fillRect(0, 0, 512, 512);
+
+  /* Deux lignes de perspective en bas — coin de pièce */
+  bgCtx.strokeStyle = 'rgba(148, 136, 126, 0.38)';
+  bgCtx.lineWidth   = 1.2;
+  bgCtx.lineCap     = 'round';
+  /* Ligne gauche : du bas-gauche vers le centre-bas */
+  bgCtx.beginPath();
+  bgCtx.moveTo(0,   512);
+  bgCtx.lineTo(256, 370);
+  bgCtx.stroke();
+  /* Ligne droite : du bas-droit vers le centre-bas */
+  bgCtx.beginPath();
+  bgCtx.moveTo(512, 512);
+  bgCtx.lineTo(256, 370);
+  bgCtx.stroke();
+
   scene.background = new THREE.CanvasTexture(bgCanvas);
 
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
@@ -366,7 +379,7 @@ function initThree() {
   rotY = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
 
   gobeletGroup = new THREE.Group();
-  gobeletGroup.rotation.x = 0.087; /* ← MODIFIÉ : 5° au lieu de 0.18 (~10°) */
+  gobeletGroup.rotation.x = 0.035; /* 2° exactement */
   gobeletGroup.rotation.y = rotY;
   scene.add(gobeletGroup);
 
@@ -411,22 +424,20 @@ function loadGobelet() {
     gobeletGroup.position.sub(center);
     const scaleFactor = 1.746 / size.y;
     gobeletGroup.scale.setScalar(scaleFactor);
-    const box2   = new THREE.Box3().setFromObject(gobeletGroup);
-    const size2  = box2.getSize(new THREE.Vector3());
-    const maxDim = Math.max(size2.x, size2.y, size2.z);
-    gobeletGroup.rotation.x = 0.087; /* ← MODIFIÉ : 5° au lieu de 0.18 (~10°) */
+    gobeletGroup.rotation.x = 0.035; /* 2° exactement */
     gobeletGroup.rotation.z = 0;
     gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.805);
     gobeletGroup.position.y -= 0.02;
     gobeletGroup.rotation.y  = rotY;
 
     gobeletGroup.updateMatrixWorld(true);
-    var finalBox = new THREE.Box3().setFromObject(gobeletGroup);
+    var finalBox  = new THREE.Box3().setFromObject(gobeletGroup);
     var finalSize = finalBox.getSize(new THREE.Vector3());
-    var finalMax = Math.max(finalSize.x, finalSize.y, finalSize.z);
-    storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.32; /* ← MODIFIÉ : 1.32 au lieu de 1.1 → gobelet 75-80% du cadre */
+    var finalMax  = Math.max(finalSize.x, finalSize.y, finalSize.z);
+    storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.32;
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
+
     const boxDisc = new THREE.Box3().setFromObject(gobeletGroup);
     const disc1   = new THREE.Mesh(
       new THREE.CircleGeometry((boxDisc.max.x - boxDisc.min.x) / 2 * 0.95, 64),
@@ -435,6 +446,7 @@ function loadGobelet() {
     disc1.rotation.x = -Math.PI / 2;
     disc1.position.y = boxDisc.min.y + 0.01;
     gobeletGroup.add(disc1);
+
     gobeletGroup.updateMatrixWorld(true);
     const boxFond    = new THREE.Box3().setFromObject(gobeletGroup);
     const fondRadius = (boxFond.max.x - boxFond.min.x) / 2;
@@ -445,6 +457,7 @@ function loadGobelet() {
     disc2.rotation.x = -Math.PI / 2;
     disc2.position.set(gobeletGroup.position.x, boxFond.min.y + 0.02, gobeletGroup.position.z);
     scene.add(disc2);
+
     gobeletGroup.updateMatrixWorld(true);
     const tempBox = new THREE.Box3().setFromObject(gobeletGroup);
     const shadow  = new THREE.Mesh(
@@ -454,6 +467,7 @@ function loadGobelet() {
     shadow.rotation.x = -Math.PI / 2;
     shadow.position.set(gobeletGroup.position.x, tempBox.min.y - 0.01, gobeletGroup.position.z);
     scene.add(shadow);
+
     onResize();
     drawTexture();
     requestAnimationFrame(() => { if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true; });
