@@ -366,14 +366,13 @@ function initThree() {
   rotY = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
 
   gobeletGroup = new THREE.Group();
-  gobeletGroup.rotation.x = 0.18;
+  gobeletGroup.rotation.x = 0.087; /* ← MODIFIÉ : 5° au lieu de 0.18 (~10°) */
   gobeletGroup.rotation.y = rotY;
   scene.add(gobeletGroup);
 
   loadGobelet();
   initInteraction();
   window.addEventListener('resize', onResize);
-  /* ResizeObserver désactivé : il écrasait les bonnes dimensions sur Android */
   onResize();
   animate();
 }
@@ -415,18 +414,17 @@ function loadGobelet() {
     const box2   = new THREE.Box3().setFromObject(gobeletGroup);
     const size2  = box2.getSize(new THREE.Vector3());
     const maxDim = Math.max(size2.x, size2.y, size2.z);
-    gobeletGroup.rotation.x = 0.18;
+    gobeletGroup.rotation.x = 0.087; /* ← MODIFIÉ : 5° au lieu de 0.18 (~10°) */
     gobeletGroup.rotation.z = 0;
     gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.805);
     gobeletGroup.position.y -= 0.02;
     gobeletGroup.rotation.y  = rotY;
 
-    /* storedCameraZ recalculé avec dimensions finales après scale 0.805 */
     gobeletGroup.updateMatrixWorld(true);
     var finalBox = new THREE.Box3().setFromObject(gobeletGroup);
     var finalSize = finalBox.getSize(new THREE.Vector3());
     var finalMax = Math.max(finalSize.x, finalSize.y, finalSize.z);
-    storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.1;
+    storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.32; /* ← MODIFIÉ : 1.32 au lieu de 1.1 → gobelet 75-80% du cadre */
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
     const boxDisc = new THREE.Box3().setFromObject(gobeletGroup);
@@ -536,8 +534,6 @@ function onResize() {
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
-
-  /* SET_SIZE ignoré : le viewer gère ses dimensions via getSize() */
 
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(function(z) { return z.id === data.zoneId; });
