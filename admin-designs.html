@@ -168,6 +168,7 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
       <button class="tool-btn active" data-tool="select">↖ Sélectionner</button>
       <button class="tool-btn" data-tool="add-text">+ Zone texte</button>
       <button class="tool-btn" data-tool="add-photo">+ Zone photo</button>
+      <button class="tool-btn" data-tool="add-arch">𝄆 Zone arche</button>
       <div id="toolbar-right">
         <button class="tool-btn tool-btn-sm active" id="btn-snap" title="Guides magnétiques (actif)">🧲 Snap</button>
         <button class="tool-btn tool-btn-sm" id="btn-preview" title="Mode aperçu — masquer poignées">👁 Aperçu</button>
@@ -297,7 +298,7 @@ function newDesign(name, color, designUrl) {
     model_url: null, rotation_y: 0,
     design_url: designUrl || null,
     design: { x:0, y:0, width:TEX_W, height:TEX_H },
-    variant_colors: [], text_zones: [], photo_zones: []
+    variant_colors: [], text_zones: [], photo_zones: [], arch_zones: []
   };
 }
 
@@ -306,27 +307,25 @@ function newDesign(name, color, designUrl) {
 // ═══════════════════════════════════════════
 const app = {
   designs: loadDesigns(),
-  currentId: null,
-  selectedZone: null,
-  selectedZones: [],          // sélection multiple
-  tool: 'select',
-  imgCache: {},
-  searchQuery: '',
-  dragState: null,
+  currentId: null, selectedZone: null, selectedZones: [],
+  tool: 'select', imgCache: {}, searchQuery: '', dragState: null,
   history: [],
-  magneticSnap: true,         // guides magnétiques on/off
-  previewMode: false,         // masquer poignées/guides
-  zoom: 1.0,                  // zoom canvas
-  unsaved: false,             // avertissement non sauvegardé
-  copiedStyle: null,          // style copié (police, couleur, taille…)
+  magneticSnap: true, previewMode: false, zoom: 1.0,
+  unsaved: false, copiedStyle: null,
 };
 
 function currentDesign() { return app.designs.find(d => d.id === app.currentId) || null; }
-function getZone(design, id) { return design.text_zones.find(z=>z.id===id) || design.photo_zones.find(z=>z.id===id) || null; }
+function getZone(design, id) {
+  return design.text_zones.find(z=>z.id===id)
+    || design.photo_zones.find(z=>z.id===id)
+    || (design.arch_zones||[]).find(z=>z.id===id)
+    || null;
+}
 function allZones(design) {
   return [
     ...(design.text_zones||[]).map(z=>({...z,_type:'text'})),
-    ...(design.photo_zones||[]).map(z=>({...z,_type:'photo'}))
+    ...(design.photo_zones||[]).map(z=>({...z,_type:'photo'})),
+    ...(design.arch_zones||[]).map(z=>({...z,_type:'arch'}))
   ];
 }
 
@@ -477,6 +476,7 @@ function drawEditor() {
   }
   (d.text_zones||[]).forEach(z  => drawZone(z,'text'));
   (d.photo_zones||[]).forEach(z => drawZone(z,'photo'));
+  (d.arch_zones||[]).forEach(z  => drawArchZone(z));
 }
 
 function drawZoneShape(zone, c) {
@@ -548,6 +548,94 @@ function drawPhotoPlaceholder(zone) {
   // Prairie
   ctx.fillStyle='#88b050'; ctx.fillRect(x,y+h*0.72,w,h*0.28);
   ctx.restore();
+}
+
+// ─── Texte en arche ──────────────────────────────────────────────
+// Utilisé sur le canvas admin ET dans update3D (ptexCtx)
+function drawArchText(zone, c) {
+  c = c || ctx;
+  const text = zone.placeholder || '';
+  if (!text.trim()) return;
+  const isUp = (zone.direction || 'up') === 'up';
+  const startDeg = zone.start_angle ?? -90;
+  const r = zone.radius || 280;
+  const spacing = zone.letter_spacing || 1.0;
+  const fs = zone.font_size || 60;
+  c.save();
+  c.font = `${fs}px '${zone.font_family || 'Dancing Script'}'`;
+  c.fillStyle = zone.color || '#7a5c2e';
+  c.textAlign = 'center';
+  c.textBaseline = 'alphabetic';
+  const chars = text.split('');
+  const charWidths = chars.map(ch => c.measureText(ch).width * spacing);
+  const total = charWidths.reduce((a,b)=>a+b,0);
+  const totalRad = total / r;
+  const startRad = startDeg * Math.PI / 180;
+  if (isUp) {
+    let angle = startRad - totalRad / 2;
+    chars.forEach((ch, i) => {
+      const half = charWidths[i] / (2 * r);
+      angle += half;
+      c.save();
+      c.translate(zone.cx + r * Math.cos(angle), zone.cy + r * Math.sin(angle));
+      c.rotate(angle + Math.PI / 2);
+      c.fillText(ch, 0, 0);
+      c.restore();
+      angle += half;
+    });
+  } else {
+    let angle = startRad + totalRad / 2;
+    chars.forEach((ch, i) => {
+      const half = charWidths[i] / (2 * r);
+      angle -= half;
+      c.save();
+      c.translate(zone.cx + r * Math.cos(angle), zone.cy + r * Math.sin(angle));
+      c.rotate(angle - Math.PI / 2);
+      c.fillText(ch, 0, 0);
+      c.restore();
+      angle -= half;
+    });
+  }
+  c.restore();
+}
+
+function drawArchZone(zone) {
+  const sel = app.selectedZone && app.selectedZone.id === zone.id;
+  const multiSel = !sel && app.selectedZones.some(sz => sz.id === zone.id);
+  const {cx, cy, radius:r} = zone;
+
+  // Cercle guide (pointillés)
+  ctx.save();
+  ctx.strokeStyle = sel ? '#ffffff' : multiSel ? '#f0c040' : 'rgba(255,160,60,0.75)';
+  ctx.lineWidth = sel ? 2.5 : 1.5;
+  ctx.setLineDash([8,5]);
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Point central
+  ctx.fillStyle = sel ? '#ffffff' : 'rgba(255,160,60,0.8)';
+  ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI*2); ctx.fill();
+
+  // Label
+  ctx.fillStyle = 'rgba(255,160,60,0.95)';
+  ctx.font = '20px Jost'; ctx.textAlign = 'left';
+  ctx.fillText('𝄆 ' + (zone.label || zone.id), cx - r + 7, cy - r + 26);
+  ctx.restore();
+
+  // Texte en arche
+  drawArchText(zone);
+
+  // Poignées si sélectionné
+  if (sel && !app.previewMode) {
+    const hw = Math.max(14, 10/getScale()) / 2;
+    // Poignée centrale (déplacement)
+    ctx.fillStyle='#ffffff'; ctx.strokeStyle='rgba(255,160,60,0.9)'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(cx, cy, hw, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    // Poignée rayon (à droite)
+    const hx=cx+r, hy=cy;
+    ctx.fillStyle='#ffffff'; ctx.strokeStyle='rgba(255,160,60,0.9)'; ctx.lineWidth=2;
+    ctx.fillRect(hx-hw, hy-hw, hw*2, hw*2); ctx.strokeRect(hx-hw, hy-hw, hw*2, hw*2);
+  }
 }
 
 function drawZone(zone, type) {
@@ -711,6 +799,16 @@ function hitZone(zone, tx, ty) {
   return tx>=zone.x && tx<=zone.x+zone.width && ty>=zone.y && ty<=zone.y+zone.height;
 }
 
+// ─── Hit test zones arche ─────────────────────────────────────
+function hitArchZone(zone, tx, ty) {
+  const dist = Math.sqrt((tx-zone.cx)**2 + (ty-zone.cy)**2);
+  return dist < 22 || Math.abs(dist - zone.radius) < 28;
+}
+function hitArchRadiusHandle(zone, tx, ty) {
+  const hw = Math.max(14, 10/getScale());
+  return Math.abs(tx-(zone.cx+zone.radius)) < hw && Math.abs(ty-zone.cy) < hw;
+}
+
 // ═══════════════════════════════════════════
 //  EVENTS SOURIS CANVAS
 // ═══════════════════════════════════════════
@@ -720,30 +818,58 @@ editorCanvas.addEventListener('mousedown', e => {
   const d=currentDesign(); if(!d) return;
   isDown=true;
   const {x:tx,y:ty}=screenToTex(e.clientX,e.clientY);
+
+  // ── Création zone arche : un simple clic place la zone ──────
+  if (app.tool==='add-arch') {
+    pushHistory();
+    const id='arche_'+uid();
+    d.arch_zones = d.arch_zones||[];
+    d.arch_zones.push({
+      id, label:'Arche', placeholder:'Votre texte', order:d.arch_zones.length+1,
+      cx:Math.round(tx), cy:Math.round(ty),
+      radius:280, direction:'up', start_angle:-90,
+      letter_spacing:1.0, font_size:60,
+      font_family:'Dancing Script', color:'#7a5c2e', locked:false
+    });
+    app.selectedZone={type:'arch',id};
+    app.selectedZones=[{type:'arch',id}];
+    setTool('select'); renderProps(); drawEditor(); persist();
+    return;
+  }
+
   if (app.tool==='select') {
-    // Poignée de resize sur zone primaire (sans Shift)
-    if (app.selectedZone && !e.shiftKey) {
+    // ── Poignée resize (zones texte/photo) ──────────────────
+    if (app.selectedZone && !e.shiftKey && app.selectedZone.type!=='arch') {
       const zone=getZone(d,app.selectedZone.id);
       if (zone && !zone.locked) {
         const h=hitHandle(zone,tx,ty);
         if (h) { app.dragState={type:'resize',h,sx:tx,sy:ty,orig:{...zone}}; return; }
       }
     }
-    // Hit test
+    // ── Poignée rayon zone arche ────────────────────────────
+    if (app.selectedZone && app.selectedZone.type==='arch' && !e.shiftKey) {
+      const zone=getZone(d,app.selectedZone.id);
+      if (zone && !zone.locked && hitArchRadiusHandle(zone,tx,ty)) {
+        app.dragState={type:'arch-radius',sx:tx,sy:ty,orig:{...zone}};
+        return;
+      }
+    }
+    // ── Hit test général ────────────────────────────────────
     let hit=null;
-    const zones=allZones(d);
-    for (let i=zones.length-1;i>=0;i--) { if(hitZone(zones[i],tx,ty)){hit=zones[i];break;} }
+    // Zones arche en priorité (clic près du cercle ou centre)
+    const archs=(d.arch_zones||[]);
+    for (let i=archs.length-1;i>=0;i--) {
+      if(hitArchZone(archs[i],tx,ty)){hit={...archs[i],_type:'arch'};break;}
+    }
+    if (!hit) {
+      const zones=allZones(d).filter(z=>z._type!=='arch');
+      for (let i=zones.length-1;i>=0;i--) { if(hitZone(zones[i],tx,ty)){hit=zones[i];break;} }
+    }
     if (hit) {
       if (e.shiftKey) {
-        // Sélection multiple
-        const idx = app.selectedZones.findIndex(z => z.id === hit.id);
-        if (idx >= 0) {
-          app.selectedZones.splice(idx, 1);
-          app.selectedZone = app.selectedZones.length ? app.selectedZones[app.selectedZones.length-1] : null;
-        } else {
-          app.selectedZones.push({type:hit._type, id:hit.id});
-          app.selectedZone = {type:hit._type, id:hit.id};
-        }
+        const idx=app.selectedZones.findIndex(z=>z.id===hit.id);
+        if (idx>=0){ app.selectedZones.splice(idx,1); app.selectedZone=app.selectedZones.length?app.selectedZones[app.selectedZones.length-1]:null; }
+        else { app.selectedZones.push({type:hit._type,id:hit.id}); app.selectedZone={type:hit._type,id:hit.id}; }
       } else {
         app.selectedZone={type:hit._type,id:hit.id};
         app.selectedZones=[{type:hit._type,id:hit.id}];
@@ -751,12 +877,8 @@ editorCanvas.addEventListener('mousedown', e => {
       const zone=getZone(d,hit.id);
       if (zone && !zone.locked) {
         pushHistory();
-        // Mémorise l'original de toutes les zones sélectionnées pour déplacement multiple
-        const origMulti = {};
-        app.selectedZones.forEach(sz => {
-          const z = getZone(d, sz.id);
-          if (z) origMulti[sz.id] = {...z};
-        });
+        const origMulti={};
+        app.selectedZones.forEach(sz=>{ const z=getZone(d,sz.id); if(z) origMulti[sz.id]={...z}; });
         app.dragState={type:'move',sx:tx,sy:ty,orig:{...zone},origMulti};
       }
     } else {
@@ -791,23 +913,35 @@ editorCanvas.addEventListener('mousemove', e => {
     const ds=app.dragState, dx=tx-ds.sx, dy=ty-ds.sy;
     const zone=getZone(d,app.selectedZone.id);
     if (!zone) return;
+
+    // ── Drag radius zone arche ──────────────────────────────
+    if (ds.type==='arch-radius') {
+      const dist = Math.sqrt((tx-zone.cx)**2 + (ty-zone.cy)**2);
+      zone.radius = Math.max(50, Math.round(dist));
+      const radiusInput = document.getElementById('p-arch-radius');
+      if (radiusInput) radiusInput.value = zone.radius;
+      drawEditor(); return;
+    }
+
     if (ds.type==='move') {
       if (app.selectedZones.length > 1) {
-        // Déplacer toutes les zones sélectionnées
         app.selectedZones.forEach(sz => {
           const z = getZone(d, sz.id); if (!z || z.locked) return;
           const orig = ds.origMulti[sz.id]; if (!orig) return;
-          z.x = Math.round(orig.x + dx); z.y = Math.round(orig.y + dy);
+          // Zones arche : déplacer cx/cy ; autres : x/y
+          if (sz.type==='arch') { z.cx=Math.round(orig.cx+dx); z.cy=Math.round(orig.cy+dy); }
+          else { z.x=Math.round(orig.x+dx); z.y=Math.round(orig.y+dy); }
         });
-        // Snap sur la zone principale
-        if (app.magneticSnap) applyMagneticSnap(zone);
+        if (app.magneticSnap && app.selectedZone.type!=='arch') applyMagneticSnap(zone);
+      } else if (app.selectedZone.type==='arch') {
+        // Déplacer le centre de l'arche
+        zone.cx=Math.round(ds.orig.cx+dx); zone.cy=Math.round(ds.orig.cy+dy);
       } else {
         zone.x=Math.round(ds.orig.x+dx); zone.y=Math.round(ds.orig.y+dy);
         if (app.magneticSnap) applyMagneticSnap(zone);
       }
     } else {
       applyResize(zone,ds.orig,ds.h,dx,dy);
-      // Overlay dimensions
       const dimsEl = document.getElementById('dims-overlay');
       if (dimsEl) {
         dimsEl.style.display = 'block';
@@ -817,8 +951,8 @@ editorCanvas.addEventListener('mousemove', e => {
       }
     }
     drawEditor();
-    if (app.magneticSnap && !app.previewMode && ds.type==='move') drawAlignmentGuides(zone);
-    syncCoordInputs(zone);
+    if (app.magneticSnap && !app.previewMode && ds.type==='move' && app.selectedZone.type!=='arch') drawAlignmentGuides(zone);
+    if (app.selectedZone.type!=='arch') syncCoordInputs(zone);
   } else if (creationRect) {
     creationRect.width=tx-creationRect.x; creationRect.height=ty-creationRect.y;
     drawEditor();
@@ -960,7 +1094,8 @@ function renderProps() {
   if (app.selectedZone) {
     const zone=getZone(d,app.selectedZone.id);
     if (zone) {
-      if (app.selectedZone.type==='text') { renderTextProps(d,zone); return; }
+      if (app.selectedZone.type==='text')  { renderTextProps(d,zone); return; }
+      if (app.selectedZone.type==='arch')  { renderArchProps(d,zone); return; }
       else { renderPhotoProps(d,zone); return; }
     }
   }
@@ -973,16 +1108,135 @@ function renderMultiSelProps(d) {
       <div class="psection-title">Sélection multiple</div>
       <div class="multisel-info">
         <strong style="color:var(--gold)">${app.selectedZones.length} zones sélectionnées</strong><br><br>
-        Déplacez-les ensemble avec la souris ou les flèches du clavier.<br>
-        (Shift + flèche = 10 px)
+        Déplacez-les ensemble avec la souris ou les flèches clavier.<br>
+        <small style="opacity:0.6">Shift + flèche = 10 px</small>
       </div>
       <button class="btn-secondary btn-sm" id="p-clear-sel" style="width:100%;margin-top:4px">✕ Désélectionner tout</button>
     </div>
   `;
-  document.getElementById('p-clear-sel').addEventListener('click', () => {
-    app.selectedZone = null; app.selectedZones = [];
-    renderProps(); drawEditor();
+  document.getElementById('p-clear-sel').addEventListener('click',()=>{
+    app.selectedZone=null;app.selectedZones=[];renderProps();drawEditor();
   });
+}
+
+// ─── Panneau Zone Arche ──────────────────────────────────────────
+function renderArchProps(d, zone) {
+  document.getElementById('props-panel').innerHTML = `
+    <div class="psection">
+      <div class="psection-title">Zone arche
+        <button class="btn-secondary btn-sm" id="p-back">← Design</button>
+      </div>
+      <div class="field"><label>Label (visible client)</label><input type="text" id="p-label" value="${esc(zone.label)}"></div>
+      <div class="field"><label>Texte placeholder</label><input type="text" id="p-ph" value="${esc(zone.placeholder||'')}"></div>
+      <div class="field"><label>Ordre</label><input type="number" id="p-order" value="${zone.order||1}" min="1"></div>
+    </div>
+    <div class="psection">
+      <div class="psection-title">Forme de l'arche</div>
+      <div class="field">
+        <label>Rayon (px)</label>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input type="range" id="p-arch-r-sl" min="50" max="800" step="5" value="${zone.radius||280}" style="flex:1">
+          <input type="number" id="p-arch-radius" min="50" max="800" step="5" value="${zone.radius||280}" style="width:60px">
+        </div>
+      </div>
+      <div class="field">
+        <label>Direction</label>
+        <div class="align-btns">
+          <button class="align-btn${(zone.direction||'up')==='up'?' active':''}" data-dir="up">⌢ Vers le haut</button>
+          <button class="align-btn${zone.direction==='down'?' active':''}" data-dir="down">⌣ Vers le bas</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Angle de départ (°) — 0=droite, -90=haut, 90=bas</label>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input type="range" id="p-arch-a-sl" min="-180" max="180" step="1" value="${zone.start_angle??-90}" style="flex:1">
+          <input type="number" id="p-arch-angle" min="-180" max="180" step="1" value="${zone.start_angle??-90}" style="width:60px">
+        </div>
+      </div>
+      <div class="field">
+        <label>Espacement lettres</label>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <input type="range" id="p-arch-s-sl" min="0.5" max="3.0" step="0.05" value="${zone.letter_spacing||1.0}" style="flex:1">
+          <input type="number" id="p-arch-spacing" min="0.5" max="3.0" step="0.05" value="${(zone.letter_spacing||1.0).toFixed(2)}" style="width:60px">
+        </div>
+      </div>
+    </div>
+    <div class="psection">
+      <div class="psection-title">Texte</div>
+      <div class="frow">
+        <div class="field"><label>Taille (px)</label><input type="number" id="p-arch-fs" value="${zone.font_size||60}" min="8" max="300"></div>
+      </div>
+      <div class="field">
+        <label>Police</label>
+        <select id="p-arch-font">${GOOGLE_FONTS.map(f=>`<option value="${f}"${zone.font_family===f?' selected':''}>${f}</option>`).join('')}</select>
+        <div id="font-preview" style="font-family:'${esc(zone.font_family||'Dancing Script')}'">Texte arche · 18.10.2025</div>
+      </div>
+      <div class="field">
+        <label>Couleur</label>
+        <div class="color-row">
+          <input type="color" id="p-arch-color" value="${zone.color||'#7a5c2e'}">
+          <input type="text"  id="p-arch-colorh" value="${zone.color||'#7a5c2e'}">
+        </div>
+        <div id="palette-arch"></div>
+      </div>
+      <div class="toggle-row"><span>🔒 Verrouiller</span><label class="toggle"><input type="checkbox" id="p-locked" ${zone.locked?'checked':''}><span class="toggle-sl"></span></label></div>
+    </div>
+    <div class="psection">
+      <div class="psection-title">Position centre</div>
+      <div class="frow">
+        <div class="field"><label>X centre</label><input type="number" id="p-arch-cx" value="${zone.cx}"></div>
+        <div class="field"><label>Y centre</label><input type="number" id="p-arch-cy" value="${zone.cy}"></div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px">💡 Drag le point central sur le canvas pour déplacer • Drag la poignée droite pour ajuster le rayon</div>
+    </div>
+    <div class="psection">
+      <button class="btn-danger" id="p-del-z" style="width:100%">Supprimer cette zone</button>
+    </div>
+  `;
+
+  renderSavedColors('palette-arch', hex => {
+    zone.color=hex;
+    document.getElementById('p-arch-color').value=hex;
+    document.getElementById('p-arch-colorh').value=hex;
+    drawEditor();update3D();persist();
+  });
+
+  // Helper sync slider <-> number
+  function syncPair(slId, numId, setter, parser=parseFloat) {
+    const sl=document.getElementById(slId), num=document.getElementById(numId);
+    if(!sl||!num) return;
+    sl.addEventListener('input',()=>{ num.value=parseFloat(sl.value).toFixed(sl.step<1?2:0); setter(parser(sl.value)); });
+    num.addEventListener('input',()=>{ sl.value=num.value; setter(parser(num.value)); });
+  }
+
+  syncPair('p-arch-r-sl','p-arch-radius', v=>{ zone.radius=Math.max(50,Math.round(v)); drawEditor();update3D();persist(); }, parseInt);
+  syncPair('p-arch-a-sl','p-arch-angle',  v=>{ zone.start_angle=parseInt(v); drawEditor();update3D();persist(); }, parseInt);
+  syncPair('p-arch-s-sl','p-arch-spacing',v=>{ zone.letter_spacing=parseFloat(v)||1.0; drawEditor();update3D();persist(); });
+
+  on('p-label','input',v=>{zone.label=v;drawEditor();persist();});
+  on('p-order','input',v=>{zone.order=parseInt(v);persist();});
+  on('p-ph','input',v=>{zone.placeholder=v;drawEditor();update3D();persist();});
+  on('p-arch-fs','input',v=>{zone.font_size=parseInt(v);drawEditor();update3D();persist();});
+  on('p-arch-color','input',v=>{zone.color=v;document.getElementById('p-arch-colorh').value=v;addRecentColor(v);drawEditor();update3D();persist();});
+  on('p-arch-colorh','input',v=>{if(/^#[0-9a-f]{6}$/i.test(v)){zone.color=v;document.getElementById('p-arch-color').value=v;addRecentColor(v);drawEditor();update3D();persist();}});
+  on('p-arch-cx','input',v=>{zone.cx=parseInt(v)||0;drawEditor();persist();});
+  on('p-arch-cy','input',v=>{zone.cy=parseInt(v)||0;drawEditor();persist();});
+  on('p-locked','change',(_,el)=>{zone.locked=el.checked;drawEditor();persist();});
+  on('p-back','click',()=>{app.selectedZone=null;app.selectedZones=[];renderProps();});
+  on('p-del-z','click',()=>deleteSelectedZone());
+
+  document.getElementById('p-arch-font').addEventListener('change',e=>{
+    zone.font_family=e.target.value;
+    loadFont(zone.font_family).then(()=>{
+      document.getElementById('font-preview').style.fontFamily=`'${zone.font_family}'`;
+      drawEditor();update3D();persist();
+    });
+  });
+  document.querySelectorAll('[data-dir]').forEach(btn=>btn.addEventListener('click',()=>{
+    zone.direction=btn.dataset.dir;
+    document.querySelectorAll('[data-dir]').forEach(b=>b.classList.toggle('active',b.dataset.dir===zone.direction));
+    drawEditor();update3D();persist();
+  }));
 }
 
 function renderGlobalProps(d) {
@@ -1366,9 +1620,10 @@ function deleteSelectedZone() {
   const d=currentDesign(); if(!d||!app.selectedZone) return;
   pushHistory();
   const {type,id}=app.selectedZone;
-  if (type==='text') d.text_zones=d.text_zones.filter(z=>z.id!==id);
+  if (type==='text')  d.text_zones =d.text_zones.filter(z=>z.id!==id);
+  else if(type==='arch') d.arch_zones=(d.arch_zones||[]).filter(z=>z.id!==id);
   else d.photo_zones=d.photo_zones.filter(z=>z.id!==id);
-  app.selectedZone=null; app.selectedZones=[]; drawEditor(); renderProps(); persist();
+  app.selectedZone=null;app.selectedZones=[];drawEditor();renderProps();persist();
 }
 
 function on(id, evt, fn) {
@@ -1480,10 +1735,11 @@ function onDesignChange() { drawEditor();update3D();renderDesignList();persist()
 // ═══════════════════════════════════════════
 function exportDesign() {
   const d=currentDesign(); if(!d) return alert('Aucun design sélectionné');
+  const normalizeArchZone=z=>({ id:z.id||'', label:z.label||'', order:z.order||1, cx:z.cx??0, cy:z.cy??0, radius:z.radius||280, direction:z.direction||'up', start_angle:z.start_angle??-90, letter_spacing:z.letter_spacing??1.0, font_size:z.font_size??60, font_family:z.font_family||'Dancing Script', color:z.color||'#7a5c2e', placeholder:z.placeholder||'' });
   const normalizeTextZone=z=>({ id:z.id||'', label:z.label||'', order:z.order||1, x:z.x??0, y:z.y??0, width:z.width??0, height:z.height??0, shape:z.shape||'rectangle', lineHeight:z.lineHeight??1.5, font_size:z.font_size??24, color:z.color||'#000000', placeholder:z.placeholder||'', font_family:z.font_family||'Arial', align:z.align||'center', multiline:z.multiline??true, rotation:z.rotation||0, max_chars:z.max_chars||0 });
   const normalizePhotoZone=z=>({ id:z.id||'', label:z.label||'', order:z.order||1, x:z.x??0, y:z.y??0, width:z.width??0, height:z.height??0, shape:z.shape||'circle' });
   const normalizeVariant=v=>({ name:v.name||'', hex:v.hex||'#ffffff', opacity:v.opacity??1 });
-  const out={ id:d.id||'', name:d.name||'', shopify_handle:d.shopify_handle||'', gobelet_color:d.gobelet_color||'#ffffff', gobelet_opacity:d.gobelet_opacity??1, model_url:d.model_url||null, rotation_y:d.rotation_y??0, design_url:d.design_url||null, design:d.design||null, variant_colors:(d.variant_colors||[]).map(normalizeVariant), text_zones:(d.text_zones||[]).map(normalizeTextZone), photo_zones:(d.photo_zones||[]).map(normalizePhotoZone) };
+  const out={ id:d.id||'', name:d.name||'', shopify_handle:d.shopify_handle||'', gobelet_color:d.gobelet_color||'#ffffff', gobelet_opacity:d.gobelet_opacity??0.88, model_url:d.model_url||null, rotation_y:d.rotation_y??0, design_url:d.design_url||null, design:d.design||null, variant_colors:(d.variant_colors||[]).map(normalizeVariant), text_zones:(d.text_zones||[]).map(normalizeTextZone), photo_zones:(d.photo_zones||[]).map(normalizePhotoZone), arch_zones:(d.arch_zones||[]).map(normalizeArchZone) };
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=(d.id||'design')+'.json'; a.click();
 }
@@ -1627,6 +1883,8 @@ function update3D() {
       lines.forEach((line,i)=>ptexCtx.fillText(line,tx,startY+i*lineH));
       ptexCtx.restore();
     });
+    // Zones arche — rendu du texte courbe dans la texture 3D
+    (d.arch_zones||[]).forEach(z => drawArchText(z, ptexCtx));
   } else {
     ptexCtx.fillStyle='#2a2a4a'; ptexCtx.fillRect(0,0,TEX_W,TEX_H);
   }
@@ -1681,10 +1939,11 @@ async function deployDesign() {
   let TOKEN=localStorage.getItem('kuztom_gh_token')||'';
   if(!TOKEN){TOKEN=prompt('Token GitHub Personnel (PAT) avec permission "repo" :\n(mémorisé dans le navigateur)')||'';if(!TOKEN){reset('','🚀 Déployer sur GitHub');return;}localStorage.setItem('kuztom_gh_token',TOKEN.trim());}
   TOKEN=TOKEN.trim();
+  const normalizeArchZone=z=>({id:z.id||'',label:z.label||'',order:z.order||1,cx:z.cx??0,cy:z.cy??0,radius:z.radius||280,direction:z.direction||'up',start_angle:z.start_angle??-90,letter_spacing:z.letter_spacing??1.0,font_size:z.font_size??60,font_family:z.font_family||'Dancing Script',color:z.color||'#7a5c2e',placeholder:z.placeholder||''});
   const normalizeTextZone=z=>({id:z.id||'',label:z.label||'',order:z.order||1,x:z.x??0,y:z.y??0,width:z.width??0,height:z.height??0,shape:z.shape||'rectangle',lineHeight:z.lineHeight??1.5,font_size:z.font_size??24,color:z.color||'#000000',placeholder:z.placeholder||'',font_family:z.font_family||'Arial',align:z.align||'center',multiline:z.multiline??true,rotation:z.rotation||0,max_chars:z.max_chars||0});
   const normalizePhotoZone=z=>({id:z.id||'',label:z.label||'',order:z.order||1,x:z.x??0,y:z.y??0,width:z.width??0,height:z.height??0,shape:z.shape||'circle'});
   const normalizeVariant=v=>({name:v.name||'',hex:v.hex||'#ffffff',opacity:v.opacity??1});
-  const allDesigns=app.designs.map(d=>({id:d.id||'',name:d.name||'',shopify_handle:d.shopify_handle||'',gobelet_color:d.gobelet_color||'#ffffff',gobelet_opacity:d.gobelet_opacity??1,model_url:d.model_url||null,rotation_y:d.rotation_y??0,design_url:d.design_url||null,design:d.design||null,variant_colors:(d.variant_colors||[]).map(normalizeVariant),text_zones:(d.text_zones||[]).map(normalizeTextZone),photo_zones:(d.photo_zones||[]).map(normalizePhotoZone)}));
+  const allDesigns=app.designs.map(d=>({id:d.id||'',name:d.name||'',shopify_handle:d.shopify_handle||'',gobelet_color:d.gobelet_color||'#ffffff',gobelet_opacity:d.gobelet_opacity??0.88,model_url:d.model_url||null,rotation_y:d.rotation_y??0,design_url:d.design_url||null,design:d.design||null,variant_colors:(d.variant_colors||[]).map(normalizeVariant),text_zones:(d.text_zones||[]).map(normalizeTextZone),photo_zones:(d.photo_zones||[]).map(normalizePhotoZone),arch_zones:(d.arch_zones||[]).map(normalizeArchZone)}));
   const content=btoa(unescape(encodeURIComponent(JSON.stringify(allDesigns,null,2))));
   const api=`https://api.github.com/repos/${REPO}/contents/designs.json`;
   try {
