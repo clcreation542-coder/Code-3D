@@ -1956,7 +1956,7 @@ async function deployDesign() {
     const putRes=await fetch(api,{method:'PUT',headers:{Authorization:'token '+TOKEN,'Content-Type':'application/json',Accept:'application/vnd.github+json'},body:JSON.stringify(body)});
     if(!putRes.ok){const err=await putRes.json();if(putRes.status===401)localStorage.removeItem('kuztom_gh_token');throw new Error(err.message||putRes.statusText);}
     const hashes=getDeployedHashes();
-    allDesigns.forEach(d=>{hashes[d.id]=designHash(d);});
+    app.designs.forEach(d=>{hashes[d.id]=designHash(d);});
     saveDeployedHashes(hashes);
     // Marquer comme sauvegardé après déploiement
     app.unsaved=false;
