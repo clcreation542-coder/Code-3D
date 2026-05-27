@@ -1964,6 +1964,7 @@ async function deployDesign() {
     if(dot) dot.style.display='none';
     reset('success',`✅ Déployé ! (${allDesigns.length} design${allDesigns.length>1?'s':''})`,4000);
     renderDesignList();
+    renderProps();
   } catch(e) { reset('error','❌ Erreur : '+e.message,6000); }
 }
 
