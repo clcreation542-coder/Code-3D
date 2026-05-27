@@ -196,9 +196,34 @@ function drawPhotoZone(zone, img) {
 
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
-  ctx2d.globalAlpha = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
-  ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
-  ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+  const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
+  const isSolid = (op === 0);
+
+  if (isSolid) {
+    /* Opacité 0 = gobelet blanc 100% opaque */
+    ctx2d.globalAlpha = 1;
+    ctx2d.fillStyle   = '#ffffff';
+    ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+    if (bodyMaterial) {
+      bodyMaterial.transparent = false;
+      bodyMaterial.opacity     = 1;
+      bodyMaterial.depthWrite  = true;
+      bodyMaterial.needsUpdate = true;
+    }
+  } else {
+    /* Opacité > 0 = gobelet translucide normal */
+    ctx2d.globalAlpha = op;
+    ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
+    ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+    if (bodyMaterial) {
+      bodyMaterial.transparent = true;
+      bodyMaterial.opacity     = 0.82;
+      bodyMaterial.depthWrite  = false;
+      bodyMaterial.alphaTest   = 0;
+      bodyMaterial.needsUpdate = true;
+    }
+  }
+
   ctx2d.globalAlpha = 1.0;
   ctx2d.globalCompositeOperation = 'source-over';
   if (state.designImage) {
@@ -560,6 +585,7 @@ window.addEventListener('message', function(e) {
 
   if (data.type === 'UPDATE_COLOR' && data.value) {
     state.gobeletColor = data.value;
+    if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
     drawTexture();
     if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
