@@ -14,21 +14,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#e3e3e3"
       }
     ],
     "text_zones": [
@@ -108,21 +115,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -202,21 +216,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -296,21 +317,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -390,21 +418,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -484,21 +519,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -597,21 +639,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -691,21 +740,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -785,21 +841,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -845,7 +908,7 @@
         "id": "texte_mppgu4277c7u",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 220,
+        "x": 221,
         "y": 275,
         "width": 780,
         "height": 459,
@@ -879,16 +942,21 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -968,21 +1036,28 @@
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Blanc",
         "hex": "#ffffff",
-        "opacity": 0
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
