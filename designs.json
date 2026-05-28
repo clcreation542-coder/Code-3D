@@ -24,6 +24,11 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0
+      },
+      {
+        "name": "Rose",
+        "hex": "#ff00ff",
+        "opacity": 0.75
       }
     ],
     "text_zones": [
