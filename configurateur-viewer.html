@@ -360,20 +360,20 @@ function initThree() {
   bgCtx.fillStyle = gradient;
   bgCtx.fillRect(0, 0, 512, 512);
 
-  /* Deux lignes de perspective en bas — coin de pièce */
-  bgCtx.strokeStyle = 'rgba(100, 92, 84, 0.72)';
-  bgCtx.lineWidth   = 2.2;
-  bgCtx.lineCap     = 'round';
-  /* Ligne gauche : du bas-gauche vers le centre-bas */
+  /* Ombre portée douce sous le gobelet */
+  const shadowGrad = bgCtx.createRadialGradient(256, 408, 0, 256, 408, 115);
+  shadowGrad.addColorStop(0,   'rgba(40, 35, 30, 0.38)');
+  shadowGrad.addColorStop(0.5, 'rgba(40, 35, 30, 0.18)');
+  shadowGrad.addColorStop(1,   'rgba(40, 35, 30, 0)');
+  bgCtx.save();
+  bgCtx.translate(256, 408);
+  bgCtx.scale(1, 0.22);
+  bgCtx.translate(-256, -408);
+  bgCtx.fillStyle = shadowGrad;
   bgCtx.beginPath();
-  bgCtx.moveTo(0,   512);
-  bgCtx.lineTo(256, 370);
-  bgCtx.stroke();
-  /* Ligne droite : du bas-droit vers le centre-bas */
-  bgCtx.beginPath();
-  bgCtx.moveTo(512, 512);
-  bgCtx.lineTo(256, 370);
-  bgCtx.stroke();
+  bgCtx.arc(256, 408, 115, 0, Math.PI * 2);
+  bgCtx.fill();
+  bgCtx.restore();
 
   scene.background = new THREE.CanvasTexture(bgCanvas);
 
