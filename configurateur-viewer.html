@@ -476,14 +476,7 @@ function loadGobelet() {
     /* disc2 supprimé : évite la bande blanche visible sous le gobelet */
 
     gobeletGroup.updateMatrixWorld(true);
-    const tempBox = new THREE.Box3().setFromObject(gobeletGroup);
-    const shadow  = new THREE.Mesh(
-      new THREE.CircleGeometry(0.55, 64),
-      new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.12, depthWrite: false })
-    );
-    shadow.rotation.x = -Math.PI / 2;
-    shadow.position.set(gobeletGroup.position.x, tempBox.min.y - 0.01, gobeletGroup.position.z);
-    scene.add(shadow);
+    /* shadow supprimé : trop visible avec le fond gris */
 
     onResize();
     drawTexture();
