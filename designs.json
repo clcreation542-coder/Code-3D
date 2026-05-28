@@ -34,7 +34,7 @@
         "name": "Noir",
         "hex": "#000000",
         "opacity": 0.88,
-        "force_text_color": true,
+        "force_text_color": false,
         "text_color_override": "#e3e3e3"
       }
     ],
