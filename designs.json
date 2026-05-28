@@ -219,10 +219,10 @@
         "id": "photo_mppfaggx92ad",
         "label": "Photo",
         "order": 1,
-        "x": 375,
-        "y": 119,
-        "width": 534,
-        "height": 785,
+        "x": 376,
+        "y": 212,
+        "width": 532,
+        "height": 601,
         "shape": "rectangle"
       }
     ],
