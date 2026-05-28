@@ -32,6 +32,7 @@ html,body { height:100%; overflow:hidden; font-family:'Jost',sans-serif; backgro
 #design-list { flex:1; overflow-y:auto; padding:6px; }
 .design-item { display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:var(--rsm); cursor:pointer; transition:background 0.12s; border:1px solid transparent; position:relative; }
 .design-item:hover { background:var(--gold-lt); }
+.list-section-title { font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); padding:10px 8px 4px; }
 .toggle-small { display:inline-flex; align-items:center; cursor:pointer; }
 .toggle-small input { display:none; }
 .toggle-small span { width:28px; height:14px; background:var(--border-lt); border-radius:7px; position:relative; transition:background 0.2s; display:block; }
@@ -253,6 +254,11 @@ const GOOGLE_FONTS = [
 function loadDesigns() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } }
 
 function persist() {
+  /* Horodatage de modification sur le design courant */
+  if (app.currentId) {
+    const d = app.designs.find(x => x.id === app.currentId);
+    if (d) d.updated_at = Date.now();
+  }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(app.designs));
   app.unsaved = true;
   const dot = document.getElementById('unsaved-dot');
@@ -1355,8 +1361,15 @@ function renderGlobalProps(d) {
   document.querySelectorAll('.v-force-txt').forEach(el=>el.addEventListener('change',()=>{
     const i=+el.dataset.i;
     d.variant_colors[i].force_text_color=el.checked;
+    /* Forcer #ffffff comme couleur par défaut quand on active le toggle */
+    if(el.checked && (!d.variant_colors[i].text_color_override || d.variant_colors[i].text_color_override==='#000000')){
+      d.variant_colors[i].text_color_override='#ffffff';
+    }
     const colorInput=document.querySelector(`.v-txtcolor[data-i="${i}"]`);
-    if(colorInput) colorInput.style.display=el.checked?'inline-block':'none';
+    if(colorInput){
+      colorInput.style.display=el.checked?'inline-block':'none';
+      if(el.checked) colorInput.value=d.variant_colors[i].text_color_override||'#ffffff';
+    }
     persist();
   }));
   document.querySelectorAll('.v-txtcolor').forEach(el=>el.addEventListener('input',()=>{d.variant_colors[+el.dataset.i].text_color_override=el.value;persist();}));
@@ -1673,10 +1686,29 @@ function on(id, evt, fn) {
 function renderDesignList() {
   const list=document.getElementById('design-list');
   const q=app.searchQuery.toLowerCase();
-  const items=app.designs.filter(d=>!q||d.name.toLowerCase().includes(q))
-    .sort((a,b)=>a.name.localeCompare(b.name,'fr'));
+  const allFiltered=app.designs.filter(d=>!q||d.name.toLowerCase().includes(q));
+  const items=[...allFiltered].sort((a,b)=>a.name.localeCompare(b.name,'fr'));
   if (!items.length) { list.innerHTML=`<div class="empty-state"><p>${q?'Aucun résultat':'Aucun design'}</p></div>`; return; }
-  list.innerHTML=items.map(d=>`
+
+  /* Section "5 derniers modifiés" — uniquement si pas de recherche */
+  let recentHtml = '';
+  if (!q) {
+    const recent=[...app.designs].filter(d=>d.updated_at).sort((a,b)=>b.updated_at-a.updated_at).slice(0,5);
+    if (recent.length) {
+      const fmt = ts => { const d=new Date(ts); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); };
+      recentHtml = `<div class="list-section-title">⏱ Récents</div>`
+        + recent.map(d=>`
+        <div class="design-item${d.id===app.currentId?' active':''}${d.active===false?' design-inactive':''}" data-id="${d.id}">
+          <div class="status-dot ${d.active===false?'red':getDesignStatus(d)}"></div>
+          <div class="design-thumb"><canvas id="th-r-${d.id}" width="100" height="50"></canvas></div>
+          <span class="design-name${d.active===false?' inactive-name':''}" data-id="${d.id}">${esc(d.name)}</span>
+          <span style="font-size:10px;color:var(--muted);margin-left:auto;white-space:nowrap">${fmt(d.updated_at)}</span>
+        </div>`).join('');
+      recentHtml += `<div class="list-section-title">Tous les designs</div>`;
+    }
+  }
+
+  list.innerHTML=recentHtml+items.map(d=>`
     <div class="design-item${d.id===app.currentId?' active':''}${d.active===false?' design-inactive':''}" data-id="${d.id}">
       <div class="status-dot ${d.active===false?'red':getDesignStatus(d)}"></div>
       <div class="design-thumb"><canvas id="th-${d.id}" width="100" height="50"></canvas></div>
