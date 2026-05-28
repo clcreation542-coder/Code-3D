@@ -9,10 +9,10 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg:#1a1a2e; --surface:#16213e; --surface2:#0f3460;
+  --bg:#1e1e1e; --surface:#252525; --surface2:#2d2d2d;
   --gold:#c9a96e; --gold-lt:rgba(201,169,110,0.15);
   --text:#e8e0d0; --muted:rgba(232,224,208,0.5);
-  --border:rgba(201,169,110,0.2); --border-lt:rgba(255,255,255,0.07);
+  --border:rgba(201,169,110,0.25); --border-lt:rgba(255,255,255,0.09);
   --radius:8px; --rsm:4px; --danger:#e06c75;
 }
 html,body { height:100%; overflow:hidden; font-family:'Jost',sans-serif; background:var(--bg); color:var(--text); font-size:13px; line-height:1.5; }
@@ -32,6 +32,14 @@ html,body { height:100%; overflow:hidden; font-family:'Jost',sans-serif; backgro
 #design-list { flex:1; overflow-y:auto; padding:6px; }
 .design-item { display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:var(--rsm); cursor:pointer; transition:background 0.12s; border:1px solid transparent; position:relative; }
 .design-item:hover { background:var(--gold-lt); }
+.toggle-small { display:inline-flex; align-items:center; cursor:pointer; }
+.toggle-small input { display:none; }
+.toggle-small span { width:28px; height:14px; background:var(--border-lt); border-radius:7px; position:relative; transition:background 0.2s; display:block; }
+.toggle-small span::after { content:''; position:absolute; top:2px; left:2px; width:10px; height:10px; background:#888; border-radius:50%; transition:transform 0.2s, background 0.2s; }
+.toggle-small input:checked + span { background:rgba(201,169,110,0.35); }
+.toggle-small input:checked + span::after { transform:translateX(14px); background:var(--gold); }
+.design-item.design-inactive .design-name { color:var(--muted); }
+.design-item.design-inactive .inactive-name { font-style:italic; }
 .design-item.active { border-color:var(--gold); background:var(--gold-lt); }
 .design-thumb { width:50px; height:25px; flex-shrink:0; border-radius:3px; border:1px solid var(--border-lt); overflow:hidden; background:#2a2a4a; }
 .design-thumb canvas { display:block; width:100%; height:100%; }
@@ -229,13 +237,15 @@ const DEPLOY_KEY  = 'kuztom_deployed_hashes';
 const TEX_W = 2000, TEX_H = 1024;
 const GLB_URL = 'https://clcreation542-coder.github.io/Code-3D/Gobelet 25 33.glb';
 const GOOGLE_FONTS = [
-  'Dancing Script','Great Vibes','Parisienne','Pacifico','Satisfy','Allura',
-  'Alex Brush','Pinyon Script','Sacramento','Tangerine','Rouge Script','Italianno',
-  'Mr De Haviland','Ephesis','Hurricane','Lavishly Yours','Style Script',
-  'Clicker Script','Cormorant Garamond','Playfair Display','EB Garamond','Lora',
-  'Libre Baskerville','Cinzel','Cinzel Decorative','Montserrat','Raleway',
-  'Josefin Sans','Nunito','Quicksand','Poppins','Jost'
-];
+  'Advent Pro','Alex Brush','Alegreya','Allura','Borel',
+  'Cinzel','Cinzel Decorative','Clicker Script','Cormorant Garamond',
+  'Coming Soon','Dancing Script','EB Garamond','Ephesis',
+  'Graduate','Great Vibes','Hurricane','Italianno','Josefin Sans',
+  'Jost','Lavishly Yours','Libre Baskerville','Lora','Montserrat',
+  'Mr De Haviland','Nunito','Open Sans','Pacifico','Parisienne',
+  'Pinyon Script','Playfair Display','Poppins','Quicksand','Raleway',
+  'Rouge Script','Sacramento','Satisfy','Style Script','Tangerine'
+].sort((a,b)=>a.localeCompare(b));
 
 // ═══════════════════════════════════════════
 //  STORAGE & HELPERS
@@ -298,7 +308,8 @@ function newDesign(name, color, designUrl) {
     model_url: null, rotation_y: 0,
     design_url: designUrl || null,
     design: { x:0, y:0, width:TEX_W, height:TEX_H },
-    variant_colors: [], text_zones: [], photo_zones: [], arch_zones: []
+    variant_colors: [], text_zones: [], photo_zones: [], arch_zones: [],
+    active: true
   };
 }
 
@@ -1272,13 +1283,20 @@ function renderGlobalProps(d) {
     <div class="psection">
       <div class="psection-title">Variantes couleur</div>
       <table class="vtable">
-        <thead><tr><th>Nom</th><th>Hex</th><th>Opac.</th><th></th></tr></thead>
+        <thead><tr><th>Nom</th><th>Hex</th><th>Opac.</th><th title="Forcer couleur texte">T</th><th></th></tr></thead>
         <tbody id="vtbody">
           ${(d.variant_colors||[]).map((v,i)=>`
           <tr>
             <td><input type="text" class="v-name" data-i="${i}" value="${esc(v.name)}"></td>
             <td><input type="text" class="v-hex"  data-i="${i}" value="${esc(v.hex)}" style="width:76px"></td>
             <td><input type="number" class="v-op" data-i="${i}" value="${v.opacity??1}" min="0" max="1" step="0.05" style="width:54px"></td>
+            <td style="text-align:center">
+              <input type="color" class="v-txtcolor" data-i="${i}" value="${esc(v.text_color_override||'#ffffff')}" title="Couleur texte" style="width:28px;height:22px;padding:1px;cursor:pointer;display:${v.force_text_color?'inline-block':'none'}">
+              <label class="toggle-small" title="Forcer couleur texte sur ce gobelet">
+                <input type="checkbox" class="v-force-txt" data-i="${i}" ${v.force_text_color?'checked':''}>
+                <span></span>
+              </label>
+            </td>
             <td><button class="btn-del-r v-del" data-i="${i}">✕</button></td>
           </tr>`).join('')}
         </tbody>
@@ -1291,6 +1309,12 @@ function renderGlobalProps(d) {
     </div>
     <div class="psection">
       <div style="font-size:11px;padding:6px 8px;border-radius:var(--rsm);background:var(--bg);">${statusLabel}</div>
+    </div>
+    <div class="psection">
+      <div class="psection-title">Visibilité</div>
+      <button id="p-toggle-active" class="btn-secondary" style="width:100%;padding:8px;font-size:12px;border-radius:var(--rsm);cursor:pointer;${d.active===false?'border-color:var(--danger);color:var(--danger);':'border-color:#4caf50;color:#4caf50;'}">
+        ${d.active===false?'⭕ Design inactif — cliquer pour activer':'✅ Design actif — cliquer pour désactiver'}
+      </button>
     </div>
     <div class="psection">
       <button class="btn-danger" id="p-del-design" style="width:100%">Supprimer ce design</button>
@@ -1324,16 +1348,28 @@ function renderGlobalProps(d) {
     r.readAsDataURL(f);
   });
 
-  document.getElementById('btn-add-v').addEventListener('click', ()=>{ d.variant_colors=d.variant_colors||[]; d.variant_colors.push({name:'Couleur',hex:'#ffffff',opacity:1.0}); persist(); renderProps(); });
+  document.getElementById('btn-add-v').addEventListener('click', ()=>{ d.variant_colors=d.variant_colors||[]; d.variant_colors.push({name:'Couleur',hex:'#ffffff',opacity:1.0,force_text_color:false,text_color_override:'#ffffff'}); persist(); renderProps(); });
   document.querySelectorAll('.v-name').forEach(el=>el.addEventListener('input',()=>{d.variant_colors[+el.dataset.i].name=el.value;persist();}));
   document.querySelectorAll('.v-hex' ).forEach(el=>el.addEventListener('input',()=>{d.variant_colors[+el.dataset.i].hex=el.value;persist();}));
   document.querySelectorAll('.v-op'  ).forEach(el=>el.addEventListener('input',()=>{d.variant_colors[+el.dataset.i].opacity=parseFloat(el.value);persist();}));
+  document.querySelectorAll('.v-force-txt').forEach(el=>el.addEventListener('change',()=>{
+    const i=+el.dataset.i;
+    d.variant_colors[i].force_text_color=el.checked;
+    const colorInput=document.querySelector(`.v-txtcolor[data-i="${i}"]`);
+    if(colorInput) colorInput.style.display=el.checked?'inline-block':'none';
+    persist();
+  }));
+  document.querySelectorAll('.v-txtcolor').forEach(el=>el.addEventListener('input',()=>{d.variant_colors[+el.dataset.i].text_color_override=el.value;persist();}));
   document.querySelectorAll('.v-del' ).forEach(el=>el.addEventListener('click',()=>{d.variant_colors.splice(+el.dataset.i,1);persist();renderProps();}));
   document.getElementById('p-del-design').addEventListener('click', ()=>{
     if(!confirm(`Supprimer "${d.name}" ?`))return;
     app.designs=app.designs.filter(x=>x.id!==d.id);
     app.currentId=null; app.selectedZone=null; app.selectedZones=[];
     persist(); renderDesignList(); renderProps(); drawEditor();
+  });
+  document.getElementById('p-toggle-active').addEventListener('click', ()=>{
+    d.active = d.active===false ? true : false;
+    persist(); renderDesignList(); renderProps();
   });
 }
 
@@ -1637,13 +1673,14 @@ function on(id, evt, fn) {
 function renderDesignList() {
   const list=document.getElementById('design-list');
   const q=app.searchQuery.toLowerCase();
-  const items=app.designs.filter(d=>!q||d.name.toLowerCase().includes(q));
+  const items=app.designs.filter(d=>!q||d.name.toLowerCase().includes(q))
+    .sort((a,b)=>a.name.localeCompare(b.name,'fr'));
   if (!items.length) { list.innerHTML=`<div class="empty-state"><p>${q?'Aucun résultat':'Aucun design'}</p></div>`; return; }
   list.innerHTML=items.map(d=>`
-    <div class="design-item${d.id===app.currentId?' active':''}" data-id="${d.id}">
-      <div class="status-dot ${getDesignStatus(d)}"></div>
+    <div class="design-item${d.id===app.currentId?' active':''}${d.active===false?' design-inactive':''}" data-id="${d.id}">
+      <div class="status-dot ${d.active===false?'red':getDesignStatus(d)}"></div>
       <div class="design-thumb"><canvas id="th-${d.id}" width="100" height="50"></canvas></div>
-      <span class="design-name" data-id="${d.id}">${esc(d.name)}</span>
+      <span class="design-name${d.active===false?' inactive-name':''}" data-id="${d.id}">${esc(d.name)}${d.active===false?' <em style="font-size:10px;color:var(--danger);font-style:normal;">[inactif]</em>':''}</span>
       <button class="btn-dup" data-id="${d.id}" title="Dupliquer">⧉</button>
     </div>
   `).join('');
@@ -1738,7 +1775,7 @@ function exportDesign() {
   const normalizeArchZone=z=>({ id:z.id||'', label:z.label||'', order:z.order||1, cx:z.cx??0, cy:z.cy??0, radius:z.radius||280, direction:z.direction||'up', start_angle:z.start_angle??-90, letter_spacing:z.letter_spacing??1.0, font_size:z.font_size??60, font_family:z.font_family||'Dancing Script', color:z.color||'#7a5c2e', placeholder:z.placeholder||'' });
   const normalizeTextZone=z=>({ id:z.id||'', label:z.label||'', order:z.order||1, x:z.x??0, y:z.y??0, width:z.width??0, height:z.height??0, shape:z.shape||'rectangle', lineHeight:z.lineHeight??1.5, font_size:z.font_size??24, color:z.color||'#000000', placeholder:z.placeholder||'', font_family:z.font_family||'Arial', align:z.align||'center', multiline:z.multiline??true, rotation:z.rotation||0, max_chars:z.max_chars||0 });
   const normalizePhotoZone=z=>({ id:z.id||'', label:z.label||'', order:z.order||1, x:z.x??0, y:z.y??0, width:z.width??0, height:z.height??0, shape:z.shape||'circle' });
-  const normalizeVariant=v=>({ name:v.name||'', hex:v.hex||'#ffffff', opacity:v.opacity??1 });
+  const normalizeVariant=v=>({ name:v.name||'', hex:v.hex||'#ffffff', opacity:v.opacity??1, force_text_color:v.force_text_color||false, text_color_override:v.text_color_override||'#ffffff' });
   const out={ id:d.id||'', name:d.name||'', shopify_handle:d.shopify_handle||'', gobelet_color:d.gobelet_color||'#ffffff', gobelet_opacity:d.gobelet_opacity??0.88, model_url:d.model_url||null, rotation_y:d.rotation_y??0, design_url:d.design_url||null, design:d.design||null, variant_colors:(d.variant_colors||[]).map(normalizeVariant), text_zones:(d.text_zones||[]).map(normalizeTextZone), photo_zones:(d.photo_zones||[]).map(normalizePhotoZone), arch_zones:(d.arch_zones||[]).map(normalizeArchZone) };
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=(d.id||'design')+'.json'; a.click();
