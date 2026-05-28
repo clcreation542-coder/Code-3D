@@ -174,7 +174,7 @@ function drawTextZone(zone, text) {
   ctx2d.save();
   if (angle) { ctx2d.translate(cx, cy); ctx2d.rotate(angle); ctx2d.translate(-cx, -cy); }
   ctx2d.font         = `${size}px "${zone.font_family}"`;
-  ctx2d.fillStyle    = zone.color || '#2c2521';
+  ctx2d.fillStyle    = zone._colorOverride || zone.color || '#2c2521';
   ctx2d.textAlign    = zone.align || 'center';
   ctx2d.textBaseline = 'middle';
   const startY = cy - totalH / 2 + lineH / 2;
@@ -244,7 +244,20 @@ function drawTexture() {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     drawTextZone(zone, txt);
   });
-  if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
+    if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
+  /* Envoyer infos zones au parent pour line item properties */
+  var zoneInfos = (CFG.text_zones||[]).map(function(zone){
+    var txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'');
+    return {
+      id: zone.id,
+      label: zone.label || zone.id,
+      fontSize: getFontSize(zone, txt || 'A'),
+      lineCount: txt ? txt.split('\n').length : 0
+    };
+  });
+  if (window.parent && zoneInfos.length) {
+    window.parent.postMessage({ type:'kuztom_zone_info', zones: zoneInfos }, '*');
+  }
 }
 
 async function loadDesignConfig() {
@@ -348,8 +361,8 @@ function initThree() {
   bgCtx.fillRect(0, 0, 512, 512);
 
   /* Deux lignes de perspective en bas — coin de pièce */
-  bgCtx.strokeStyle = 'rgba(148, 136, 126, 0.38)';
-  bgCtx.lineWidth   = 1.2;
+  bgCtx.strokeStyle = 'rgba(100, 92, 84, 0.72)';
+  bgCtx.lineWidth   = 2.2;
   bgCtx.lineCap     = 'round';
   /* Ligne gauche : du bas-gauche vers le centre-bas */
   bgCtx.beginPath();
@@ -571,6 +584,12 @@ window.addEventListener('message', function(e) {
   if (data.type === 'UPDATE_COLOR' && data.value) {
     state.gobeletColor = data.value;
     if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
+    /* Couleur texte forcée par variante (toggle admin) */
+    if (data.textColorOverride) {
+      (CFG.text_zones || []).forEach(function(z) { z._colorOverride = data.textColorOverride; });
+    } else {
+      (CFG.text_zones || []).forEach(function(z) { delete z._colorOverride; });
+    }
     drawTexture();
     if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
