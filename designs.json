@@ -54,11 +54,6 @@
         "name": "Bleu",
         "hex": "#247bde",
         "opacity": 0.88
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.88
       }
     ],
     "text_zones": [
@@ -105,9 +100,9 @@
         "label": "Zone de texte 3",
         "order": 3,
         "x": 281,
-        "y": 423,
+        "y": 275,
         "width": 780,
-        "height": 179,
+        "height": 459,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 85,
@@ -116,8 +111,8 @@
         "font_family": "Allura",
         "align": "center",
         "multiline": false,
-        "rotation": 90,
-        "max_chars": 0
+        "rotation": 0,
+        "max_chars": 50
       }
     ],
     "photo_zones": [],
@@ -151,38 +146,38 @@
       },
       {
         "name": "Rose",
-        "hex": "#ffffff",
-        "opacity": 1
+        "hex": "#d4175a",
+        "opacity": 0.88
       },
       {
         "name": "Jaune",
-        "hex": "#ffffff",
-        "opacity": 1
+        "hex": "#ffdd33",
+        "opacity": 0.88
       },
       {
         "name": "Orange",
-        "hex": "#ffffff",
-        "opacity": 1
+        "hex": "#ff7a00",
+        "opacity": 0.88
       },
       {
         "name": "Rouge",
-        "hex": "#ffffff",
-        "opacity": 1
+        "hex": "#f5383f",
+        "opacity": 0.88
       },
       {
         "name": "Vert",
-        "hex": "#ffffff",
-        "opacity": 1
+        "hex": "#077829",
+        "opacity": 0.88
       },
       {
         "name": "Bleu",
-        "hex": "#ffffff",
-        "opacity": 1
+        "hex": "#247bde",
+        "opacity": 0.88
       },
       {
         "name": "Noir",
-        "hex": "#ffffff",
-        "opacity": 1
+        "hex": "#090909",
+        "opacity": 0.88
       }
     ],
     "text_zones": [
@@ -225,23 +220,23 @@
         "max_chars": 0
       },
       {
-        "id": "texte_mpp4yuwhknei",
+        "id": "texte_mppgu4277c7u",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 252,
-        "y": 423,
+        "x": 281,
+        "y": 275,
         "width": 780,
-        "height": 179,
+        "height": 459,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 85,
-        "color": "#99745f",
+        "color": "#987661",
         "placeholder": "",
         "font_family": "Dancing Script",
         "align": "center",
         "multiline": false,
-        "rotation": 90,
-        "max_chars": 15
+        "rotation": 0,
+        "max_chars": 50
       }
     ],
     "photo_zones": [],
@@ -274,38 +269,38 @@
         "opacity": 0
       },
       {
-        "name": "Couleur",
-        "hex": "#ffffff",
+        "name": "Rose",
+        "hex": "#d4175a",
         "opacity": 0.88
       },
       {
-        "name": "Couleur",
-        "hex": "#ffffff",
+        "name": "Jaune",
+        "hex": "#ffdd33",
         "opacity": 0.88
       },
       {
-        "name": "Couleur",
-        "hex": "#ffffff",
+        "name": "Orange",
+        "hex": "#ff7a00",
         "opacity": 0.88
       },
       {
-        "name": "Couleur",
-        "hex": "#ffffff",
+        "name": "Rouge",
+        "hex": "#f5383f",
         "opacity": 0.88
       },
       {
-        "name": "Couleur",
-        "hex": "#ffffff",
+        "name": "Vert",
+        "hex": "#077829",
         "opacity": 0.88
       },
       {
-        "name": "Couleur",
-        "hex": "#ffffff",
+        "name": "Bleu",
+        "hex": "#247bde",
         "opacity": 0.88
       },
       {
-        "name": "Couleur",
-        "hex": "#ffffff",
+        "name": "Noir",
+        "hex": "#090909",
         "opacity": 0.88
       }
     ],
@@ -349,23 +344,23 @@
         "max_chars": 0
       },
       {
-        "id": "texte_mpp4yuwhknei",
+        "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 252,
-        "y": 423,
+        "x": 281,
+        "y": 275,
         "width": 780,
-        "height": 179,
+        "height": 459,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 85,
-        "color": "#bc9c22",
+        "color": "#c1ae15",
         "placeholder": "",
         "font_family": "Great Vibes",
         "align": "center",
         "multiline": false,
-        "rotation": 90,
-        "max_chars": 15
+        "rotation": 0,
+        "max_chars": 50
       }
     ],
     "photo_zones": [],
