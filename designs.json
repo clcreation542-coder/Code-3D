@@ -3,7 +3,7 @@
     "id": "gobelet-mariage-couronne-florale-or-mpban42cc0e6",
     "name": "Gobelet Mariage - Couronne Florale & Or",
     "shopify_handle": "gobelet-mariage-couronne-florale-or",
-    "gobelet_color": "#ffffff",
+    "gobelet_color": "#ff3333",
     "gobelet_opacity": 0.75,
     "model_url": null,
     "rotation_y": 5.7,
@@ -27,22 +27,22 @@
       },
       {
         "name": "Rose",
-        "hex": "#ff00ff",
+        "hex": "#ce0d5a",
         "opacity": 0.75
       },
       {
         "name": "Jaune",
-        "hex": "#ffff00",
+        "hex": "#dbbe00",
         "opacity": 0.75
       },
       {
         "name": "Orange",
-        "hex": "#ff4d00",
+        "hex": "#ff7e47",
         "opacity": 0.75
       },
       {
         "name": "Rouge",
-        "hex": "#cc0000",
+        "hex": "#ff3333",
         "opacity": 0.75
       },
       {
@@ -214,7 +214,18 @@
         "max_chars": 15
       }
     ],
-    "photo_zones": [],
+    "photo_zones": [
+      {
+        "id": "photo_mppfaggx92ad",
+        "label": "Photo",
+        "order": 1,
+        "x": 375,
+        "y": 119,
+        "width": 534,
+        "height": 785,
+        "shape": "rectangle"
+      }
+    ],
     "arch_zones": []
   },
   {
