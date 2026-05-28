@@ -33,37 +33,37 @@
       {
         "name": "Jaune",
         "hex": "#ffff00",
-        "opacity": 1
+        "opacity": 0.75
       },
       {
         "name": "Orange",
         "hex": "#ff4d00",
-        "opacity": 1
+        "opacity": 0.75
       },
       {
         "name": "Rouge",
         "hex": "#cc0000",
-        "opacity": 1
+        "opacity": 0.75
       },
       {
         "name": "Vert",
         "hex": "#00ff00",
-        "opacity": 1
+        "opacity": 0.75
       },
       {
         "name": "Turquoise",
         "hex": "#00ffff",
-        "opacity": 1
+        "opacity": 0.75
       },
       {
         "name": "Bleu",
         "hex": "#004dff",
-        "opacity": 1
+        "opacity": 0.75
       },
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 1
+        "opacity": 0.75
       }
     ],
     "text_zones": [
