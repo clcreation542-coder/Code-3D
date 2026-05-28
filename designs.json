@@ -928,11 +928,6 @@
         "opacity": 0.88
       },
       {
-        "name": "Bleu",
-        "hex": "#247bde",
-        "opacity": 0.88
-      },
-      {
         "name": "Noir",
         "hex": "#090909",
         "opacity": 0.88
