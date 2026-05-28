@@ -27,12 +27,12 @@
       },
       {
         "name": "Rose",
-        "hex": "#ce0d5a",
+        "hex": "#d4175a",
         "opacity": 0.75
       },
       {
         "name": "Jaune",
-        "hex": "#dbbe00",
+        "hex": "#ffd000",
         "opacity": 0.75
       },
       {
@@ -214,18 +214,7 @@
         "max_chars": 15
       }
     ],
-    "photo_zones": [
-      {
-        "id": "photo_mppfaggx92ad",
-        "label": "Photo",
-        "order": 1,
-        "x": 376,
-        "y": 212,
-        "width": 532,
-        "height": 601,
-        "shape": "rectangle"
-      }
-    ],
+    "photo_zones": [],
     "arch_zones": []
   },
   {
