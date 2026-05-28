@@ -889,11 +889,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.88
       }
     ],
     "text_zones": [
