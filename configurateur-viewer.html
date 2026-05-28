@@ -361,17 +361,19 @@ function initThree() {
   bgCtx.fillRect(0, 0, 512, 512);
 
   /* Ombre portée douce sous le gobelet */
-  const shadowGrad = bgCtx.createRadialGradient(256, 448, 0, 256, 448, 130);
-  shadowGrad.addColorStop(0,   'rgba(30, 25, 20, 0.65)');
-  shadowGrad.addColorStop(0.45,'rgba(30, 25, 20, 0.32)');
-  shadowGrad.addColorStop(1,   'rgba(30, 25, 20, 0)');
+  /* Ombre portée réaliste — étroite, concentrée sous la base du gobelet */
+  const shadowGrad = bgCtx.createRadialGradient(256, 446, 0, 256, 446, 68);
+  shadowGrad.addColorStop(0,   'rgba(20, 16, 12, 0.78)');
+  shadowGrad.addColorStop(0.35,'rgba(20, 16, 12, 0.45)');
+  shadowGrad.addColorStop(0.7, 'rgba(20, 16, 12, 0.15)');
+  shadowGrad.addColorStop(1,   'rgba(20, 16, 12, 0)');
   bgCtx.save();
-  bgCtx.translate(256, 448);
-  bgCtx.scale(1, 0.18);
-  bgCtx.translate(-256, -448);
+  bgCtx.translate(256, 446);
+  bgCtx.scale(1, 0.22);
+  bgCtx.translate(-256, -446);
   bgCtx.fillStyle = shadowGrad;
   bgCtx.beginPath();
-  bgCtx.arc(256, 448, 130, 0, Math.PI * 2);
+  bgCtx.arc(256, 446, 68, 0, Math.PI * 2);
   bgCtx.fill();
   bgCtx.restore();
 
