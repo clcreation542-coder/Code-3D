@@ -370,25 +370,5 @@
     ],
     "photo_zones": [],
     "arch_zones": []
-  },
-  {
-    "id": "dfgh-mppgbhnmsarl",
-    "name": "dfgh",
-    "shopify_handle": "",
-    "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
-    "model_url": null,
-    "rotation_y": 0,
-    "design_url": null,
-    "design": {
-      "x": 0,
-      "y": 0,
-      "width": 2000,
-      "height": 1024
-    },
-    "variant_colors": [],
-    "text_zones": [],
-    "photo_zones": [],
-    "arch_zones": []
   }
 ]
