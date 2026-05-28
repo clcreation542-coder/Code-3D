@@ -479,15 +479,7 @@ function loadGobelet() {
     gobeletGroup.add(disc1);
 
     gobeletGroup.updateMatrixWorld(true);
-    const boxFond    = new THREE.Box3().setFromObject(gobeletGroup);
-    const fondRadius = (boxFond.max.x - boxFond.min.x) / 2;
-    const disc2 = new THREE.Mesh(
-      new THREE.CircleGeometry(fondRadius * 0.92, 64),
-      new THREE.MeshStandardMaterial({ color: 0xffffff, depthWrite: true, side: THREE.DoubleSide })
-    );
-    disc2.rotation.x = -Math.PI / 2;
-    disc2.position.set(gobeletGroup.position.x, boxFond.min.y + 0.02, gobeletGroup.position.z);
-    scene.add(disc2);
+    /* disc2 supprimé : évite la bande blanche visible sous le gobelet */
 
     gobeletGroup.updateMatrixWorld(true);
     const tempBox = new THREE.Box3().setFromObject(gobeletGroup);
