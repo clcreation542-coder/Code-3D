@@ -337,8 +337,8 @@
         "name": "Noir",
         "hex": "#000000",
         "opacity": 0.88,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "force_text_color": true,
+        "text_color_override": "#e7d4b6"
       }
     ],
     "text_zones": [
@@ -3580,7 +3580,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3681,7 +3681,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3701,7 +3701,7 @@
         "name": "Noir",
         "hex": "#090909",
         "opacity": 0.88,
-        "force_text_color": true,
+        "force_text_color": false,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3904,7 +3904,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#ffffff"
+        "text_color_override": "#f7ece7"
       }
     ],
     "text_zones": [
