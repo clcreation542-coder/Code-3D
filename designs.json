@@ -2085,8 +2085,8 @@
         "name": "Noir",
         "hex": "#090909",
         "opacity": 0.88,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "force_text_color": true,
+        "text_color_override": "#f1e4d1"
       }
     ],
     "text_zones": [
