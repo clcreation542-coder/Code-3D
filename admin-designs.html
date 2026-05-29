@@ -155,6 +155,88 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
 </style>
 </head>
 <body>
+<style>
+#kuztom-lock-screen {
+  position:fixed;inset:0;background:#0d0d0d;z-index:99999;
+  display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;
+}
+#kuztom-lock-box {
+  background:#151515;border:1px solid rgba(201,169,110,0.3);border-radius:20px;
+  padding:48px 40px;width:360px;text-align:center;
+  box-shadow:0 0 80px rgba(201,169,110,0.08);
+}
+#kuztom-lock-logo { font-size:28px;font-weight:700;color:#c9a96e;letter-spacing:2px;margin-bottom:6px; }
+#kuztom-lock-sub { font-size:13px;color:rgba(232,224,208,0.4);margin-bottom:32px; }
+#kuztom-lock-input {
+  width:100%;padding:14px 16px;background:#1e1e1e;border:1.5px solid rgba(201,169,110,0.25);
+  border-radius:10px;color:#e8e0d0;font-size:15px;font-family:'Jost',sans-serif;
+  outline:none;text-align:center;letter-spacing:3px;box-sizing:border-box;margin-bottom:12px;
+  transition:border-color 0.2s;
+}
+#kuztom-lock-input:focus { border-color:#c9a96e; }
+#kuztom-lock-btn {
+  width:100%;padding:13px;background:linear-gradient(135deg,#c9a96e,#e8d5a3);
+  color:#0d0d0d;border:none;border-radius:10px;font-family:'Jost',sans-serif;
+  font-size:14px;font-weight:700;cursor:pointer;transition:opacity 0.2s;
+}
+#kuztom-lock-btn:hover { opacity:0.88; }
+#kuztom-lock-error { font-size:12px;color:#e06c75;margin-top:10px;min-height:18px; }
+#kuztom-lock-attempts { font-size:11px;color:rgba(232,224,208,0.3);margin-top:6px; }
+</style>
+<div id="kuztom-lock-screen">
+  <div id="kuztom-lock-box">
+    <div id="kuztom-lock-logo">KUZTOM</div>
+    <div id="kuztom-lock-sub">Admin Design Studio</div>
+    <input type="password" id="kuztom-lock-input" placeholder="Mot de passe" autocomplete="off">
+    <button id="kuztom-lock-btn">Accéder →</button>
+    <div id="kuztom-lock-error"></div>
+    <div id="kuztom-lock-attempts"></div>
+  </div>
+</div>
+<script>
+(function(){
+  const HASH_KEY='kuztom_admin_ph',LOCK_KEY='kuztom_lock_until',ATT_KEY='kuztom_attempts';
+  function simpleHash(s){let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*0x01000193)>>>0;}return h.toString(16).padStart(8,'0')+(h^0xdeadbeef).toString(16).padStart(8,'0');}
+  const DEFAULT_HASH=simpleHash('kuztom2024');
+  function getHash(){return localStorage.getItem(HASH_KEY)||DEFAULT_HASH;}
+  function getAtt(){return parseInt(localStorage.getItem(ATT_KEY)||'0');}
+  function getLock(){return parseInt(localStorage.getItem(LOCK_KEY)||'0');}
+  const scr=document.getElementById('kuztom-lock-screen');
+  const inp=document.getElementById('kuztom-lock-input');
+  const btn=document.getElementById('kuztom-lock-btn');
+  const err=document.getElementById('kuztom-lock-error');
+  const attEl=document.getElementById('kuztom-lock-attempts');
+  function checkLock(){
+    const u=getLock();
+    if(u>Date.now()){
+      const s=Math.ceil((u-Date.now())/1000);
+      attEl.textContent='⏳ Bloqué — réessayez dans '+s+'s';
+      btn.disabled=true;inp.disabled=true;
+      setTimeout(checkLock,1000);
+    } else {
+      btn.disabled=false;inp.disabled=false;
+      const a=getAtt();attEl.textContent=a>0?a+' tentative(s) échouée(s)':'';
+    }
+  }
+  function tryLogin(){
+    if(getLock()>Date.now())return;
+    if(!inp.value)return;
+    if(simpleHash(inp.value)===getHash()){
+      localStorage.removeItem(ATT_KEY);localStorage.removeItem(LOCK_KEY);
+      sessionStorage.setItem('kuztom_auth','ok');
+      scr.style.transition='opacity 0.5s';scr.style.opacity='0';
+      setTimeout(()=>scr.remove(),500);
+    } else {
+      let a=getAtt()+1;localStorage.setItem(ATT_KEY,a);
+      if(a>=3){localStorage.setItem(LOCK_KEY,Date.now()+5*60*1000);localStorage.setItem(ATT_KEY,'0');checkLock();}
+      else{err.textContent='❌ Mot de passe incorrect';attEl.textContent=(3-a)+' tentative(s) restante(s)';inp.value='';inp.focus();}
+    }
+  }
+  if(sessionStorage.getItem('kuztom_auth')==='ok'){scr.remove();}
+  else{btn.addEventListener('click',tryLogin);inp.addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});checkLock();}
+})();
+</script>
+
 <header id="header">
   <span id="header-title">kuztom — Admin Designs</span>
   <span id="unsaved-dot" title="Modifications non sauvegardées"></span>
@@ -1456,6 +1538,7 @@ function renderGlobalProps(d) {
       </button>
     </div>
     <div class="psection">
+      <button class="btn-secondary" id="p-png-export" style="width:100%;margin-bottom:8px;padding:9px;font-size:12px;border-radius:var(--rsm);cursor:pointer;">📥 Télécharger PNG imprimeur</button>
       <button class="btn-danger" id="p-del-design" style="width:100%">Supprimer ce design</button>
     </div>
   `;
@@ -1507,6 +1590,61 @@ function renderGlobalProps(d) {
   }));
   document.querySelectorAll('.v-txtcolor').forEach(el=>el.addEventListener('input',()=>{d.variant_colors[+el.dataset.i].text_color_override=el.value;persist();}));
   document.querySelectorAll('.v-del' ).forEach(el=>el.addEventListener('click',()=>{d.variant_colors.splice(+el.dataset.i,1);persist();renderProps();}));
+  /* Export PNG imprimeur 1970×1140px */
+  document.getElementById('p-png-export').addEventListener('click', ()=>{
+    const d = currentDesign(); if(!d) return;
+    const W=1970, H=1140;
+    const exportCanvas = document.createElement('canvas');
+    exportCanvas.width=W; exportCanvas.height=H;
+    const ectx = exportCanvas.getContext('2d');
+    ectx.clearRect(0,0,W,H);
+    /* Dessiner l'image WebP si disponible */
+    const img = app.imgCache[d.id];
+    if(img) {
+      const di = d.design||{x:0,y:0,width:2000,height:1024};
+      const scaleX=W/2000, scaleY=H/1024;
+      ectx.drawImage(img, di.x*scaleX, di.y*scaleY, di.width*scaleX, di.height*scaleY);
+    }
+    /* Dessiner les zones texte avec placeholder */
+    const scaleX=W/2000, scaleY=H/1024;
+    (d.text_zones||[]).forEach(z=>{
+      const lh=z.lineHeight||1.3;
+      const lines=(z.placeholder||z.label||'').split('\n');
+      let fs=Math.round((z.font_size||48)*Math.min(scaleX,scaleY));
+      const zw=z.width*scaleX, zh=z.height*scaleY;
+      const zx=z.x*scaleX, zy=z.y*scaleY;
+      while(fs>6){
+        ectx.font=`${fs}px '${z.font_family||'Jost'}'`;
+        const maxW=Math.max(...lines.map(l=>ectx.measureText(l).width));
+        const totalH=lines.length*fs*lh;
+        if(maxW<=zw&&totalH<=zh) break;
+        fs-=1;
+      }
+      const cx=zx+zw/2, cy=zy+zh/2;
+      const angle=(z.rotation||0)*Math.PI/180;
+      ectx.save();
+      if(angle){ectx.translate(cx,cy);ectx.rotate(angle);ectx.translate(-cx,-cy);}
+      ectx.fillStyle=z.color||'#7a5c2e';
+      ectx.font=`${fs}px '${z.font_family||'Jost'}'`;
+      ectx.textAlign=z.align||'center';
+      ectx.textBaseline='middle';
+      const tx=z.align==='left'?zx+8:z.align==='right'?zx+zw-8:zx+zw/2;
+      const lineH=fs*lh, totalH=lines.length*lineH;
+      const startY=cy-totalH/2+lineH/2;
+      lines.forEach((line,i)=>ectx.fillText(line,tx,startY+i*lineH));
+      ectx.restore();
+    });
+    /* Dessiner les zones arche */
+    (d.arch_zones||[]).forEach(z=>drawArchText(z,ectx));
+    /* Télécharger */
+    const fileName=(d.name||'design').replace(/[^a-zA-Z0-9-_ ]/g,'').trim()+'-imprimeur.png';
+    exportCanvas.toBlob(blob=>{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download=fileName;a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),2000);
+    },'image/png');
+  });
+
   document.getElementById('p-del-design').addEventListener('click', ()=>{
     if(!confirm(`Supprimer "${d.name}" ?`))return;
     app.designs=app.designs.filter(x=>x.id!==d.id);
@@ -2166,13 +2304,37 @@ document.getElementById('modal-name').addEventListener('keydown',e=>{if(e.key===
 // ═══════════════════════════════════════════
 async function deployDesign() {
   if(!app.designs||!app.designs.length) return alert('Aucun design à déployer');
+  /* Double confirmation */
+  const confirmed = await new Promise(resolve => {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99997;display:flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;';
+    overlay.innerHTML = '<div style="background:#151515;border:1px solid rgba(201,169,110,0.3);border-radius:16px;padding:32px;width:360px;text-align:center"><div style="font-size:32px;margin-bottom:12px">🚀</div><div style="color:#c9a96e;font-size:16px;font-weight:700;margin-bottom:8px">Confirmer le déploiement ?</div><div style="color:rgba(232,224,208,0.5);font-size:12px;margin-bottom:24px">Cette action mettra à jour votre site en direct.</div><div style="display:flex;gap:8px"><button id="dep-cancel" style="flex:1;padding:10px;background:#2a2a2a;border:none;border-radius:8px;color:#e8e0d0;cursor:pointer">Annuler</button><button id="dep-ok" style="flex:2;padding:10px;background:linear-gradient(135deg,#c9a96e,#e8d5a3);border:none;border-radius:8px;color:#0d0d0d;font-weight:700;cursor:pointer">Oui, déployer</button></div></div>';
+    document.body.appendChild(overlay);
+    document.getElementById('dep-ok').onclick = () => { document.body.removeChild(overlay); resolve(true); };
+    document.getElementById('dep-cancel').onclick = () => { document.body.removeChild(overlay); resolve(false); };
+  });
+  if (!confirmed) return;
   const btn=document.getElementById('btn-deploy');
   const reset=(cls,label,ms)=>{btn.className='btn-primary '+cls;btn.textContent=label;if(ms)setTimeout(()=>{btn.className='btn-primary';btn.textContent='🚀 Déployer sur GitHub';},ms);};
   reset('deploying','⏳ Déploiement…');
   const REPO='clcreation542-coder/Code-3D';
-  let TOKEN=localStorage.getItem('kuztom_gh_token')||'';
-  if(!TOKEN){TOKEN=prompt('Token GitHub Personnel (PAT) avec permission "repo" :\n(mémorisé dans le navigateur)')||'';if(!TOKEN){reset('','🚀 Déployer sur GitHub');return;}localStorage.setItem('kuztom_gh_token',TOKEN.trim());}
-  TOKEN=TOKEN.trim();
+  /* Token saisi à chaque session — jamais stocké */
+  let TOKEN = sessionStorage.getItem('kuztom_gh_token_session') || '';
+  if(!TOKEN) {
+    /* Afficher modal de saisie du token */
+    TOKEN = await new Promise(resolve => {
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99998;display:flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;';
+      overlay.innerHTML = '<div style="background:#151515;border:1px solid rgba(201,169,110,0.3);border-radius:16px;padding:36px;width:400px;text-align:center"><div style="color:#c9a96e;font-size:16px;font-weight:700;margin-bottom:8px">🔑 Token GitHub requis</div><div style="color:rgba(232,224,208,0.5);font-size:12px;margin-bottom:20px">Valable uniquement pour cette session. Non mémorisé.</div><input id="token-inp" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="width:100%;padding:11px;background:#1e1e1e;border:1.5px solid rgba(201,169,110,0.25);border-radius:8px;color:#e8e0d0;font-size:13px;box-sizing:border-box;outline:none;margin-bottom:12px"><div style="display:flex;gap:8px"><button id="token-cancel" style="flex:1;padding:10px;background:#2a2a2a;border:none;border-radius:8px;color:#e8e0d0;cursor:pointer">Annuler</button><button id="token-ok" style="flex:2;padding:10px;background:linear-gradient(135deg,#c9a96e,#e8d5a3);border:none;border-radius:8px;color:#0d0d0d;font-weight:700;cursor:pointer">Confirmer le déploiement</button></div></div>';
+      document.body.appendChild(overlay);
+      document.getElementById('token-ok').onclick = () => { const v = document.getElementById('token-inp').value.trim(); document.body.removeChild(overlay); resolve(v); };
+      document.getElementById('token-cancel').onclick = () => { document.body.removeChild(overlay); resolve(''); };
+      document.getElementById('token-inp').focus();
+    });
+    if(!TOKEN){reset('','🚀 Déployer sur GitHub');return;}
+    sessionStorage.setItem('kuztom_gh_token_session', TOKEN);
+  }
+  TOKEN = TOKEN.trim();
   const normalizeArchZone=z=>({id:z.id||'',label:z.label||'',order:z.order||1,cx:z.cx??0,cy:z.cy??0,radius:z.radius||280,direction:z.direction||'up',start_angle:z.start_angle??-90,letter_spacing:z.letter_spacing??1.0,font_size:z.font_size??60,font_family:z.font_family||'Dancing Script',color:z.color||'#7a5c2e',placeholder:z.placeholder||''});
   const normalizeTextZone=z=>({id:z.id||'',label:z.label||'',order:z.order||1,x:z.x??0,y:z.y??0,width:z.width??0,height:z.height??0,shape:z.shape||'rectangle',lineHeight:z.lineHeight??1.5,font_size:z.font_size??24,color:z.color||'#000000',placeholder:z.placeholder||'',font_family:z.font_family||'Arial',align:z.align||'center',multiline:z.multiline??true,rotation:z.rotation||0,max_chars:z.max_chars||0});
   const normalizePhotoZone=z=>({id:z.id||'',label:z.label||'',order:z.order||1,x:z.x??0,y:z.y??0,width:z.width??0,height:z.height??0,shape:z.shape||'circle'});
