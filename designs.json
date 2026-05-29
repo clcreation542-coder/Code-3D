@@ -1831,8 +1831,8 @@
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpqrrre9kz0j",
-    "name": "Copie de Gobelet Mariage - Cercle Eucalyptus",
-    "shopify_handle": "gobelet-mariage-cercle-eucalyptus",
+    "name": "Gobelet Mariage - Arche Eucalyptus & Or",
+    "shopify_handle": "gobelet-mariage-arche-eucalyptus-or",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
@@ -1844,7 +1844,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
