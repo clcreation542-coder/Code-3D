@@ -427,6 +427,15 @@ function initThree() {
 
   gobeletGroup = new THREE.Group();
   gobeletGroup.rotation.x = 0.035; /* 2° exactement */
+    /* Animation d'entrée : rotation 360° douce */
+    gobeletGroup.rotation.y = Math.PI * 2;
+    const _entryStart = Date.now();
+    (function _animEntry() {
+      const t = Math.min((Date.now()-_entryStart)/1100, 1);
+      const ease = 1 - Math.pow(1-t, 3);
+      gobeletGroup.rotation.y = Math.PI * 2 * (1 - ease);
+      if (t < 1) requestAnimationFrame(_animEntry);
+    })();
   gobeletGroup.rotation.y = rotY;
   scene.add(gobeletGroup);
 
@@ -576,6 +585,9 @@ window.addEventListener('message', function(e) {
   if (!data || typeof data !== 'object') return;
 
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
+    /* Pulse subtil — confirmation visuelle */
+    const _tc = renderer && renderer.domElement;
+    if (_tc) { _tc.style.transition='opacity 0.07s'; _tc.style.opacity='0.82'; setTimeout(()=>{_tc.style.opacity='1';}, 70); }
     const zone = (CFG.text_zones || []).find(function(z) { return z.id === data.zoneId; });
     if (zone) {
       state.texts[zone.id] = data.value;
@@ -629,6 +641,28 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+</script>
+<script>
+/* Bouton plein écran */
+(function() {
+  const btn = document.createElement('button');
+  btn.id = 'btn-fs';
+  btn.innerHTML = '⛶';
+  btn.title = 'Plein écran';
+  btn.style.cssText = 'position:fixed;top:10px;right:10px;background:rgba(255,255,255,0.18);border:none;border-radius:6px;color:rgba(210,204,196,0.9);font-size:18px;width:34px;height:34px;cursor:pointer;z-index:100;transition:background 0.2s;';
+  btn.onmouseenter = () => btn.style.background='rgba(255,255,255,0.28)';
+  btn.onmouseleave = () => btn.style.background='rgba(255,255,255,0.18)';
+  btn.onclick = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(()=>{});
+      btn.innerHTML = '✕';
+    } else {
+      document.exitFullscreen(); btn.innerHTML = '⛶';
+    }
+  };
+  document.addEventListener('fullscreenchange', ()=>{ btn.innerHTML = document.fullscreenElement ? '✕' : '⛶'; });
+  document.body.appendChild(btn);
+})();
 </script>
 </body>
 </html>
