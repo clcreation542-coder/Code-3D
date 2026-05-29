@@ -241,6 +241,15 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
 // ═══════════════════════════════════════════
 const STORAGE_KEY = 'kuztom_designs';
 const COLORS_KEY  = 'kuztom_saved_colors';
+const FONTS_KEY   = 'kuztom_recent_fonts';
+function getRecentFonts() { try { return JSON.parse(localStorage.getItem(FONTS_KEY))||[]; } catch { return []; } }
+function addRecentFont(f) {
+  let fonts = getRecentFonts();
+  fonts = fonts.filter(x=>x!==f);
+  fonts.unshift(f);
+  if (fonts.length>3) fonts=fonts.slice(0,3);
+  localStorage.setItem(FONTS_KEY, JSON.stringify(fonts));
+}
 const DEPLOY_KEY  = 'kuztom_deployed_hashes';
 const TEX_W = 2000, TEX_H = 1024;
 const GLB_URL = 'https://clcreation542-coder.github.io/Code-3D/Gobelet 25 33.glb';
@@ -1148,28 +1157,73 @@ document.getElementById('btn-zoom-out').addEventListener('click', () => {
 // ═══════════════════════════════════════════
 //  SAVED COLORS PALETTE
 // ═══════════════════════════════════════════
+/* Clé séparée pour la bibliothèque sauvegardée (≠ couleurs récentes) */
+const COLOR_LIB_KEY = 'kuztom_color_library';
+function getColorLibrary() { try { return JSON.parse(localStorage.getItem(COLOR_LIB_KEY))||[]; } catch { return []; } }
+function saveColorLibrary(c) { localStorage.setItem(COLOR_LIB_KEY, JSON.stringify(c)); }
+
 function renderSavedColors(containerId, onPick) {
   const container = document.getElementById(containerId); if (!container) return;
-  const colors = getSavedColors();
+  const recent  = getSavedColors();
+  const library = getColorLibrary();
   container.innerHTML = `
-    <div class="saved-colors-wrap">
-      ${colors.map((c,i)=>`<div class="saved-color-swatch" style="background:${c}" data-color="${c}" data-i="${i}" title="${c} (clic droit pour supprimer)"></div>`).join('')}
-      <button class="btn-sm btn-secondary" id="${containerId}-add" style="font-size:10px;padding:2px 6px">＋</button>
+    <div style="margin-top:8px">
+      ${recent.length?`<div style="font-size:10px;color:var(--muted);margin-bottom:4px;letter-spacing:.05em">RÉCENTES</div>
+      <div class="saved-colors-wrap" id="${containerId}-recent">
+        ${recent.map((c,i)=>`<div class="saved-color-swatch" style="background:${c}" data-color="${c}" data-i="${i}" title="${c}"></div>`).join('')}
+      </div>`:''}
+      <div style="font-size:10px;color:var(--muted);margin:8px 0 4px;letter-spacing:.05em">BIBLIOTHÈQUE</div>
+      <div class="saved-colors-wrap" id="${containerId}-lib">
+        ${library.map((c,i)=>`<div class="saved-color-swatch lib-swatch" style="background:${c.hex}" data-hex="${c.hex}" data-i="${i}" title="${c.name||c.hex}&#10;Clic droit: supprimer"></div>`).join('')}
+      </div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <input type="text" id="${containerId}-hexin" placeholder="#a1b2c3" maxlength="7" style="flex:1;padding:4px 8px;background:var(--bg);border:1px solid var(--border-lt);border-radius:var(--rsm);color:var(--text);font-size:12px;font-family:'Jost',sans-serif;outline:none">
+        <input type="color" id="${containerId}-picker" style="width:30px;height:28px;padding:1px;cursor:pointer;border:1px solid var(--border-lt);border-radius:var(--rsm);background:var(--bg)">
+        <button class="btn-secondary btn-sm" id="${containerId}-save" title="Sauvegarder dans la bibliothèque">💾</button>
+      </div>
     </div>
   `;
-  container.querySelectorAll('.saved-color-swatch').forEach(s => {
-    s.addEventListener('click', () => { addRecentColor(s.dataset.color); onPick(s.dataset.color); });
-    s.addEventListener('contextmenu', e => {
-      e.preventDefault();
-      const c=getSavedColors(); c.splice(+s.dataset.i,1); saveSavedColors(c); renderSavedColors(containerId,onPick);
+
+  /* Couleurs récentes */
+  container.querySelectorAll(`#${containerId}-recent .saved-color-swatch`).forEach(s => {
+    s.addEventListener('click', () => {
+      document.getElementById(containerId+'-hexin').value = s.dataset.color;
+      document.getElementById(containerId+'-picker').value = s.dataset.color;
+      onPick(s.dataset.color);
     });
   });
-  const addBtn=document.getElementById(containerId+'-add');
-  if (addBtn) addBtn.addEventListener('click', () => {
-    const hex=prompt('Code couleur hex (ex: #d4a96e)');
-    if (hex&&/^#[0-9a-fA-F]{6}$/.test(hex)) {
-      addRecentColor(hex);
-      renderSavedColors(containerId,onPick);
+
+  /* Bibliothèque */
+  container.querySelectorAll(`#${containerId}-lib .lib-swatch`).forEach(s => {
+    s.addEventListener('click', () => {
+      document.getElementById(containerId+'-hexin').value = s.dataset.hex;
+      document.getElementById(containerId+'-picker').value = s.dataset.hex;
+      addRecentColor(s.dataset.hex); onPick(s.dataset.hex);
+    });
+    s.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      const lib=getColorLibrary(); lib.splice(+s.dataset.i,1); saveColorLibrary(lib); renderSavedColors(containerId,onPick);
+    });
+  });
+
+  /* Sync hex input ↔ color picker */
+  const hexIn  = document.getElementById(containerId+'-hexin');
+  const picker = document.getElementById(containerId+'-picker');
+  if (hexIn && picker) {
+    hexIn.addEventListener('input', () => {
+      if (/^#[0-9a-fA-F]{6}$/.test(hexIn.value)) { picker.value=hexIn.value; addRecentColor(hexIn.value); onPick(hexIn.value); }
+    });
+    picker.addEventListener('input', () => { hexIn.value=picker.value; addRecentColor(picker.value); onPick(picker.value); });
+  }
+
+  /* Sauvegarder dans la bibliothèque */
+  const saveBtn = document.getElementById(containerId+'-save');
+  if (saveBtn) saveBtn.addEventListener('click', () => {
+    const hex = hexIn ? hexIn.value : '';
+    if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+    const lib = getColorLibrary();
+    if (!lib.find(c=>c.hex.toLowerCase()===hex.toLowerCase())) {
+      lib.push({ hex, name:'' }); saveColorLibrary(lib); renderSavedColors(containerId,onPick);
     }
   });
 }
@@ -1506,7 +1560,14 @@ function renderTextProps(d, zone) {
       <div class="field">
         <label>Police</label>
         <select id="p-font">
-          ${GOOGLE_FONTS.map(f=>`<option value="${f}"${zone.font_family===f?' selected':''}>${f}</option>`).join('')}
+          ${(()=>{
+            const recent=getRecentFonts();
+            const others=GOOGLE_FONTS.filter(f=>!recent.includes(f));
+            const opts=[];
+            if(recent.length){opts.push('<option disabled>— Récentes —</option>');recent.forEach(f=>opts.push(`<option value="${f}"${zone.font_family===f?' selected':''}>${f} ★</option>`));opts.push('<option disabled>— Toutes —</option>');}
+            others.forEach(f=>opts.push(`<option value="${f}"${zone.font_family===f?' selected':''}>${f}</option>`));
+            return opts.join('');
+          })()}
         </select>
         <div id="font-preview" style="font-family:'${esc(zone.font_family||'Dancing Script')}'">Baptême de Emma · 18.10.2025</div>
       </div>
@@ -1613,6 +1674,7 @@ function renderTextProps(d, zone) {
 
   document.getElementById('p-font').addEventListener('change', e=>{
     zone.font_family=e.target.value;
+    addRecentFont(zone.font_family);
     loadFont(zone.font_family).then(()=>{
       document.getElementById('font-preview').style.fontFamily=`'${zone.font_family}'`;
       drawEditor();update3D();persist();
