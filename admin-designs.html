@@ -244,6 +244,7 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
     <option value="gobelet">Gobelet standard</option>
   </select>
   <button class="btn-secondary btn-sm" id="btn-undo" disabled title="Annuler (Ctrl+Z)">↩ Annuler</button>
+  <button class="btn-secondary btn-sm" id="btn-change-pwd" title="Changer le mot de passe admin" style="margin-left:4px">🔑 Mot de passe</button>
   <button class="btn-secondary" id="btn-import">↑ Importer JSON</button>
   <input type="file" id="import-file" accept=".json" style="display:none">
   <button class="btn-secondary" id="btn-export">↓ Exporter JSON</button>
@@ -2367,6 +2368,39 @@ async function deployDesign() {
 // ═══════════════════════════════════════════
 //  HEADER ACTIONS
 // ═══════════════════════════════════════════
+/* Changement de mot de passe admin */
+document.getElementById('btn-change-pwd').addEventListener('click', ()=>{
+  function simpleHash(s){let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*0x01000193)>>>0;}return h.toString(16).padStart(8,'0')+(h^0xdeadbeef).toString(16).padStart(8,'0');}
+  const HASH_KEY='kuztom_admin_ph';
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99998;display:flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;';
+  overlay.innerHTML=`<div style="background:#151515;border:1px solid rgba(201,169,110,0.3);border-radius:16px;padding:36px;width:380px;text-align:center">
+    <div style="color:#c9a96e;font-size:16px;font-weight:700;margin-bottom:20px">🔑 Changer le mot de passe Admin</div>
+    <input id="pwd-current" type="password" placeholder="Mot de passe actuel" style="width:100%;padding:10px;background:#1e1e1e;border:1px solid rgba(201,169,110,0.2);border-radius:8px;color:#e8e0d0;font-size:13px;box-sizing:border-box;outline:none;margin-bottom:10px">
+    <input id="pwd-new" type="password" placeholder="Nouveau mot de passe" style="width:100%;padding:10px;background:#1e1e1e;border:1px solid rgba(201,169,110,0.2);border-radius:8px;color:#e8e0d0;font-size:13px;box-sizing:border-box;outline:none;margin-bottom:10px">
+    <input id="pwd-confirm" type="password" placeholder="Confirmer le nouveau mot de passe" style="width:100%;padding:10px;background:#1e1e1e;border:1px solid rgba(201,169,110,0.2);border-radius:8px;color:#e8e0d0;font-size:13px;box-sizing:border-box;outline:none;margin-bottom:14px">
+    <div id="pwd-err" style="font-size:12px;color:#e06c75;min-height:18px;margin-bottom:10px"></div>
+    <div style="display:flex;gap:8px">
+      <button id="pwd-cancel" style="flex:1;padding:10px;background:#2a2a2a;border:none;border-radius:8px;color:#e8e0d0;cursor:pointer;font-family:Jost,sans-serif">Annuler</button>
+      <button id="pwd-ok" style="flex:2;padding:10px;background:linear-gradient(135deg,#c9a96e,#e8d5a3);border:none;border-radius:8px;color:#0d0d0d;font-weight:700;cursor:pointer;font-family:Jost,sans-serif">Changer</button>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
+  document.getElementById('pwd-cancel').onclick=()=>document.body.removeChild(overlay);
+  document.getElementById('pwd-ok').onclick=()=>{
+    const cur=document.getElementById('pwd-current').value;
+    const nw=document.getElementById('pwd-new').value;
+    const conf=document.getElementById('pwd-confirm').value;
+    const stored=localStorage.getItem(HASH_KEY)||simpleHash('kuztom2024');
+    if(simpleHash(cur)!==stored){document.getElementById('pwd-err').textContent='❌ Mot de passe actuel incorrect';return;}
+    if(nw.length<6){document.getElementById('pwd-err').textContent='❌ Minimum 6 caractères';return;}
+    if(nw!==conf){document.getElementById('pwd-err').textContent='❌ Les mots de passe ne correspondent pas';return;}
+    localStorage.setItem(HASH_KEY,simpleHash(nw));
+    document.body.removeChild(overlay);
+    alert('✅ Mot de passe admin changé avec succès !');
+  };
+});
+
 document.getElementById('btn-save').addEventListener('click',()=>{
   save(); // sauvegarde sans marquer unsaved
   const btn=document.getElementById('btn-save');
