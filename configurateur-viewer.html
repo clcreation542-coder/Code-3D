@@ -607,6 +607,23 @@ window.addEventListener('message', function(e) {
     }
   }
 
+  /* Couleur texte par zone */
+  if (data.type === 'UPDATE_ZONE_COLOR' && data.zoneId !== undefined && data.color) {
+    const zone = CFG.text_zones && CFG.text_zones.find(z => z.id === data.zoneId);
+    if (zone) { zone._colorOverride = data.color; drawTexture(); }
+    return;
+  }
+
+  /* Police par zone */
+  if (data.type === 'UPDATE_ZONE_FONT' && data.zoneId !== undefined && data.font) {
+    const zone = CFG.text_zones && CFG.text_zones.find(z => z.id === data.zoneId);
+    if (zone) {
+      zone.font_family = data.font;
+      loadFont(data.font).then(function(){ drawTexture(); });
+    }
+    return;
+  }
+
   /* Rotation automatique */
   if (data.type === 'SET_AUTO_ROTATE') {
     autoRotate = !!data.value;
