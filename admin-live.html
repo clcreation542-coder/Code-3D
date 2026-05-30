@@ -578,22 +578,15 @@ document.getElementById('btnPwd').addEventListener('click',()=>{
 /* ── INIT ──────────────────────────────────────────────────── */
 function initApp(){
   renderLib();renderPresets();
-  const tryFetch=(url)=>fetch(url).then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status));
-  tryFetch(DJ).catch(()=>tryFetch(DJ_RAW)).then(data=>{
-    /* Filtre minimal — juste exclure les inactifs explicites */
-    designs=data.filter(d=>d.active!==false&&d.name).sort((a,b)=>a.name.localeCompare(b.name,'fr'));
-    renderGallery();
-    if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
-    setTimeout(resizeViewers,200);
-  }).catch(err=>{
-    /* Retry avec timestamp */
-    tryFetch(DJ_RAW+'?t='+Date.now()).then(data=>{
+  fetch(DJ)
+    .then(r=>r.ok?r.json():fetch(DJ_RAW).then(r2=>r2.ok?r2.json():Promise.reject()))
+    .then(data=>{
       designs=data.filter(d=>d.active!==false&&d.name).sort((a,b)=>a.name.localeCompare(b.name,'fr'));
       renderGallery();
       if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
       setTimeout(resizeViewers,200);
-    }).catch(()=>{document.getElementById('glist').innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px">Impossible de charger les designs.<br>Vérifiez votre connexion.</div>';});
-  });
+    })
+    .catch(()=>{document.getElementById('glist').innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px">Erreur — rechargez la page</div>';});
 }
 </script>
 </body>
