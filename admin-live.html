@@ -110,7 +110,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .lta{flex:1;padding:8px 10px;background:rgba(201,169,110,0.04);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'Jost',sans-serif;font-size:13px;outline:none;resize:none;overflow:hidden;line-height:1.45;cursor:text;transition:border-color .2s;}
 .lta:focus{border-color:rgba(201,169,110,0.4);}
 .zcpick{width:20px;height:20px;padding:0;border:none;border-radius:50%;cursor:pointer;flex-shrink:0;margin-top:4px;box-shadow:0 0 0 1.5px rgba(255,255,255,0.2);overflow:hidden;appearance:none;-webkit-appearance:none;background:none;}
-.zfonts{width:100%;margin-top:4px;padding:5px 7px;background:rgba(201,169,110,0.04);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:'Jost',sans-serif;font-size:11px;outline:none;cursor:pointer;}
+.zfonts{width:100%;margin-top:4px;padding:5px 7px;background:#2a241e;border:1px solid rgba(201,169,110,0.3);border-radius:6px;color:#e8d5a3;font-family:'Jost',sans-serif;font-size:11px;outline:none;cursor:pointer;}
+.zfonts option{background:#2a241e;color:#e8d5a3;}
 
 /* Swatches gobelet */
 .swrow{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:5px;}
@@ -564,18 +565,52 @@ window.addEventListener('message',e=>{
   if(e.data.type==='SHARE_IMAGE_ERROR'){const btn=document.getElementById('dlbtn');btn.textContent='📥 Télécharger PNG';btn.disabled=false;}
 });
 document.getElementById('dlbtn').addEventListener('click',()=>{
-  if(!slotDesign[activeSlot]){alert('Sélectionnez un design');return;}
-  /* Demander le nom si non renseigné */
-  const nameInput=document.getElementById('pname');
-  if(!nameInput.value.trim()){
-    nameInput.focus();
-    nameInput.style.borderColor='rgba(201,169,110,0.8)';
-    setTimeout(()=>{nameInput.style.borderColor='';},2000);
-    return;
-  }
-  const btn=document.getElementById('dlbtn');btn.textContent='⏳...';btn.disabled=true;
-  postTo(activeSlot,{type:'REQUEST_SHARE_IMAGE'});
-  setTimeout(()=>{btn.textContent='📥 Télécharger PNG';btn.disabled=false;},6000);
+  if(!slotDesign['a']&&!slotDesign['b']){alert('Sélectionnez un design');return;}
+
+  /* Modal de téléchargement */
+  const defName=(document.getElementById('pname').value||'gobelet').replace(/\.png$/i,'');
+  const ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9998;display:flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;';
+  const slotAName=slotDesign['a']?slotDesign['a'].name:'—';
+  const slotBName=slotDesign['b']?slotDesign['b'].name:'—';
+  const showSlotB=compareMode&&slotDesign['b'];
+
+  ov.innerHTML=`<div style="background:#151210;border:1px solid rgba(201,169,110,0.25);border-radius:18px;padding:36px;width:400px;text-align:center">
+    <div style="color:#C9A96E;font-size:15px;font-weight:700;margin-bottom:20px">📥 Télécharger PNG</div>
+    ${showSlotB?`<div style="margin-bottom:16px;text-align:left">
+      <div style="font-size:10px;color:rgba(240,232,216,0.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Choisir le gobelet</div>
+      <label style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;margin-bottom:6px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.15)">
+        <input type="radio" name="dlslot" value="a" checked style="accent-color:#C9A96E;"> <span style="color:#F0E8D8;font-size:12px;">${slotAName}</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.15)">
+        <input type="radio" name="dlslot" value="b" style="accent-color:#C9A96E;"> <span style="color:#F0E8D8;font-size:12px;">${slotBName}</span>
+      </label>
+    </div>`:''}
+    <div style="text-align:left;margin-bottom:16px">
+      <div style="font-size:10px;color:rgba(240,232,216,0.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Nom du fichier</div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <input id="dl-name-inp" type="text" value="${defName}" style="flex:1;padding:9px 11px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);border-radius:8px;color:#F0E8D8;font-size:13px;font-family:Jost,sans-serif;outline:none;">
+        <span style="color:rgba(240,232,216,0.4);font-size:12px;">.png</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button id="dl-cancel" style="flex:1;padding:9px;background:#1e1a14;border:none;border-radius:8px;color:#F0E8D8;cursor:pointer;font-family:Jost,sans-serif">Annuler</button>
+      <button id="dl-ok" style="flex:2;padding:9px;background:linear-gradient(135deg,#C9A96E,#E8D5A3);border:none;border-radius:8px;color:#0a0805;font-weight:700;cursor:pointer;font-family:Jost,sans-serif">Télécharger</button>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  document.getElementById('dl-name-inp').select();
+  document.getElementById('dl-cancel').onclick=()=>document.body.removeChild(ov);
+  document.getElementById('dl-ok').onclick=()=>{
+    const name=document.getElementById('dl-name-inp').value.trim()||defName;
+    const radio=ov.querySelector('input[name="dlslot"]:checked');
+    const slot=radio?radio.value:activeSlot;
+    document.getElementById('pname').value=name+'.png';
+    document.body.removeChild(ov);
+    const btn=document.getElementById('dlbtn');btn.textContent='⏳...';btn.disabled=true;
+    postTo(slot,{type:'REQUEST_SHARE_IMAGE'});
+    setTimeout(()=>{btn.textContent='📥 Télécharger PNG';btn.disabled=false;},6000);
+  };
 });
 
 /* ── CHANGEMENT MOT DE PASSE ───────────────────────────────── */
