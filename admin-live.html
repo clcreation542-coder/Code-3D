@@ -73,7 +73,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 #vwrap[data-bg="annimariage"]{background:radial-gradient(ellipse 70% 55% at 50% 55%,rgba(190,80,80,0.09) 0%,transparent 70%),#130707;}
 #vwrap[data-bg="gender"]{background:radial-gradient(ellipse 55% 55% at 28% 55%,rgba(220,130,180,0.08) 0%,transparent 50%),radial-gradient(ellipse 55% 55% at 72% 55%,rgba(130,165,230,0.08) 0%,transparent 50%),#090810;}
 
-.vslot{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:540px;}
+.vslot{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 0 auto;min-width:0;}
 .vframe{border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.85),0 0 0 1px rgba(201,169,110,0.1);transition:box-shadow .3s;width:100%;aspect-ratio:1;position:relative;}
 .vslot.sel .vframe{box-shadow:0 24px 70px rgba(0,0,0,0.9),0 0 0 2px rgba(201,169,110,0.5);}
 .vframe iframe{display:block;width:100%;height:100%;border:none;}
@@ -454,13 +454,14 @@ function resizeViewers(){
   const h=wrap.offsetHeight-32;
   const w=wrap.offsetWidth-32;
   if(compareMode){
-    const sz=Math.min(h-48, Math.floor((w-8)/2));
+    const sz=Math.min(Math.floor(h*0.92), Math.floor((w-12)/2));
     ['A','B'].forEach(s=>{
       const fr=document.getElementById('frame'+s);
       const ifr=document.getElementById('ifr'+s);
-      if(fr){fr.style.width=sz+'px';fr.style.height=sz+'px';}
+      if(fr){fr.style.width=sz+'px';fr.style.height=sz+'px';fr.style.minWidth='0';fr.style.maxWidth=sz+'px';}
       if(ifr){ifr.style.width=sz+'px';ifr.style.height=sz+'px';}
     });
+    document.getElementById('viewers-wrap').style.justifyContent='center';
   }else{
     const sz=Math.min(h,w,600);
     const frA=document.getElementById('frameA');
@@ -504,10 +505,20 @@ function renderLib(){
   wrap.innerHTML=lib.map((c,i)=>`<div class="cdot" style="background:${c}" data-c="${c}" data-i="${i}" title="${c}"></div>`).join('')+'<div class="cadd" id="cadd">+</div>';
   wrap.querySelectorAll('.cdot').forEach(d=>{
     d.addEventListener('click',()=>{
-      /* Appliquer à toutes les color pickers du slot actif */
+      /* Appliquer à toutes les zones du slot actif + envoyer au viewer */
       document.querySelectorAll('.zcpick').forEach(cp=>{
-        if(cp.dataset.slot===activeSlot){cp.value=d.dataset.c;slotZoneColors[activeSlot][cp.dataset.zid]=d.dataset.c;}
+        if(cp.dataset.slot===activeSlot){
+          cp.value=d.dataset.c;
+          slotZoneColors[activeSlot][cp.dataset.zid]=d.dataset.c;
+          postTo(activeSlot,{type:'UPDATE_ZONE_COLOR',zoneId:cp.dataset.zid,color:d.dataset.c});
+        }
       });
+      /* Si pas de zcpick visible (zones pas encore construites), envoyer quand même */
+      if(slotDesign[activeSlot]){
+        (slotDesign[activeSlot].text_zones||[]).forEach(function(z){
+          postTo(activeSlot,{type:'UPDATE_ZONE_COLOR',zoneId:z.id,color:d.dataset.c});
+        });
+      }
     });
     d.addEventListener('contextmenu',e=>{e.preventDefault();const l=getLib();l.splice(+d.dataset.i,1);localStorage.setItem(LIBKEY,JSON.stringify(l));renderLib();});
   });
