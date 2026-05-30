@@ -539,14 +539,26 @@ function hideLoading() {
   }
 }
 
+let autoRotate = false;
+let autoRotateSpeed = 0.003;
+let lastInteraction = 0;
+
 function animate() {
   requestAnimationFrame(animate);
+  /* Rotation automatique lente si activée et pas d'interaction */
+  if (autoRotate && gobeletGroup && !isDragging) {
+    const idle = Date.now() - lastInteraction > 2000;
+    if (idle) {
+      rotY += autoRotateSpeed;
+      gobeletGroup.rotation.y = rotY;
+    }
+  }
   renderer.render(scene, camera);
 }
 
 function initInteraction() {
   const el = renderer.domElement;
-  el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; });
+  el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; lastInteraction = Date.now(); });
   window.addEventListener('mousemove', e => {
     if (!isDragging) return;
     rotY += (e.clientX - lastPointerX) * 0.01;
@@ -556,7 +568,7 @@ function initInteraction() {
   window.addEventListener('mouseup', () => { isDragging = false; });
   el.addEventListener('touchstart', e => {
     if (e.touches.length !== 1) return;
-    isDragging = true; lastPointerX = e.touches[0].clientX;
+    isDragging = true; lastPointerX = e.touches[0].clientX; lastInteraction = Date.now();
   }, { passive: true });
   el.addEventListener('touchmove', e => {
     if (!isDragging || e.touches.length !== 1) return;
@@ -593,6 +605,13 @@ window.addEventListener('message', function(e) {
       drawTexture();
       if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
     }
+  }
+
+  /* Rotation automatique */
+  if (data.type === 'SET_AUTO_ROTATE') {
+    autoRotate = !!data.value;
+    autoRotateSpeed = data.speed || 0.003;
+    return;
   }
 
   /* Génération image pour partage */
