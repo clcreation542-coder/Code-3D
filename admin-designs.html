@@ -961,10 +961,16 @@ function handlePositions(zone) {
 }
 function drawHandles(zone) {
   const hw = handleSize()/2;
+  const angle = (zone.rotation||0) * Math.PI/180;
+  const cx = zone.x + zone.width/2;
+  const cy = zone.y + zone.height/2;
+  ctx.save();
+  if(angle){ ctx.translate(cx,cy); ctx.rotate(angle); ctx.translate(-cx,-cy); }
   handlePositions(zone).forEach(({x,y}) => {
     ctx.fillStyle='#ffffff'; ctx.strokeStyle='rgba(100,150,255,0.9)'; ctx.lineWidth=2;
     ctx.fillRect(x-hw,y-hw,hw*2,hw*2); ctx.strokeRect(x-hw,y-hw,hw*2,hw*2);
   });
+  ctx.restore();
 }
 function hitHandle(zone, tx, ty) {
   const hw = handleSize();
@@ -2319,21 +2325,12 @@ async function deployDesign() {
   const reset=(cls,label,ms)=>{btn.className='btn-primary '+cls;btn.textContent=label;if(ms)setTimeout(()=>{btn.className='btn-primary';btn.textContent='🚀 Déployer sur GitHub';},ms);};
   reset('deploying','⏳ Déploiement…');
   const REPO='clcreation542-coder/Code-3D';
-  /* Token saisi à chaque session — jamais stocké */
-  let TOKEN = sessionStorage.getItem('kuztom_gh_token_session') || '';
+  /* Token mémorisé en localStorage */
+  let TOKEN = localStorage.getItem('kuztom_gh_token') || '';
   if(!TOKEN) {
-    /* Afficher modal de saisie du token */
-    TOKEN = await new Promise(resolve => {
-      const overlay = document.createElement('div');
-      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99998;display:flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;';
-      overlay.innerHTML = '<div style="background:#151515;border:1px solid rgba(201,169,110,0.3);border-radius:16px;padding:36px;width:400px;text-align:center"><div style="color:#c9a96e;font-size:16px;font-weight:700;margin-bottom:8px">🔑 Token GitHub requis</div><div style="color:rgba(232,224,208,0.5);font-size:12px;margin-bottom:20px">Valable uniquement pour cette session. Non mémorisé.</div><input id="token-inp" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="width:100%;padding:11px;background:#1e1e1e;border:1.5px solid rgba(201,169,110,0.25);border-radius:8px;color:#e8e0d0;font-size:13px;box-sizing:border-box;outline:none;margin-bottom:12px"><div style="display:flex;gap:8px"><button id="token-cancel" style="flex:1;padding:10px;background:#2a2a2a;border:none;border-radius:8px;color:#e8e0d0;cursor:pointer">Annuler</button><button id="token-ok" style="flex:2;padding:10px;background:linear-gradient(135deg,#c9a96e,#e8d5a3);border:none;border-radius:8px;color:#0d0d0d;font-weight:700;cursor:pointer">Confirmer le déploiement</button></div></div>';
-      document.body.appendChild(overlay);
-      document.getElementById('token-ok').onclick = () => { const v = document.getElementById('token-inp').value.trim(); document.body.removeChild(overlay); resolve(v); };
-      document.getElementById('token-cancel').onclick = () => { document.body.removeChild(overlay); resolve(''); };
-      document.getElementById('token-inp').focus();
-    });
+    TOKEN = prompt('Token GitHub Personnel (PAT) avec permission "repo" :\n(mémorisé dans le navigateur)') || '';
     if(!TOKEN){reset('','🚀 Déployer sur GitHub');return;}
-    sessionStorage.setItem('kuztom_gh_token_session', TOKEN);
+    localStorage.setItem('kuztom_gh_token', TOKEN.trim());
   }
   TOKEN = TOKEN.trim();
   const normalizeArchZone=z=>({id:z.id||'',label:z.label||'',order:z.order||1,cx:z.cx??0,cy:z.cy??0,radius:z.radius||280,direction:z.direction||'up',start_angle:z.start_angle??-90,letter_spacing:z.letter_spacing??1.0,font_size:z.font_size??60,font_family:z.font_family||'Dancing Script',color:z.color||'#7a5c2e',placeholder:z.placeholder||''});
@@ -2342,24 +2339,32 @@ async function deployDesign() {
   const normalizeVariant=v=>({name:v.name||'',hex:v.hex||'#ffffff',opacity:v.opacity??1,force_text_color:v.force_text_color||false,text_color_override:v.text_color_override||'#ffffff'});
   const allDesigns=app.designs.map(d=>({id:d.id||'',name:d.name||'',shopify_handle:d.shopify_handle||'',gobelet_color:d.gobelet_color||'#ffffff',gobelet_opacity:d.gobelet_opacity??0.88,model_url:d.model_url||null,rotation_y:d.rotation_y??0,design_url:d.design_url||null,design:d.design||null,active:d.active!==false,variant_colors:(d.variant_colors||[]).map(normalizeVariant),text_zones:(d.text_zones||[]).map(normalizeTextZone),photo_zones:(d.photo_zones||[]).map(normalizePhotoZone),arch_zones:(d.arch_zones||[]).map(normalizeArchZone)}));
   const content=btoa(unescape(encodeURIComponent(JSON.stringify(allDesigns,null,2))));
-  const api=`https://api.github.com/repos/${REPO}/contents/designs.json`;
-  try {
-    let sha;
+  /* designs-light.json : même structure SANS images base64 pour le Studio Live */
+  const lightDesigns=allDesigns.map(d=>({...d,design_url:null}));
+  const contentLight=btoa(unescape(encodeURIComponent(JSON.stringify(lightDesigns,null,2))));
+
+  async function ghPush(filename, fileContent, msg) {
+    const api=`https://api.github.com/repos/${REPO}/contents/${filename}`;
     const getRes=await fetch(api,{headers:{Authorization:'token '+TOKEN,Accept:'application/vnd.github+json'}});
+    let sha;
     if(getRes.ok){const existing=await getRes.json();sha=existing.sha;}
     else if(getRes.status!==404){const err=await getRes.json();throw new Error(err.message||getRes.statusText);}
-    const body={message:`deploy: designs.json (${allDesigns.length} design${allDesigns.length>1?'s':''})`,content};
-    if(sha) body.sha=sha;
+    const body={message:msg,content:fileContent};
+    if(sha)body.sha=sha;
     const putRes=await fetch(api,{method:'PUT',headers:{Authorization:'token '+TOKEN,'Content-Type':'application/json',Accept:'application/vnd.github+json'},body:JSON.stringify(body)});
-    if(!putRes.ok){const err=await putRes.json();if(putRes.status===401)localStorage.removeItem('kuztom_gh_token');throw new Error(err.message||putRes.statusText);}
+    if(!putRes.ok){const err=await putRes.json();if(putRes.status===401)sessionStorage.removeItem('kuztom_gh_token_session');throw new Error(err.message||putRes.statusText);}
+  }
+
+  try {
+    await ghPush('designs.json', content, `deploy: designs.json (${allDesigns.length} design${allDesigns.length>1?'s':''})`);
+    await ghPush('designs-light.json', contentLight, `deploy: designs-light.json`);
     const hashes=getDeployedHashes();
     app.designs.forEach(d=>{hashes[d.id]=designHash(d);});
     saveDeployedHashes(hashes);
-    // Marquer comme sauvegardé après déploiement
     app.unsaved=false;
     const dot=document.getElementById('unsaved-dot');
     if(dot) dot.style.display='none';
-    reset('success',`✅ Déployé ! (${allDesigns.length} design${allDesigns.length>1?'s':''})`,4000);
+    reset('success',`✅ Déployé ! (designs.json + designs-light.json)`,4000);
     renderDesignList();
     renderProps();
   } catch(e) { reset('error','❌ Erreur : '+e.message,6000); }
