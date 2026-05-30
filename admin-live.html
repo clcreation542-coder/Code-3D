@@ -243,7 +243,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 </div>
 
 <script>
-const DJ='https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
+const DJ='https://clcreation542-coder.github.io/Code-3D/designs.json';
+const DJ_RAW='https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
 const VB='https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html';
 const VO='https://clcreation542-coder.github.io';
 const LHKEY='kuztom_live_lock_until',LAKEY='kuztom_live_attempts',LHASHKEY='kuztom_live_ph';
@@ -577,15 +578,16 @@ document.getElementById('btnPwd').addEventListener('click',()=>{
 /* ── INIT ──────────────────────────────────────────────────── */
 function initApp(){
   renderLib();renderPresets();
-  fetch(DJ).then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(data=>{
+  const tryFetch=(url)=>fetch(url).then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status));
+  tryFetch(DJ).catch(()=>tryFetch(DJ_RAW)).then(data=>{
     /* Filtre minimal — juste exclure les inactifs explicites */
     designs=data.filter(d=>d.active!==false&&d.name).sort((a,b)=>a.name.localeCompare(b.name,'fr'));
     renderGallery();
     if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
     setTimeout(resizeViewers,200);
   }).catch(err=>{
-    /* Retry avec timestamp si premier essai échoue */
-    fetch(DJ+'?t='+Date.now()).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
+    /* Retry avec timestamp */
+    tryFetch(DJ_RAW+'?t='+Date.now()).then(data=>{
       designs=data.filter(d=>d.active!==false&&d.name).sort((a,b)=>a.name.localeCompare(b.name,'fr'));
       renderGallery();
       if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
