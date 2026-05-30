@@ -74,9 +74,11 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 #vwrap[data-bg="gender"]{background:radial-gradient(ellipse 55% 55% at 28% 55%,rgba(220,130,180,0.08) 0%,transparent 50%),radial-gradient(ellipse 55% 55% at 72% 55%,rgba(130,165,230,0.08) 0%,transparent 50%),#090810;}
 
 .vslot{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:540px;}
-.vframe{border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.85),0 0 0 1px rgba(201,169,110,0.1);transition:box-shadow .3s;width:100%;aspect-ratio:1;}
+.vframe{border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.85),0 0 0 1px rgba(201,169,110,0.1);transition:box-shadow .3s;width:100%;aspect-ratio:1;position:relative;}
 .vslot.sel .vframe{box-shadow:0 24px 70px rgba(0,0,0,0.9),0 0 0 2px rgba(201,169,110,0.5);}
 .vframe iframe{display:block;width:100%;height:100%;border:none;}
+.vframe .click-cap{display:none;position:absolute;inset:0;z-index:10;cursor:pointer;background:transparent;}
+.compare-mode .vframe .click-cap{display:block;}
 .vslot-lbl{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
 
 #hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(201,169,110,0.3);pointer-events:none;animation:hp 3s ease-in-out infinite;}
@@ -187,11 +189,11 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
     <div id="ctr">
       <div id="vwrap" data-bg="mariage">
         <div class="vslot sel" id="slotA">
-          <div class="vframe" id="frameA"><iframe id="ifrA" src="" scrolling="no"></iframe></div>
+          <div class="vframe" id="frameA"><iframe id="ifrA" src="" scrolling="no"></iframe><div class="click-cap" id="capA"></div></div>
           <div class="vslot-lbl" id="lblA"></div>
         </div>
         <div class="vslot" id="slotB" style="display:none">
-          <div class="vframe" id="frameB"><iframe id="ifrB" src="" scrolling="no"></iframe></div>
+          <div class="vframe" id="frameB"><iframe id="ifrB" src="" scrolling="no"></iframe><div class="click-cap" id="capB"></div></div>
           <div class="vslot-lbl" id="lblB"></div>
         </div>
         <div id="hint">↻ Glissez pour explorer &nbsp;·&nbsp; Double-clic pour zoomer</div>
@@ -322,11 +324,11 @@ document.getElementById('gsrch').addEventListener('input',e=>renderGallery(e.tar
 function loadDesignInSlot(slot,d){
   slotDesign[slot]=d;
   const url=VB+'?design='+encodeURIComponent(d.id)+'&v='+Date.now();
-  document.getElementById('ifr'+slot.toUpperCase()).src=url;
-  document.getElementById('ifr'+slot.toUpperCase()+'z'||'ifrZ').src=url;
-  if(slot==='a')document.getElementById('ifrZ').src=url;
+  const ifr=document.getElementById('ifr'+slot.toUpperCase());
+  if(ifr)ifr.src=url;
+  if(slot==='a'){const iz=document.getElementById('ifrZ');if(iz)iz.src=url;}
   renderGallery(document.getElementById('gsrch').value);
-  document.getElementById('pname').value=d.name+'.png';
+  if(slot===activeSlot)document.getElementById('pname').value=d.name+'.png';
   buildControls(slot,d);
 }
 
@@ -365,13 +367,13 @@ function buildZones(slot,d){
   wrap.querySelectorAll('.zcpick').forEach(cp=>{
     cp.addEventListener('input',()=>{
       slotZoneColors[cp.dataset.slot][cp.dataset.zid]=cp.value;
-      /* Pas de message UPDATE_ZONE_COLOR dans le viewer — on force via re-send text */
+      postTo(cp.dataset.slot,{type:'UPDATE_ZONE_COLOR',zoneId:cp.dataset.zid,color:cp.value});
     });
   });
   /* Events font */
   wrap.querySelectorAll('.zfonts').forEach(sel=>{
     sel.addEventListener('change',()=>{
-      /* Envoyer changement police si viewer le supporte */
+      postTo(sel.dataset.slot,{type:'UPDATE_ZONE_FONT',zoneId:sel.dataset.zid,font:sel.value});
     });
   });
 }
@@ -411,6 +413,9 @@ function selectSlot(slot){
   else{document.getElementById('zonesWrap').innerHTML='<div class="rt">Personnalisation</div><div style="color:var(--muted);font-size:12px;font-style:italic;">Cliquez un design</div>';document.getElementById('swWrap').style.display='none';}
 }
 document.getElementById('slotA').addEventListener('click',()=>{if(compareMode)selectSlot('a');});
+/* Overlays cliquables pour la comparaison */
+document.getElementById('capA').addEventListener('click',()=>{if(compareMode)selectSlot('a');});
+document.getElementById('capB').addEventListener('click',()=>{if(compareMode)selectSlot('b');});
 
 /* ── MODE COMPARAISON ───────────────────────────────────────── */
 document.getElementById('btnComp').addEventListener('click',()=>{
@@ -419,6 +424,7 @@ document.getElementById('btnComp').addEventListener('click',()=>{
   const sb=document.getElementById('slotB');
   const sa=document.getElementById('slotA');
   if(compareMode){
+    document.getElementById('vwrap').classList.add('compare-mode');
     sb.style.display='';
     document.getElementById('slotB').addEventListener('click',()=>selectSlot('b'));
     document.getElementById('gslot-ind').style.display='';
@@ -426,6 +432,7 @@ document.getElementById('btnComp').addEventListener('click',()=>{
     resizeViewers();
   }else{
     sb.style.display='none';
+    document.getElementById('vwrap').classList.remove('compare-mode');
     document.getElementById('gslot-ind').style.display='none';
     document.getElementById('slotA').classList.add('sel');
     activeSlot='a';
@@ -541,6 +548,14 @@ window.addEventListener('message',e=>{
 });
 document.getElementById('dlbtn').addEventListener('click',()=>{
   if(!slotDesign[activeSlot]){alert('Sélectionnez un design');return;}
+  /* Demander le nom si non renseigné */
+  const nameInput=document.getElementById('pname');
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    nameInput.style.borderColor='rgba(201,169,110,0.8)';
+    setTimeout(()=>{nameInput.style.borderColor='';},2000);
+    return;
+  }
   const btn=document.getElementById('dlbtn');btn.textContent='⏳...';btn.disabled=true;
   postTo(activeSlot,{type:'REQUEST_SHARE_IMAGE'});
   setTimeout(()=>{btn.textContent='📥 Télécharger PNG';btn.disabled=false;},6000);
