@@ -577,15 +577,37 @@ document.getElementById('btnPwd').addEventListener('click',()=>{
 /* ── INIT ──────────────────────────────────────────────────── */
 function initApp(){
   renderLib();renderPresets();
-  fetch(DJ+'?t='+Date.now())
-    .then(function(r){return r.ok?r.json():Promise.reject();})
-    .then(function(data){
-      designs=data.filter(function(d){return d.active!==false&&d.name;}).sort(function(a,b){return a.name.localeCompare(b.name,'fr');});
-      renderGallery();
-      if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
-      setTimeout(resizeViewers,200);
-    })
-    .catch(function(){document.getElementById('glist').innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px">Erreur — rechargez la page</div>';});
+  /* Plusieurs URLs tentées dans l'ordre, sans cache-bust pour utiliser le CDN */
+  var URLS=[
+    'https://clcreation542-coder.github.io/Code-3D/designs.json',
+    'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json'
+  ];
+  function tryNext(i){
+    if(i>=URLS.length){
+      document.getElementById('glist').innerHTML=
+        '<div style="padding:14px;color:var(--muted);font-size:12px">'+
+        'Impossible de charger.<br>'+
+        '<button onclick="initApp()" style="margin-top:8px;padding:5px 12px;background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);border-radius:6px;color:#C9A96E;cursor:pointer;font-family:Jost,sans-serif;font-size:11px">↺ Réessayer</button></div>';
+      return;
+    }
+    fetch(URLS[i],{cache:'force-cache'})
+      .then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();
+      })
+      .then(function(data){
+        /* Garder uniquement les champs utiles en mémoire (pas les images base64) */
+        designs=data
+          .filter(function(d){return d.active!==false&&d.name;})
+          .map(function(d){return {id:d.id,name:d.name,shopify_handle:d.shopify_handle,text_zones:d.text_zones,variant_colors:d.variant_colors,active:d.active};})
+          .sort(function(a,b){return a.name.localeCompare(b.name,'fr');});
+        renderGallery();
+        if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
+        setTimeout(resizeViewers,200);
+      })
+      .catch(function(){tryNext(i+1);});
+  }
+  tryNext(0);
 }
 </script>
 </body>
