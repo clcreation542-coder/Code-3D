@@ -577,12 +577,21 @@ document.getElementById('btnPwd').addEventListener('click',()=>{
 /* ── INIT ──────────────────────────────────────────────────── */
 function initApp(){
   renderLib();renderPresets();
-  fetch(DJ+'?t='+Date.now()).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
-    designs=data.filter(d=>d.active!==false&&d.shopify_handle).sort((a,b)=>a.name.localeCompare(b.name,'fr'));
+  fetch(DJ).then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(data=>{
+    /* Filtre minimal — juste exclure les inactifs explicites */
+    designs=data.filter(d=>d.active!==false&&d.name).sort((a,b)=>a.name.localeCompare(b.name,'fr'));
     renderGallery();
     if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
     setTimeout(resizeViewers,200);
-  }).catch(()=>{document.getElementById('glist').innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px">Erreur chargement</div>';});
+  }).catch(err=>{
+    /* Retry avec timestamp si premier essai échoue */
+    fetch(DJ+'?t='+Date.now()).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
+      designs=data.filter(d=>d.active!==false&&d.name).sort((a,b)=>a.name.localeCompare(b.name,'fr'));
+      renderGallery();
+      if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
+      setTimeout(resizeViewers,200);
+    }).catch(()=>{document.getElementById('glist').innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px">Impossible de charger les designs.<br>Vérifiez votre connexion.</div>';});
+  });
 }
 </script>
 </body>
