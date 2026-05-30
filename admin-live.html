@@ -575,23 +575,44 @@ document.getElementById('btnPwd').addEventListener('click',()=>{
 });
 
 /* ── INIT ──────────────────────────────────────────────────── */
-var _fetching=false;
+var CACHE_KEY='kuztom_designs_cache';
 
-function fetchDesigns(callback){
-  if(_fetching)return;
-  _fetching=true;
+function applyDesigns(data){
+  try {
+    designs=data
+      .filter(function(d){return d.active!==false&&d.name;})
+      .map(function(d){return{id:d.id,name:d.name,shopify_handle:d.shopify_handle,text_zones:d.text_zones,variant_colors:d.variant_colors,active:d.active};})
+      .sort(function(a,b){return a.name.localeCompare(b.name,'fr');});
+    renderGallery();
+    if(designs.length>0){
+      try{loadDesignInSlot('a',designs[0]);}catch(e){console.warn('loadDesignInSlot',e);}
+      try{selectSlot('a');}catch(e){console.warn('selectSlot',e);}
+    }
+    setTimeout(resizeViewers,200);
+  } catch(e){ console.error('applyDesigns error',e); }
+}
+
+function saveCache(data){
+  try{
+    var light=data.map(function(d){return{id:d.id,name:d.name,shopify_handle:d.shopify_handle,text_zones:d.text_zones,variant_colors:d.variant_colors,active:d.active};});
+    localStorage.setItem(CACHE_KEY,JSON.stringify(light));
+  }catch(e){}
+}
+
+function loadCache(){
+  try{var s=localStorage.getItem(CACHE_KEY);return s?JSON.parse(s):null;}catch(e){return null;}
+}
+
+function fetchFromNetwork(onSuccess,onFail){
   var urls=[
     'https://clcreation542-coder.github.io/Code-3D/designs.json',
     'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json'
   ];
   function attempt(i){
-    if(i>=urls.length){_fetching=false;callback(null);return;}
+    if(i>=urls.length){if(onFail)onFail();return;}
     fetch(urls[i])
       .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
-      .then(function(data){
-        _fetching=false;
-        callback(data);
-      })
+      .then(function(data){saveCache(data);if(onSuccess)onSuccess(data);})
       .catch(function(){attempt(i+1);});
   }
   attempt(0);
@@ -599,26 +620,30 @@ function fetchDesigns(callback){
 
 function initApp(){
   renderLib();renderPresets();
-  document.getElementById('glist').innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px">Chargement...</div>';
-  fetchDesigns(function(data){
-    if(!data){
-      document.getElementById('glist').innerHTML=
-        '<div style="padding:14px;color:var(--muted);font-size:12px">Impossible de charger.<br>'+
-        '<button id="btnRetry" style="margin-top:8px;padding:5px 12px;background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);border-radius:6px;color:#C9A96E;cursor:pointer;font-family:Jost,sans-serif;font-size:11px">↺ Réessayer</button></div>';
-      document.getElementById('btnRetry').addEventListener('click',function(){
-        _fetching=false;
-        initApp();
-      });
-      return;
-    }
-    designs=data
-      .filter(function(d){return d.active!==false&&d.name;})
-      .map(function(d){return{id:d.id,name:d.name,shopify_handle:d.shopify_handle,text_zones:d.text_zones,variant_colors:d.variant_colors,active:d.active};})
-      .sort(function(a,b){return a.name.localeCompare(b.name,'fr');});
-    renderGallery();
-    if(designs.length>0){loadDesignInSlot('a',designs[0]);selectSlot('a');}
-    setTimeout(resizeViewers,200);
-  });
+  /* 1. Afficher depuis le cache immédiatement si disponible */
+  var cached=loadCache();
+  if(cached&&cached.length>0){
+    applyDesigns(cached);
+    /* 2. Rafraîchir en arrière-plan sans bloquer l'UI */
+    fetchFromNetwork(function(data){applyDesigns(data);},null);
+  } else {
+    /* Pas de cache : charger depuis le réseau */
+    document.getElementById('glist').innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px">Chargement...</div>';
+    fetchFromNetwork(
+      function(data){applyDesigns(data);},
+      function(){
+        document.getElementById('glist').innerHTML=
+          '<div style="padding:14px;color:var(--muted);font-size:12px">'+
+          'Impossible de charger.<br>'+
+          '<button id="btnRetry" style="margin-top:8px;padding:5px 12px;background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);border-radius:6px;color:#C9A96E;cursor:pointer;font-family:Jost,sans-serif;font-size:11px">↺ Réessayer</button></div>';
+        document.getElementById('btnRetry').addEventListener('click',function(){
+          localStorage.removeItem(CACHE_KEY);
+          document.getElementById('glist').innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px">Chargement...</div>';
+          fetchFromNetwork(function(data){applyDesigns(data);},arguments.callee);
+        });
+      }
+    );
+  }
 }
 </script>
 </body>
