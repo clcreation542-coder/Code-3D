@@ -284,6 +284,17 @@ const LIVE_HASH_KEY='kuztom_live_ph';
 const LIVE_LIB_KEY='kuztom_live_colors';
 const PRESETS_KEY='kuztom_live_presets';
 
+/* Palette 35 couleurs événements */
+const DEFAULT_COLORS = [
+  '#ffffff','#F5F0EB','#EDE4D8','#D4C4A8','#C9A96E',
+  '#F2E6D9','#F5C6C2','#F0A8A0','#E8849A','#D4175A',
+  '#F9E4C8','#F5C896','#FFB347','#FF7A00','#E84C0A',
+  '#E8F0E0','#C8E0C0','#A8C8A0','#4A9B4A','#1A8A2E',
+  '#DCE8F5','#B0CCE8','#7AAED4','#247BDE','#1A3A8A',
+  '#E8DCF0','#C8A8E0','#9B7ACC','#7B3AA0','#4A1A78',
+  '#F5E8E8','#E0C0C0','#C08080','#8A4040','#090909',
+];
+
 // ── LOCK ─────────────────────────────────────────────────────────
 (function(){
   function hash(s){let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*0x01000193)>>>0;}return h.toString(16).padStart(8,'0')+(h^0xdeadbeef).toString(16).padStart(8,'0');}
@@ -326,6 +337,11 @@ const PRESETS_KEY='kuztom_live_presets';
 
 // ── APP ───────────────────────────────────────────────────────────
 let designs=[],currentDesign=null,compareMode=false,autoRotating=false;
+/* State indépendant par slot */
+const slotState={
+  a:{ texts:{}, color:null, opacity:0.88, font:{} },
+  b:{ texts:{}, color:null, opacity:0.88, font:{} }
+};
 let imgCache={},selectedSlot='a';
 
 function postTo(target,data){
@@ -390,10 +406,18 @@ function drawThumb(d){
 
 function loadImg(d){
   if(imgCache[d.id])return;
-  const src=d.design||(d.design_url&&d.design_url.startsWith('data:')?d.design_url:null);
+  /* Chercher l'image dans design (base64) ou design_url */
+  const src=d.design||(d.design_url||null);
   if(!src)return;
   const img=new Image();
+  img.crossOrigin='anonymous';
   img.onload=()=>{imgCache[d.id]=img;drawThumb(d);};
+  img.onerror=()=>{
+    /* Retry sans crossOrigin si besoin */
+    const img2=new Image();
+    img2.onload=()=>{imgCache[d.id]=img2;drawThumb(d);};
+    img2.src=src;
+  };
   img.src=src;
 }
 
@@ -421,19 +445,36 @@ function selectDesign(d){
   if(autoRotating){setTimeout(()=>postAll({type:'SET_AUTO_ROTATE',value:true,speed:0.003}),2500);}
 }
 
+const LIVE_FONTS=['Allura','Cormorant Garamond','Dancing Script','EB Garamond','Great Vibes','Jost','Montserrat','Open Sans','Parisienne','Playfair Display','Sacramento','Satisfy','Tangerine'];
+
 function buildZones(d){
   const c=document.getElementById('zones-container');
   const zones=(d.text_zones||[]).slice().sort((a,b)=>(a.ordre||a.order||99)-(b.ordre||b.order||99));
-  if(!zones.length){c.innerHTML='<div class="rp-title">Personnalisation</div><div style="color:var(--muted);font-size:12px;font-style:italic;">Aucune zone de texte</div>';return;}
-  c.innerHTML='<div class="rp-title">Personnalisation</div>'+zones.map(z=>`
-    <div style="margin-bottom:10px">
+  /* Indicateur slot actif */
+  const slotInd=compareMode?`<div style="font-size:10px;color:var(--gold);margin-bottom:10px;padding:5px 10px;background:var(--gold-dim);border-radius:6px;text-align:center;">Édition : Gobelet ${selectedSlot.toUpperCase()}</div>`:'';
+  if(!zones.length){c.innerHTML='<div class="rp-title">Personnalisation</div>'+slotInd+'<div style="color:var(--muted);font-size:12px;font-style:italic;">Aucune zone</div>';return;}
+  const st=slotState[selectedSlot];
+  c.innerHTML='<div class="rp-title">Personnalisation</div>'+slotInd+zones.map(z=>`
+    <div style="margin-bottom:12px">
       <div class="zone-lbl">${z.label||z.id}</div>
-      <textarea class="live-ta" rows="2" data-zid="${z.id}" placeholder="${(z.placeholder||'').replace(/"/g,'&quot;')}">${z.placeholder||''}</textarea>
+      <textarea class="live-ta" rows="2" data-zid="${z.id}">${st.texts[z.id]!==undefined?st.texts[z.id]:(z.placeholder||'')}</textarea>
+      <select class="live-font-sel" data-zid="${z.id}" style="width:100%;margin-top:4px;padding:6px 8px;background:rgba(201,169,110,0.04);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:'Jost',sans-serif;font-size:11px;outline:none;cursor:pointer;">
+        ${LIVE_FONTS.map(f=>`<option value="${f}" ${(st.font[z.id]||z.font_family||'Dancing Script')===f?'selected':''}>${f}</option>`).join('')}
+      </select>
     </div>
   `).join('');
   c.querySelectorAll('.live-ta').forEach(ta=>{
-    postAll({type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value});
-    ta.addEventListener('input',()=>postAll({type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value}));
+    postTo(selectedSlot,{type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value});
+    ta.addEventListener('input',()=>{
+      slotState[selectedSlot].texts[ta.dataset.zid]=ta.value;
+      postTo(selectedSlot,{type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value});
+    });
+  });
+  c.querySelectorAll('.live-font-sel').forEach(sel=>{
+    sel.addEventListener('change',()=>{
+      slotState[selectedSlot].font[sel.dataset.zid]=sel.value;
+      /* Envoyer changement de police via UPDATE_ZONE_FONT si supporté, sinon via reload */
+    });
   });
 }
 
@@ -456,13 +497,11 @@ function buildSwatches(d){
       s.classList.add('active');
       const c=colors[+s.dataset.i];
       lbl.textContent=c.name||c.hex;
-      if(!compareMode){
-        postAll({type:'UPDATE_COLOR',value:c.hex,opacity:c.opacity??0.88,textColorOverride:c.force_text_color?c.text_color_override:null});
-      } else {
-        // En mode comparaison, appliquer au slot sélectionné
-        postTo(selectedSlot,{type:'UPDATE_COLOR',value:c.hex,opacity:c.opacity??0.88,textColorOverride:c.force_text_color?c.text_color_override:null});
-        document.getElementById('lbl-'+selectedSlot).textContent=c.name||c.hex;
-      }
+      /* Toujours appliquer au slot actif uniquement */
+      slotState[selectedSlot].color=c.hex;
+      slotState[selectedSlot].opacity=c.opacity??0.88;
+      postTo(selectedSlot,{type:'UPDATE_COLOR',value:c.hex,opacity:c.opacity??0.88,textColorOverride:c.force_text_color?c.text_color_override:null});
+      document.getElementById('lbl-'+selectedSlot).textContent=c.name||c.hex;
     });
   });
 }
@@ -472,6 +511,8 @@ function selectSlot(slot){
   selectedSlot=slot;
   document.getElementById('slot-a').classList.toggle('primary',slot==='a');
   document.getElementById('slot-b').classList.toggle('primary',slot==='b');
+  /* Recharger les zones et swatches pour ce slot */
+  if(currentDesign){buildZones(currentDesign);buildSwatches(currentDesign);}
 }
 document.getElementById('slot-a').addEventListener('click',()=>{if(compareMode)selectSlot('a');});
 
@@ -539,7 +580,15 @@ document.getElementById('btn-dl').addEventListener('click',()=>{
 });
 
 // Bibliothèque couleurs
-function getColorLib(){try{return JSON.parse(localStorage.getItem(LIVE_LIB_KEY))||[];}catch{return[];}}
+function getColorLib(){
+  try{
+    const stored=localStorage.getItem(LIVE_LIB_KEY);
+    if(stored)return JSON.parse(stored);
+    /* Première fois : charger la palette par défaut */
+    localStorage.setItem(LIVE_LIB_KEY,JSON.stringify(DEFAULT_COLORS));
+    return DEFAULT_COLORS;
+  }catch{return DEFAULT_COLORS;}
+}
 function renderColorLib(){
   const lib=getColorLib();
   const wrap=document.getElementById('color-lib');
@@ -631,14 +680,18 @@ function resizeViewer(){
   const wrap = document.getElementById('viewers-wrap');
   if(!wrap) return;
   const h = wrap.offsetHeight - 32;
-  const w = wrap.offsetWidth - (compareMode ? 360 : 32);
-  const size = Math.min(h, w, compareMode ? 420 : 620);
-  const ia = document.getElementById('iframe-a');
-  if(ia){ ia.style.width = size+'px'; ia.style.height = size+'px'; }
+  const w = wrap.offsetWidth - 32;
   if(compareMode){
-    const ib = document.getElementById('iframe-b');
-    const sizeB = Math.min(h, 340);
-    if(ib){ ib.style.width = sizeB+'px'; ib.style.height = sizeB+'px'; }
+    /* Deux gobelets identiques côte à côte */
+    const size = Math.min(h, Math.floor((w-20)/2), 380);
+    ['a','b'].forEach(s=>{
+      const ifr=document.getElementById('iframe-'+s);
+      if(ifr){ifr.style.width=size+'px';ifr.style.height=size+'px';}
+    });
+  } else {
+    const size = Math.min(h, w, 620);
+    const ia = document.getElementById('iframe-a');
+    if(ia){ ia.style.width=size+'px'; ia.style.height=size+'px'; }
   }
 }
 window.addEventListener('resize', resizeViewer);
