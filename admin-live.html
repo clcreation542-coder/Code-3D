@@ -90,7 +90,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .viewer-slot.primary .viewer-frame{box-shadow:0 24px 80px rgba(0,0,0,0.85),0 0 0 2px rgba(201,169,110,0.35);}
 .viewer-frame{border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.8),0 0 0 1px rgba(201,169,110,0.1);transition:all 0.3s;}
 .viewer-frame:hover{box-shadow:0 24px 70px rgba(0,0,0,0.9),0 0 0 1px rgba(201,169,110,0.3);}
-.viewer-frame iframe{display:block;border:none;}
+.viewer-frame iframe{display:block;border:none;width:100% !important;height:100% !important;}
+.viewer-frame{display:flex;align-items:center;justify-content:center;}
 .viewer-slot-label{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
 
 /* Spotlight */
@@ -246,7 +247,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
           <div class="swatch-lbl" id="swatch-lbl"></div>
         </div>
         <div class="rp-section">
-          <div class="rp-title">Couleurs sauvegardées</div>
+          <div class="rp-title">Couleurs des textes</div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">Clic = appliquer à toutes les zones</div>
           <div class="color-lib-row" id="color-lib"></div>
         </div>
         <div class="rp-section">
@@ -407,7 +409,7 @@ function drawThumb(d){
 function loadImg(d){
   if(imgCache[d.id])return;
   /* Chercher l'image dans design (base64) ou design_url */
-  const src=d.design||(d.design_url||null);
+  const src=d.design_url||null; /* L'image WebP est dans design_url */
   if(!src)return;
   const img=new Image();
   img.crossOrigin='anonymous';
@@ -490,7 +492,7 @@ function buildSwatches(d){
     return `<div class="live-swatch${i===0?' active':''}${isDark?' dark-swatch':''}" data-i="${i}" style="background:${c.hex}" title="${c.name||c.hex}"></div>`;
   }).join('');
   lbl.textContent=colors[0]?colors[0].name||colors[0].hex:'';
-  if(colors[0])postAll({type:'UPDATE_COLOR',value:colors[0].hex,opacity:colors[0].opacity??0.88,textColorOverride:colors[0].force_text_color?colors[0].text_color_override:null});
+  if(colors[0])postTo(selectedSlot,{type:'UPDATE_COLOR',value:colors[0].hex,opacity:colors[0].opacity??0.88,textColorOverride:colors[0].force_text_color?colors[0].text_color_override:null});
   wrap.querySelectorAll('.live-swatch').forEach(s=>{
     s.addEventListener('click',()=>{
       wrap.querySelectorAll('.live-swatch').forEach(x=>x.classList.remove('active'));
@@ -501,7 +503,7 @@ function buildSwatches(d){
       slotState[selectedSlot].color=c.hex;
       slotState[selectedSlot].opacity=c.opacity??0.88;
       postTo(selectedSlot,{type:'UPDATE_COLOR',value:c.hex,opacity:c.opacity??0.88,textColorOverride:c.force_text_color?c.text_color_override:null});
-      document.getElementById('lbl-'+selectedSlot).textContent=c.name||c.hex;
+      /* label couleur supprimé */
     });
   });
 }
@@ -594,7 +596,18 @@ function renderColorLib(){
   const wrap=document.getElementById('color-lib');
   wrap.innerHTML=lib.map((c,i)=>`<div class="clib-dot" style="background:${c}" data-c="${c}" data-i="${i}" title="${c}"></div>`).join('')+'<div class="clib-add" id="clib-add">+</div>';
   wrap.querySelectorAll('.clib-dot').forEach(d=>{
-    d.addEventListener('click',()=>postAll({type:'UPDATE_COLOR',value:d.dataset.c,opacity:0.88}));
+    d.addEventListener('click',()=>{
+      /* Appliquer comme couleur de texte sur toutes les zones du slot actif */
+      if(currentDesign){
+        (currentDesign.text_zones||[]).forEach(z=>{
+          postTo(selectedSlot,{type:'UPDATE_TEXT_COLOR',zoneId:z.id,color:d.dataset.c});
+        });
+        /* Fallback : mettre à jour les zones via re-draw */
+        document.querySelectorAll('.live-ta').forEach(ta=>{
+          postTo(selectedSlot,{type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value});
+        });
+      }
+    });
     d.addEventListener('contextmenu',e=>{e.preventDefault();const l=getColorLib();l.splice(+d.dataset.i,1);localStorage.setItem(LIVE_LIB_KEY,JSON.stringify(l));renderColorLib();});
   });
   document.getElementById('clib-add').addEventListener('click',()=>{
@@ -621,11 +634,11 @@ function renderPresets(){
       // Restaurer zones texte
       document.querySelectorAll('.live-ta').forEach(ta=>{
         const v=p.texts&&p.texts[ta.dataset.zid];
-        if(v!==undefined){ta.value=v;postAll({type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:v});}
+        if(v!==undefined){ta.value=v;postTo(selectedSlot,{type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:v});}
       });
       // Restaurer couleur
       if(p.color){
-        postAll({type:'UPDATE_COLOR',value:p.color,opacity:p.opacity??0.88});
+        postTo(selectedSlot,{type:'UPDATE_COLOR',value:p.color,opacity:p.opacity??0.88});
         const sw=document.querySelector(`.live-swatch[style*="${p.color}"]`);
         if(sw){document.querySelectorAll('.live-swatch').forEach(x=>x.classList.remove('active'));sw.classList.add('active');}
       }
@@ -683,10 +696,12 @@ function resizeViewer(){
   const w = wrap.offsetWidth - 32;
   if(compareMode){
     /* Deux gobelets identiques côte à côte */
-    const size = Math.min(h, Math.floor((w-20)/2), 380);
+    const size = Math.min(h-32, Math.floor((w-40)/2), 400);
     ['a','b'].forEach(s=>{
+      const frame=document.getElementById('frame-'+s);
       const ifr=document.getElementById('iframe-'+s);
-      if(ifr){ifr.style.width=size+'px';ifr.style.height=size+'px';}
+      if(frame){frame.style.width=size+'px';frame.style.height=size+'px';}
+      if(ifr){ifr.width=size;ifr.height=size;ifr.style.width=size+'px';ifr.style.height=size+'px';}
     });
   } else {
     const size = Math.min(h, w, 620);
