@@ -5,13 +5,16 @@
     "shopify_handle": "gobelet-mariage-couronne-florale-or",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-couronne-florale-or-mpban42cc0e6.webp",
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -95,8 +98,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.7
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-florale-or-mpp5bw57mwbu",
@@ -104,13 +106,16 @@
     "shopify_handle": "gobelet-mariage-pampa",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-florale-or-mpp5bw57mwbu.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -194,8 +199,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-pampa-mpp6z153x8pl",
@@ -203,13 +207,16 @@
     "shopify_handle": "gobelet-mariage-cercle-eucalyptus",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-pampa-mpp6z153x8pl.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -293,8 +300,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-florale-or-mpph0sampa2x",
@@ -302,13 +308,16 @@
     "shopify_handle": "gobelet-mariage-couro",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-florale-or-mpph0sampa2x.webp",
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -411,8 +420,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.7
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-pampa-mpphhhkefdd2",
@@ -420,13 +428,16 @@
     "shopify_handle": "gobelet-mariage-pampas-coeur-boho",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-pampa-mpphhhkefdd2.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -510,8 +521,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-pampa-mppiw26kfstk",
@@ -519,13 +529,16 @@
     "shopify_handle": "gobelet-mariage-hexagone-vegetal",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-pampa-mppiw26kfstk.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -628,8 +641,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-pampas-c-ur-boho-mppj7o9ar6ti",
@@ -637,13 +649,16 @@
     "shopify_handle": "gobelet-mariage-eclat-de-passion",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-pampas-c-ur-boho-mppj7o9ar6ti.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -727,8 +742,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-eclat-de-passion-mppjgjjvqh6j",
@@ -736,13 +750,16 @@
     "shopify_handle": "gobelet-mariage-couronne-citrons-amalfis",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-eclat-de-passion-mppjgjjvqh6j.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -826,8 +843,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-pampa-mppjrx1etrf3",
@@ -835,13 +851,16 @@
     "shopify_handle": "gobelet-mariage-couronne-dazur",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-pampa-mppjrx1etrf3.webp",
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -925,8 +944,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.7
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-florale-or-mppnmnhhmqcr",
@@ -934,13 +952,16 @@
     "shopify_handle": "gobelet-mariage-couronne-florale-or",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-florale-or-mppnmnhhmqcr.webp",
+    "model_url": null,
+    "rotation_y": 5.5,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1017,8 +1038,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.5
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mppp97gfq9c1",
@@ -1026,13 +1046,16 @@
     "shopify_handle": "gobelet-mariage-eucalyptus-poussieres-d-or",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mppp97gfq9c1.webp",
+    "model_url": null,
+    "rotation_y": 5.6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1097,8 +1120,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-eucalyptus-poussieres-d-or-mppty67vcr1u",
@@ -1106,13 +1128,16 @@
     "shopify_handle": "gobelet-mariage-eucalyptus-fleurs",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-eucalyptus-poussieres-d-or-mppty67vcr1u.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1196,8 +1221,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-citrons-amalfis-mppuh02zun3a",
@@ -1205,13 +1229,16 @@
     "shopify_handle": "gobelet-mariage-coeur-geometrique-roses",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-citrons-amalfis-mppuh02zun3a.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1295,8 +1322,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-d-azur-mppuv0rhmjnz",
@@ -1304,13 +1330,16 @@
     "shopify_handle": "gobelet-mariage-alliances-or-pur",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-d-azur-mppuv0rhmjnz.webp",
+    "model_url": null,
+    "rotation_y": 5.2,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1413,8 +1442,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.2
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpqp1v67vf4g",
@@ -1422,13 +1450,16 @@
     "shopify_handle": "gobelet-mariage-couronne-de-plumes-or",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mpqp1v67vf4g.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1512,8 +1543,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-de-plumes-or-mpqpgskcb8wb",
@@ -1521,13 +1551,16 @@
     "shopify_handle": "gobelet-mariage-ellipse-eucalyptus-or",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-de-plumes-or-mpqpgskcb8wb.webp",
+    "model_url": null,
+    "rotation_y": 5.6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1611,8 +1644,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-de-plumes-or-mpqproojm6oi",
@@ -1620,13 +1652,16 @@
     "shopify_handle": "gobelet-mariage-hexagone-roses-terracotta",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-de-plumes-or-mpqproojm6oi.webp",
+    "model_url": null,
+    "rotation_y": 5.9,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1710,8 +1745,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.9
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-hexagone-roses-terracotta-mpqq4wo7naht",
@@ -1719,13 +1753,16 @@
     "shopify_handle": "gobelet-mariage-alliances-hiver-chic",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-hexagone-roses-terracotta-mpqq4wo7naht.webp",
+    "model_url": null,
+    "rotation_y": 6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1755,7 +1792,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1320,
-        "y": 246,
+        "y": 244,
         "width": 532,
         "height": 259,
         "shape": "oval",
@@ -1809,8 +1846,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpqrrre9kz0j",
@@ -1818,13 +1854,16 @@
     "shopify_handle": "gobelet-mariage-arche-eucalyptus-or",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mpqrrre9kz0j.webp",
+    "model_url": null,
+    "rotation_y": 5.6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1927,8 +1966,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpqs754vnrgg",
@@ -1936,13 +1974,16 @@
     "shopify_handle": "gobelet-mariage-geometrique-bleu-nuit",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mpqs754vnrgg.webp",
+    "model_url": null,
+    "rotation_y": 5.6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2026,8 +2067,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpqsj93myyxh",
@@ -2035,13 +2075,16 @@
     "shopify_handle": "gobelet-mariage-renouvellement-de-voeux-boheme",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mpqsj93myyxh.webp",
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2144,8 +2187,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.7
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-alliances-hiver-chic-mpqtjvb9ux87",
@@ -2153,13 +2195,16 @@
     "shopify_handle": "gobelet-mariage-coeur-geometrique-fleuri",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-alliances-hiver-chic-mpqtjvb9ux87.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2224,8 +2269,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-arche-eucalyptus-or-mpqtrs4viof6",
@@ -2233,13 +2277,16 @@
     "shopify_handle": "gobelet-mariage-arche-terracotta",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-arche-eucalyptus-or-mpqtrs4viof6.webp",
+    "model_url": null,
+    "rotation_y": 5.6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2323,8 +2370,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpqu2ipopdd8",
@@ -2332,13 +2378,16 @@
     "shopify_handle": "gobelet-mariage-citronnier-riviera",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mpqu2ipopdd8.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2422,8 +2471,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-citronnier-riviera-mpqufyc29hdl",
@@ -2431,13 +2479,16 @@
     "shopify_handle": "gobelet-mariage-eucalyptus-boheme",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-citronnier-riviera-mpqufyc29hdl.webp",
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2521,8 +2572,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.7
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpquqql9lo87",
@@ -2530,13 +2580,16 @@
     "shopify_handle": "gobelet-mariage-eucalyptus-geometrique",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mpquqql9lo87.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2620,8 +2673,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-de-plumes-or-mpqv0gpzox5l",
@@ -2629,13 +2681,16 @@
     "shopify_handle": "gobelet-mariage-roses-passion",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-de-plumes-or-mpqv0gpzox5l.webp",
+    "model_url": null,
+    "rotation_y": 5.6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2700,8 +2755,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpqvaywqgwie",
@@ -2709,13 +2763,16 @@
     "shopify_handle": "gobelet-mariage-pampa-bordeaux",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mpqvaywqgwie.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2799,8 +2856,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-cercle-eucalyptus-mpqvn3xlwolq",
@@ -2808,13 +2864,16 @@
     "shopify_handle": "gobelet-mariage-nid-de-roses",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-cercle-eucalyptus-mpqvn3xlwolq.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2898,8 +2957,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-pampa-bordeaux-mpqvxo3cvfyr",
@@ -2907,13 +2965,16 @@
     "shopify_handle": "gobelet-mariage-hexagone-bleu-royal",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-pampa-bordeaux-mpqvxo3cvfyr.webp",
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -2997,8 +3058,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.8
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-hexagone-bleu-royal-mpqw6zavnsv3",
@@ -3006,13 +3066,16 @@
     "shopify_handle": "gobelet-mariage-euphorie-coloree",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-hexagone-bleu-royal-mpqw6zavnsv3.webp",
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3096,8 +3159,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.7
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-euphorie-coloree-mpqwdxir8zus",
@@ -3105,13 +3167,16 @@
     "shopify_handle": "gobelet-mariage-eucalyptus-elegant",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-euphorie-coloree-mpqwdxir8zus.webp",
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3195,8 +3260,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.7
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-c-ur-geometrique-roses-mpqyuhbcjnok",
@@ -3204,13 +3268,16 @@
     "shopify_handle": "gobelet-mariage-elegance-vegetale",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-c-ur-geometrique-roses-mpqyuhbcjnok.webp",
+    "model_url": null,
+    "rotation_y": 5.6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3313,8 +3380,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-eucalyptus-boheme-mpqz7r6qk9t3",
@@ -3322,13 +3388,16 @@
     "shopify_handle": "gobelet-mariage-eclat-boheme-exotique",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-eucalyptus-boheme-mpqz7r6qk9t3.webp",
+    "model_url": null,
+    "rotation_y": 6,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3412,8 +3481,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 6
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-hexagone-roses-terracotta-mpqzgj0qwp3j",
@@ -3421,13 +3489,16 @@
     "shopify_handle": "gobelet-mariage-couronne-florale-azur",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-hexagone-roses-terracotta-mpqzgj0qwp3j.webp",
+    "model_url": null,
+    "rotation_y": 5.9,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3511,8 +3582,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.9
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-florale-azur-mprg986wlykx",
@@ -3520,13 +3590,16 @@
     "shopify_handle": "gobelet-mariage-couronne-eucalyptus",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-florale-azur-mprg986wlykx.webp",
+    "model_url": null,
+    "rotation_y": 5.9,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3610,8 +3683,7 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.9
+    "arch_zones": []
   },
   {
     "id": "copie-de-gobelet-mariage-couronne-d-eucalyptus-mprgcfije7ys",
@@ -3619,13 +3691,16 @@
     "shopify_handle": "gobelet-mariage-couronne-dor-fleurs-champetres",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-d-eucalyptus-mprgcfije7ys.webp",
+    "model_url": null,
+    "rotation_y": 5.9,
+    "design_url": null,
     "design": {
       "x": 0,
       "y": 0,
       "width": 2000,
       "height": 1024
     },
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -3709,7 +3784,107 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": [],
-    "rotation_y": 5.9
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-mariage-alliances-hiver-chic-mpvo8x8hvx3f",
+    "name": "Gobelet Mariage - Brin de Nature Doré",
+    "shopify_handle": "gobelet-mariage-brin-de-nature-dore",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1402,
+        "y": 135,
+        "width": 532,
+        "height": 259,
+        "shape": "rectangle",
+        "lineHeight": 1.2,
+        "font_size": 66,
+        "color": "#bc9c22",
+        "placeholder": "Océane & Jonathan",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1512,
+        "y": 631,
+        "width": 311,
+        "height": 85,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 51,
+        "color": "#bc9c22",
+        "placeholder": "01 août 2026",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 244,
+        "y": 264,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#bc9c22",
+        "placeholder": "",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
