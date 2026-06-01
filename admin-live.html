@@ -647,8 +647,7 @@ async function generatePNGImprimeur(slot, fileName) {
     const placeholderText=(z.placeholder||'').trim();
     if(!placeholderText) return; // zone vide = rien afficher
     const lh=z.lineHeight||1.3;
-    const lines=placeholderText.split('
-');
+    const lines=placeholderText.split('\n');
     let fs=Math.round((z.font_size||48)*Math.min(scaleX,scaleY));
     const zw=z.width*scaleX, zh=z.height*scaleY;
     const zx=z.x*scaleX, zy=z.y*scaleY;
