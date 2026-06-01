@@ -632,22 +632,26 @@ async function generatePNGImprimeur(slot, fileName) {
     });
   }
 
-  // Dessiner les zones texte (placeholder uniquement si non vide)
+  // Récupérer texte personnalisé depuis les textareas
+  const userTexts = {};
+  const userColors = {};
+  document.querySelectorAll('.lta').forEach(ta => { userTexts[ta.dataset.zid] = ta.value; });
+  if (slotZoneColors && slotZoneColors[slot]) Object.assign(userColors, slotZoneColors[slot]);
+
   const scaleX=W/2000, scaleY=H/1024;
-  
-  // Charger les polices Google Fonts si nécessaire
+
+  // Charger les polices Google Fonts
   const fontsToLoad = [...new Set((d.text_zones||[]).map(z=>z.font_family).filter(Boolean))];
   for (const font of fontsToLoad) {
-    try {
-      await document.fonts.load(`48px '${font}'`);
-    } catch(e) {}
+    try { await document.fonts.load(`48px '${font}'`); } catch(e) {}
   }
 
   (d.text_zones||[]).forEach(z=>{
-    const placeholderText=(z.placeholder||'').trim();
-    if(!placeholderText) return; // zone vide = rien afficher
+    // Texte personnalisé ou placeholder
+    const rawText = (userTexts[z.id] !== undefined ? userTexts[z.id] : (z.placeholder||'')).trim();
+    if(!rawText) return;
     const lh=z.lineHeight||1.3;
-    const lines=placeholderText.split('\n');
+    const lines=rawText.split('\n');
     let fs=Math.round((z.font_size||48)*Math.min(scaleX,scaleY));
     const zw=z.width*scaleX, zh=z.height*scaleY;
     const zx=z.x*scaleX, zy=z.y*scaleY;
@@ -662,7 +666,7 @@ async function generatePNGImprimeur(slot, fileName) {
     const angle=(z.rotation||0)*Math.PI/180;
     ctx.save();
     if(angle){ctx.translate(cx,cy);ctx.rotate(angle);ctx.translate(-cx,-cy);}
-    ctx.fillStyle=z.color||'#7a5c2e';
+    ctx.fillStyle=userColors[z.id]||z.color||'#7a5c2e';
     ctx.font=`${fs}px '${z.font_family||'Jost'}'`;
     ctx.textAlign=z.align||'center';
     ctx.textBaseline='middle';
