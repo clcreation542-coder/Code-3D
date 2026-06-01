@@ -350,7 +350,38 @@ const GOOGLE_FONTS = [
 // ═══════════════════════════════════════════
 //  STORAGE & HELPERS
 // ═══════════════════════════════════════════
-function loadDesigns() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } }
+function loadDesigns() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch(e) {}
+  return [];
+}
+
+/* Charge les designs depuis GitHub et met à jour l'app */
+async function loadDesignsFromGitHub() {
+  try {
+    const TOKEN = localStorage.getItem('kuztom_gh_token') || '';
+    const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json?t=' + Date.now();
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const designs = await r.json();
+    if (!Array.isArray(designs) || designs.length === 0) return false;
+    app.designs = designs;
+    // Stocker uniquement les métadonnées (sans images base64) en localStorage
+    const light = designs.map(d => ({...d, design_url: d.design_url && !d.design_url.startsWith('data:') ? d.design_url : null}));
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) { /* quota — on continue sans stocker */ }
+    renderDesignList();
+    designs.forEach(d => { if (d.design_url) loadImg(d); });
+    return true;
+  } catch(e) {
+    console.warn('loadDesignsFromGitHub:', e);
+    return false;
+  }
+}
 
 function persist() {
   /* Horodatage de modification sur le design courant */
@@ -358,14 +389,17 @@ function persist() {
     const d = app.designs.find(x => x.id === app.currentId);
     if (d) d.updated_at = Date.now();
   }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(app.designs));
+  /* Stocker sans les images base64 pour ne pas exploser le localStorage */
+  const light = app.designs.map(d => ({...d, design_url: d.design_url && !d.design_url.startsWith('data:') ? d.design_url : null}));
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) { /* quota dépassé — on ignore */ }
   app.unsaved = true;
   const dot = document.getElementById('unsaved-dot');
   if (dot) dot.style.display = 'inline-block';
 }
 
 function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(app.designs));
+  const light = app.designs.map(d => ({...d, design_url: d.design_url && !d.design_url.startsWith('data:') ? d.design_url : null}));
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) { /* quota — on ignore */ }
   app.unsaved = false;
   const dot = document.getElementById('unsaved-dot');
   if (dot) dot.style.display = 'none';
@@ -1573,7 +1607,14 @@ function renderGlobalProps(d) {
   document.getElementById('p-webp').addEventListener('change', e => {
     const f=e.target.files[0]; if(!f) return;
     const r=new FileReader();
-    r.onload=ev=>{d.design_url=ev.target.result;delete app.imgCache[d.id];loadImg(d).then(()=>{onDesignChange();renderProps();});};
+    r.onload=ev=>{
+      const base64 = ev.target.result;
+      uploadWebpToGitHub(d.id, base64).then(url => {
+        d.design_url = url || base64;
+        delete app.imgCache[d.id];
+        loadImg(d).then(()=>{onDesignChange();renderProps();});
+      });
+    };
     r.readAsDataURL(f);
   });
 
@@ -2306,6 +2347,34 @@ document.getElementById('modal-create').addEventListener('click',()=>{
 });
 document.getElementById('modal-name').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('modal-create').click();});
 
+
+// UPLOAD IMAGE WEBP VERS GITHUB
+async function uploadWebpToGitHub(designId, base64DataUrl) {
+  try {
+    const TOKEN = localStorage.getItem('kuztom_gh_token') || '';
+    if (!TOKEN) return null;
+    const REPO = 'clcreation542-coder/Code-3D';
+    const slug = designId.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').substring(0,80);
+    const filename = 'designs/' + slug + '.webp';
+    const b64 = base64DataUrl.includes(',') ? base64DataUrl.split(',')[1] : base64DataUrl;
+    const api = 'https://api.github.com/repos/' + REPO + '/contents/' + filename;
+    let sha;
+    const getRes = await fetch(api, {headers:{Authorization:'token '+TOKEN,Accept:'application/vnd.github+json'}});
+    if (getRes.ok) { const ex = await getRes.json(); sha = ex.sha; }
+    const body = {message:'Image: '+slug, content: b64};
+    if (sha) body.sha = sha;
+    const putRes = await fetch(api, {method:'PUT',headers:{Authorization:'token '+TOKEN,'Content-Type':'application/json',Accept:'application/vnd.github+json'},body:JSON.stringify(body)});
+    if (!putRes.ok) throw new Error('Upload failed: ' + putRes.status);
+    const url = 'https://clcreation542-coder.github.io/Code-3D/' + filename;
+    showToast('Image uploadee sur GitHub');
+    return url;
+  } catch(e) {
+    console.warn('uploadWebpToGitHub:', e);
+    showToast('Upload image echoue, stockage local');
+    return null;
+  }
+}
+
 // ═══════════════════════════════════════════
 //  DEPLOY TO GITHUB
 // ═══════════════════════════════════════════
@@ -2425,6 +2494,12 @@ document.getElementById('search-input').addEventListener('input',e=>{app.searchQ
 window.addEventListener('resize',()=>{sizeCanvas();drawEditor();});
 sizeCanvas(); renderDesignList(); renderProps(); drawEditor(); init3D();
 app.designs.forEach(d=>{if(d.design_url)loadImg(d);});
+/* Si aucun design en localStorage, charger depuis GitHub automatiquement */
+if (app.designs.length === 0) {
+  loadDesignsFromGitHub().then(ok => {
+    if (ok) { renderDesignList(); renderProps(); drawEditor(); }
+  });
+}
 </script>
 </body>
 </html>
