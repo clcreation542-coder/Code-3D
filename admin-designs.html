@@ -364,7 +364,7 @@ function loadDesigns() {
 /* Charge les designs depuis GitHub et met à jour l'app */
 async function loadDesignsFromGitHub() {
   try {
-    const TOKEN = localStorage.getItem('kuztom_gh_token') || '';
+    const TOKEN = localStorage.getItem('kuztom_gh_token') || localStorage.getItem('github_token') || '';
     const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json?t=' + Date.now();
     const r = await fetch(url);
     if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -2351,7 +2351,7 @@ document.getElementById('modal-name').addEventListener('keydown',e=>{if(e.key===
 // UPLOAD IMAGE WEBP VERS GITHUB
 async function uploadWebpToGitHub(designId, base64DataUrl) {
   try {
-    const TOKEN = localStorage.getItem('kuztom_gh_token') || '';
+    const TOKEN = localStorage.getItem('kuztom_gh_token') || localStorage.getItem('github_token') || '';
     if (!TOKEN) return null;
     const REPO = 'clcreation542-coder/Code-3D';
     const slug = designId.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').substring(0,80);
@@ -2366,11 +2366,10 @@ async function uploadWebpToGitHub(designId, base64DataUrl) {
     const putRes = await fetch(api, {method:'PUT',headers:{Authorization:'token '+TOKEN,'Content-Type':'application/json',Accept:'application/vnd.github+json'},body:JSON.stringify(body)});
     if (!putRes.ok) throw new Error('Upload failed: ' + putRes.status);
     const url = 'https://clcreation542-coder.github.io/Code-3D/' + filename;
-    showToast('Image uploadee sur GitHub');
+    console.log('Image uploadee sur GitHub:', url);
     return url;
   } catch(e) {
     console.warn('uploadWebpToGitHub:', e);
-    showToast('Upload image echoue, stockage local');
     return null;
   }
 }
