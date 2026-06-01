@@ -597,13 +597,94 @@ document.getElementById('dlbtn').addEventListener('click',()=>{
     const name=document.getElementById('dl-name-inp').value.trim()||defName;
     const radio=ov.querySelector('input[name="dlslot"]:checked');
     const slot=radio?radio.value:activeSlot;
-    document.getElementById('pname').value=name+'.png';
     document.body.removeChild(ov);
     const btn=document.getElementById('dlbtn');btn.textContent='⏳...';btn.disabled=true;
-    postTo(slot,{type:'REQUEST_SHARE_IMAGE'});
-    setTimeout(()=>{btn.textContent='📥 Télécharger PNG';btn.disabled=false;},6000);
+    generatePNGImprimeur(slot, name).finally(()=>{
+      btn.textContent='📥 Télécharger PNG';btn.disabled=false;
+    });
   };
 });
+
+
+/* ── PNG IMPRIMEUR 1970x1140 ────────────────────────────────── */
+async function generatePNGImprimeur(slot, fileName) {
+  const d = slotDesign[slot];
+  if (!d) { alert('Aucun design dans ce slot'); return; }
+  const W=1970, H=1140;
+  const canvas = document.createElement('canvas');
+  canvas.width=W; canvas.height=H;
+  const ctx = canvas.getContext('2d', {alpha: true});
+  ctx.clearRect(0,0,W,H);
+
+  // Charger et dessiner l'image WebP
+  if (d.design_url) {
+    await new Promise(resolve => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const di = d.design||{x:0,y:0,width:2000,height:1024};
+        const scaleX=W/2000, scaleY=H/1024;
+        ctx.drawImage(img, di.x*scaleX, di.y*scaleY, di.width*scaleX, di.height*scaleY);
+        resolve();
+      };
+      img.onerror = resolve;
+      img.src = d.design_url + (d.design_url.includes('?')?'&':'?') + 't=' + Date.now();
+    });
+  }
+
+  // Dessiner les zones texte (placeholder uniquement si non vide)
+  const scaleX=W/2000, scaleY=H/1024;
+  
+  // Charger les polices Google Fonts si nécessaire
+  const fontsToLoad = [...new Set((d.text_zones||[]).map(z=>z.font_family).filter(Boolean))];
+  for (const font of fontsToLoad) {
+    try {
+      await document.fonts.load(`48px '${font}'`);
+    } catch(e) {}
+  }
+
+  (d.text_zones||[]).forEach(z=>{
+    const placeholderText=(z.placeholder||'').trim();
+    if(!placeholderText) return; // zone vide = rien afficher
+    const lh=z.lineHeight||1.3;
+    const lines=placeholderText.split('
+');
+    let fs=Math.round((z.font_size||48)*Math.min(scaleX,scaleY));
+    const zw=z.width*scaleX, zh=z.height*scaleY;
+    const zx=z.x*scaleX, zy=z.y*scaleY;
+    while(fs>6){
+      ctx.font=`${fs}px '${z.font_family||'Jost'}'`;
+      const maxW=Math.max(...lines.map(l=>ctx.measureText(l).width));
+      const totalH=lines.length*fs*lh;
+      if(maxW<=zw&&totalH<=zh) break;
+      fs-=1;
+    }
+    const cx=zx+zw/2, cy=zy+zh/2;
+    const angle=(z.rotation||0)*Math.PI/180;
+    ctx.save();
+    if(angle){ctx.translate(cx,cy);ctx.rotate(angle);ctx.translate(-cx,-cy);}
+    ctx.fillStyle=z.color||'#7a5c2e';
+    ctx.font=`${fs}px '${z.font_family||'Jost'}'`;
+    ctx.textAlign=z.align||'center';
+    ctx.textBaseline='middle';
+    const tx=z.align==='left'?zx+8:z.align==='right'?zx+zw-8:zx+zw/2;
+    const lineH=fs*lh, totalH=lines.length*lineH;
+    const startY=cy-totalH/2+lineH/2;
+    lines.forEach((line,i)=>ctx.fillText(line,tx,startY+i*lineH));
+    ctx.restore();
+  });
+
+  // Télécharger
+  const fn=(fileName||d.name||'design').replace(/[^a-zA-Z0-9-_ ]/g,'').trim()+'-imprimeur.png';
+  return new Promise(resolve=>{
+    canvas.toBlob(blob=>{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download=fn;a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),2000);
+      resolve();
+    },'image/png');
+  });
+}
 
 /* ── CHANGEMENT MOT DE PASSE ───────────────────────────────── */
 document.getElementById('btnPwd').addEventListener('click',()=>{
@@ -640,7 +721,7 @@ function applyDesigns(data){
   try {
     designs=data
       .filter(function(d){return d.active!==false&&d.name;})
-      .map(function(d){return{id:d.id,name:d.name,shopify_handle:d.shopify_handle,text_zones:d.text_zones,variant_colors:d.variant_colors,active:d.active};})
+      .map(function(d){return{id:d.id,name:d.name,shopify_handle:d.shopify_handle,text_zones:d.text_zones,arch_zones:d.arch_zones,design:d.design,design_url:d.design_url,variant_colors:d.variant_colors,active:d.active};})
       .sort(function(a,b){return a.name.localeCompare(b.name,'fr');});
     renderGallery();
     if(designs.length>0){
@@ -653,7 +734,7 @@ function applyDesigns(data){
 
 function saveCache(data){
   try{
-    var light=data.map(function(d){return{id:d.id,name:d.name,shopify_handle:d.shopify_handle,text_zones:d.text_zones,variant_colors:d.variant_colors,active:d.active};});
+    var light=data.map(function(d){return{id:d.id,name:d.name,shopify_handle:d.shopify_handle,text_zones:d.text_zones,arch_zones:d.arch_zones,design:d.design,design_url:d.design_url,variant_colors:d.variant_colors,active:d.active};});
     localStorage.setItem(CACHE_KEY,JSON.stringify(light));
   }catch(e){}
 }
