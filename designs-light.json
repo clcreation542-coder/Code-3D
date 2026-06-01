@@ -337,7 +337,7 @@
         "name": "Noir",
         "hex": "#000000",
         "opacity": 0.88,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -347,14 +347,14 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1460,
-        "y": 301,
+        "y": 342,
         "width": 416,
-        "height": 389,
-        "shape": "circle",
-        "lineHeight": 1.4,
+        "height": 90,
+        "shape": "rectangle",
+        "lineHeight": 1,
         "font_size": 81,
-        "color": "#000000",
-        "placeholder": "Alex\n&\nSarah",
+        "color": "#c49c27",
+        "placeholder": "Theo",
         "font_family": "Allura",
         "align": "center",
         "multiline": false,
@@ -363,17 +363,17 @@
       },
       {
         "id": "texte_mpbbehsjclpa",
-        "label": "Zone de texte 2",
-        "order": 2,
-        "x": 1445,
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 1470,
         "y": 796,
         "width": 396,
         "height": 122,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 48,
-        "color": "#000000",
-        "placeholder": "11 juillet 2026",
+        "color": "#c49c27",
+        "placeholder": "19 Septembre 2026",
         "font_family": "Allura",
         "align": "center",
         "multiline": false,
@@ -382,8 +382,8 @@
       },
       {
         "id": "texte_mpp4yuwhknei",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 4",
+        "order": 4,
         "x": 281,
         "y": 275,
         "width": 780,
@@ -398,6 +398,25 @@
         "multiline": false,
         "rotation": 0,
         "max_chars": 50
+      },
+      {
+        "id": "texte_mpvlei5u8ulj",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1460,
+        "y": 559,
+        "width": 416,
+        "height": 90,
+        "shape": "rectangle",
+        "lineHeight": 1,
+        "font_size": 81,
+        "color": "#c49c27",
+        "placeholder": "Ludivine",
+        "font_family": "Allura",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 15
       }
     ],
     "photo_zones": [],
@@ -1320,7 +1339,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1743,7 +1762,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1792,7 +1811,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1423,
-        "y": 641,
+        "y": 642,
         "width": 311,
         "height": 85,
         "shape": "rectangle",
@@ -1844,7 +1863,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -1874,7 +1893,7 @@
         "label": "Zone de texte 3",
         "order": 3,
         "x": 1474,
-        "y": 603,
+        "y": 620,
         "width": 422,
         "height": 98,
         "shape": "rectangle",
@@ -2267,7 +2286,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
