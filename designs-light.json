@@ -8054,7 +8054,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -8075,7 +8075,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8084,34 +8084,15 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1474,
-        "y": 334,
+        "y": 335,
         "width": 324,
         "height": 326,
         "shape": "circle",
         "lineHeight": 1.5,
         "font_size": 81,
-        "color": "#704b3d",
-        "placeholder": "Lydie\n&\nAurélien",
-        "font_family": "Great Vibes",
-        "align": "center",
-        "multiline": false,
-        "rotation": 0,
-        "max_chars": 0
-      },
-      {
-        "id": "texte_mpbbehsjclpa",
-        "label": "Zone de texte 2",
-        "order": 2,
-        "x": 1438,
-        "y": 814,
-        "width": 396,
-        "height": 122,
-        "shape": "rectangle",
-        "lineHeight": 1.5,
-        "font_size": 68,
-        "color": "#704b3d",
-        "placeholder": "Le 12 Juillet 2025",
-        "font_family": "Great Vibes",
+        "color": "#030303",
+        "placeholder": "Baptême de\nGabin\n29/08/2026",
+        "font_family": "Parisienne",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -8128,9 +8109,9 @@
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 85,
-        "color": "#704b3d",
+        "color": "#030303",
         "placeholder": "",
-        "font_family": "Great Vibes",
+        "font_family": "Parisienne",
         "align": "center",
         "multiline": false,
         "rotation": 0,
