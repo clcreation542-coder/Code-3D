@@ -4088,5 +4088,106 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-mariage-eclat-de-passion-mpwercz47r80",
+    "name": "Gobelet Mariage - Cercle d'Or & Roses Tendres",
+    "shopify_handle": "gobelet-mariage-cercle-dor-roses-tendres",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-eclat-de-passion-mpwercz47r80.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1455,
+        "y": 342,
+        "width": 355,
+        "height": 392,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 72,
+        "color": "#b07a84",
+        "placeholder": "Mylene\net\nCyril",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1466,
+        "y": 823,
+        "width": 332,
+        "height": 109,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 48,
+        "color": "#b07a84",
+        "placeholder": "14 Juin 2025",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppgu4277c7u",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 264,
+        "y": 276,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#b07a84",
+        "placeholder": "",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
