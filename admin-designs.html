@@ -1609,10 +1609,16 @@ function renderGlobalProps(d) {
     const r=new FileReader();
     r.onload=ev=>{
       const base64 = ev.target.result;
+      /* Afficher immédiatement depuis le base64 local */
+      d.design_url = base64;
+      delete app.imgCache[d.id];
+      loadImg(d).then(()=>{onDesignChange();renderProps();});
+      /* Uploader sur GitHub en arrière-plan */
       uploadWebpToGitHub(d.id, base64).then(url => {
-        d.design_url = url || base64;
-        delete app.imgCache[d.id];
-        loadImg(d).then(()=>{onDesignChange();renderProps();});
+        if (url) {
+          d.design_url = url; /* Remplacer par l'URL GitHub une fois uploadé */
+          persist();
+        }
       });
     };
     r.readAsDataURL(f);
