@@ -8139,5 +8139,1015 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-citron-bleu-mpwo7p7n5t6g",
+    "name": "Gobelet Baptême - Château de Princesse",
+    "shopify_handle": "gobelet-bapteme-chateau-de-princesse",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-bapteme-citron-bleu-mpwo7p7n5t6g.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo8f46w501",
+    "name": "Gobelet Baptême - Cerisier Doré",
+    "shopify_handle": "gobelet-bapteme-cerisier-dore",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo8f46w501.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo8v6nvpf4",
+    "name": "Gobelet Baptême - Anémone Bohème",
+    "shopify_handle": "gobelet-bapteme-anemone-boheme",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo8v6nvpf4.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo9ugowa1z",
+    "name": "Gobelet Anniversaire - Savane Totem",
+    "shopify_handle": "gobelet-anniversaire-savane-totem",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo9ugowa1z.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-savane-totem-mpwobaa80rxf",
+    "name": "Gobelet Anniversaire - Ourson Bohème & PampasGobelet Anniversaire - Ourson Bohème & Pampas",
+    "shopify_handle": "gobelet-anniversaire-ourson-boheme-pampas",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-savane-totem-mpwobaa80rxf.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwocvr4y70x",
+    "name": "Gobelet Anniversaire - Mer et Océan",
+    "shopify_handle": "gobelet-anniversaire-mer-et-ocean",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwocvr4y70x.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwodd4secv8",
+    "name": "Gobelet Anniversaire - Licorne Féerique",
+    "shopify_handle": "gobelet-anniversaire-licorne-feerique",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwodd4secv8.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-licorne-feerique-mpwodz5yusbc",
+    "name": "Gobelet Anniversaire - Fée Arc-en-Ciel",
+    "shopify_handle": "gobelet-anniversaire-fee-arc-en-ciel",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-licorne-feerique-mpwodz5yusbc.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-fee-arc-en-ciel-mpwofagc0ivx",
+    "name": "Gobelet Anniversaire - Couronne Papillon",
+    "shopify_handle": "gobelet-anniversaire-couronne-papillon",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-fee-arc-en-ciel-mpwofagc0ivx.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-couronne-papillon-mpwog1oeqmli",
+    "name": "Gobelet Baptême - Double-Celebration-Florale",
+    "shopify_handle": "gobelet-bapteme-double-celebration-florale",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-couronne-papillon-mpwog1oeqmli.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1374,
+        "y": 281,
+        "width": 514,
+        "height": 302,
+        "shape": "circle",
+        "lineHeight": 1.4,
+        "font_size": 84,
+        "color": "#000000",
+        "placeholder": "Baptême et\n1 an de Giulia",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1391,
+        "y": 557,
+        "width": 310,
+        "height": 89,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#000000",
+        "placeholder": "20.12.2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 246,
+        "y": 243,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#000000",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
