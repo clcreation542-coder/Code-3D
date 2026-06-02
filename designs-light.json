@@ -5513,5 +5513,712 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-boheme-croix-pampa-mpwm1olm8laz",
+    "name": "Gobelet Baptême - Couronne Champêtre Aquarelle",
+    "shopify_handle": "gobelet-bapteme-couronne-champetre-aquarelle",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-couronne-champetre-aquarelle-mpwmjffaqo3o",
+    "name": "Gobelet Baptême - Ourson Cœur Bleu",
+    "shopify_handle": "gobelet-bapteme-ourson-coeur-bleu",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-ourson-c-ur-bleu-mpwmk4bubi3m",
+    "name": "Gobelet Baptême - Ourson Montgolfière Vert & Marron",
+    "shopify_handle": "gobelet-bapteme-ourson-montgolfiere-vert-marron",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-boheme-croix-pampa-mpwmlmf7pzxn",
+    "name": "Gobelet Anniversaire - Panda Bambou",
+    "shopify_handle": "products/gobelet-anniversaire-panda-bambou",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-panda-bambou-mpwmokipe770",
+    "name": "Gobelet Baptême - Hexagone Bleu Nuit",
+    "shopify_handle": "gobelet-bapteme-hexagone-bleu-nuit",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-hexagone-bleu-nuit-mpwmpbm31clq",
+    "name": "Gobelet Baptême - Safari Enchanté",
+    "shopify_handle": "gobelet-bapteme-safari-enchante",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-panda-bambou-mpwmq7m1pkpk",
+    "name": "Gobelet Baptême - Renard Majestueux",
+    "shopify_handle": "gobelet-bapteme-renard-majestueux",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
