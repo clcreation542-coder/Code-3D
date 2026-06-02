@@ -4505,107 +4505,6 @@
     "arch_zones": []
   },
   {
-    "id": "copie-de-gobelet-mariage-automne-champetre-mpwkzkzqbk71",
-    "name": "Gobelet Baptême - Ourson Bohème",
-    "shopify_handle": "gobelet-bapteme-ourson-boheme",
-    "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
-    "model_url": null,
-    "rotation_y": 5.8,
-    "design_url": null,
-    "design": {
-      "x": 0,
-      "y": 0,
-      "width": 2000,
-      "height": 1024
-    },
-    "active": false,
-    "variant_colors": [
-      {
-        "name": "Translucide",
-        "hex": "#f5f0eb",
-        "opacity": 0.88,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Blanc",
-        "hex": "#ffffff",
-        "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.88,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
-      }
-    ],
-    "text_zones": [
-      {
-        "id": "texte_mpbapgk1g4o2",
-        "label": "Zone de texte 1",
-        "order": 1,
-        "x": 1474,
-        "y": 334,
-        "width": 324,
-        "height": 326,
-        "shape": "circle",
-        "lineHeight": 1.5,
-        "font_size": 81,
-        "color": "#704b3d",
-        "placeholder": "Lydie\n&\nAurélien",
-        "font_family": "Great Vibes",
-        "align": "center",
-        "multiline": false,
-        "rotation": 0,
-        "max_chars": 0
-      },
-      {
-        "id": "texte_mpbbehsjclpa",
-        "label": "Zone de texte 2",
-        "order": 2,
-        "x": 1438,
-        "y": 814,
-        "width": 396,
-        "height": 122,
-        "shape": "rectangle",
-        "lineHeight": 1.5,
-        "font_size": 68,
-        "color": "#704b3d",
-        "placeholder": "Le 12 Juillet 2025",
-        "font_family": "Great Vibes",
-        "align": "center",
-        "multiline": false,
-        "rotation": 0,
-        "max_chars": 0
-      },
-      {
-        "id": "texte_mppguavyfv0j",
-        "label": "Zone de texte 3",
-        "order": 3,
-        "x": 242,
-        "y": 268,
-        "width": 780,
-        "height": 459,
-        "shape": "rectangle",
-        "lineHeight": 1.5,
-        "font_size": 85,
-        "color": "#704b3d",
-        "placeholder": "",
-        "font_family": "Great Vibes",
-        "align": "center",
-        "multiline": false,
-        "rotation": 0,
-        "max_chars": 50
-      }
-    ],
-    "photo_zones": [],
-    "arch_zones": []
-  },
-  {
     "id": "copie-de-gobelet-bapteme-ourson-boheme-mpwl0jr5m5ry",
     "name": "Gobelet Baptême - Petit Lion Savane",
     "shopify_handle": "gobelet-bapteme-petit-lion-savane",
@@ -4909,9 +4808,9 @@
     "arch_zones": []
   },
   {
-    "id": "copie-de-gobelet-bapteme-petit-lion-savane-mpwl45aqozk0",
-    "name": "Copie de Gobelet Baptême - Petit Lion Savane",
-    "shopify_handle": "gobelet-bapteme-petit-lion-savane",
+    "id": "copie-de-gobelet-bapteme-eucalyptus-dore-mpwl655lvb3d",
+    "name": "Gobelet Baptême - Roseraie",
+    "shopify_handle": "gobelet-bapteme-roseraie",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
@@ -5010,9 +4909,312 @@
     "arch_zones": []
   },
   {
-    "id": "copie-de-gobelet-bapteme-eucalyptus-dore-mpwl655lvb3d",
-    "name": "Gobelet Baptême - Roseraie",
-    "shopify_handle": "gobelet-bapteme-roseraie",
+    "id": "copie-de-gobelet-bapteme-eucalyptus-dore-mpwlb5i5v1uf",
+    "name": "Gobelet Baptême - Petit Ours Montgolfière",
+    "shopify_handle": "gobelet-bapteme-petit-ours-montgolfiere",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-petit-ours-montgolfiere-mpwld338ew2r",
+    "name": "Gobelet Baptême - Ourson Bohème",
+    "shopify_handle": "gobelet-bapteme-ourson-boheme",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-eucalyptus-dore-mpwle0k9g4z0",
+    "name": "Gobelet Baptême - Ourson Nuage Rose",
+    "shopify_handle": "gobelet-bapteme-ourson-nuage-rose",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#fed1ad"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1474,
+        "y": 334,
+        "width": 324,
+        "height": 326,
+        "shape": "circle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Lydie\n&\nAurélien",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1438,
+        "y": 814,
+        "width": 396,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "Le 12 Juillet 2025",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 242,
+        "y": 268,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Great Vibes",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-bapteme-ourson-nuage-rose-mpwlfau63nau",
+    "name": "Gobelet Baptême - La Maison de Féerie",
+    "shopify_handle": "gobelet-bapteme-la-maison-de-feerie",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
