@@ -4220,13 +4220,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.88,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
