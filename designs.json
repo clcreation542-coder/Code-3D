@@ -3886,5 +3886,207 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-mariage-couronne-d-or-fleurs-champetres-mpwee5ynwg8b",
+    "name": "Gobelet Mariage - Couronne Automne Boisé & Coton",
+    "shopify_handle": "gobelet-mariage-couronne-automne-boise-coton",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-couronne-d-or-fleurs-champetres-mpwee5ynwg8b.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#f0e1d1"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1405,
+        "y": 342,
+        "width": 430,
+        "height": 305,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 81,
+        "color": "#704b3d",
+        "placeholder": "Carole\n& \nLenny",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1495,
+        "y": 858,
+        "width": 250,
+        "height": 61,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 68,
+        "color": "#704b3d",
+        "placeholder": "22 août 2026",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 214,
+        "y": 265,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#704b3d",
+        "placeholder": "",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-mariage-c-ur-geometrique-roses-mpwekndfk3cs",
+    "name": "Gobelet Mariage - Citronnade Chic",
+    "shopify_handle": "gobelet-mariage-citronnade-chic",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-c-ur-geometrique-roses-mpwekndfk3cs.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1397,
+        "y": 368,
+        "width": 431,
+        "height": 126,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 72,
+        "color": "#000000",
+        "placeholder": "Kenza & Youness",
+        "font_family": "Allura",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppgu4277c7u",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 202,
+        "y": 265,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#000000",
+        "placeholder": "",
+        "font_family": "Allura",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      },
+      {
+        "id": "texte_mppuo5abk95c",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1434,
+        "y": 495,
+        "width": 357,
+        "height": 122,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 48,
+        "color": "#000000",
+        "placeholder": "18/10/2025",
+        "font_family": "Allura",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
