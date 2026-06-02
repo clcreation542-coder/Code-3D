@@ -7530,7 +7530,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
