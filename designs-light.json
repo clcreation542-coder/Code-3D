@@ -4435,5 +4435,87 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-mariage-arche-terracotta-mpwgil2h4qox",
+    "name": "Gobelet Mariage - Éclat de Cœurs",
+    "shopify_handle": "gobelet-mariage-eclat-de-coeurs",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.6,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 0.88,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.88,
+        "force_text_color": true,
+        "text_color_override": "#d4bea3"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpqruvs9iajb",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1468,
+        "y": 268,
+        "width": 413,
+        "height": 321,
+        "shape": "rectangle",
+        "lineHeight": 1.2,
+        "font_size": 83,
+        "color": "#000000",
+        "placeholder": "Marine\net\nBenjamin",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpqrxxl9y4ug",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1457,
+        "y": 711,
+        "width": 435,
+        "height": 100,
+        "shape": "rectangle",
+        "lineHeight": 1.1,
+        "font_size": 64,
+        "color": "#000000",
+        "placeholder": "11 juillet 2026",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 30
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
