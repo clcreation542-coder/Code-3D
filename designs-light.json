@@ -4511,7 +4511,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.5,
     "design_url": null,
     "design": {
       "x": 0,
@@ -7537,7 +7537,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffebdb"
       }
     ],
     "text_zones": [
