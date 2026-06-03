@@ -6645,7 +6645,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6661,7 +6661,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
