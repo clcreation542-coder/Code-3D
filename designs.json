@@ -4660,7 +4660,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -4761,7 +4761,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#feeee1"
       }
     ],
     "text_zones": [
@@ -5155,7 +5155,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-bapteme-eucalyptus-dore-mpwle0k9g4z0.webp",
     "design": {
       "x": 0,
@@ -5285,7 +5285,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -5386,7 +5386,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -5432,7 +5432,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 242,
+        "x": 248,
         "y": 269,
         "width": 780,
         "height": 459,
@@ -5708,7 +5708,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffebdb"
       }
     ],
     "text_zones": [
@@ -5744,7 +5744,7 @@
         "font_size": 85,
         "color": "#70a7c6",
         "placeholder": "",
-        "font_family": "Parisienne",
+        "font_family": "Great Vibes",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -6076,7 +6076,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 242,
+        "x": 270,
         "y": 268,
         "width": 780,
         "height": 459,
@@ -6314,7 +6314,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -7613,13 +7613,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.88,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -7867,7 +7860,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 4",
         "order": 4,
-        "x": 269,
+        "x": 258,
         "y": 268,
         "width": 780,
         "height": 459,
