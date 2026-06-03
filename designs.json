@@ -5062,7 +5062,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -5118,7 +5118,7 @@
         "lineHeight": 1.5,
         "font_size": 68,
         "color": "#70a7c6",
-        "placeholder": "27 juillet 2025",
+        "placeholder": "Le 12 Juillet 2025",
         "font_family": "Parisienne",
         "align": "center",
         "multiline": false,
