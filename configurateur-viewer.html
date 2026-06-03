@@ -232,14 +232,17 @@ function drawTexture() {
 
   ctx2d.globalAlpha = 1.0;
   ctx2d.globalCompositeOperation = 'source-over';
-  if (state.designImage) {
-    const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
-    ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
-  }
+  /* 1. Photos client EN PREMIER (sous le WebP) */
   (CFG.photo_zones || []).forEach(zone => {
     const img = state.photos[zone.id];
     if (img) drawPhotoZone(zone, img);
   });
+  /* 2. WebP du design PAR-DESSUS les photos */
+  if (state.designImage) {
+    const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
+    ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
+  }
+  /* 3. Textes au-dessus de tout */
   (CFG.text_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     drawTextZone(zone, txt);
@@ -541,12 +544,13 @@ function hideLoading() {
 
 let autoRotate = false;
 let autoRotateSpeed = 0.003;
+let photoEditMode = false; /* Bloque rotation pendant réglage photo */
 let lastInteraction = 0;
 
 function animate() {
   requestAnimationFrame(animate);
   /* Rotation automatique lente si activée et pas d'interaction */
-  if (autoRotate && gobeletGroup && !isDragging) {
+  if (autoRotate && gobeletGroup && !isDragging && !photoEditMode) {
     const idle = Date.now() - lastInteraction > 2000;
     if (idle) {
       rotY += autoRotateSpeed;
@@ -660,6 +664,8 @@ window.addEventListener('message', function(e) {
     const img = new Image();
     img.onload = function() {
       state.photos[data.zoneId] = img;
+      photoEditMode = true; /* Bloquer rotation pendant réglage */
+      setTimeout(() => { photoEditMode = false; }, 5000); /* Reprendre après 5s */
       drawTexture();
       if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
     };
