@@ -5948,7 +5948,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6487,7 +6487,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-panda-bambou-mpwn5hpxzq9n.webp",
     "design": {
       "x": 0,
@@ -6516,7 +6516,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6745,9 +6745,9 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 242,
+        "x": 250,
         "y": 268,
-        "width": 780,
+        "width": 772,
         "height": 278,
         "shape": "rectangle",
         "lineHeight": 1.5,
@@ -6964,7 +6964,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6991,8 +6991,8 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1509,
-        "y": 761,
+        "x": 1511,
+        "y": 757,
         "width": 396,
         "height": 122,
         "shape": "rectangle",
@@ -7390,7 +7390,7 @@
         "font_size": 85,
         "color": "#704b3d",
         "placeholder": "",
-        "font_family": "Great Vibes",
+        "font_family": "Dancing Script",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -7407,7 +7407,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.9,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo13uv0r6a.webp",
     "design": {
       "x": 0,
@@ -7941,7 +7941,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8095,7 +8095,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.5,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-bapteme-citron-bleu-mpwo7p7n5t6g.webp",
     "design": {
       "x": 0,
@@ -8271,7 +8271,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 242,
+        "x": 251,
         "y": 268,
         "width": 780,
         "height": 459,
@@ -8398,7 +8398,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.4,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo9ugowa1z.webp",
     "design": {
       "x": 0,
@@ -8473,7 +8473,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 242,
+        "x": 331,
         "y": 268,
         "width": 780,
         "height": 459,
@@ -8482,7 +8482,7 @@
         "font_size": 85,
         "color": "#683b3b",
         "placeholder": "",
-        "font_family": "Great Vibes",
+        "font_family": "Dancing Script",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -8682,7 +8682,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.4,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwodd4secv8.webp",
     "design": {
       "x": 0,
@@ -8766,7 +8766,7 @@
         "font_size": 85,
         "color": "#ed98b4",
         "placeholder": "",
-        "font_family": "Great Vibes",
+        "font_family": "Allura",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -8812,7 +8812,7 @@
         "hex": "#090909",
         "opacity": 0.88,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
