@@ -9153,5 +9153,37 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-couronne-azur-photo-mpypu8fgh19e",
+    "name": "Gobelet Anniversaire - Couronne Azur Photo",
+    "shopify_handle": "gobelet-anniversaire-couronne-azur-photo",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 0,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-couronne-azur-photo-mpypeeg3p1oo.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": true,
+    "variant_colors": [],
+    "text_zones": [],
+    "photo_zones": [
+      {
+        "id": "photo_mpypuln3byb0",
+        "label": "Photo",
+        "order": 1,
+        "x": 1503,
+        "y": 290,
+        "width": 317,
+        "height": 372,
+        "shape": "rounded"
+      }
+    ],
+    "arch_zones": []
   }
 ]
