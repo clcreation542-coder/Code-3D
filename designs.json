@@ -5521,7 +5521,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.9,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-bapteme-boheme-croix-pampa-mpwm1olm8laz.webp",
     "design": {
       "x": 0,
@@ -5529,7 +5529,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
