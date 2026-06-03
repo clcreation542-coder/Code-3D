@@ -4953,7 +4953,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.4,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-bapteme-eucalyptus-dore-mpwlb5i5v1uf.webp",
     "design": {
       "x": 0,
@@ -4961,7 +4961,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -4990,16 +4990,16 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1474,
-        "y": 334,
-        "width": 324,
-        "height": 326,
-        "shape": "circle",
-        "lineHeight": 1.5,
-        "font_size": 81,
+        "x": 1485,
+        "y": 76,
+        "width": 511,
+        "height": 100,
+        "shape": "rectangle",
+        "lineHeight": 1,
+        "font_size": 75,
         "color": "#704b3d",
-        "placeholder": "Lydie\n&\nAurélien",
-        "font_family": "Great Vibes",
+        "placeholder": "Baptême de Gabin",
+        "font_family": "Sacramento",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -5009,16 +5009,16 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1438,
-        "y": 814,
+        "x": 1542,
+        "y": 810,
         "width": 396,
         "height": 122,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 68,
         "color": "#704b3d",
-        "placeholder": "Le 12 Juillet 2025",
-        "font_family": "Great Vibes",
+        "placeholder": "05 avril 2024",
+        "font_family": "Sacramento",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -5062,7 +5062,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -6861,7 +6861,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
