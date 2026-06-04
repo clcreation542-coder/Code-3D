@@ -19,7 +19,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -33,7 +33,7 @@
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -120,7 +120,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -134,7 +134,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f6efe3"
       }
@@ -221,7 +221,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -235,7 +235,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -322,7 +322,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -336,7 +336,7 @@
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -442,7 +442,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -456,7 +456,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f5e3d3"
       }
@@ -543,7 +543,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -557,7 +557,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -663,7 +663,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -677,7 +677,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -764,7 +764,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -778,7 +778,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fded1b"
       }
@@ -865,7 +865,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -879,7 +879,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -966,7 +966,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1060,7 +1060,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1074,7 +1074,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1142,7 +1142,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1156,7 +1156,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fcfdf3"
       }
@@ -1243,7 +1243,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1257,7 +1257,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1344,7 +1344,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1358,7 +1358,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1464,7 +1464,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1478,7 +1478,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -1565,7 +1565,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1579,7 +1579,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1666,7 +1666,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1680,7 +1680,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1767,7 +1767,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1781,7 +1781,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1868,7 +1868,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -1882,7 +1882,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -1988,7 +1988,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2002,7 +2002,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2089,7 +2089,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2103,7 +2103,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f1e4d1"
       }
@@ -2209,7 +2209,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2223,7 +2223,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -2291,7 +2291,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2305,7 +2305,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fef6ec"
       }
@@ -2392,7 +2392,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2406,7 +2406,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f1e796"
       }
@@ -2493,7 +2493,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2507,7 +2507,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fffef5"
       }
@@ -2594,7 +2594,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2608,7 +2608,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2695,7 +2695,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2709,7 +2709,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2777,7 +2777,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2791,7 +2791,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f1e2c9"
       }
@@ -2878,7 +2878,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2892,7 +2892,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2979,7 +2979,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -2993,7 +2993,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f5f0f2"
       }
@@ -3080,7 +3080,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3094,7 +3094,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f5f0f2"
       }
@@ -3181,7 +3181,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3195,7 +3195,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f5f0f2"
       }
@@ -3282,7 +3282,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3296,7 +3296,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f4ede1"
       }
@@ -3387,7 +3387,7 @@
     "name": "Gobelet Mariage - Éclat Bohème",
     "shopify_handle": "gobelet-mariage-eclat-boheme-exotique",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-mariage-eucalyptus-boheme-mpqz7r6qk9t3.webp",
@@ -3402,7 +3402,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3416,7 +3416,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f9f1ef"
       }
@@ -3503,7 +3503,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3517,7 +3517,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f8f2bd"
       }
@@ -3604,7 +3604,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3618,7 +3618,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -3705,7 +3705,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3719,7 +3719,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -3806,7 +3806,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3820,7 +3820,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -3907,7 +3907,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -3921,7 +3921,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#f0e1d1"
       }
@@ -4008,7 +4008,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4022,7 +4022,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -4109,7 +4109,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4123,7 +4123,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -4210,7 +4210,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4266,7 +4266,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4280,7 +4280,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#d4bea3"
       }
@@ -4348,7 +4348,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4362,7 +4362,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -4372,7 +4372,7 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1461,
+        "x": 1472,
         "y": 334,
         "width": 324,
         "height": 326,
@@ -4391,7 +4391,7 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1425,
+        "x": 1436,
         "y": 810,
         "width": 396,
         "height": 122,
@@ -4449,7 +4449,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4524,7 +4524,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4538,7 +4538,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -4644,7 +4644,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4658,7 +4658,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -4745,7 +4745,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4759,7 +4759,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#feeee1"
       }
@@ -4865,7 +4865,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4879,7 +4879,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -4966,7 +4966,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -4980,7 +4980,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -5067,7 +5067,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5081,7 +5081,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -5168,7 +5168,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5182,7 +5182,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -5269,7 +5269,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5283,7 +5283,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -5370,7 +5370,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5384,7 +5384,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -5490,7 +5490,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5504,7 +5504,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -5591,7 +5591,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5605,7 +5605,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -5692,7 +5692,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5706,7 +5706,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffebdb"
       }
@@ -5812,7 +5812,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5826,7 +5826,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -5932,7 +5932,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -5946,7 +5946,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6014,7 +6014,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6028,9 +6028,9 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6115,7 +6115,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6129,7 +6129,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 0.881,
         "force_text_color": false,
         "text_color_override": "#fed1ad"
       }
@@ -6197,7 +6197,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6211,7 +6211,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6298,7 +6298,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6312,7 +6312,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6384,9 +6384,9 @@
     "name": "Gobelet Baptême - Petit Renard d'Automne",
     "shopify_handle": "gobelet-bapteme-petit-renard-dautomne",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-panda-bambou-mpwn5g4j5kxw.webp",
     "design": {
       "x": 0,
@@ -6394,12 +6394,12 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6413,8 +6413,8 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
-        "force_text_color": true,
+        "opacity": 1,
+        "force_text_color": false,
         "text_color_override": "#fed1ad"
       }
     ],
@@ -6423,16 +6423,16 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1518,
-        "y": 192,
-        "width": 324,
-        "height": 145,
+        "x": 1449,
+        "y": 226,
+        "width": 423,
+        "height": 219,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 81,
-        "color": "#704b3d",
-        "placeholder": "BAPTÊME\n\n1 AN D'ÉLIO",
-        "font_family": "Great Vibes",
+        "color": "#f17a2a",
+        "placeholder": "BAPTÊME\n&\n1 AN D'ÉLIO",
+        "font_family": "EB Garamond",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -6442,16 +6442,16 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1482,
+        "x": 1462,
         "y": 808,
         "width": 396,
         "height": 122,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 68,
-        "color": "#704b3d",
-        "placeholder": "Le 12 Juillet 2025",
-        "font_family": "Great Vibes",
+        "color": "#f17a2a",
+        "placeholder": "Le 18 mai 2025",
+        "font_family": "EB Garamond",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -6468,9 +6468,9 @@
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 85,
-        "color": "#704b3d",
+        "color": "#f17a2a",
         "placeholder": "",
-        "font_family": "Great Vibes",
+        "font_family": "EB Garamond",
         "align": "center",
         "multiline": false,
         "rotation": 0,
@@ -6500,7 +6500,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6514,7 +6514,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6582,7 +6582,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6596,7 +6596,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -6697,7 +6697,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6784,7 +6784,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6798,7 +6798,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -6866,7 +6866,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6880,7 +6880,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -6948,7 +6948,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -6962,7 +6962,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -7049,7 +7049,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7143,7 +7143,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7157,7 +7157,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -7244,7 +7244,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7258,9 +7258,9 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -7326,7 +7326,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7420,7 +7420,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7434,7 +7434,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -7521,7 +7521,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7535,7 +7535,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffebdb"
       }
@@ -7603,7 +7603,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7697,7 +7697,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7711,7 +7711,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -7798,7 +7798,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7812,7 +7812,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -7918,7 +7918,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -7932,7 +7932,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -8019,7 +8019,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8033,7 +8033,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -8101,7 +8101,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8115,7 +8115,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#fed1ad"
       }
@@ -8202,7 +8202,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8216,7 +8216,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -8303,7 +8303,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8317,7 +8317,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -8505,7 +8505,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8519,7 +8519,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -8606,7 +8606,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8620,7 +8620,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -8688,7 +8688,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8702,7 +8702,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#fafafa"
       }
@@ -8789,7 +8789,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8803,7 +8803,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -8890,7 +8890,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8904,7 +8904,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#fed1ad"
       }
@@ -8972,7 +8972,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8986,7 +8986,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -9073,7 +9073,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -9087,7 +9087,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.88,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
