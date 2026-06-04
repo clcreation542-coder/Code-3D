@@ -11153,7 +11153,7 @@
         "width": 554,
         "height": 163,
         "shape": "rectangle",
-        "lineHeight": 1.5,
+        "lineHeight": 1.2,
         "font_size": 81,
         "color": "#000000",
         "placeholder": "Johan",
@@ -11172,7 +11172,7 @@
         "width": 558,
         "height": 292,
         "shape": "rectangle",
-        "lineHeight": 1.5,
+        "lineHeight": 1.6,
         "font_size": 189,
         "color": "#000000",
         "placeholder": "40 ans",
@@ -11458,6 +11458,107 @@
         "multiline": false,
         "rotation": 0,
         "max_chars": 50
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-black-beer-panoramique-mpzqibtfsktf",
+    "name": "Gobelet Anniversaire - American Truck",
+    "shopify_handle": "gobelet-anniversaire-american-truck",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.7,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-black-beer-panoramique-mpzqibtfsktf.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Couleur",
+        "hex": "#000000",
+        "opacity": 1,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1372,
+        "y": 66,
+        "width": 554,
+        "height": 163,
+        "shape": "rectangle",
+        "lineHeight": 0.9,
+        "font_size": 113,
+        "color": "#000000",
+        "placeholder": "30 ANS",
+        "font_family": "Alegreya",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1372,
+        "y": 741,
+        "width": 558,
+        "height": 168,
+        "shape": "rectangle",
+        "lineHeight": 1.2,
+        "font_size": 100,
+        "color": "#000000",
+        "placeholder": "JOHAN",
+        "font_family": "Alegreya",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpzqm2zs6baj",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 252,
+        "y": 289,
+        "width": 769,
+        "height": 409,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 48,
+        "color": "#000000",
+        "placeholder": "Texte ici",
+        "font_family": "Alegreya",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
       }
     ],
     "photo_zones": [],
