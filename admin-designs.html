@@ -2180,8 +2180,15 @@ function update3D() {
     (d.text_zones||[]).forEach(z=>{
       const lh=z.lineHeight||1.3;
       const lines=(z.placeholder||z.label||'').split('\n');
-      // Rendu 3D : utiliser la taille définie par l'utilisateur directement
-      const fs=z.font_size||48;
+      // Rendu 3D : auto-shrink identique à l'éditeur et au PNG imprimeur
+      let fs=z.font_size||48;
+      while (fs > 6) {
+        ptexCtx.font=`${fs}px '${z.font_family||'Jost'}'`;
+        const maxW=Math.max(...lines.map(l=>ptexCtx.measureText(l).width));
+        const totalH=lines.length*fs*lh;
+        if (maxW<=z.width-16 && totalH<=z.height-8) break;
+        fs-=1;
+      }
       const cx=z.x+z.width/2, cy=z.y+z.height/2;
       const angle=(z.rotation||0)*Math.PI/180;
       ptexCtx.save();
