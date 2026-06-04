@@ -9852,7 +9852,23 @@
       }
     ],
     "photo_zones": [],
-    "arch_zones": []
+    "arch_zones": [
+      {
+        "id": "arche_mpzqo4muwhdh",
+        "label": "Arche",
+        "order": 1,
+        "cx": 1671,
+        "cy": 215,
+        "radius": 565,
+        "direction": "down",
+        "start_angle": 90,
+        "letter_spacing": 1.5,
+        "font_size": 93,
+        "font_family": "EB Garamond",
+        "color": "#000000",
+        "placeholder": "1985"
+      }
+    ]
   },
   {
     "id": "copie-de-copie-de-copie-de-copie-de-copie-de-gobelet-anniversaire-animaux-de-la-foret-mpzkdpj65b4u",
