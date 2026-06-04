@@ -838,15 +838,22 @@ function drawZone(zone, type) {
     ctx.fillText(`${count}/${zone.max_chars}`, zone.x+zone.width-6, zone.y+zone.height-6);
   }
 
-  // ── TEXT PREVIEW — taille fixe définie par l'utilisateur, pas d'auto-shrink ──
+  // ── TEXT PREVIEW — auto-shrink si le texte dépasse le cadre ──
   if (type==='text' && zone.placeholder) {
     ctx.save();
     if (angle) { ctx.translate(cx,cy); ctx.rotate(angle); ctx.translate(-cx,-cy); }
     ctx.fillStyle = zone.color||'#7a5c2e';
     const lh = zone.lineHeight||1.3;
     const lines = zone.placeholder.split('\n');
-    // Utiliser directement la taille définie par l'utilisateur — pas de réduction automatique
-    const fs = zone.font_size || 48;
+    let fs = zone.font_size || 48;
+    // Auto-shrink : réduire la taille jusqu'à ce que le texte tienne dans la zone
+    while (fs > 6) {
+      ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
+      const maxW = Math.max(...lines.map(l => ctx.measureText(l).width));
+      const totalH = lines.length * fs * lh;
+      if (maxW <= zone.width - 16 && totalH <= zone.height - 8) break;
+      fs -= 1;
+    }
     ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
     ctx.textAlign = zone.align||'center';
     const tx = zone.align==='left' ? zone.x+8 : zone.align==='right' ? zone.x+zone.width-8 : zone.x+zone.width/2;
