@@ -9171,7 +9171,27 @@
     },
     "active": true,
     "variant_colors": [],
-    "text_zones": [],
+    "text_zones": [
+      {
+        "id": "texte_mpzauz28ez1k",
+        "label": "Texte",
+        "order": 1,
+        "x": 465,
+        "y": 319,
+        "width": 635,
+        "height": 472,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 48,
+        "color": "#7a5c2e",
+        "placeholder": "Texte ici",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      }
+    ],
     "photo_zones": [
       {
         "id": "photo_mpypuln3byb0",
