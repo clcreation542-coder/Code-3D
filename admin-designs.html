@@ -1519,8 +1519,12 @@ function renderGlobalProps(d) {
       d.design_url = base64;
       delete app.imgCache[d.id];
       loadImg(d).then(()=>{onDesignChange();renderProps();});
-      uploadWebpToGitHub(d.id, base64).then(url => {
-        if (url) { d.design_url = url; persist(); }
+      uploadWebpToGitHub(d.id, base64, d.shopify_handle).then(url => {
+        if (url) { d.design_url = url; persist(); renderProps(); }
+        else {
+          // Fallback: garder en base64 si upload échoue
+          console.warn('Upload GitHub échoué, image conservée en local');
+        }
       });
     };
     r.readAsDataURL(f);
@@ -2233,12 +2237,14 @@ document.getElementById('modal-create').addEventListener('click',()=>{
 });
 document.getElementById('modal-name').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('modal-create').click();});
 
-async function uploadWebpToGitHub(designId, base64DataUrl) {
+async function uploadWebpToGitHub(designId, base64DataUrl, shopifyHandle) {
   try {
     const TOKEN = localStorage.getItem('kuztom_gh_token') || localStorage.getItem('github_token') || '';
     if (!TOKEN) return null;
     const REPO = 'clcreation542-coder/Code-3D';
-    const slug = designId.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').substring(0,80);
+    // Utiliser le handle Shopify si disponible, sinon fallback sur l'ID
+    const rawSlug = shopifyHandle || designId;
+    const slug = rawSlug.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').substring(0,80);
     const filename = 'designs/' + slug + '.webp';
     const b64 = base64DataUrl.includes(',') ? base64DataUrl.split(',')[1] : base64DataUrl;
     const api = 'https://api.github.com/repos/' + REPO + '/contents/' + filename;
