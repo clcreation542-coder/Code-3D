@@ -246,6 +246,7 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
   <input type="file" id="import-file" accept=".json" style="display:none">
   <button class="btn-secondary" id="btn-export">↓ Exporter JSON</button>
   <button class="btn-primary" id="btn-save">Sauvegarder</button>
+  <button class="btn-secondary btn-sm" id="btn-migrate" title="Renommer les images selon le handle Shopify" style="border-color:#e8a020;color:#e8a020;">🔧 Migrer images</button>
   <button class="btn-primary" id="btn-deploy">🚀 Déployer sur GitHub</button>
 </header>
 <div id="layout">
@@ -2264,6 +2265,83 @@ async function uploadWebpToGitHub(designId, base64DataUrl, shopifyHandle) {
 }
 
 // ═══════════════════════════════════════════
+//  MIGRATE IMAGES TO CORRECT NAMES
+// ═══════════════════════════════════════════
+async function migrateImages() {
+  const TOKEN = localStorage.getItem('kuztom_gh_token') || '';
+  if (!TOKEN) {
+    const t = prompt('Token GitHub Personnel (PAT) avec permission "repo" :') || '';
+    if (!t) return;
+    localStorage.setItem('kuztom_gh_token', t.trim());
+  }
+  const REPO = 'clcreation542-coder/Code-3D';
+  const designs = app.designs.filter(d => d.design_url && d.shopify_handle);
+  if (!designs.length) { alert('Aucun design avec handle Shopify et image à migrer.'); return; }
+
+  const btn = document.getElementById('btn-migrate');
+  btn.textContent = '⏳ Migration...'; btn.disabled = true;
+
+  let ok = 0, skip = 0, err = 0;
+  for (const d of designs) {
+    const handle = d.shopify_handle;
+    const slug = handle.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+    const newFilename = 'designs/' + slug + '.webp';
+    const newUrl = 'https://clcreation542-coder.github.io/Code-3D/' + newFilename;
+
+    // Already correct?
+    if (d.design_url === newUrl) { skip++; continue; }
+
+    try {
+      // Fetch current image content from GitHub
+      const currentUrl = d.design_url;
+      let b64 = null;
+
+      if (currentUrl && currentUrl.startsWith('https://clcreation542-coder.github.io')) {
+        // Get from GitHub API
+        const oldPath = currentUrl.replace('https://clcreation542-coder.github.io/Code-3D/', '');
+        const apiGet = `https://api.github.com/repos/${REPO}/contents/${oldPath}`;
+        const res = await fetch(apiGet, {headers:{Authorization:'token '+TOKEN,Accept:'application/vnd.github+json'}});
+        if (res.ok) {
+          const data = await res.json();
+          b64 = data.content.replace(/\n/g, '');
+        }
+      } else if (currentUrl && currentUrl.startsWith('data:')) {
+        b64 = currentUrl.includes(',') ? currentUrl.split(',')[1] : currentUrl;
+      }
+
+      if (!b64) { err++; continue; }
+
+      // Write to new location
+      const apiNew = `https://api.github.com/repos/${REPO}/contents/${newFilename}`;
+      let sha;
+      const getRes = await fetch(apiNew, {headers:{Authorization:'token '+TOKEN,Accept:'application/vnd.github+json'}});
+      if (getRes.ok) { const ex = await getRes.json(); sha = ex.sha; }
+      const body = {message:'migrate: ' + slug, content: b64};
+      if (sha) body.sha = sha;
+      const putRes = await fetch(apiNew, {method:'PUT',headers:{Authorization:'token '+TOKEN,'Content-Type':'application/json',Accept:'application/vnd.github+json'},body:JSON.stringify(body)});
+      if (!putRes.ok) throw new Error('PUT failed ' + putRes.status);
+
+      // Update design_url
+      d.design_url = newUrl;
+      ok++;
+    } catch(e) {
+      console.warn('migrate error for', d.name, e);
+      err++;
+    }
+  }
+
+  persist();
+
+  btn.textContent = '🔧 Migrer images';
+  btn.disabled = false;
+
+  const msg = `Migration terminée !\n✅ ${ok} image(s) migrée(s)\n⏭️ ${skip} déjà correcte(s)\n❌ ${err} erreur(s)`;
+  if (confirm(msg + '\n\nDéployer maintenant pour sauvegarder ?')) {
+    deployDesign();
+  }
+}
+
+// ═══════════════════════════════════════════
 //  DEPLOY TO GITHUB
 // ═══════════════════════════════════════════
 async function deployDesign() {
@@ -2366,6 +2444,7 @@ document.getElementById('btn-save').addEventListener('click',()=>{
   setTimeout(()=>{btn.textContent='Sauvegarder';btn.classList.remove('saved');},1800);
 });
 document.getElementById('btn-export').addEventListener('click',exportDesign);
+document.getElementById('btn-migrate').addEventListener('click',migrateImages);
 document.getElementById('btn-deploy').addEventListener('click',deployDesign);
 document.getElementById('btn-import').addEventListener('click',()=>document.getElementById('import-file').click());
 document.getElementById('import-file').addEventListener('change',e=>{if(e.target.files[0])importDesign(e.target.files[0]);e.target.value='';});
