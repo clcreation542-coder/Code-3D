@@ -9258,10 +9258,10 @@
         "label": "Photo",
         "order": 1,
         "x": 1479,
-        "y": 288,
+        "y": 282,
         "width": 317,
-        "height": 374,
-        "shape": "rounded"
+        "height": 380,
+        "shape": "rectangle"
       }
     ],
     "arch_zones": []
