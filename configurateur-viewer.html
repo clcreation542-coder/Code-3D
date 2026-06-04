@@ -187,6 +187,36 @@ function drawTextZone(zone, text) {
   ctx2d.restore();
 }
 
+function drawPhotoPlaceholder(zone) {
+  const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
+  ctx2d.save();
+  /* Fond blanc semi-transparent */
+  ctx2d.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx2d.beginPath();
+  ctx2d.rect(zx, zy, zw, zh);
+  ctx2d.fill();
+  /* Bordure pointillée */
+  ctx2d.strokeStyle = 'rgba(180,180,180,0.8)';
+  ctx2d.lineWidth = 3;
+  ctx2d.setLineDash([12, 8]);
+  ctx2d.stroke();
+  ctx2d.setLineDash([]);
+  /* Icône photo au centre */
+  const cx = zx + zw/2, cy = zy + zh/2;
+  const iconSize = Math.min(zw, zh) * 0.35;
+  ctx2d.fillStyle = 'rgba(160,160,160,0.7)';
+  ctx2d.font = `${iconSize}px Arial`;
+  ctx2d.textAlign = 'center';
+  ctx2d.textBaseline = 'middle';
+  ctx2d.fillText('📷', cx, cy - iconSize*0.15);
+  /* Texte "Votre photo" */
+  const fontSize = Math.min(zw, zh) * 0.1;
+  ctx2d.font = `${fontSize}px Jost, sans-serif`;
+  ctx2d.fillStyle = 'rgba(120,120,120,0.9)';
+  ctx2d.fillText('Votre photo', cx, cy + iconSize*0.6);
+  ctx2d.restore();
+}
+
 function drawPhotoZone(zone, img) {
   const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
   const iw = img.naturalWidth  || img.width  || 1;
@@ -240,7 +270,11 @@ function drawTexture() {
   /* 1. Photos client EN PREMIER (sous le WebP) */
   (CFG.photo_zones || []).forEach(zone => {
     const img = state.photos[zone.id];
-    if (img) drawPhotoZone(zone, img);
+    if (img) {
+      drawPhotoZone(zone, img);
+    } else {
+      drawPhotoPlaceholder(zone);
+    }
   });
   /* 2. WebP du design PAR-DESSUS les photos */
   if (state.designImage) {
