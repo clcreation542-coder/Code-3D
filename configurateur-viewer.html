@@ -275,7 +275,7 @@ async function loadDesignConfig() {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const designs = await res.json();
-    const data = Array.isArray(designs) ? designs.find(d => d.id === designName) : null;
+    const data = Array.isArray(designs) ? (designs.find(d => d.id === designName) || designs.find(d => d.shopify_handle === designName)) : null;
     if (!data) throw new Error('design non trouvé dans designs.json');
     CFG = data;
     state.gobeletColor = CFG.gobelet_color || '#f5f0eb';
