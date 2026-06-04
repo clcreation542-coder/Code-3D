@@ -47,7 +47,6 @@ html,body { height:100%; overflow:hidden; font-family:'Jost',sans-serif; backgro
 .toggle-small input:checked + span::after { transform:translateX(14px); background:var(--gold); }
 .design-item.design-inactive .design-name { color:var(--muted); }
 .design-item.design-inactive .inactive-name { font-style:italic; }
-/* Canvas : zones verrouillées affichées avec hachures dans drawZone */
 .design-item.active { border-color:var(--gold); background:var(--gold-lt); }
 .design-thumb { width:50px; height:25px; flex-shrink:0; border-radius:3px; border:1px solid var(--border-lt); overflow:hidden; background:#2a2a4a; }
 .design-thumb canvas { display:block; width:100%; height:100%; }
@@ -144,9 +143,7 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
 .rot-row { display:flex; align-items:center; gap:8px; }
 .rot-row input[type="range"] { flex:1; }
 .handle-status { font-size:11px; margin-top:3px; }
-/* Dims overlay */
 #dims-overlay { display:none; position:fixed; background:rgba(0,0,0,0.78); color:#fff; font-size:11px; font-family:'Jost',sans-serif; padding:3px 9px; border-radius:4px; pointer-events:none; z-index:300; white-space:nowrap; }
-/* Multiselect info */
 .multisel-info { font-size:12px; color:var(--muted); text-align:center; padding:12px; background:var(--bg); border-radius:var(--rsm); border:1px solid var(--border-lt); }
 ::-webkit-scrollbar { width:4px; height:4px; }
 ::-webkit-scrollbar-track { background:transparent; }
@@ -312,7 +309,6 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
     </div>
   </div>
 </div>
-<!-- Overlay dimensions pendant resize -->
 <div id="dims-overlay"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -361,7 +357,6 @@ function loadDesigns() {
   return [];
 }
 
-/* Charge les designs depuis GitHub et met à jour l'app */
 async function loadDesignsFromGitHub() {
   try {
     const TOKEN = localStorage.getItem('kuztom_gh_token') || localStorage.getItem('github_token') || '';
@@ -371,9 +366,8 @@ async function loadDesignsFromGitHub() {
     const designs = await r.json();
     if (!Array.isArray(designs) || designs.length === 0) return false;
     app.designs = designs;
-    // Stocker uniquement les métadonnées (sans images base64) en localStorage
     const light = designs.map(d => ({...d, design_url: d.design_url && !d.design_url.startsWith('data:') ? d.design_url : null}));
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) { /* quota — on continue sans stocker */ }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) {}
     renderDesignList();
     designs.forEach(d => { if (d.design_url) loadImg(d); });
     return true;
@@ -384,14 +378,12 @@ async function loadDesignsFromGitHub() {
 }
 
 function persist() {
-  /* Horodatage de modification sur le design courant */
   if (app.currentId) {
     const d = app.designs.find(x => x.id === app.currentId);
     if (d) d.updated_at = Date.now();
   }
-  /* Stocker sans les images base64 pour ne pas exploser le localStorage */
   const light = app.designs.map(d => ({...d, design_url: d.design_url && !d.design_url.startsWith('data:') ? d.design_url : null}));
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) { /* quota dépassé — on ignore */ }
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) {}
   app.unsaved = true;
   const dot = document.getElementById('unsaved-dot');
   if (dot) dot.style.display = 'inline-block';
@@ -399,7 +391,7 @@ function persist() {
 
 function save() {
   const light = app.designs.map(d => ({...d, design_url: d.design_url && !d.design_url.startsWith('data:') ? d.design_url : null}));
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) { /* quota — on ignore */ }
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(light)); } catch(e) {}
   app.unsaved = false;
   const dot = document.getElementById('unsaved-dot');
   if (dot) dot.style.display = 'none';
@@ -413,11 +405,9 @@ function designHash(d) {
   return JSON.stringify({ color: d.gobelet_color, opacity: d.gobelet_opacity, tz: d.text_zones, pz: d.photo_zones, vc: d.variant_colors });
 }
 
-// Saved / recent colors
 function getSavedColors() { try { return JSON.parse(localStorage.getItem(COLORS_KEY)) || []; } catch { return []; } }
 function saveSavedColors(c) { localStorage.setItem(COLORS_KEY, JSON.stringify(c)); }
 
-// Ajoute automatiquement une couleur en tête de la palette (max 6)
 function addRecentColor(hex) {
   if (!hex || !/^#[0-9a-fA-F]{6}$/.test(hex)) return;
   let colors = getSavedColors();
@@ -427,7 +417,6 @@ function addRecentColor(hex) {
   saveSavedColors(colors);
 }
 
-// Deploy hashes
 function getDeployedHashes() { try { return JSON.parse(localStorage.getItem(DEPLOY_KEY)) || {}; } catch { return {}; } }
 function saveDeployedHashes(h) { localStorage.setItem(DEPLOY_KEY, JSON.stringify(h)); }
 
@@ -479,14 +468,8 @@ function allZones(design) {
   ];
 }
 
-// ═══════════════════════════════════════════
-//  AVERTISSEMENT NON SAUVEGARDÉ
-// ═══════════════════════════════════════════
 window.addEventListener('beforeunload', e => {
-  if (app.unsaved) {
-    e.preventDefault();
-    e.returnValue = '';
-  }
+  if (app.unsaved) { e.preventDefault(); e.returnValue = ''; }
 });
 
 // ═══════════════════════════════════════════
@@ -538,24 +521,16 @@ document.getElementById('btn-undo').addEventListener('click', undo);
 })();
 
 // ═══════════════════════════════════════════
-//  CLAVIER : Ctrl+Z, Echap, Flèches, Suppr
+//  CLAVIER
 // ═══════════════════════════════════════════
 document.addEventListener('keydown', e => {
-  // Ctrl+Z : annuler
   if ((e.ctrlKey||e.metaKey) && e.key === 'z') { e.preventDefault(); undo(); return; }
-
   const el = document.activeElement;
   const inInput = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
-
-  // Echap : désélectionner
   if (e.key === 'Escape') {
-    app.selectedZone = null;
-    app.selectedZones = [];
-    renderProps(); drawEditor();
-    return;
+    app.selectedZone = null; app.selectedZones = [];
+    renderProps(); drawEditor(); return;
   }
-
-  // Flèches : déplacer zone (1px, Shift=10px)
   if (!inInput && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
     const d = currentDesign(); if (!d || !app.selectedZone) return;
     e.preventDefault();
@@ -571,16 +546,11 @@ document.addEventListener('keydown', e => {
     });
     const pz = getZone(d, app.selectedZone.id);
     if (pz) syncCoordInputs(pz);
-    drawEditor(); persist(); update3D();
-    return;
+    drawEditor(); persist(); update3D(); return;
   }
-
-  // Suppr / Backspace : supprimer zone
   if (!inInput && (e.key === 'Delete' || e.key === 'Backspace')) {
     if (app.selectedZone) deleteSelectedZone();
   }
-
-  // Ctrl+D : dupliquer zone sélectionnée
   if ((e.ctrlKey||e.metaKey) && e.key === 'd') {
     e.preventDefault();
     const d = currentDesign(); if (!d || !app.selectedZone) return;
@@ -592,11 +562,8 @@ document.addEventListener('keydown', e => {
     if (app.selectedZone.type==='text') d.text_zones.push(copy);
     else if (app.selectedZone.type==='photo') d.photo_zones.push(copy);
     app.selectedZone = { id: copy.id, type: app.selectedZone.type };
-    drawEditor(); persist(); renderProps();
-    return;
+    drawEditor(); persist(); renderProps(); return;
   }
-
-  // Ctrl+S : sauvegarder
   if ((e.ctrlKey||e.metaKey) && e.key === 's') {
     e.preventDefault();
     save();
@@ -723,34 +690,26 @@ function drawZoneShape(zone, c) {
   c.closePath();
 }
 
-// ─── Placeholder image pour zones photo vides ─────────────────────
 function drawPhotoPlaceholder(zone) {
   const {x,y,width:w,height:h}=zone;
   ctx.save();
   drawZoneShape(zone); ctx.clip();
-  // Ciel dégradé
   ctx.fillStyle='#c8d8ea'; ctx.fillRect(x,y,w,h);
-  // Soleil
   ctx.fillStyle='#f5d560'; ctx.beginPath();
   ctx.arc(x+w*0.78,y+h*0.18,Math.min(w,h)*0.09,0,Math.PI*2); ctx.fill();
-  // Montagnes fond (gris-bleu)
   ctx.fillStyle='#8da4b8'; ctx.beginPath();
   ctx.moveTo(x,y+h*0.72);
   ctx.lineTo(x+w*0.22,y+h*0.30); ctx.lineTo(x+w*0.40,y+h*0.56);
   ctx.lineTo(x+w*0.60,y+h*0.26); ctx.lineTo(x+w*0.82,y+h*0.54);
   ctx.lineTo(x+w,y+h*0.62); ctx.lineTo(x+w,y+h); ctx.lineTo(x,y+h);
   ctx.closePath(); ctx.fill();
-  // Neige sur les sommets
   ctx.fillStyle='#eef4f8';
   ctx.beginPath(); ctx.moveTo(x+w*0.60,y+h*0.26); ctx.lineTo(x+w*0.66,y+h*0.37); ctx.lineTo(x+w*0.54,y+h*0.37); ctx.closePath(); ctx.fill();
   ctx.beginPath(); ctx.moveTo(x+w*0.22,y+h*0.30); ctx.lineTo(x+w*0.28,y+h*0.41); ctx.lineTo(x+w*0.16,y+h*0.41); ctx.closePath(); ctx.fill();
-  // Prairie
   ctx.fillStyle='#88b050'; ctx.fillRect(x,y+h*0.72,w,h*0.28);
   ctx.restore();
 }
 
-// ─── Texte en arche ──────────────────────────────────────────────
-// Utilisé sur le canvas admin ET dans update3D (ptexCtx)
 function drawArchText(zone, c) {
   c = c || ctx;
   const text = zone.placeholder || '';
@@ -802,35 +761,23 @@ function drawArchZone(zone) {
   const sel = app.selectedZone && app.selectedZone.id === zone.id;
   const multiSel = !sel && app.selectedZones.some(sz => sz.id === zone.id);
   const {cx, cy, radius:r} = zone;
-
-  // Cercle guide (pointillés)
   ctx.save();
   ctx.strokeStyle = sel ? '#ffffff' : multiSel ? '#f0c040' : 'rgba(255,160,60,0.75)';
   ctx.lineWidth = sel ? 2.5 : 1.5;
   ctx.setLineDash([8,5]);
   ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
   ctx.setLineDash([]);
-
-  // Point central
   ctx.fillStyle = sel ? '#ffffff' : 'rgba(255,160,60,0.8)';
   ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI*2); ctx.fill();
-
-  // Label
   ctx.fillStyle = 'rgba(255,160,60,0.95)';
   ctx.font = '20px Jost'; ctx.textAlign = 'left';
   ctx.fillText('𝄆 ' + (zone.label || zone.id), cx - r + 7, cy - r + 26);
   ctx.restore();
-
-  // Texte en arche
   drawArchText(zone);
-
-  // Poignées si sélectionné
   if (sel && !app.previewMode) {
     const hw = Math.max(14, 10/getScale()) / 2;
-    // Poignée centrale (déplacement)
     ctx.fillStyle='#ffffff'; ctx.strokeStyle='rgba(255,160,60,0.9)'; ctx.lineWidth=2;
     ctx.beginPath(); ctx.arc(cx, cy, hw, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-    // Poignée rayon (à droite)
     const hx=cx+r, hy=cy;
     ctx.fillStyle='#ffffff'; ctx.strokeStyle='rgba(255,160,60,0.9)'; ctx.lineWidth=2;
     ctx.fillRect(hx-hw, hy-hw, hw*2, hw*2); ctx.strokeRect(hx-hw, hy-hw, hw*2, hw*2);
@@ -842,22 +789,15 @@ function drawZone(zone, type) {
   const multiSel = !sel && app.selectedZones.some(sz => sz.id === zone.id);
   const angle = (zone.rotation||0) * Math.PI / 180;
   const cx = zone.x + zone.width/2, cy = zone.y + zone.height/2;
-
-  // Dépassement hors canvas
   const isOverflow = zone.x < 0 || zone.y < 0 ||
     zone.x + zone.width > TEX_W || zone.y + zone.height > TEX_H;
-
-  /* Le cadre reste FIXE — la rotation ne s'applique qu'au texte */
   ctx.save();
-
-  // Placeholder paysage pour zones photo — remplissage bleu pour zones texte
   if (type==='photo') {
     drawPhotoPlaceholder(zone);
   } else {
     ctx.fillStyle = 'rgba(100,150,255,0.35)';
     drawZoneShape(zone); ctx.fill();
   }
-  /* Hachures si zone verrouillée */
   if (zone.locked) {
     ctx.save();
     const pat = document.createElement('canvas'); pat.width=12; pat.height=12;
@@ -870,7 +810,6 @@ function drawZone(zone, type) {
     drawZoneShape(zone); ctx.fill();
     ctx.restore();
   }
-
   if (isOverflow) {
     ctx.strokeStyle = '#e06c75';
     ctx.lineWidth = sel ? 5 : 3.5;
@@ -884,19 +823,13 @@ function drawZone(zone, type) {
     drawZoneShape(zone);
     ctx.stroke();
   }
-
-  // Lock icon
   if (zone.locked) {
     ctx.font = '28px Jost'; ctx.textAlign='left'; ctx.fillStyle='rgba(255,210,0,0.9)';
     ctx.fillText('🔒', zone.x + zone.width - 36, zone.y + 32);
   }
-
-  // Tag label
   ctx.fillStyle = type==='text' ? 'rgba(130,170,255,0.9)' : 'rgba(100,220,150,0.9)';
   ctx.font='22px Jost'; ctx.textAlign='left';
   ctx.fillText((type==='photo'?'📷 ':'')+(zone.label||zone.id), zone.x+7, zone.y+28);
-
-  // Char count
   if (type==='text' && zone.max_chars) {
     const count = (zone.placeholder||'').replace(/\n/g,'').length;
     const pct = count / zone.max_chars;
@@ -905,21 +838,15 @@ function drawZone(zone, type) {
     ctx.fillText(`${count}/${zone.max_chars}`, zone.x+zone.width-6, zone.y+zone.height-6);
   }
 
-  // Text preview — rotation appliquée uniquement au texte
+  // ── TEXT PREVIEW — taille fixe définie par l'utilisateur, pas d'auto-shrink ──
   if (type==='text' && zone.placeholder) {
     ctx.save();
     if (angle) { ctx.translate(cx,cy); ctx.rotate(angle); ctx.translate(-cx,-cy); }
     ctx.fillStyle = zone.color||'#7a5c2e';
     const lh = zone.lineHeight||1.3;
     const lines = zone.placeholder.split('\n');
-    let fs = zone.font_size||48;
-    while (fs>8) {
-      ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
-      const maxW = Math.max(...lines.map(l=>ctx.measureText(l).width));
-      const totalH = lines.length*fs*lh;
-      if (maxW<=zone.width && totalH<=zone.height) break;
-      fs-=1;
-    }
+    // Utiliser directement la taille définie par l'utilisateur — pas de réduction automatique
+    const fs = zone.font_size || 48;
     ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
     ctx.textAlign = zone.align||'center';
     const tx = zone.align==='left' ? zone.x+8 : zone.align==='right' ? zone.x+zone.width-8 : zone.x+zone.width/2;
@@ -930,7 +857,6 @@ function drawZone(zone, type) {
   }
 
   ctx.restore();
-  // Poignées uniquement hors mode aperçu
   if (sel && !app.previewMode) drawHandles(zone);
 }
 
@@ -1019,8 +945,6 @@ function hitHandle(zone, tx, ty) {
 function hitZone(zone, tx, ty) {
   return tx>=zone.x && tx<=zone.x+zone.width && ty>=zone.y && ty<=zone.y+zone.height;
 }
-
-// ─── Hit test zones arche ─────────────────────────────────────
 function hitArchZone(zone, tx, ty) {
   const dist = Math.sqrt((tx-zone.cx)**2 + (ty-zone.cy)**2);
   return dist < 22 || Math.abs(dist - zone.radius) < 28;
@@ -1039,8 +963,6 @@ editorCanvas.addEventListener('mousedown', e => {
   const d=currentDesign(); if(!d) return;
   isDown=true;
   const {x:tx,y:ty}=screenToTex(e.clientX,e.clientY);
-
-  // ── Création zone arche : un simple clic place la zone ──────
   if (app.tool==='add-arch') {
     pushHistory();
     const id='arche_'+uid();
@@ -1057,9 +979,7 @@ editorCanvas.addEventListener('mousedown', e => {
     setTool('select'); renderProps(); drawEditor(); persist();
     return;
   }
-
   if (app.tool==='select') {
-    // ── Poignée resize (zones texte/photo) ──────────────────
     if (app.selectedZone && !e.shiftKey && app.selectedZone.type!=='arch') {
       const zone=getZone(d,app.selectedZone.id);
       if (zone && !zone.locked) {
@@ -1067,7 +987,6 @@ editorCanvas.addEventListener('mousedown', e => {
         if (h) { app.dragState={type:'resize',h,sx:tx,sy:ty,orig:{...zone}}; return; }
       }
     }
-    // ── Poignée rayon zone arche ────────────────────────────
     if (app.selectedZone && app.selectedZone.type==='arch' && !e.shiftKey) {
       const zone=getZone(d,app.selectedZone.id);
       if (zone && !zone.locked && hitArchRadiusHandle(zone,tx,ty)) {
@@ -1075,9 +994,7 @@ editorCanvas.addEventListener('mousedown', e => {
         return;
       }
     }
-    // ── Hit test général ────────────────────────────────────
     let hit=null;
-    // Zones arche en priorité (clic près du cercle ou centre)
     const archs=(d.arch_zones||[]);
     for (let i=archs.length-1;i>=0;i--) {
       if(hitArchZone(archs[i],tx,ty)){hit={...archs[i],_type:'arch'};break;}
@@ -1134,8 +1051,6 @@ editorCanvas.addEventListener('mousemove', e => {
     const ds=app.dragState, dx=tx-ds.sx, dy=ty-ds.sy;
     const zone=getZone(d,app.selectedZone.id);
     if (!zone) return;
-
-    // ── Drag radius zone arche ──────────────────────────────
     if (ds.type==='arch-radius') {
       const dist = Math.sqrt((tx-zone.cx)**2 + (ty-zone.cy)**2);
       zone.radius = Math.max(50, Math.round(dist));
@@ -1143,19 +1058,16 @@ editorCanvas.addEventListener('mousemove', e => {
       if (radiusInput) radiusInput.value = zone.radius;
       drawEditor(); return;
     }
-
     if (ds.type==='move') {
       if (app.selectedZones.length > 1) {
         app.selectedZones.forEach(sz => {
           const z = getZone(d, sz.id); if (!z || z.locked) return;
           const orig = ds.origMulti[sz.id]; if (!orig) return;
-          // Zones arche : déplacer cx/cy ; autres : x/y
           if (sz.type==='arch') { z.cx=Math.round(orig.cx+dx); z.cy=Math.round(orig.cy+dy); }
           else { z.x=Math.round(orig.x+dx); z.y=Math.round(orig.y+dy); }
         });
         if (app.magneticSnap && app.selectedZone.type!=='arch') applyMagneticSnap(zone);
       } else if (app.selectedZone.type==='arch') {
-        // Déplacer le centre de l'arche
         zone.cx=Math.round(ds.orig.cx+dx); zone.cy=Math.round(ds.orig.cy+dy);
       } else {
         zone.x=Math.round(ds.orig.x+dx); zone.y=Math.round(ds.orig.y+dy);
@@ -1187,10 +1099,8 @@ editorCanvas.addEventListener('mousemove', e => {
 editorCanvas.addEventListener('mouseup', e => {
   const d=currentDesign();
   isDown=false;
-  // Masquer overlay dimensions
   const dimsEl = document.getElementById('dims-overlay');
   if (dimsEl) dimsEl.style.display = 'none';
-
   if (d&&app.tool!=='select'&&creationRect) {
     const w=Math.abs(creationRect.width), h=Math.abs(creationRect.height);
     const x=Math.round(Math.min(creationRect.x,creationRect.x+creationRect.width));
@@ -1220,7 +1130,6 @@ editorCanvas.addEventListener('mouseleave', () => {
   isDown=false; app.dragState=null; creationRect=null; drawEditor();
 });
 
-// Zoom molette (Ctrl + scroll)
 document.getElementById('canvas-area').addEventListener('wheel', e => {
   if (!e.ctrlKey) return;
   e.preventDefault();
@@ -1248,7 +1157,7 @@ function syncCoordInputs(zone) {
 }
 
 // ═══════════════════════════════════════════
-//  TOOLBAR ACTIONS : Snap, Aperçu, Zoom
+//  TOOLBAR ACTIONS
 // ═══════════════════════════════════════════
 document.getElementById('btn-snap').addEventListener('click', () => {
   app.magneticSnap = !app.magneticSnap;
@@ -1260,7 +1169,6 @@ document.getElementById('btn-snap').addEventListener('click', () => {
 document.getElementById('btn-preview').addEventListener('click', () => {
   app.previewMode = !app.previewMode;
   document.getElementById('btn-preview').classList.toggle('active', app.previewMode);
-  /* Mode présentation : masquer les panneaux latéraux */
   const colLeft = document.getElementById('col-left');
   const colRight = document.getElementById('col-right');
   if (app.previewMode) {
@@ -1283,7 +1191,6 @@ document.getElementById('btn-zoom-out').addEventListener('click', () => {
 // ═══════════════════════════════════════════
 //  SAVED COLORS PALETTE
 // ═══════════════════════════════════════════
-/* Clé séparée pour la bibliothèque sauvegardée (≠ couleurs récentes) */
 const COLOR_LIB_KEY = 'kuztom_color_library';
 function getColorLibrary() { try { return JSON.parse(localStorage.getItem(COLOR_LIB_KEY))||[]; } catch { return []; } }
 function saveColorLibrary(c) { localStorage.setItem(COLOR_LIB_KEY, JSON.stringify(c)); }
@@ -1310,7 +1217,6 @@ function renderSavedColors(containerId, onPick) {
     </div>
   `;
 
-  /* Couleurs récentes */
   container.querySelectorAll(`#${containerId}-recent .saved-color-swatch`).forEach(s => {
     s.addEventListener('click', () => {
       document.getElementById(containerId+'-hexin').value = s.dataset.color;
@@ -1319,7 +1225,6 @@ function renderSavedColors(containerId, onPick) {
     });
   });
 
-  /* Bibliothèque */
   container.querySelectorAll(`#${containerId}-lib .lib-swatch`).forEach(s => {
     s.addEventListener('click', () => {
       document.getElementById(containerId+'-hexin').value = s.dataset.hex;
@@ -1332,7 +1237,6 @@ function renderSavedColors(containerId, onPick) {
     });
   });
 
-  /* Sync hex input ↔ color picker */
   const hexIn  = document.getElementById(containerId+'-hexin');
   const picker = document.getElementById(containerId+'-picker');
   if (hexIn && picker) {
@@ -1342,7 +1246,6 @@ function renderSavedColors(containerId, onPick) {
     picker.addEventListener('input', () => { hexIn.value=picker.value; addRecentColor(picker.value); onPick(picker.value); });
   }
 
-  /* Sauvegarder dans la bibliothèque */
   const saveBtn = document.getElementById(containerId+'-save');
   if (saveBtn) saveBtn.addEventListener('click', () => {
     const hex = hexIn ? hexIn.value : '';
@@ -1361,12 +1264,7 @@ function renderProps() {
   const panel=document.getElementById('props-panel');
   const d=currentDesign();
   if (!d) { panel.innerHTML=`<div class="empty-state"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><p>Sélectionnez ou créez un design</p></div>`; return; }
-
-  // Sélection multiple : afficher info simplifié
-  if (app.selectedZones.length > 1) {
-    renderMultiSelProps(d); return;
-  }
-
+  if (app.selectedZones.length > 1) { renderMultiSelProps(d); return; }
   if (app.selectedZone) {
     const zone=getZone(d,app.selectedZone.id);
     if (zone) {
@@ -1440,7 +1338,7 @@ function renderArchProps(d, zone) {
     <div class="psection">
       <div class="psection-title">Texte</div>
       <div class="frow">
-        <div class="field"><label>Taille (px)</label><input type="number" id="p-arch-fs" value="${zone.font_size||60}" min="8" max="300"></div>
+        <div class="field"><label>Taille (px)</label><input type="number" id="p-arch-fs" value="${zone.font_size||60}" min="8" max="2000"></div>
       </div>
       <div class="field">
         <label>Police</label>
@@ -1477,7 +1375,6 @@ function renderArchProps(d, zone) {
     drawEditor();update3D();persist();
   });
 
-  // Helper sync slider <-> number
   function syncPair(slId, numId, setter, parser=parseFloat) {
     const sl=document.getElementById(slId), num=document.getElementById(numId);
     if(!sl||!num) return;
@@ -1612,16 +1509,11 @@ function renderGlobalProps(d) {
     const r=new FileReader();
     r.onload=ev=>{
       const base64 = ev.target.result;
-      /* Afficher immédiatement depuis le base64 local */
       d.design_url = base64;
       delete app.imgCache[d.id];
       loadImg(d).then(()=>{onDesignChange();renderProps();});
-      /* Uploader sur GitHub en arrière-plan */
       uploadWebpToGitHub(d.id, base64).then(url => {
-        if (url) {
-          d.design_url = url; /* Remplacer par l'URL GitHub une fois uploadé */
-          persist();
-        }
+        if (url) { d.design_url = url; persist(); }
       });
     };
     r.readAsDataURL(f);
@@ -1634,7 +1526,6 @@ function renderGlobalProps(d) {
   document.querySelectorAll('.v-force-txt').forEach(el=>el.addEventListener('change',()=>{
     const i=+el.dataset.i;
     d.variant_colors[i].force_text_color=el.checked;
-    /* Forcer #ffffff comme couleur par défaut quand on active le toggle */
     if(el.checked && (!d.variant_colors[i].text_color_override || d.variant_colors[i].text_color_override==='#000000')){
       d.variant_colors[i].text_color_override='#ffffff';
     }
@@ -1647,27 +1538,23 @@ function renderGlobalProps(d) {
   }));
   document.querySelectorAll('.v-txtcolor').forEach(el=>el.addEventListener('input',()=>{d.variant_colors[+el.dataset.i].text_color_override=el.value;persist();}));
   document.querySelectorAll('.v-del' ).forEach(el=>el.addEventListener('click',()=>{d.variant_colors.splice(+el.dataset.i,1);persist();renderProps();}));
-  /* Export PNG imprimeur 1970×1140px */
+
   document.getElementById('p-png-export').addEventListener('click', ()=>{
     const d = currentDesign(); if(!d) return;
     const W=1970, H=1140;
     const exportCanvas = document.createElement('canvas');
     exportCanvas.width=W; exportCanvas.height=H;
-    /* FOND TRANSPARENT : ne pas remplir le canvas */
     const ectx = exportCanvas.getContext('2d', {alpha: true});
     ectx.clearRect(0,0,W,H);
-    /* Dessiner l'image WebP si disponible */
     const img = app.imgCache[d.id];
     if(img) {
       const di = d.design||{x:0,y:0,width:2000,height:1024};
       const scaleX=W/2000, scaleY=H/1024;
       ectx.drawImage(img, di.x*scaleX, di.y*scaleY, di.width*scaleX, di.height*scaleY);
     }
-    /* Dessiner les zones texte avec placeholder */
     const scaleX=W/2000, scaleY=H/1024;
     (d.text_zones||[]).forEach(z=>{
       const lh=z.lineHeight||1.3;
-      /* Si placeholder vide : ne rien afficher */
       const placeholderText = (z.placeholder||'').trim();
       if(!placeholderText) return;
       const lines=placeholderText.split('\n');
@@ -1695,9 +1582,7 @@ function renderGlobalProps(d) {
       lines.forEach((line,i)=>ectx.fillText(line,tx,startY+i*lineH));
       ectx.restore();
     });
-    /* Dessiner les zones arche */
     (d.arch_zones||[]).forEach(z=>drawArchText(z,ectx));
-    /* Télécharger */
     const fileName=(d.name||'design').replace(/[^a-zA-Z0-9-_ ]/g,'').trim()+'-imprimeur.png';
     exportCanvas.toBlob(blob=>{
       const url=URL.createObjectURL(blob);
@@ -1735,7 +1620,7 @@ function renderTextProps(d, zone) {
       </div>
       <div class="frow">
         <div class="field"><label>Ordre</label><input type="number" id="p-order" value="${zone.order||1}" min="1"></div>
-        <div class="field"><label>Taille max (px)</label><input type="number" id="p-fs" value="${zone.font_size||48}" min="8" max="300"></div>
+        <div class="field"><label>Taille max (px)</label><input type="number" id="p-fs" value="${zone.font_size||48}" min="8" max="2000"></div>
       </div>
       <div class="field">
         <label>Interligne</label>
@@ -1824,7 +1709,6 @@ function renderTextProps(d, zone) {
   on('p-order',    'input',  v=>{zone.order=parseInt(v);persist();});
   on('p-fs',       'input',  v=>{zone.font_size=parseInt(v);drawEditor();update3D();persist();});
 
-  // Interligne : slider + saisie manuelle en sync temps réel
   on('p-lh', 'input', v=>{
     zone.lineHeight=parseFloat(v);
     const n=document.getElementById('p-lh-num'); if(n) n.value=parseFloat(v).toFixed(1);
@@ -1838,7 +1722,6 @@ function renderTextProps(d, zone) {
     drawEditor();update3D();persist();
   });
 
-  // Rotation : slider + saisie manuelle en sync temps réel
   on('p-rot', 'input', v=>{
     zone.rotation=parseInt(v);
     const n=document.getElementById('p-rot-num'); if(n) n.value=v;
@@ -1893,7 +1776,6 @@ function renderTextProps(d, zone) {
     zone[el.dataset.k]=parseInt(el.value)||0; drawEditor();persist();
   }));
 
-  // Copier le style
   document.getElementById('p-copy-style').addEventListener('click', ()=>{
     app.copiedStyle={
       font_family: zone.font_family,
@@ -1985,7 +1867,7 @@ function renderPhotoProps(d, zone) {
 
   document.querySelectorAll('.shape-btn[data-shape]').forEach(btn=>btn.addEventListener('click',()=>{
     zone.shape=btn.dataset.shape;
-    drawEditor();persist();renderPhotoProps(d,zone); // re-render pour maj label + active
+    drawEditor();persist();renderPhotoProps(d,zone);
   }));
   document.querySelectorAll('[data-preset]').forEach(btn=>btn.addEventListener('click',()=>{
     const preset=btn.dataset.preset;
@@ -2010,7 +1892,6 @@ function renderPhotoProps(d, zone) {
   });
 }
 
-// Copier zone vers autre design
 function copyZoneToDesign(zoneId, zoneType) {
   const d=currentDesign();
   const others=app.designs.filter(x=>x.id!==d.id);
@@ -2054,7 +1935,6 @@ function renderDesignList() {
   const items=[...allFiltered].sort((a,b)=>a.name.localeCompare(b.name,'fr'));
   if (!items.length) { list.innerHTML=`<div class="empty-state"><p>${q?'Aucun résultat':'Aucun design'}</p></div>`; return; }
 
-  /* Section "5 derniers modifiés" — uniquement si pas de recherche */
   let recentHtml = '';
   if (!q) {
     const recent=[...app.designs].filter(d=>d.updated_at).sort((a,b)=>b.updated_at-a.updated_at).slice(0,5);
@@ -2083,15 +1963,13 @@ function renderDesignList() {
 
   list.querySelectorAll('.design-item').forEach(el=>el.addEventListener('click',e=>{
     if(e.target.classList.contains('btn-dup')) return;
-    if(e.target.classList.contains('design-name')) return; // géré par dblclick
+    if(e.target.classList.contains('design-name')) return;
     selectDesign(el.dataset.id);
   }));
   list.querySelectorAll('.btn-dup').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();duplicateDesign(btn.dataset.id);}));
 
-  // Double-clic sur le nom → renommer
   list.querySelectorAll('.design-name').forEach(el=>{
     el.addEventListener('click', e=>{
-      // Simple clic : sélectionner le design
       const id = el.dataset.id;
       if (app.currentId !== id) selectDesign(id);
     });
@@ -2119,7 +1997,6 @@ function renderDesignList() {
     });
   });
 
-  // Thumbnails
   items.forEach(d=>{
     const th=document.getElementById(`th-${d.id}`); if(!th) return;
     const tc=th.getContext('2d');
@@ -2262,10 +2139,8 @@ function update3D() {
   ptexCtx.clearRect(0,0,TEX_W,TEX_H);
   if (d) {
     const op = d.gobelet_opacity ?? 0.88;
-    const isSolid = (op === 0); // opacité 0 = gobelet blanc 100% opaque (ex: gobelet blanc non translucide)
-
+    const isSolid = (op === 0);
     if (isSolid) {
-      // Gobelet blanc solide — remplissage plein blanc, matériau non transparent
       ptexCtx.globalAlpha = 1;
       ptexCtx.fillStyle = '#ffffff';
       ptexCtx.fillRect(0,0,TEX_W,TEX_H);
@@ -2274,7 +2149,6 @@ function update3D() {
         m.transparent=false; m.opacity=1; m.depthWrite=true; m.needsUpdate=true;
       });
     } else {
-      // Gobelet translucide — comportement normal
       ptexCtx.globalAlpha = op;
       ptexCtx.fillStyle = d.gobelet_color||'#f5f0eb';
       ptexCtx.fillRect(0,0,TEX_W,TEX_H);
@@ -2284,7 +2158,6 @@ function update3D() {
         m.transparent=true; m.opacity=0.82; m.depthWrite=false; m.alphaTest=0; m.needsUpdate=true;
       });
     }
-
     grp3.rotation.y=Math.PI+(d.rotation_y||0);
     ptexCtx.globalAlpha=1.0; ptexCtx.globalCompositeOperation='source-over';
     const img=app.imgCache[d.id];
@@ -2295,14 +2168,8 @@ function update3D() {
     (d.text_zones||[]).forEach(z=>{
       const lh=z.lineHeight||1.3;
       const lines=(z.placeholder||z.label||'').split('\n');
-      let fs=z.font_size||48;
-      while(fs>8){
-        ptexCtx.font=`${fs}px '${z.font_family||'Jost'}'`;
-        const maxW=Math.max(...lines.map(l=>ptexCtx.measureText(l).width));
-        const totalH=lines.length*fs*lh;
-        if(maxW<=z.width&&totalH<=z.height) break;
-        fs-=1;
-      }
+      // Rendu 3D : utiliser la taille définie par l'utilisateur directement
+      const fs=z.font_size||48;
       const cx=z.x+z.width/2, cy=z.y+z.height/2;
       const angle=(z.rotation||0)*Math.PI/180;
       ptexCtx.save();
@@ -2316,7 +2183,6 @@ function update3D() {
       lines.forEach((line,i)=>ptexCtx.fillText(line,tx,startY+i*lineH));
       ptexCtx.restore();
     });
-    // Zones arche — rendu du texte courbe dans la texture 3D
     (d.arch_zones||[]).forEach(z => drawArchText(z, ptexCtx));
   } else {
     ptexCtx.fillStyle='#2a2a4a'; ptexCtx.fillRect(0,0,TEX_W,TEX_H);
@@ -2360,8 +2226,6 @@ document.getElementById('modal-create').addEventListener('click',()=>{
 });
 document.getElementById('modal-name').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('modal-create').click();});
 
-
-// UPLOAD IMAGE WEBP VERS GITHUB
 async function uploadWebpToGitHub(designId, base64DataUrl) {
   try {
     const TOKEN = localStorage.getItem('kuztom_gh_token') || localStorage.getItem('github_token') || '';
@@ -2379,7 +2243,6 @@ async function uploadWebpToGitHub(designId, base64DataUrl) {
     const putRes = await fetch(api, {method:'PUT',headers:{Authorization:'token '+TOKEN,'Content-Type':'application/json',Accept:'application/vnd.github+json'},body:JSON.stringify(body)});
     if (!putRes.ok) throw new Error('Upload failed: ' + putRes.status);
     const url = 'https://clcreation542-coder.github.io/Code-3D/' + filename;
-    console.log('Image uploadee sur GitHub:', url);
     return url;
   } catch(e) {
     console.warn('uploadWebpToGitHub:', e);
@@ -2392,7 +2255,6 @@ async function uploadWebpToGitHub(designId, base64DataUrl) {
 // ═══════════════════════════════════════════
 async function deployDesign() {
   if(!app.designs||!app.designs.length) return alert('Aucun design à déployer');
-  /* Double confirmation */
   const confirmed = await new Promise(resolve => {
     const overlay = document.createElement('div');
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99997;display:flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;';
@@ -2406,7 +2268,6 @@ async function deployDesign() {
   const reset=(cls,label,ms)=>{btn.className='btn-primary '+cls;btn.textContent=label;if(ms)setTimeout(()=>{btn.className='btn-primary';btn.textContent='🚀 Déployer sur GitHub';},ms);};
   reset('deploying','⏳ Déploiement…');
   const REPO='clcreation542-coder/Code-3D';
-  /* Token mémorisé en localStorage */
   let TOKEN = localStorage.getItem('kuztom_gh_token') || '';
   if(!TOKEN) {
     TOKEN = prompt('Token GitHub Personnel (PAT) avec permission "repo" :\n(mémorisé dans le navigateur)') || '';
@@ -2420,7 +2281,6 @@ async function deployDesign() {
   const normalizeVariant=v=>({name:v.name||'',hex:v.hex||'#ffffff',opacity:v.opacity??1,force_text_color:v.force_text_color||false,text_color_override:v.text_color_override||'#ffffff'});
   const allDesigns=app.designs.map(d=>({id:d.id||'',name:d.name||'',shopify_handle:d.shopify_handle||'',gobelet_color:d.gobelet_color||'#ffffff',gobelet_opacity:d.gobelet_opacity??0.88,model_url:d.model_url||null,rotation_y:d.rotation_y??0,design_url:d.design_url||null,design:d.design||null,active:d.active!==false,variant_colors:(d.variant_colors||[]).map(normalizeVariant),text_zones:(d.text_zones||[]).map(normalizeTextZone),photo_zones:(d.photo_zones||[]).map(normalizePhotoZone),arch_zones:(d.arch_zones||[]).map(normalizeArchZone)}));
   const content=btoa(unescape(encodeURIComponent(JSON.stringify(allDesigns,null,2))));
-  /* designs-light.json : même structure SANS images base64 pour le Studio Live */
   const lightDesigns=allDesigns.map(d=>({...d,design_url:null}));
   const contentLight=btoa(unescape(encodeURIComponent(JSON.stringify(lightDesigns,null,2))));
 
@@ -2454,7 +2314,6 @@ async function deployDesign() {
 // ═══════════════════════════════════════════
 //  HEADER ACTIONS
 // ═══════════════════════════════════════════
-/* Changement de mot de passe admin */
 document.getElementById('btn-change-pwd').addEventListener('click', ()=>{
   function simpleHash(s){let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*0x01000193)>>>0;}return h.toString(16).padStart(8,'0')+(h^0xdeadbeef).toString(16).padStart(8,'0');}
   const HASH_KEY='kuztom_admin_ph';
@@ -2488,7 +2347,7 @@ document.getElementById('btn-change-pwd').addEventListener('click', ()=>{
 });
 
 document.getElementById('btn-save').addEventListener('click',()=>{
-  save(); // sauvegarde sans marquer unsaved
+  save();
   const btn=document.getElementById('btn-save');
   btn.textContent='✓ Sauvegardé';btn.classList.add('saved');
   setTimeout(()=>{btn.textContent='Sauvegarder';btn.classList.remove('saved');},1800);
@@ -2506,7 +2365,6 @@ document.getElementById('search-input').addEventListener('input',e=>{app.searchQ
 window.addEventListener('resize',()=>{sizeCanvas();drawEditor();});
 sizeCanvas(); renderDesignList(); renderProps(); drawEditor(); init3D();
 app.designs.forEach(d=>{if(d.design_url)loadImg(d);});
-/* Si aucun design en localStorage, charger depuis GitHub automatiquement */
 if (app.designs.length === 0) {
   loadDesignsFromGitHub().then(ok => {
     if (ok) { renderDesignList(); renderProps(); drawEditor(); }
