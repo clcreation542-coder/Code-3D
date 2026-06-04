@@ -366,7 +366,10 @@ function buildControls(slot,d){
 function buildZones(slot,d){
   const wrap=document.getElementById('zonesWrap');
   const zones=(d.text_zones||[]).slice().sort((a,b)=>(a.ordre||a.order||99)-(b.ordre||b.order||99));
-  if(!zones.length){wrap.innerHTML='<div class="rt">Personnalisation</div><div style="color:var(--muted);font-size:12px;font-style:italic;">Aucune zone</div>';return;}
+  const photoZonesCheck = d.photo_zones || [];
+  if(!zones.length && !photoZonesCheck.length){wrap.innerHTML='<div class="rt">Personnalisation</div><div style="color:var(--muted);font-size:12px;font-style:italic;">Aucune zone</div>';return;}
+  if(!zones.length){wrap.innerHTML='<div class="rt">Personnalisation</div>';}
+  else{
   wrap.innerHTML='<div class="rt">Personnalisation</div>'+zones.map(z=>{
     const col=slotZoneColors[slot][z.id]||z.color||'#7a5c2e';
     const ph=(z.placeholder||'').replace(/"/g,'&quot;');
@@ -378,7 +381,7 @@ function buildZones(slot,d){
       </div>
 
     </div>`;
-  }).join('');
+  }).join('');}
 
   /* Events textarea */
   wrap.querySelectorAll('.lta').forEach(ta=>{
