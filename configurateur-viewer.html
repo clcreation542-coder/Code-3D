@@ -134,6 +134,8 @@ let CFG = {
 const state = {
   texts:        {},
   photos:       {},
+  photoCrop:    {}, /* {zoneId: {zoom, offsetX, offsetY}} */
+  activeCropZone: null, /* zone en cours de crop */
   gobeletColor: '#f5f0eb',
   designImage:  null,
   fontsReady:   false,
@@ -189,9 +191,12 @@ function drawPhotoZone(zone, img) {
   const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
   const iw = img.naturalWidth  || img.width  || 1;
   const ih = img.naturalHeight || img.height || 1;
-  const scale = Math.max(zw / iw, zh / ih);
+  const crop = state.photoCrop[zone.id] || {zoom: 1, offsetX: 0, offsetY: 0};
+  const baseScale = Math.max(zw / iw, zh / ih);
+  const scale = baseScale * crop.zoom;
   const sw = iw * scale, sh = ih * scale;
-  const ox = zx + (zw - sw) / 2, oy = zy + (zh - sh) / 2;
+  const ox = zx + (zw - sw) / 2 + crop.offsetX;
+  const oy = zy + (zh - sh) / 2 + crop.offsetY;
   ctx2d.save();
   ctx2d.beginPath();
   ctx2d.rect(zx, zy, zw, zh);
@@ -664,12 +669,30 @@ window.addEventListener('message', function(e) {
     const img = new Image();
     img.onload = function() {
       state.photos[data.zoneId] = img;
-      photoEditMode = true; /* Bloquer rotation pendant réglage */
-      setTimeout(() => { photoEditMode = false; }, 5000); /* Reprendre après 5s */
+      state.photoCrop[data.zoneId] = {zoom: 1, offsetX: 0, offsetY: 0};
+      state.activeCropZone = data.zoneId;
+      photoEditMode = true;
       drawTexture();
       if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+      /* Informer le parent que le crop est disponible */
+      window.parent.postMessage({type: 'PHOTO_READY', zoneId: data.zoneId}, '*');
     };
     img.src = data.value;
+  }
+
+  if (data.type === 'PHOTO_CROP' && data.zoneId) {
+    if (!state.photoCrop[data.zoneId]) state.photoCrop[data.zoneId] = {zoom:1,offsetX:0,offsetY:0};
+    if (data.zoom !== undefined) state.photoCrop[data.zoneId].zoom = Math.max(0.5, Math.min(5, data.zoom));
+    if (data.offsetX !== undefined) state.photoCrop[data.zoneId].offsetX = data.offsetX;
+    if (data.offsetY !== undefined) state.photoCrop[data.zoneId].offsetY = data.offsetY;
+    drawTexture();
+    if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+  }
+
+  if (data.type === 'PHOTO_CROP_RESET' && data.zoneId) {
+    state.photoCrop[data.zoneId] = {zoom:1, offsetX:0, offsetY:0};
+    drawTexture();
+    if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
 });
 
