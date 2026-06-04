@@ -7250,7 +7250,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 1.4,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-foret-enchantee-d-automne-mpwnozc1x993.webp",
     "design": {
       "x": 0,
@@ -7258,7 +7258,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -7287,9 +7287,9 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 784,
-        "y": 209,
-        "width": 508,
+        "x": 824,
+        "y": 177,
+        "width": 428,
         "height": 116,
         "shape": "rectangle",
         "lineHeight": 0.8,
@@ -7307,7 +7307,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 846,
-        "y": 797,
+        "y": 778,
         "width": 383,
         "height": 122,
         "shape": "rectangle",
