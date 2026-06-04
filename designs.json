@@ -9215,6 +9215,118 @@
     "text_zones": [
       {
         "id": "texte_mpzauz28ez1k",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 349,
+        "y": 239,
+        "width": 635,
+        "height": 472,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 48,
+        "color": "#1f3f70",
+        "placeholder": "Texte ici",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpzbw0t8ajnj",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1373,
+        "y": 54,
+        "width": 525,
+        "height": 100,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 65,
+        "color": "#1f3f70",
+        "placeholder": "1 an Jules",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mpzbz81jdair",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1509,
+        "y": 662,
+        "width": 252,
+        "height": 69,
+        "shape": "rectangle",
+        "lineHeight": 1.1,
+        "font_size": 55,
+        "color": "#000000",
+        "placeholder": "11.03.2021",
+        "font_family": "Advent Pro",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "photo_mpypuln3byb0",
+        "label": "Photo",
+        "order": 1,
+        "x": 1479,
+        "y": 282,
+        "width": 317,
+        "height": 380,
+        "shape": "rectangle"
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "copie-de-gobelet-anniversaire-couronne-azur-photo-mpzf9er05zpp",
+    "name": "Copie de Gobelet Anniversaire - Couronne Azur Photo",
+    "shopify_handle": "gobelet-anniversaire-couronne-azur-photo",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/copie-de-gobelet-anniversaire-couronne-azur-photo-mpzf9er05zpp.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#000000",
+        "opacity": 1,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpzauz28ez1k",
         "label": "Texte",
         "order": 1,
         "x": 349,
@@ -9255,8 +9367,8 @@
         "id": "texte_mpzbz81jdair",
         "label": "Texte",
         "order": 3,
-        "x": 1509,
-        "y": 662,
+        "x": 1544,
+        "y": 874,
         "width": 252,
         "height": 69,
         "shape": "rectangle",
@@ -9276,10 +9388,10 @@
         "id": "photo_mpypuln3byb0",
         "label": "Photo",
         "order": 1,
-        "x": 1479,
-        "y": 282,
-        "width": 317,
-        "height": 380,
+        "x": 1518,
+        "y": 278,
+        "width": 325,
+        "height": 394,
         "shape": "rectangle"
       }
     ],
