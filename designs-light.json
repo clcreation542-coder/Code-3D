@@ -9391,7 +9391,7 @@
         "width": 220,
         "height": 70,
         "shape": "rectangle",
-        "lineHeight": 1.5,
+        "lineHeight": 1.1,
         "font_size": 65,
         "color": "#17622c",
         "placeholder": "Giulian",
