@@ -648,7 +648,7 @@
     "name": "Gobelet Mariage - Éclat de Passion",
     "shopify_handle": "gobelet-mariage-eclat-de-passion",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-eclat-de-passion.webp",
@@ -677,7 +677,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -3267,7 +3267,7 @@
     "name": "Gobelet Mariage - Élégance Végétale",
     "shopify_handle": "gobelet-mariage-elegance-vegetale",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-elegance-vegetale.webp",
@@ -3296,7 +3296,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f4ede1"
       }
@@ -3416,7 +3416,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f9f1ef"
       }
@@ -3429,9 +3429,9 @@
         "x": 1227,
         "y": 398,
         "width": 669,
-        "height": 134,
+        "height": 114,
         "shape": "rectangle",
-        "lineHeight": 1.2,
+        "lineHeight": 1,
         "font_size": 90,
         "color": "#000000",
         "placeholder": "Timmy et Shaaron",
@@ -3450,7 +3450,7 @@
         "width": 668,
         "height": 96,
         "shape": "rectangle",
-        "lineHeight": 1.5,
+        "lineHeight": 1.2,
         "font_size": 69,
         "color": "#000000",
         "placeholder": "06 juin 2026",
@@ -3488,7 +3488,7 @@
     "name": "Gobelet Mariage - Couronne Florale Azur",
     "shopify_handle": "gobelet-mariage-couronne-florale-azur",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.9,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-couronne-florale-azur.webp",
@@ -3517,7 +3517,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f8f2bd"
       }
@@ -4434,7 +4434,7 @@
     "name": "Gobelet Mariage - Éclat de Cœurs",
     "shopify_handle": "gobelet-mariage-eclat-de-coeurs",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-eclat-de-coeurs.webp",
