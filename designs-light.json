@@ -4629,7 +4629,7 @@
     "name": "Gobelet Baptême - Eucalyptus Doré",
     "shopify_handle": "gobelet-bapteme-eucalyptus-dore",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -4658,7 +4658,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6788,7 +6788,7 @@
     "name": "Gobelet Baptême - Faon Aquarelle",
     "shopify_handle": "gobelet-bapteme-faon-aquarelle",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 1.5,
     "design_url": null,
@@ -6817,7 +6817,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -7802,7 +7802,7 @@
     "name": "Gobelet Baptême - Douceur Royale",
     "shopify_handle": "gobelet-bapteme-douceur-royale",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -7831,7 +7831,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -7922,7 +7922,7 @@
     "name": "Gobelet Baptême - Croix de Lumière",
     "shopify_handle": "gobelet-bapteme-croix-de-lumiere",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.5,
     "design_url": null,
@@ -7951,7 +7951,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -7961,10 +7961,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1522,
-        "y": 127,
-        "width": 399,
-        "height": 219,
+        "x": 1448,
+        "y": 163,
+        "width": 552,
+        "height": 156,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 81,
@@ -8976,7 +8976,7 @@
     "name": "Gobelet Baptême - Double-Celebration-Florale",
     "shopify_handle": "gobelet-bapteme-double-celebration-florale",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -9005,7 +9005,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -9839,7 +9839,7 @@
         "label": "Arche",
         "order": 1,
         "cx": 1669,
-        "cy": 22,
+        "cy": 24,
         "radius": 755,
         "direction": "down",
         "start_angle": 90,
