@@ -9835,16 +9835,16 @@
     "photo_zones": [],
     "arch_zones": [
       {
-        "id": "arche_mpzqo4muwhdh",
+        "id": "arche_mq0uj22sak69",
         "label": "Arche",
         "order": 1,
-        "cx": 1675,
-        "cy": 215,
-        "radius": 565,
+        "cx": 1669,
+        "cy": 22,
+        "radius": 755,
         "direction": "down",
         "start_angle": 90,
-        "letter_spacing": 1.5,
-        "font_size": 93,
+        "letter_spacing": 1.95,
+        "font_size": 89,
         "font_family": "EB Garamond",
         "color": "#000000",
         "placeholder": "1985"
