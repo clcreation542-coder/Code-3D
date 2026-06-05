@@ -5494,7 +5494,7 @@
     "name": "Gobelet Baptême - Bohème Croix & Pampa",
     "shopify_handle": "gobelet-bapteme-boheme-croix-pampa",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 6,
     "design_url": null,
@@ -5523,7 +5523,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -5595,7 +5595,7 @@
     "name": "Gobelet Baptême - Couronne Champêtre Aquarelle",
     "shopify_handle": "gobelet-bapteme-couronne-champetre-aquarelle",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.9,
     "design_url": null,
@@ -5624,7 +5624,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -6504,7 +6504,7 @@
     "name": "Gobelet Baptême - Couronne de Paix",
     "shopify_handle": "gobelet-bapteme-couronne-de-paix",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -6533,7 +6533,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -7053,7 +7053,7 @@
     "name": "Gobelet Baptême - Bolide Rétro",
     "shopify_handle": "gobelet-bapteme-bolide-retro",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 1.5,
     "design_url": null,
@@ -7147,7 +7147,7 @@
     "name": "Gobelet Baptême - Couronne fleurs séchées",
     "shopify_handle": "gobelet-bapteme-couronne-fleurs-sechees",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -7176,7 +7176,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -8023,7 +8023,7 @@
     "name": "Gobelet Baptême - Citron Bleu",
     "shopify_handle": "gobelet-bapteme-citron-bleu-dolce-vita",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -8052,7 +8052,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -8105,7 +8105,7 @@
     "name": "Gobelet Baptême - Château de Princesse",
     "shopify_handle": "gobelet-bapteme-chateau-de-princesse",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.5,
     "design_url": null,
@@ -8134,7 +8134,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#fed1ad"
       }
@@ -8206,7 +8206,7 @@
     "name": "Gobelet Baptême - Cerisier Doré",
     "shopify_handle": "gobelet-bapteme-cerisier-dore",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -8235,7 +8235,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
