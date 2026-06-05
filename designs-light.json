@@ -105,7 +105,7 @@
     "name": "Gobelet Mariage - Pampa",
     "shopify_handle": "gobelet-mariage-pampa",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -134,7 +134,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f6efe3"
       }
@@ -427,7 +427,7 @@
     "name": "Gobelet Mariage - Pampas & Cœur Boho",
     "shopify_handle": "gobelet-mariage-pampas-coeur-boho",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -456,7 +456,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f5e3d3"
       }
@@ -528,7 +528,7 @@
     "name": "Gobelet Mariage - Hexagone Végétal",
     "shopify_handle": "gobelet-mariage-hexagone-vegetal",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -557,7 +557,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -951,7 +951,7 @@
     "name": "Gobelet Mariage - La Demande",
     "shopify_handle": "gobelet-mariage-couronne-florale-or",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.5,
     "design_url": null,
@@ -1003,7 +1003,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1519,
-        "y": 811,
+        "y": 826,
         "width": 396,
         "height": 122,
         "shape": "rectangle",
@@ -1045,7 +1045,7 @@
     "name": "Gobelet Mariage - Eucalyptus & Poussières d’Or",
     "shopify_handle": "gobelet-mariage-eucalyptus-poussieres-d-or",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -1074,7 +1074,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1127,7 +1127,7 @@
     "name": "Gobelet Mariage - Eucalyptus & Fleurs",
     "shopify_handle": "gobelet-mariage-eucalyptus-fleurs",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -1156,7 +1156,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fcfdf3"
       }
@@ -1550,7 +1550,7 @@
     "name": "Gobelet Mariage - Ellipse Eucalyptus & Or",
     "shopify_handle": "gobelet-mariage-ellipse-eucalyptus-or",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -1579,7 +1579,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1651,7 +1651,7 @@
     "name": "Gobelet Mariage - Hexagone Roses Terracotta",
     "shopify_handle": "gobelet-mariage-hexagone-roses-terracotta",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.9,
     "design_url": null,
@@ -1680,7 +1680,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1973,7 +1973,7 @@
     "name": "Gobelet Mariage - Géométrique Bleu Nuit",
     "shopify_handle": "gobelet-mariage-geometrique-bleu-nuit",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -2002,7 +2002,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2074,7 +2074,7 @@
     "name": "Gobelet Mariage - Renouvellement de Vœux Bohème",
     "shopify_handle": "gobelet-mariage-renouvellement-de-voeux-boheme",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -2103,7 +2103,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f1e4d1"
       }
@@ -2478,7 +2478,7 @@
     "name": "Gobelet Mariage - Eucalyptus Bohème",
     "shopify_handle": "gobelet-mariage-eucalyptus-boheme",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -2507,7 +2507,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fffef5"
       }
@@ -2579,7 +2579,7 @@
     "name": "Gobelet Mariage - Eucalyptus Géométrique",
     "shopify_handle": "gobelet-mariage-eucalyptus-geometrique",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.5,
     "design_url": null,
@@ -2608,7 +2608,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2680,7 +2680,7 @@
     "name": "Gobelet Mariage - Roses Passion",
     "shopify_handle": "gobelet-mariage-roses-passion",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -2709,7 +2709,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2762,7 +2762,7 @@
     "name": "Gobelet Mariage - Pampa Bordeaux",
     "shopify_handle": "gobelet-mariage-pampa-bordeaux",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -2791,7 +2791,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f1e2c9"
       }
@@ -2863,7 +2863,7 @@
     "name": "Gobelet Mariage - Nid de Roses",
     "shopify_handle": "gobelet-mariage-nid-de-roses",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -2892,7 +2892,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2922,7 +2922,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1419,
-        "y": 491,
+        "y": 496,
         "width": 396,
         "height": 83,
         "shape": "rectangle",
@@ -2964,7 +2964,7 @@
     "name": "Gobelet Mariage - Hexagone Bleu Royal",
     "shopify_handle": "gobelet-mariage-hexagone-bleu-royal",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -2993,7 +2993,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f5f0f2"
       }
@@ -3065,7 +3065,7 @@
     "name": "Gobelet Mariage - Euphorie Colorée",
     "shopify_handle": "gobelet-mariage-euphorie-coloree",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -3094,7 +3094,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f5f0f2"
       }
@@ -3166,7 +3166,7 @@
     "name": "Gobelet Mariage - Eucalyptus Élégant",
     "shopify_handle": "gobelet-mariage-eucalyptus-elegant",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 6,
     "design_url": null,
@@ -3195,7 +3195,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f5f0f2"
       }
