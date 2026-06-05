@@ -11670,7 +11670,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1476,
-        "y": 613,
+        "y": 643,
         "width": 256,
         "height": 61,
         "shape": "rectangle",
@@ -11693,7 +11693,7 @@
         "x": 1457,
         "y": 296,
         "width": 295,
-        "height": 316,
+        "height": 349,
         "shape": "rectangle"
       }
     ],
