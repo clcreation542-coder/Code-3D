@@ -7468,7 +7468,7 @@
         "width": 578,
         "height": 170,
         "shape": "rectangle",
-        "lineHeight": 0.8,
+        "lineHeight": 1,
         "font_size": 82,
         "color": "#ed98b4",
         "placeholder": "1 an\nEléana",
