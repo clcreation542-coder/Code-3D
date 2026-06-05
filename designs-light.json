@@ -8307,7 +8307,7 @@
     "name": "Gobelet Baptême - Anémone Bohème",
     "shopify_handle": "gobelet-bapteme-anemone-boheme",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -8336,7 +8336,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -8408,7 +8408,7 @@
     "name": "Gobelet Anniversaire - Savane Totem",
     "shopify_handle": "gobelet-anniversaire-savane-totem",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.4,
     "design_url": null,
@@ -8437,7 +8437,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -9565,10 +9565,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1129,
-        "y": 247,
+        "x": 1138,
+        "y": 263,
         "width": 629,
-        "height": 370,
+        "height": 356,
         "shape": "rectangle",
         "lineHeight": 1.1,
         "font_size": 395,
@@ -9585,7 +9585,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1212,
-        "y": 559,
+        "y": 546,
         "width": 463,
         "height": 171,
         "shape": "rectangle",
