@@ -5550,8 +5550,8 @@
       },
       {
         "id": "texte_mpbbehsjclpa",
-        "label": "Zone de texte 2",
-        "order": 2,
+        "label": "Zone de texte 3",
+        "order": 3,
         "x": 1411,
         "y": 609,
         "width": 339,
@@ -5569,8 +5569,8 @@
       },
       {
         "id": "texte_mppguavyfv0j",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 4",
+        "order": 4,
         "x": 242,
         "y": 268,
         "width": 780,
