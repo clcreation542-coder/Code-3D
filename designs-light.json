@@ -7330,7 +7330,7 @@
     "name": "Gobelet Anniversaire - Animaux de la forêt",
     "shopify_handle": "gobelet-anniversaire-animaux-de-la-foret",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -7345,7 +7345,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -8894,7 +8894,7 @@
     "name": "Gobelet Anniversaire - Couronne Papillon",
     "shopify_handle": "gobelet-anniversaire-couronne-papillon",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -8909,7 +8909,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -9178,7 +9178,7 @@
     "name": "Gobelet Anniversaire - Couronne Azur Photo",
     "shopify_handle": "gobelet-anniversaire-couronne-azur-photo",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -9193,7 +9193,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -9421,7 +9421,7 @@
     "name": "Gobelet Anniversaire - Doux Ourson Photo",
     "shopify_handle": "gobelet-anniversaire-couronne-azur-photo",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -9931,7 +9931,7 @@
     "name": "Gobelet Anniversaire - Dolce Vita",
     "shopify_handle": "gobelet-anniversaire-dolce-vita",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -9946,7 +9946,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10025,7 +10025,7 @@
     "name": "Gobelet Anniversaire - As du Guidon",
     "shopify_handle": "gobelet-anniversaire-as-du-guidon",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.5,
     "design_url": null,
@@ -10040,7 +10040,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10352,7 +10352,7 @@
     "name": "Gobelet Anniversaire - Éclat Floral & Cœur",
     "shopify_handle": "gobelet-anniversaire-eclat-floral-coeur",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 1.5,
     "design_url": null,
@@ -10367,7 +10367,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10434,7 +10434,7 @@
     "name": "Gobelet Anniversaire - Bulles d'Or",
     "shopify_handle": "gobelet-anniversaire-bulles-dor",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -10449,7 +10449,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10648,7 +10648,7 @@
     "name": "Gobelet Anniversaire - Cercle Floral Violet",
     "shopify_handle": "gobelet-anniversaire-cercle-floral-violet",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -10663,7 +10663,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10918,7 +10918,7 @@
     "name": "Gobelet Anniversaire - Ballons Gold & Black",
     "shopify_handle": "gobelet-anniversaire-ballons-gold-black",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -10933,7 +10933,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -11019,7 +11019,7 @@
     "name": "Gobelet Anniversaire - Couronne Solaire",
     "shopify_handle": "gobelet-anniversaire-couronne-solaire",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -11034,7 +11034,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -11120,7 +11120,7 @@
     "name": "Gobelet Anniversaire - Black & Beer Panoramique",
     "shopify_handle": "gobelet-anniversaire-black-and-beer-panoramique",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 2.6,
     "design_url": null,
@@ -11135,7 +11135,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -11195,7 +11195,7 @@
     "name": "Gobelet Anniversaire - Couronne Eucalyptus Dorée",
     "shopify_handle": "gobelet-anniversaire-couronne-eucalyptus-doree",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -11210,7 +11210,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -11472,7 +11472,7 @@
     "name": "Gobelet Anniversaire - American Truck",
     "shopify_handle": "gobelet-anniversaire-american-truck",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -11487,7 +11487,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 0.95,
+        "opacity": 1,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
