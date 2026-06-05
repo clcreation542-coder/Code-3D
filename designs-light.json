@@ -11602,7 +11602,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -11687,13 +11687,13 @@
     ],
     "photo_zones": [
       {
-        "id": "photo_mq188rwv70p2",
+        "id": "photo_mq17dq6wt2y3",
         "label": "Photo",
         "order": 1,
         "x": 1457,
-        "y": 296,
+        "y": 293,
         "width": 295,
-        "height": 316,
+        "height": 320,
         "shape": "rectangle"
       }
     ],
