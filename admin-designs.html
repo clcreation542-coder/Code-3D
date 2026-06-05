@@ -1551,8 +1551,21 @@ function renderGlobalProps(d) {
   document.querySelectorAll('.v-txtcolor').forEach(el=>el.addEventListener('input',()=>{d.variant_colors[+el.dataset.i].text_color_override=el.value;persist();}));
   document.querySelectorAll('.v-del' ).forEach(el=>el.addEventListener('click',()=>{d.variant_colors.splice(+el.dataset.i,1);persist();renderProps();}));
 
-  document.getElementById('p-png-export').addEventListener('click', ()=>{
+  document.getElementById('p-png-export').addEventListener('click', async ()=>{
     const d = currentDesign(); if(!d) return;
+
+    /* Attendre que toutes les polices utilisées soient chargées */
+    const families = [...new Set([
+      ...(d.text_zones||[]).map(z=>z.font_family).filter(Boolean),
+      ...(d.arch_zones||[]).map(z=>z.font_family).filter(Boolean)
+    ])];
+    await Promise.all(families.map(f => {
+      const testSize = 48;
+      return document.fonts.load(`${testSize}px "${f}"`).catch(()=>{});
+    }));
+    /* Petite pause pour s'assurer que les polices sont actives */
+    await new Promise(r => setTimeout(r, 300));
+
     const W=1970, H=1140;
     const exportCanvas = document.createElement('canvas');
     exportCanvas.width=W; exportCanvas.height=H;
@@ -1565,6 +1578,8 @@ function renderGlobalProps(d) {
       ectx.drawImage(img, di.x*scaleX, di.y*scaleY, di.width*scaleX, di.height*scaleY);
     }
     const scaleX=W/2000, scaleY=H/1024;
+    const STROKE_WIDTH = 2.5; /* Épaisseur contour — équivalent niveau 5 Canva */
+
     (d.text_zones||[]).forEach(z=>{
       const lh=z.lineHeight||1.3;
       const placeholderText = (z.placeholder||'').trim();
@@ -1584,17 +1599,76 @@ function renderGlobalProps(d) {
       const angle=(z.rotation||0)*Math.PI/180;
       ectx.save();
       if(angle){ectx.translate(cx,cy);ectx.rotate(angle);ectx.translate(-cx,-cy);}
-      ectx.fillStyle=z.color||'#7a5c2e';
       ectx.font=`${fs}px '${z.font_family||'Jost'}'`;
       ectx.textAlign=z.align||'center';
       ectx.textBaseline='middle';
       const tx=z.align==='left'?zx+8:z.align==='right'?zx+zw-8:zx+zw/2;
       const lineH=fs*lh, totalH=lines.length*lineH;
       const startY=cy-totalH/2+lineH/2;
+      /* Stroke d'abord (même couleur que le texte) puis fill par-dessus */
+      ectx.strokeStyle=z.color||'#7a5c2e';
+      ectx.lineWidth=STROKE_WIDTH;
+      ectx.lineJoin='round';
+      lines.forEach((line,i)=>ectx.strokeText(line,tx,startY+i*lineH));
+      ectx.fillStyle=z.color||'#7a5c2e';
       lines.forEach((line,i)=>ectx.fillText(line,tx,startY+i*lineH));
       ectx.restore();
     });
-    (d.arch_zones||[]).forEach(z=>drawArchText(z,ectx));
+
+    /* Zones arche avec stroke */
+    function drawArchTextWithStroke(zone, c) {
+      const text = zone.placeholder || '';
+      if (!text.trim()) return;
+      const isUp = (zone.direction || 'up') === 'up';
+      const startDeg = zone.start_angle !== undefined ? zone.start_angle : -90;
+      const r = zone.radius || 280;
+      const spacing = zone.letter_spacing || 1.0;
+      const fs = zone.font_size || 60;
+      c.save();
+      c.font = `${fs}px "${zone.font_family || 'Dancing Script'}"`;
+      c.strokeStyle = zone.color || '#7a5c2e';
+      c.fillStyle = zone.color || '#7a5c2e';
+      c.lineWidth = STROKE_WIDTH;
+      c.lineJoin = 'round';
+      c.textAlign = 'center';
+      c.textBaseline = 'alphabetic';
+      const chars = text.split('');
+      const charWidths = chars.map(ch => c.measureText(ch).width * spacing);
+      const total = charWidths.reduce((a, b) => a + b, 0);
+      const totalRad = total / r;
+      const startRad = startDeg * Math.PI / 180;
+      if (isUp) {
+        let angle = startRad - totalRad / 2;
+        chars.forEach((ch, i) => {
+          const half = charWidths[i] / (2 * r);
+          angle += half;
+          c.save();
+          c.translate(zone.cx + r * Math.cos(angle), zone.cy + r * Math.sin(angle));
+          c.rotate(angle + Math.PI / 2);
+          c.strokeText(ch, 0, 0);
+          c.fillText(ch, 0, 0);
+          c.restore();
+          angle += half;
+        });
+      } else {
+        let angle = startRad + totalRad / 2;
+        chars.forEach((ch, i) => {
+          const half = charWidths[i] / (2 * r);
+          angle -= half;
+          c.save();
+          c.translate(zone.cx + r * Math.cos(angle), zone.cy + r * Math.sin(angle));
+          c.rotate(angle - Math.PI / 2);
+          c.strokeText(ch, 0, 0);
+          c.fillText(ch, 0, 0);
+          c.restore();
+          angle -= half;
+        });
+      }
+      c.restore();
+    }
+
+    (d.arch_zones||[]).forEach(z=>drawArchTextWithStroke(z,ectx));
+
     const fileName=(d.name||'design').replace(/[^a-zA-Z0-9-_ ]/g,'').trim()+'-imprimeur.png';
     exportCanvas.toBlob(blob=>{
       const url=URL.createObjectURL(blob);
