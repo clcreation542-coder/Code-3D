@@ -5936,7 +5936,7 @@
     "name": "Gobelet Anniversaire - Panda Bambou",
     "shopify_handle": "gobelet-anniversaire-panda-bambou",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 1.4,
     "design_url": null,
@@ -5965,7 +5965,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6687,7 +6687,7 @@
     "name": "Gobelet Anniversaire - Marguerite",
     "shopify_handle": "gobelet-anniversaire-marguerite",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -6716,7 +6716,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6952,7 +6952,7 @@
     "name": "Gobelet Anniversaire - Mon Petit Tracteur",
     "shopify_handle": "gobelet-anniversaire-mon-petit-tracteur",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -6981,7 +6981,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -8509,7 +8509,7 @@
     "name": "Gobelet Anniversaire - Ourson Bohème & Pampas",
     "shopify_handle": "gobelet-anniversaire-ourson-boheme-pampas",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -8538,7 +8538,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -8610,7 +8610,7 @@
     "name": "Gobelet Anniversaire - Mer et Océan",
     "shopify_handle": "gobelet-anniversaire-mer-et-ocean",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -8639,7 +8639,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -8654,7 +8654,7 @@
         "width": 324,
         "height": 326,
         "shape": "rectangle",
-        "lineHeight": 1.2,
+        "lineHeight": 1,
         "font_size": 81,
         "color": "#030303",
         "placeholder": "NOAM\n1 AN",
@@ -8692,7 +8692,7 @@
     "name": "Gobelet Anniversaire - Licorne Féerique",
     "shopify_handle": "gobelet-anniversaire-licorne-feerique",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.4,
     "design_url": null,
@@ -8721,7 +8721,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fafafa"
       }
@@ -9823,7 +9823,7 @@
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 85,
-        "color": "#704b3d",
+        "color": "#000000",
         "placeholder": "",
         "font_family": "Dancing Script",
         "align": "center",
@@ -10824,7 +10824,7 @@
     "name": "Gobelet Anniversaire - Nœuds & Étoiles Scintillantes",
     "shopify_handle": "gobelet-anniversaire-noeuds-etoiles-scintillantes",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 1.5,
     "design_url": null,
@@ -10876,7 +10876,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 610,
-        "y": 345,
+        "y": 348,
         "width": 780,
         "height": 162,
         "shape": "rectangle",
@@ -10895,7 +10895,7 @@
         "label": "Zone de texte 3",
         "order": 3,
         "x": 610,
-        "y": 506,
+        "y": 513,
         "width": 780,
         "height": 162,
         "shape": "rectangle",
@@ -11397,7 +11397,7 @@
     "name": "Gobelet Anniversaire - Partition de Fête",
     "shopify_handle": "gobelet-anniversaire-partition-de-fete",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.4,
     "design_url": null,
