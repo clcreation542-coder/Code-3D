@@ -7424,7 +7424,7 @@
     "name": "Gobelet Anniversaire - L'Envol de l'Ourson",
     "shopify_handle": "gobelet-bapteme-lenvol-de-lourson",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.9,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-lenvol-de-lourson.webp",
@@ -7453,7 +7453,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -9784,7 +9784,7 @@
     "name": "Gobelet Anniversaire - Les Légendes",
     "shopify_handle": "gobelet-anniversaire-les-legendes",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-les-legendes.webp",
@@ -9814,8 +9814,8 @@
     "text_zones": [
       {
         "id": "texte_mppguavyfv0j",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 1",
+        "order": 1,
         "x": 264,
         "y": 268,
         "width": 780,
@@ -9838,7 +9838,7 @@
         "id": "arche_mpzqo4muwhdh",
         "label": "Arche",
         "order": 1,
-        "cx": 1671,
+        "cx": 1675,
         "cy": 215,
         "radius": 565,
         "direction": "down",
