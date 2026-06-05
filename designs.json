@@ -10955,7 +10955,7 @@
         "width": 407,
         "height": 386,
         "shape": "circle",
-        "lineHeight": 1.1,
+        "lineHeight": 1,
         "font_size": 238,
         "color": "#bc9c22",
         "placeholder": "40",
