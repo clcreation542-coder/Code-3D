@@ -247,6 +247,7 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
   <button class="btn-secondary" id="btn-export">↓ Exporter JSON</button>
   <button class="btn-primary" id="btn-save">Sauvegarder</button>
   <button class="btn-secondary btn-sm" id="btn-migrate" title="Renommer les images selon le handle Shopify" style="border-color:#e8a020;color:#e8a020;">🔧 Migrer images</button>
+  <button class="btn-secondary btn-sm" id="btn-fix-urls" title="Corriger les design_url qui ne correspondent pas au handle Shopify" style="border-color:#4caf50;color:#4caf50;">🔍 Corriger URLs</button>
   <button class="btn-primary" id="btn-deploy">🚀 Déployer sur GitHub</button>
 </header>
 <div id="layout">
@@ -333,6 +334,7 @@ function addRecentFont(f) {
 const DEPLOY_KEY  = 'kuztom_deployed_hashes';
 const TEX_W = 2000, TEX_H = 1024;
 const GLB_URL = 'https://clcreation542-coder.github.io/Code-3D/Gobelet 25 33.glb';
+const GITHUB_PAGES_BASE = 'https://clcreation542-coder.github.io/Code-3D/designs/';
 const GOOGLE_FONTS = [
   'Advent Pro','Alex Brush','Alegreya','Allura','Borel',
   'Cinzel','Cinzel Decorative','Clicker Script','Cormorant Garamond',
@@ -1423,6 +1425,20 @@ function renderArchProps(d, zone) {
 function renderGlobalProps(d) {
   const status = getDesignStatus(d);
   const statusLabel = status==='green' ? '✅ Déployé et à jour' : status==='orange' ? '🟠 Modifié, non déployé' : '🔴 Handle Shopify manquant';
+
+  // Vérification URL — est-ce que design_url correspond au handle ?
+  let urlWarning = '';
+  if (d.shopify_handle && d.design_url) {
+    const expectedUrl = GITHUB_PAGES_BASE + d.shopify_handle + '.webp';
+    if (d.design_url !== expectedUrl) {
+      urlWarning = `<div style="margin-top:6px;padding:7px 9px;background:rgba(224,108,117,0.12);border:1px solid rgba(224,108,117,0.35);border-radius:var(--rsm);font-size:11px;color:#e06c75;">
+        ⚠️ L'URL de l'image ne correspond pas au handle.<br>
+        <span style="opacity:0.7">Attendu : …designs/${esc(d.shopify_handle)}.webp</span><br>
+        <button id="p-fix-url-inline" style="margin-top:5px;padding:3px 8px;background:rgba(224,108,117,0.18);border:1px solid rgba(224,108,117,0.5);border-radius:3px;color:#e06c75;cursor:pointer;font-family:'Jost',sans-serif;font-size:11px;">🔧 Corriger maintenant</button>
+      </div>`;
+    }
+  }
+
   document.getElementById('props-panel').innerHTML = `
     <div class="psection">
       <div class="psection-title">Design</div>
@@ -1439,6 +1455,7 @@ function renderGlobalProps(d) {
         <label>Fichier WebP</label>
         <div class="upload-area" id="p-upload">${d.design_url ? '<span style="color:var(--gold)">✓ Design chargé — cliquer pour changer</span>' : 'Cliquer pour uploader un WebP'}</div>
         <input type="file" id="p-webp" accept="image/webp,image/*" style="display:none">
+        ${urlWarning}
       </div>
     </div>
     <div class="psection">
@@ -1492,6 +1509,19 @@ function renderGlobalProps(d) {
     </div>
   `;
 
+  // Bouton correction URL inline dans le panneau
+  const fixInline = document.getElementById('p-fix-url-inline');
+  if (fixInline) {
+    fixInline.addEventListener('click', () => {
+      const expectedUrl = GITHUB_PAGES_BASE + d.shopify_handle + '.webp';
+      d.design_url = expectedUrl;
+      delete app.imgCache[d.id];
+      loadImg(d).then(()=>{ drawEditor(); update3D(); renderDesignList(); });
+      persist();
+      renderProps();
+    });
+  }
+
   renderSavedColors('palette-gobelet', hex => {
     d.gobelet_color = hex;
     document.getElementById('p-color').value = hex;
@@ -1523,7 +1553,6 @@ function renderGlobalProps(d) {
       uploadWebpToGitHub(d.id, base64, d.shopify_handle).then(url => {
         if (url) { d.design_url = url; persist(); renderProps(); }
         else {
-          // Fallback: garder en base64 si upload échoue
           console.warn('Upload GitHub échoué, image conservée en local');
         }
       });
@@ -2172,12 +2201,33 @@ function loadImg(d) {
   });
 }
 
+// ═══════════════════════════════════════════
+//  DUPLICATE DESIGN
+//  CORRECTION : réinitialise shopify_handle et design_url
+//  pour éviter que la copie pointe vers la mauvaise image
+// ═══════════════════════════════════════════
 function duplicateDesign(id) {
   const src=app.designs.find(d=>d.id===id); if(!src) return;
   const copy=JSON.parse(JSON.stringify(src));
-  copy.name='Copie de '+copy.name; copy.id=slugify(copy.name)+'-'+uid();
-  if (app.imgCache[id]) app.imgCache[copy.id]=app.imgCache[id];
-  app.designs.push(copy); persist(); selectDesign(copy.id);
+  copy.name = 'Copie de ' + copy.name;
+  copy.id   = slugify(copy.name) + '-' + uid();
+  // Réinitialiser obligatoirement le handle et l'URL image
+  // pour que la copie ne pointe pas vers l'image du design source
+  copy.shopify_handle = '';
+  copy.design_url     = null;
+  // Pas de imgCache pour la copie : l'image doit être uploadée manuellement
+  app.designs.push(copy);
+  persist();
+  selectDesign(copy.id);
+  // Avertissement clair pour l'admin
+  setTimeout(()=>{
+    alert(
+      '⚠️ Design dupliqué — ACTION REQUISE\n\n' +
+      '1. Définissez le Handle Shopify correct dans le panneau de droite\n' +
+      '2. Uploadez le bon fichier WebP via "Fichier WebP"\n\n' +
+      'Sans ces 2 étapes, ce design n\'aura pas d\'image sur le site.'
+    );
+  }, 300);
 }
 
 function onDesignChange() { drawEditor();update3D();renderDesignList();persist(); }
@@ -2479,6 +2529,55 @@ async function migrateImages() {
 }
 
 // ═══════════════════════════════════════════
+//  CORRIGER URLS — scanne tous les designs et
+//  corrige les design_url qui ne correspondent
+//  pas au shopify_handle
+// ═══════════════════════════════════════════
+async function fixDesignUrls() {
+  const broken = app.designs.filter(d => {
+    if (!d.shopify_handle || !d.design_url) return false;
+    const expected = GITHUB_PAGES_BASE + d.shopify_handle + '.webp';
+    return d.design_url !== expected;
+  });
+
+  if (!broken.length) {
+    alert('✅ Toutes les URLs sont déjà correctes !');
+    return;
+  }
+
+  const list = broken.map(d =>
+    `• ${d.name}\n  → Sera corrigé vers : designs/${d.shopify_handle}.webp`
+  ).join('\n\n');
+
+  if (!confirm(
+    `${broken.length} design(s) avec URL incorrecte détecté(s) :\n\n${list}\n\n` +
+    `Corriger automatiquement ?\n\n` +
+    `⚠️ Assurez-vous que les fichiers WebP correspondants existent bien sur GitHub avant de continuer.\n` +
+    `Après correction, pensez à Déployer.`
+  )) return;
+
+  broken.forEach(d => {
+    const expectedUrl = GITHUB_PAGES_BASE + d.shopify_handle + '.webp';
+    d.design_url = expectedUrl;
+    // Vider le cache image pour forcer le rechargement
+    delete app.imgCache[d.id];
+    loadImg(d);
+  });
+
+  persist();
+  renderDesignList();
+  renderProps();
+  drawEditor();
+
+  if (confirm(
+    `✅ ${broken.length} URL(s) corrigée(s) avec succès !\n\n` +
+    `Déployer maintenant sur GitHub pour sauvegarder ?`
+  )) {
+    deployDesign();
+  }
+}
+
+// ═══════════════════════════════════════════
 //  DEPLOY TO GITHUB
 // ═══════════════════════════════════════════
 async function deployDesign() {
@@ -2586,6 +2685,7 @@ document.getElementById('btn-save').addEventListener('click',()=>{
 });
 document.getElementById('btn-export').addEventListener('click',exportDesign);
 document.getElementById('btn-migrate').addEventListener('click',migrateImages);
+document.getElementById('btn-fix-urls').addEventListener('click',fixDesignUrls);
 document.getElementById('btn-deploy').addEventListener('click',deployDesign);
 document.getElementById('btn-import').addEventListener('click',()=>document.getElementById('import-file').click());
 document.getElementById('import-file').addEventListener('change',e=>{if(e.target.files[0])importDesign(e.target.files[0]);e.target.value='';});
