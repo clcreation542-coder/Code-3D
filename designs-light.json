@@ -10367,7 +10367,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 1,
+        "opacity": 0.95,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10376,6 +10376,13 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#000000",
+        "opacity": 0.9,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
