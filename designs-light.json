@@ -7345,7 +7345,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 1,
+        "opacity": 0.95,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -9225,7 +9225,7 @@
         "lineHeight": 1.5,
         "font_size": 48,
         "color": "#1f3f70",
-        "placeholder": "Texte ici",
+        "placeholder": "",
         "font_family": "Parisienne",
         "align": "center",
         "multiline": false,
@@ -9237,7 +9237,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1373,
-        "y": 54,
+        "y": 46,
         "width": 525,
         "height": 100,
         "shape": "rectangle",
@@ -10040,7 +10040,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 1,
+        "opacity": 0.95,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10442,7 +10442,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 1,
+        "opacity": 0.95,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10456,7 +10456,7 @@
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -10656,7 +10656,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 1,
+        "opacity": 0.95,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10670,7 +10670,7 @@
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f4e2ef"
       }
@@ -10926,7 +10926,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 1,
+        "opacity": 0.95,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -10940,7 +10940,7 @@
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#bc9c22"
       }
@@ -11128,7 +11128,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 1,
+        "opacity": 0.95,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -11480,7 +11480,7 @@
       {
         "name": "Translucide",
         "hex": "#f5f0eb",
-        "opacity": 1,
+        "opacity": 0.95,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -11492,9 +11492,9 @@
         "text_color_override": "#ffffff"
       },
       {
-        "name": "Couleur",
+        "name": "Noir",
         "hex": "#000000",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -11550,7 +11550,7 @@
         "lineHeight": 1.5,
         "font_size": 48,
         "color": "#000000",
-        "placeholder": "Texte ici",
+        "placeholder": "",
         "font_family": "Alegreya",
         "align": "center",
         "multiline": false,
