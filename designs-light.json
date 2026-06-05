@@ -10138,7 +10138,7 @@
     "name": "Gobelet Anniversaire - Pleine Lucarne",
     "shopify_handle": "gobelet-anniversaire-pleine-lucarne",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.5,
     "design_url": null,
@@ -10730,7 +10730,7 @@
     "name": "Gobelet Anniversaire - Passion Tracteur",
     "shopify_handle": "gobelet-anniversaire-passion-tracteur",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -11325,7 +11325,7 @@
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
