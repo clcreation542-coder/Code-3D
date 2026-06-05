@@ -9443,7 +9443,7 @@
     "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
-    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-doux-ourson-photo.webp",
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-couronne-azur-photo.webp",
     "design": {
       "x": 0,
       "y": 0,
@@ -11687,13 +11687,13 @@
     ],
     "photo_zones": [
       {
-        "id": "photo_mq17dq6wt2y3",
+        "id": "photo_mq188rwv70p2",
         "label": "Photo",
         "order": 1,
-        "x": 1459,
-        "y": 293,
+        "x": 1457,
+        "y": 296,
         "width": 295,
-        "height": 320,
+        "height": 316,
         "shape": "rectangle"
       }
     ],
