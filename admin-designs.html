@@ -1670,6 +1670,62 @@ function renderGlobalProps(d) {
     (d.arch_zones||[]).forEach(z=>drawArchTextWithStroke(z,ectx));
 
     const fileName=(d.name||'design').replace(/[^a-zA-Z0-9-_ ]/g,'').trim()+'-imprimeur.png';
+
+    /* Vérification avant téléchargement */
+    const fontStatuses = await Promise.all(families.map(async f => {
+      const loaded = await document.fonts.check(`48px "${f}"`);
+      return { name: f, ok: loaded };
+    }));
+    const colors = [...new Set([
+      ...(d.text_zones||[]).map(z=>z.color).filter(Boolean),
+      ...(d.arch_zones||[]).map(z=>z.color).filter(Boolean)
+    ])];
+
+    const confirmed = await new Promise(resolve => {
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99998;display:flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;';
+      const fontLines = fontStatuses.map(f =>
+        `<div style="display:flex;align-items:center;gap:8px;margin:3px 0;">
+          <span style="color:${f.ok?'#4caf50':'#e06c75'};font-size:16px;">${f.ok?'✅':'❌'}</span>
+          <span style="font-size:13px;color:#e8e0d0;">${f.name}</span>
+          <span style="font-size:11px;color:${f.ok?'#4caf50':'#e06c75'}">${f.ok?'Chargée':'Non chargée'}</span>
+        </div>`
+      ).join('');
+      const colorSwatches = colors.map(c =>
+        `<div style="display:inline-flex;align-items:center;gap:6px;margin:3px;">
+          <div style="width:18px;height:18px;border-radius:3px;background:${c};border:1px solid rgba(255,255,255,0.2);"></div>
+          <span style="font-size:12px;color:#e8e0d0;">${c}</span>
+        </div>`
+      ).join('');
+      overlay.innerHTML = `<div style="background:#151515;border:1px solid rgba(201,169,110,0.3);border-radius:16px;padding:28px;width:420px;max-height:80vh;overflow-y:auto;">
+        <div style="color:#c9a96e;font-size:16px;font-weight:700;margin-bottom:16px;text-align:center">📋 Vérification avant impression</div>
+        <div style="background:#1a1a1a;border-radius:8px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;color:rgba(201,169,110,0.7);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Polices calligraphiques</div>
+          ${fontLines || '<div style="color:#888;font-size:12px;">Aucune police spécifique</div>'}
+        </div>
+        <div style="background:#1a1a1a;border-radius:8px;padding:12px;margin-bottom:12px;">
+          <div style="font-size:11px;color:rgba(201,169,110,0.7);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Contour des lettres</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="color:#4caf50;font-size:16px;">✅</span>
+            <span style="font-size:13px;color:#e8e0d0;">Activé — épaisseur 2.5px (équivalent niveau 5)</span>
+          </div>
+        </div>
+        <div style="background:#1a1a1a;border-radius:8px;padding:12px;margin-bottom:16px;">
+          <div style="font-size:11px;color:rgba(201,169,110,0.7);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Couleurs détectées</div>
+          ${colorSwatches || '<div style="color:#888;font-size:12px;">Aucune couleur de texte</div>'}
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button id="png-cancel" style="flex:1;padding:10px;background:#2a2a2a;border:none;border-radius:8px;color:#e8e0d0;cursor:pointer;font-family:Jost,sans-serif;">Annuler</button>
+          <button id="png-ok" style="flex:2;padding:10px;background:linear-gradient(135deg,#c9a96e,#e8d5a3);border:none;border-radius:8px;color:#0d0d0d;font-weight:700;cursor:pointer;font-family:Jost,sans-serif;">📥 Télécharger le PNG</button>
+        </div>
+      </div>`;
+      document.body.appendChild(overlay);
+      document.getElementById('png-ok').onclick = () => { document.body.removeChild(overlay); resolve(true); };
+      document.getElementById('png-cancel').onclick = () => { document.body.removeChild(overlay); resolve(false); };
+    });
+
+    if (!confirmed) return;
+
     exportCanvas.toBlob(blob=>{
       const url=URL.createObjectURL(blob);
       const a=document.createElement('a');a.href=url;a.download=fileName;a.click();
@@ -2477,6 +2533,10 @@ async function deployDesign() {
     app.unsaved=false;
     const dot=document.getElementById('unsaved-dot');
     if(dot) dot.style.display='none';
+    /* Vider le cache localStorage pour forcer rechargement depuis GitHub */
+    localStorage.removeItem('kuztom_designs');
+    /* Recharger les designs depuis GitHub pour avoir les URLs à jour */
+    await loadDesignsFromGitHub();
     reset('success',`✅ Déployé ! (designs.json + designs-light.json)`,4000);
     renderDesignList();
     renderProps();
