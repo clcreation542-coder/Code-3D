@@ -9438,7 +9438,7 @@
   {
     "id": "copie-de-gobelet-anniversaire-couronne-azur-photo-mpzfxqjhqi5q",
     "name": "Gobelet Anniversaire - Doux Ourson Photo",
-    "shopify_handle": "gobelet-anniversaire-couronne-azur-photo",
+    "shopify_handle": "gobelet-anniversaire-doux-ourson-photo",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
@@ -9535,13 +9535,13 @@
     ],
     "photo_zones": [
       {
-        "id": "photo_mpypuln3byb0",
+        "id": "photo_mq17b8396p93",
         "label": "Photo",
         "order": 1,
-        "x": 1479,
-        "y": 308,
-        "width": 339,
-        "height": 506,
+        "x": 1452,
+        "y": 305,
+        "width": 391,
+        "height": 509,
         "shape": "rectangle"
       }
     ],
@@ -11687,13 +11687,13 @@
     ],
     "photo_zones": [
       {
-        "id": "photo_mpypuln3byb0",
+        "id": "photo_mq17dq6wt2y3",
         "label": "Photo",
         "order": 1,
-        "x": 1456,
-        "y": 294,
-        "width": 296,
-        "height": 319,
+        "x": 1459,
+        "y": 293,
+        "width": 295,
+        "height": 320,
         "shape": "rectangle"
       }
     ],
