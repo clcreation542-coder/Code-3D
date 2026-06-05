@@ -206,7 +206,7 @@
     "name": "Gobelet Mariage - Cercle Eucalyptus",
     "shopify_handle": "gobelet-mariage-cercle-eucalyptus",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -235,7 +235,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -307,7 +307,7 @@
     "name": "Gobelet Mariage - Bleu Royal & Or",
     "shopify_handle": "gobelet-mariage-bleu-royal-or",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -336,7 +336,7 @@
       {
         "name": "Noir",
         "hex": "#000000",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -749,7 +749,7 @@
     "name": "Gobelet Mariage - Couronne Citrons Amalfis",
     "shopify_handle": "gobelet-mariage-couronne-citrons-amalfis",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -778,7 +778,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fded1b"
       }
@@ -850,7 +850,7 @@
     "name": "Gobelet Mariage - Couronne d'Azur",
     "shopify_handle": "gobelet-mariage-couronne-dazur",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -879,7 +879,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1228,7 +1228,7 @@
     "name": "Gobelet Mariage - Cœur Géométrique & Roses",
     "shopify_handle": "gobelet-mariage-coeur-geometrique-roses",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -1257,7 +1257,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1329,7 +1329,7 @@
     "name": "Gobelet Mariage - Alliances Or Pur",
     "shopify_handle": "gobelet-mariage-alliances-or-pur",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.2,
     "design_url": null,
@@ -1358,7 +1358,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1449,7 +1449,7 @@
     "name": "Gobelet Mariage - Couronne de Plumes & Or",
     "shopify_handle": "gobelet-mariage-couronne-de-plumes-or",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -1478,7 +1478,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -1752,7 +1752,7 @@
     "name": "Gobelet Mariage - Alliances & Hiver Chic",
     "shopify_handle": "gobelet-mariage-alliances-hiver-chic",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.9,
     "design_url": null,
@@ -1781,7 +1781,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -1853,7 +1853,7 @@
     "name": "Gobelet Mariage - Arche Eucalyptus & Or",
     "shopify_handle": "gobelet-mariage-arche-eucalyptus-or",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -1882,7 +1882,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2194,7 +2194,7 @@
     "name": "Gobelet Mariage - Cœur Géométrique Fleuri",
     "shopify_handle": "gobelet-mariage-coeur-geometrique-fleuri",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -2223,7 +2223,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -2276,7 +2276,7 @@
     "name": "Gobelet Mariage - Arche Terracotta",
     "shopify_handle": "gobelet-mariage-arche-terracotta",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -2305,7 +2305,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fef6ec"
       }
@@ -2377,7 +2377,7 @@
     "name": "Gobelet Mariage - Citronnier Riviera",
     "shopify_handle": "gobelet-mariage-citronnier-riviera",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -2406,7 +2406,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f1e796"
       }
@@ -3589,7 +3589,7 @@
     "name": "Gobelet Mariage - Couronne d’Eucalyptus",
     "shopify_handle": "gobelet-mariage-couronne-eucalyptus",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.9,
     "design_url": null,
@@ -3618,7 +3618,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -3690,7 +3690,7 @@
     "name": "Gobelet Mariage - Couronne d'Or & Fleurs Champêtres",
     "shopify_handle": "gobelet-mariage-couronne-dor-fleurs-champetres",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -3719,7 +3719,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -3791,7 +3791,7 @@
     "name": "Gobelet Mariage - Brin de Nature Doré",
     "shopify_handle": "gobelet-mariage-brin-de-nature-dore",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.7,
     "design_url": null,
@@ -3820,7 +3820,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -3892,7 +3892,7 @@
     "name": "Gobelet Mariage - Couronne Automne Boisé & Coton",
     "shopify_handle": "gobelet-mariage-couronne-automne-boise-coton",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -3921,7 +3921,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#f0e1d1"
       }
@@ -3993,7 +3993,7 @@
     "name": "Gobelet Mariage - Citronnade Chic",
     "shopify_handle": "gobelet-mariage-citronnade-chic",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -4022,7 +4022,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -4094,7 +4094,7 @@
     "name": "Gobelet Mariage - Cercle d'Or & Roses Tendres",
     "shopify_handle": "gobelet-mariage-cercle-dor-roses-tendres",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -4123,7 +4123,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -4195,7 +4195,7 @@
     "name": "Gobelet Mariage - Baiser Romantique",
     "shopify_handle": "gobelet-mariage-baiser-romantique",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.9,
     "design_url": null,
@@ -4251,7 +4251,7 @@
     "name": "Gobelet Mariage - Automne Enchanté",
     "shopify_handle": "gobelet-mariage-automne-enchante",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 1.5,
     "design_url": null,
@@ -4280,7 +4280,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#d4bea3"
       }
@@ -4333,7 +4333,7 @@
     "name": "Gobelet Mariage - Automne Champêtre",
     "shopify_handle": "gobelet-mariage-automne-champetre",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.8,
     "design_url": null,
@@ -4362,7 +4362,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#fed1ad"
       }
@@ -4850,7 +4850,7 @@
     "name": "Gobelet Baptême - Roseraie",
     "shopify_handle": "gobelet-bapteme-roseraie",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -4879,7 +4879,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#e8e6e3"
       }
@@ -4894,7 +4894,7 @@
         "width": 432,
         "height": 115,
         "shape": "rectangle",
-        "lineHeight": 0.8,
+        "lineHeight": 1,
         "font_size": 57,
         "color": "#d55a7f",
         "placeholder": "BAPTÊME DE",
@@ -6119,7 +6119,7 @@
     "name": "Gobelet Baptême - Safari Enchanté",
     "shopify_handle": "gobelet-bapteme-safari-enchante",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.9,
     "design_url": null,
@@ -6148,7 +6148,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 0.881,
+        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#fed1ad"
       }
@@ -6201,7 +6201,7 @@
     "name": "Gobelet Baptême - Renard Majestueux",
     "shopify_handle": "gobelet-bapteme-renard-majestueux",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.6,
     "design_url": null,
@@ -6230,7 +6230,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
@@ -6243,7 +6243,7 @@
         "x": 1392,
         "y": 57,
         "width": 597,
-        "height": 152,
+        "height": 142,
         "shape": "rectangle",
         "lineHeight": 0.8,
         "font_size": 65,
@@ -7248,7 +7248,7 @@
     "name": "Gobelet Baptême - Sirène Enchantée",
     "shopify_handle": "gobelet-anniversaire-sirene-enchantee",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 1.4,
     "design_url": null,
@@ -7277,7 +7277,7 @@
       {
         "name": "Noir",
         "hex": "#090909",
-        "opacity": 1,
+        "opacity": 0.9,
         "force_text_color": true,
         "text_color_override": "#ffffff"
       }
