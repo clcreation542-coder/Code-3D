@@ -432,6 +432,9 @@ function saveDeployedHashes(h) { localStorage.setItem(DEPLOY_KEY, JSON.stringify
 
 function getDesignStatus(d) {
   if (!d.shopify_handle) return 'red';
+  // Détection doublon handle
+  const duplicate = app.designs.find(x => x.id !== d.id && x.shopify_handle && x.shopify_handle === d.shopify_handle);
+  if (duplicate) return 'red';
   const hashes = getDeployedHashes();
   if (!hashes[d.id]) return 'orange';
   return hashes[d.id] === designHash(d) ? 'green' : 'orange';
@@ -1456,7 +1459,12 @@ function renderGlobalProps(d) {
       <div class="field">
         <label>Handle Shopify</label>
         <input type="text" id="p-handle" value="${esc(d.shopify_handle||'')}" placeholder="ex: gobelet-mariage-eucalyptus">
-        <div class="handle-status" id="handle-status-msg" style="color:var(--muted)">${d.shopify_handle ? `<a href="https://kuztom.fr/products/${esc(d.shopify_handle)}" target="_blank" style="color:var(--gold)">→ Vérifier sur Shopify ↗</a>` : 'Saisissez un handle pour le vérifier'}</div>
+        <div class="handle-status" id="handle-status-msg" style="color:var(--muted)">${(()=>{
+          if (!d.shopify_handle) return 'Saisissez un handle pour le vérifier';
+          const dup = app.designs.find(x => x.id !== d.id && x.shopify_handle === d.shopify_handle);
+          if (dup) return `<span style="color:var(--danger)">❌ Handle en doublon avec : <strong>${esc(dup.name)}</strong></span>`;
+          return `<a href="https://kuztom.fr/products/${esc(d.shopify_handle)}" target="_blank" style="color:var(--gold)">→ Vérifier sur Shopify ↗</a>`;
+        })()}</div>
       </div>
       <div class="field">
         <label>Fichier WebP</label>
@@ -2719,10 +2727,33 @@ async function fixDesignUrls() {
 }
 
 // ═══════════════════════════════════════════
+//  DÉTECTION DOUBLONS HANDLES
+// ═══════════════════════════════════════════
+function detectHandleDoublons() {
+  const seen = {};
+  app.designs.forEach(d => {
+    if (!d.shopify_handle) return;
+    if (!seen[d.shopify_handle]) seen[d.shopify_handle] = [];
+    seen[d.shopify_handle].push(d.name);
+  });
+  return Object.entries(seen)
+    .filter(([handle, names]) => names.length > 1)
+    .map(([handle, names]) => ({ handle, names }));
+}
+
+// ═══════════════════════════════════════════
 //  DEPLOY TO GITHUB
 // ═══════════════════════════════════════════
 async function deployDesign() {
   if(!app.designs||!app.designs.length) return alert('Aucun design à déployer');
+
+  // Vérification doublons handles avant tout
+  const doublons = detectHandleDoublons();
+  if (doublons.length) {
+    const msg = doublons.map(g => `• "${g.handle}" :\n  - ${g.names.join('\n  - ')}`).join('\n\n');
+    alert('🚫 Déploiement bloqué — Handles en doublon :\n\n' + msg + '\n\nCorrigez ces doublons avant de déployer.');
+    return;
+  }
   const confirmed = await new Promise(resolve => {
     const overlay = document.createElement('div');
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99997;display:flex;align-items:center;justify-content:center;font-family:Jost,sans-serif;';
@@ -2819,6 +2850,13 @@ document.getElementById('btn-change-pwd').addEventListener('click', ()=>{
 });
 
 document.getElementById('btn-save').addEventListener('click',()=>{
+  // Vérification doublons handles avant sauvegarde
+  const doublons = detectHandleDoublons();
+  if (doublons.length) {
+    const msg = doublons.map(g => `• Handle "${g.handle}" utilisé par :\n  - ${g.names.join('\n  - ')}`).join('\n\n');
+    alert('⚠️ Handles Shopify en doublon détectés :\n\n' + msg + '\n\nCorrigez ces doublons avant de sauvegarder.');
+    return;
+  }
   save();
   const btn=document.getElementById('btn-save');
   btn.textContent='✓ Sauvegardé';btn.classList.add('saved');
