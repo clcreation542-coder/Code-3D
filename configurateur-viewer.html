@@ -229,7 +229,9 @@ function drawTexture() {
   // 2. WebP du design PAR-DESSUS les photos
   if (state.designImage) {
     const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
-    ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
+    // Toujours dessiner sur toute la surface TEX_W×TEX_H
+    // Les anciens designs ont width:2000 height:1024 dans le JSON — on ignore ces valeurs
+    ctx2d.drawImage(state.designImage, d.x||0, d.y||0, TEX_W, TEX_H);
   }
 
   // 3. Textes au-dessus de tout
