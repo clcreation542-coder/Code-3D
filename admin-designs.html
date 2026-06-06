@@ -2780,7 +2780,7 @@ async function deployDesign() {
   const normalizeVariant=v=>({name:v.name||'',hex:v.hex||'#ffffff',opacity:v.opacity??1,force_text_color:v.force_text_color||false,text_color_override:v.text_color_override||'#ffffff'});
   const allDesigns=app.designs.map(d=>({id:d.id||'',name:d.name||'',shopify_handle:d.shopify_handle||'',gobelet_color:d.gobelet_color||'#ffffff',gobelet_opacity:d.gobelet_opacity??0.88,model_url:d.model_url||null,rotation_y:d.rotation_y??0,design_url:d.design_url||null,design:d.design||null,active:d.active!==false,variant_colors:(d.variant_colors||[]).map(normalizeVariant),text_zones:(d.text_zones||[]).map(normalizeTextZone),photo_zones:(d.photo_zones||[]).map(normalizePhotoZone),arch_zones:(d.arch_zones||[]).map(normalizeArchZone)}));
   const content=btoa(unescape(encodeURIComponent(JSON.stringify(allDesigns,null,2))));
-  const lightDesigns=allDesigns.map(d=>({...d,design_url:null}));
+  const lightDesigns=allDesigns.map(d=>({...d,design_url:d.design_url&&!d.design_url.startsWith('data:')?d.design_url:null}));
   const contentLight=btoa(unescape(encodeURIComponent(JSON.stringify(lightDesigns,null,2))));
 
   async function ghPush(filename, fileContent, msg) {
