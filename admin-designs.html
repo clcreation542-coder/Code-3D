@@ -647,7 +647,8 @@ function drawEditor() {
   const img = app.imgCache[d.id];
   if (img) {
     const di = d.design||{x:0,y:0,width:TEX_W,height:TEX_H};
-    ctx.drawImage(img, di.x, di.y, di.width, di.height);
+    // Forcer les bonnes dimensions — les anciens designs ont width:2000 height:1024
+    ctx.drawImage(img, di.x||0, di.y||0, TEX_W, TEX_H);
   } else {
     ctx.fillStyle='rgba(255,255,255,0.04)'; ctx.fillRect(0,0,TEX_W,TEX_H);
     ctx.fillStyle='rgba(255,255,255,0.22)'; ctx.font='44px Jost'; ctx.textAlign='center';
@@ -1627,9 +1628,9 @@ function renderGlobalProps(d) {
     ectx.clearRect(0,0,W,H);
     const img = app.imgCache[d.id];
     if(img) {
-      const di = d.design||{x:0,y:0,width:2000,height:1024};
-      const scaleX=W/2000, scaleY=H/1024;
-      ectx.drawImage(img, di.x*scaleX, di.y*scaleY, di.width*scaleX, di.height*scaleY);
+      const di = d.design||{x:0,y:0,width:TEX_W,height:TEX_H};
+      const scaleX=W/TEX_W, scaleY=H/TEX_H;
+      ectx.drawImage(img, (di.x||0)*scaleX, (di.y||0)*scaleY, W, H);
     }
     const scaleX=W/2000, scaleY=H/1024;
     const STROKE_WIDTH = 2.5; /* Épaisseur contour — équivalent niveau 5 Canva */
@@ -2417,7 +2418,7 @@ function update3D() {
     const img=app.imgCache[d.id];
     if (img) {
       const di=d.design||{x:0,y:0,width:TEX_W,height:TEX_H};
-      ptexCtx.drawImage(img,di.x,di.y,di.width,di.height);
+      ptexCtx.drawImage(img,di.x||0,di.y||0,TEX_W,TEX_H);
     }
     (d.text_zones||[]).forEach(z=>{
       const lh=z.lineHeight||1.3;
