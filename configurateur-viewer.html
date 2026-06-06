@@ -262,9 +262,9 @@ function drawTexture() {
 
 async function loadDesignConfig() {
   if (!designName) return;
-  // designs-light.json : sans base64, beaucoup plus léger
-  // Pas de ?t=Date.now() — le cache HTTP de GitHub Pages fait son travail
-  const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs-light.json';
+  // designs.json : contient les design_url (URLs GitHub Pages, pas de base64)
+  // designs-light.json ne contient pas les design_url — ne pas l'utiliser ici
+  const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
