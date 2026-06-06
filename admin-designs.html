@@ -294,16 +294,23 @@ input[type="color"] { width:34px; height:28px; padding:2px; border-radius:var(--
 </div>
 <div id="modal-overlay">
   <div id="modal">
-    <h2>Nouveau design</h2>
+    <h2 id="modal-title">Nouveau design</h2>
     <div class="field"><label>Nom du design</label><input type="text" id="modal-name" placeholder="Ex : Baptême Bohème"></div>
     <div class="field">
-      <label>Couleur gobelet</label>
-      <div class="color-row"><input type="color" id="modal-color" value="#f5f0eb"><input type="text" id="modal-color-hex" value="#f5f0eb"></div>
+      <label>Handle Shopify <span style="color:var(--danger)">*</span></label>
+      <input type="text" id="modal-handle" placeholder="ex: gobelet-mariage-eucalyptus" style="font-family:monospace;font-size:12px;">
+      <div id="modal-handle-status" style="font-size:11px;margin-top:3px;min-height:16px;"></div>
     </div>
-    <div class="field">
-      <label>Design WebP (optionnel)</label>
-      <div class="upload-area" id="modal-upload-area">Cliquez pour choisir un fichier WebP</div>
-      <input type="file" id="modal-webp-file" accept="image/webp,image/*" style="display:none">
+    <div id="modal-new-only">
+      <div class="field">
+        <label>Couleur gobelet</label>
+        <div class="color-row"><input type="color" id="modal-color" value="#f5f0eb"><input type="text" id="modal-color-hex" value="#f5f0eb"></div>
+      </div>
+      <div class="field">
+        <label>Design WebP (optionnel)</label>
+        <div class="upload-area" id="modal-upload-area">Cliquez pour choisir un fichier WebP</div>
+        <input type="file" id="modal-webp-file" accept="image/webp,image/*" style="display:none">
+      </div>
     </div>
     <div class="modal-actions">
       <button class="btn-secondary" id="modal-cancel">Annuler</button>
@@ -1533,7 +1540,17 @@ function renderGlobalProps(d) {
   on('p-handle', 'input', v => {
     d.shopify_handle=v; persist();
     const msg=document.getElementById('handle-status-msg');
-    if (msg) msg.innerHTML = v ? `<a href="https://kuztom.fr/products/${esc(v)}" target="_blank" style="color:var(--gold)">→ Vérifier sur Shopify ↗</a>` : 'Saisissez un handle pour le vérifier';
+    if (!msg) return;
+    if (!v) { msg.innerHTML = 'Saisissez un handle pour le vérifier'; msg.style.color=''; return; }
+    // Détection doublon
+    const duplicate = app.designs.find(x => x.id !== d.id && x.shopify_handle && x.shopify_handle === v);
+    if (duplicate) {
+      msg.innerHTML = '❌ Handle déjà utilisé par : <strong style="color:var(--danger)">' + esc(duplicate.name) + '</strong>';
+      msg.style.color = 'var(--danger)';
+    } else {
+      msg.innerHTML = `<a href="https://kuztom.fr/products/${esc(v)}" target="_blank" style="color:var(--gold)">→ Vérifier sur Shopify ↗</a>`;
+      msg.style.color = '';
+    }
     renderDesignList();
   });
   on('p-color',  'input', v => { d.gobelet_color=v; document.getElementById('p-hex').value=v; addRecentColor(v); onDesignChange(); });
@@ -2208,26 +2225,63 @@ function loadImg(d) {
 // ═══════════════════════════════════════════
 function duplicateDesign(id) {
   const src=app.designs.find(d=>d.id===id); if(!src) return;
-  const copy=JSON.parse(JSON.stringify(src));
-  copy.name = 'Copie de ' + copy.name;
-  copy.id   = slugify(copy.name) + '-' + uid();
-  // Réinitialiser obligatoirement le handle et l'URL image
-  // pour que la copie ne pointe pas vers l'image du design source
-  copy.shopify_handle = '';
-  copy.design_url     = null;
-  // Pas de imgCache pour la copie : l'image doit être uploadée manuellement
-  app.designs.push(copy);
-  persist();
-  selectDesign(copy.id);
-  // Avertissement clair pour l'admin
-  setTimeout(()=>{
-    alert(
-      '⚠️ Design dupliqué — ACTION REQUISE\n\n' +
-      '1. Définissez le Handle Shopify correct dans le panneau de droite\n' +
-      '2. Uploadez le bon fichier WebP via "Fichier WebP"\n\n' +
-      'Sans ces 2 étapes, ce design n\'aura pas d\'image sur le site.'
-    );
-  }, 300);
+  // Ouvrir la popup de duplication pour demander nom + handle AVANT de créer
+  openDuplicateModal(src);
+}
+
+function openDuplicateModal(src) {
+  const overlay = document.getElementById('modal-overlay');
+  const titleEl = document.getElementById('modal-title');
+  const nameEl  = document.getElementById('modal-name');
+  const handleEl= document.getElementById('modal-handle');
+  const statusEl= document.getElementById('modal-handle-status');
+  const newOnly = document.getElementById('modal-new-only');
+  const createBtn= document.getElementById('modal-create');
+
+  // Mode duplication : cacher les champs couleur/webp
+  titleEl.textContent = '⧉ Dupliquer — ' + src.name;
+  newOnly.style.display = 'none';
+  nameEl.value = '';
+  handleEl.value = '';
+  statusEl.textContent = '';
+  createBtn.textContent = 'Dupliquer';
+
+  // Stocker la source dans une variable temporaire
+  app._dupSrc = src;
+  app._modalMode = 'dup';
+
+  overlay.classList.add('open');
+  setTimeout(()=>nameEl.focus(), 50);
+}
+
+function handleDuplicateHandleInput() {
+  const handleEl = document.getElementById('modal-handle');
+  const statusEl = document.getElementById('modal-handle-status');
+  const val = handleEl.value.trim();
+  if (!val) { statusEl.textContent=''; return; }
+  // Vérifier doublon
+  const existing = app.designs.find(d => d.shopify_handle && d.shopify_handle === val);
+  if (existing) {
+    statusEl.innerHTML = '❌ Handle déjà utilisé par : <strong style="color:var(--danger)">' + esc(existing.name) + '</strong>';
+  } else {
+    statusEl.innerHTML = '✅ Handle disponible';
+    statusEl.style.color = '#4caf50';
+  }
+}
+
+function handleNewHandleInput() {
+  const handleEl = document.getElementById('modal-handle');
+  const statusEl = document.getElementById('modal-handle-status');
+  const val = handleEl.value.trim();
+  if (!val) { statusEl.textContent=''; return; }
+  const existing = app.designs.find(d => d.shopify_handle && d.shopify_handle === val);
+  if (existing) {
+    statusEl.innerHTML = '❌ Handle déjà utilisé par : <strong style="color:var(--danger)">' + esc(existing.name) + '</strong>';
+    statusEl.style.color = 'var(--danger)';
+  } else {
+    statusEl.innerHTML = '✅ Handle disponible';
+    statusEl.style.color = '#4caf50';
+  }
 }
 
 function onDesignChange() { drawEditor();update3D();renderDesignList();persist(); }
@@ -2394,16 +2448,38 @@ function update3D() {
 // ═══════════════════════════════════════════
 let modalWebp=null;
 document.getElementById('btn-new').addEventListener('click',()=>{
+  const overlay = document.getElementById('modal-overlay');
+  const titleEl = document.getElementById('modal-title');
+  const nameEl  = document.getElementById('modal-name');
+  const handleEl= document.getElementById('modal-handle');
+  const statusEl= document.getElementById('modal-handle-status');
+  const newOnly = document.getElementById('modal-new-only');
+  const createBtn= document.getElementById('modal-create');
   modalWebp=null;
-  document.getElementById('modal-name').value='';
+  titleEl.textContent = 'Nouveau design';
+  newOnly.style.display = '';
+  nameEl.value='';
+  handleEl.value='';
+  statusEl.textContent='';
+  createBtn.textContent = 'Créer';
   document.getElementById('modal-color').value='#f5f0eb';
   document.getElementById('modal-color-hex').value='#f5f0eb';
   document.getElementById('modal-upload-area').textContent='Cliquez pour choisir un fichier WebP';
-  document.getElementById('modal-overlay').classList.add('open');
-  setTimeout(()=>document.getElementById('modal-name').focus(),50);
+  app._modalMode = 'new';
+  app._dupSrc = null;
+  overlay.classList.add('open');
+  setTimeout(()=>nameEl.focus(),50);
 });
-document.getElementById('modal-cancel').addEventListener('click',()=>document.getElementById('modal-overlay').classList.remove('open'));
-document.getElementById('modal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('modal-overlay'))document.getElementById('modal-overlay').classList.remove('open');});
+document.getElementById('modal-cancel').addEventListener('click',()=>{
+  document.getElementById('modal-overlay').classList.remove('open');
+  app._modalMode=null; app._dupSrc=null;
+});
+document.getElementById('modal-overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modal-overlay')){
+    document.getElementById('modal-overlay').classList.remove('open');
+    app._modalMode=null; app._dupSrc=null;
+  }
+});
 document.getElementById('modal-color').addEventListener('input',e=>document.getElementById('modal-color-hex').value=e.target.value);
 document.getElementById('modal-color-hex').addEventListener('input',e=>{if(/^#[0-9a-f]{6}$/i.test(e.target.value))document.getElementById('modal-color').value=e.target.value;});
 document.getElementById('modal-upload-area').addEventListener('click',()=>document.getElementById('modal-webp-file').click());
@@ -2413,17 +2489,82 @@ document.getElementById('modal-webp-file').addEventListener('change',e=>{
   r.onload=ev=>{modalWebp=ev.target.result;document.getElementById('modal-upload-area').innerHTML=`<span style="color:var(--gold)">✓ ${esc(f.name)}</span>`;};
   r.readAsDataURL(f);
 });
-document.getElementById('modal-create').addEventListener('click',()=>{
-  const name=document.getElementById('modal-name').value.trim();
-  if(!name){document.getElementById('modal-name').focus();return;}
-  const color=document.getElementById('modal-color').value;
-  const d=newDesign(name,color,modalWebp);
-  app.designs.push(d);
-  if(modalWebp){loadImg(d).then(()=>{persist();selectDesign(d.id);renderDesignList();});}
-  else{persist();selectDesign(d.id);renderDesignList();}
-  document.getElementById('modal-overlay').classList.remove('open');
+
+// Validation handle en temps réel (doublon)
+document.getElementById('modal-handle').addEventListener('input', ()=>{
+  const val = document.getElementById('modal-handle').value.trim();
+  const statusEl = document.getElementById('modal-handle-status');
+  if (!val) { statusEl.textContent=''; return; }
+  const existing = app.designs.find(d => d.shopify_handle && d.shopify_handle === val);
+  if (existing) {
+    statusEl.innerHTML = '❌ Déjà utilisé par : <strong style="color:var(--danger)">' + esc(existing.name) + '</strong>';
+    statusEl.style.color = 'var(--danger)';
+  } else {
+    statusEl.innerHTML = '✅ Handle disponible';
+    statusEl.style.color = '#4caf50';
+  }
 });
-document.getElementById('modal-name').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('modal-create').click();});
+
+// Auto-générer le handle depuis le nom
+document.getElementById('modal-name').addEventListener('input', ()=>{
+  const nameEl = document.getElementById('modal-name');
+  const handleEl = document.getElementById('modal-handle');
+  // Seulement si l'utilisateur n'a pas encore tapé de handle manuellement
+  if (!handleEl.dataset.manualEdit) {
+    const generated = slugify(nameEl.value);
+    handleEl.value = generated;
+    handleEl.dispatchEvent(new Event('input'));
+  }
+});
+document.getElementById('modal-handle').addEventListener('keydown', ()=>{
+  document.getElementById('modal-handle').dataset.manualEdit = '1';
+});
+
+document.getElementById('modal-create').addEventListener('click',()=>{
+  const name   = document.getElementById('modal-name').value.trim();
+  const handle = document.getElementById('modal-handle').value.trim();
+  if(!name){ document.getElementById('modal-name').focus(); return; }
+  if(!handle){ document.getElementById('modal-handle').focus(); return; }
+  // Bloquer si handle en doublon
+  const existing = app.designs.find(d => d.shopify_handle && d.shopify_handle === handle);
+  if(existing){
+    const statusEl = document.getElementById('modal-handle-status');
+    statusEl.innerHTML = '❌ Ce handle est déjà utilisé par : <strong>' + esc(existing.name) + '</strong>. Choisissez-en un autre.';
+    statusEl.style.color = 'var(--danger)';
+    document.getElementById('modal-handle').focus();
+    return;
+  }
+
+  if(app._modalMode === 'dup' && app._dupSrc) {
+    // Mode duplication
+    const src = app._dupSrc;
+    const copy = JSON.parse(JSON.stringify(src));
+    copy.name           = name;
+    copy.shopify_handle = handle;
+    copy.id             = slugify(name) + '-' + uid();
+    copy.design_url     = null; // Pas d'image — doit être uploadée
+    delete app.imgCache[copy.id];
+    app.designs.push(copy);
+    persist();
+    selectDesign(copy.id);
+    document.getElementById('modal-overlay').classList.remove('open');
+    app._modalMode=null; app._dupSrc=null;
+    delete document.getElementById('modal-handle').dataset.manualEdit;
+  } else {
+    // Mode nouveau design
+    const color=document.getElementById('modal-color').value;
+    const d=newDesign(name,color,modalWebp);
+    d.shopify_handle = handle;
+    app.designs.push(d);
+    if(modalWebp){loadImg(d).then(()=>{persist();selectDesign(d.id);renderDesignList();});}
+    else{persist();selectDesign(d.id);renderDesignList();}
+    document.getElementById('modal-overlay').classList.remove('open');
+    app._modalMode=null;
+    delete document.getElementById('modal-handle').dataset.manualEdit;
+  }
+});
+document.getElementById('modal-name').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('modal-handle').focus();});
+document.getElementById('modal-handle').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('modal-create').click();});
 
 async function uploadWebpToGitHub(designId, base64DataUrl, shopifyHandle) {
   try {
