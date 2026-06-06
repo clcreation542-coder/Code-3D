@@ -6,93 +6,20 @@
   <title>Viewer Gobelet — Kuztom</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #a8a5a1;
-    }
-
-    #viewer {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-
-    #canvas-container {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      overflow: hidden;
-      background: #a8a5a1;
-    }
-
-    #canvas-container canvas {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    #loading-indicator {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: #efefed;
-      z-index: 5;
-      transition: opacity 400ms ease;
-    }
-
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #a8a5a1; }
+    #viewer { width: 100%; height: 100%; position: relative; }
+    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: #a8a5a1; }
+    #canvas-container canvas { display: block; position: absolute; top: 0; left: 0; }
+    #loading-indicator { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: #efefed; z-index: 5; transition: opacity 400ms ease; }
     #loading-indicator.hidden { opacity: 0; pointer-events: none; }
-
-    .loading-ring {
-      width: 32px;
-      height: 32px;
-      border: 1.5px solid #e0ddd8;
-      border-top-color: #c9a96e;
-      border-radius: 50%;
-      animation: spin 900ms linear infinite;
-    }
-
-    .loading-text {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #aaa;
-      font-family: 'Inter', sans-serif;
-    }
-
+    .loading-ring { width: 32px; height: 32px; border: 1.5px solid #e0ddd8; border-top-color: #c9a96e; border-radius: 50%; animation: spin 900ms linear infinite; }
+    .loading-text { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; font-family: 'Inter', sans-serif; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    #error-msg {
-      display: none;
-      position: absolute;
-      inset: 0;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: #888;
-      text-align: center;
-      padding: 24px;
-      background: #efefed;
-      z-index: 10;
-    }
+    #error-msg { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; flex-direction: column; gap: 12px; font-family: 'Inter', sans-serif; font-size: 13px; color: #888; text-align: center; padding: 24px; background: #efefed; z-index: 10; }
     #error-msg.visible { display: flex; }
   </style>
 </head>
 <body>
-
 <div id="viewer">
   <div id="canvas-container">
     <div id="loading-indicator">
@@ -105,19 +32,22 @@
     <span id="error-text">Design introuvable.</span>
   </div>
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
-
 <script>
 const params     = new URLSearchParams(window.location.search);
 const designName = params.get('design') || '';
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
-const forcedW    = parseInt(params.get('w')) || 0;
-const forcedH    = parseInt(params.get('h')) || 0;
 
-function getSize(container) {
+// ═══════════════════════════════════════════
+//  DIMENSIONS UNIFIÉES — alignées sur les WebP réels 1970x1140
+//  Identiques dans admin-designs.html, configurateur-viewer.html
+//  et PNG imprimeur. Ne jamais modifier sans modifier les 3.
+// ═══════════════════════════════════════════
+const TEX_W = 1970, TEX_H = 1140;
+
+function getSize() {
   var w = window.innerWidth || 375;
   return { w: w, h: w };
 }
@@ -127,21 +57,18 @@ let CFG = {
   gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
   rotation_y: 0, model_url: null,
   design_url: null,
-  design: { x: 0, y: 0, width: 2000, height: 1024 },
-  variant_colors: [], text_zones: [], photo_zones: []
+  design: { x: 0, y: 0, width: TEX_W, height: TEX_H },
+  variant_colors: [], text_zones: [], photo_zones: [], arch_zones: []
 };
 
 const state = {
-  texts:        {},
-  photos:       {},
-  photoCrop:    {}, /* {zoneId: {zoom, offsetX, offsetY}} */
-  activeCropZone: null, /* zone en cours de crop */
+  texts: {}, photos: {}, photoCrop: {},
+  activeCropZone: null,
   gobeletColor: '#f5f0eb',
-  designImage:  null,
-  fontsReady:   false,
+  designImage: null,
+  fontsReady: false,
 };
 
-const TEX_W = 2000, TEX_H = 1024;
 const textureCanvas  = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
 textureCanvas.height = TEX_H;
@@ -235,30 +162,20 @@ function drawArchZone(zone, text) {
 function drawPhotoPlaceholder(zone) {
   const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
   ctx2d.save();
-  /* Fond blanc semi-transparent */
   ctx2d.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx2d.beginPath();
-  ctx2d.rect(zx, zy, zw, zh);
-  ctx2d.fill();
-  /* Bordure pointillée */
+  ctx2d.beginPath(); ctx2d.rect(zx, zy, zw, zh); ctx2d.fill();
   ctx2d.strokeStyle = 'rgba(180,180,180,0.8)';
-  ctx2d.lineWidth = 3;
-  ctx2d.setLineDash([12, 8]);
-  ctx2d.stroke();
-  ctx2d.setLineDash([]);
-  /* Icône photo au centre */
+  ctx2d.lineWidth = 3; ctx2d.setLineDash([12, 8]); ctx2d.stroke(); ctx2d.setLineDash([]);
   const cx = zx + zw/2, cy = zy + zh/2;
   const iconSize = Math.min(zw, zh) * 0.35;
   ctx2d.fillStyle = 'rgba(160,160,160,0.7)';
   ctx2d.font = `${iconSize}px Arial`;
-  ctx2d.textAlign = 'center';
-  ctx2d.textBaseline = 'middle';
-  ctx2d.fillText('📷', cx, cy - iconSize*0.15);
-  /* Texte "Votre photo" */
+  ctx2d.textAlign = 'center'; ctx2d.textBaseline = 'middle';
+  ctx2d.fillText('📷', cx, cy - iconSize * 0.15);
   const fontSize = Math.min(zw, zh) * 0.1;
   ctx2d.font = `${fontSize}px Jost, sans-serif`;
   ctx2d.fillStyle = 'rgba(120,120,120,0.9)';
-  ctx2d.fillText('Votre photo', cx, cy + iconSize*0.6);
+  ctx2d.fillText('Votre photo', cx, cy + iconSize * 0.6);
   ctx2d.restore();
 }
 
@@ -273,9 +190,7 @@ function drawPhotoZone(zone, img) {
   const ox = zx + (zw - sw) / 2 + crop.offsetX;
   const oy = zy + (zh - sh) / 2 + crop.offsetY;
   ctx2d.save();
-  ctx2d.beginPath();
-  ctx2d.rect(zx, zy, zw, zh);
-  ctx2d.clip();
+  ctx2d.beginPath(); ctx2d.rect(zx, zy, zw, zh); ctx2d.clip();
   ctx2d.drawImage(img, ox, oy, sw, sh);
   ctx2d.restore();
 }
@@ -284,84 +199,84 @@ function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
   const isSolid = (op === 0);
-
   if (isSolid) {
-    /* Opacité 0 = gobelet blanc 100% opaque */
     ctx2d.globalAlpha = 1;
     ctx2d.fillStyle   = '#ffffff';
     ctx2d.fillRect(0, 0, TEX_W, TEX_H);
     if (bodyMaterial) {
-      bodyMaterial.transparent = false;
-      bodyMaterial.opacity     = 1;
-      bodyMaterial.depthWrite  = true;
-      bodyMaterial.needsUpdate = true;
+      bodyMaterial.transparent = false; bodyMaterial.opacity = 1;
+      bodyMaterial.depthWrite = true; bodyMaterial.needsUpdate = true;
     }
   } else {
-    /* Opacité > 0 = gobelet translucide normal */
     ctx2d.globalAlpha = op;
     ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
     ctx2d.fillRect(0, 0, TEX_W, TEX_H);
     if (bodyMaterial) {
-      bodyMaterial.transparent = true;
-      bodyMaterial.opacity     = 0.82;
-      bodyMaterial.depthWrite  = false;
-      bodyMaterial.alphaTest   = 0;
-      bodyMaterial.needsUpdate = true;
+      bodyMaterial.transparent = true; bodyMaterial.opacity = 0.82;
+      bodyMaterial.depthWrite = false; bodyMaterial.alphaTest = 0; bodyMaterial.needsUpdate = true;
     }
   }
-
   ctx2d.globalAlpha = 1.0;
   ctx2d.globalCompositeOperation = 'source-over';
-  /* 1. Photos client EN PREMIER (sous le WebP) */
+
+  // 1. Photos client EN PREMIER (sous le WebP)
   (CFG.photo_zones || []).forEach(zone => {
     const img = state.photos[zone.id];
-    if (img) {
-      drawPhotoZone(zone, img);
-    } else {
-      drawPhotoPlaceholder(zone);
-    }
+    if (img) drawPhotoZone(zone, img);
+    else drawPhotoPlaceholder(zone);
   });
-  /* 2. WebP du design PAR-DESSUS les photos */
+
+  // 2. WebP du design PAR-DESSUS les photos
   if (state.designImage) {
     const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
     ctx2d.drawImage(state.designImage, d.x, d.y, d.width, d.height);
   }
-  /* 3. Textes au-dessus de tout */
+
+  // 3. Textes au-dessus de tout
   (CFG.text_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     drawTextZone(zone, txt);
   });
-  /* 4. Zones arche */
+
+  // 4. Zones arche
   (CFG.arch_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     if (txt && txt.trim()) drawArchZone(zone, txt);
   });
-    if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
-  /* Envoyer infos zones au parent pour line item properties */
-  var zoneInfos = (CFG.text_zones||[]).map(function(zone){
-    var txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'');
+
+  if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
+
+  // Envoyer infos zones au parent pour line item properties
+  var zoneInfos = (CFG.text_zones || []).map(function(zone) {
+    var txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     return {
-      id: zone.id,
-      label: zone.label || zone.id,
+      id: zone.id, label: zone.label || zone.id,
       fontSize: getFontSize(zone, txt || 'A'),
       lineCount: txt ? txt.split('\n').length : 0
     };
   });
   if (window.parent && zoneInfos.length) {
-    window.parent.postMessage({ type:'kuztom_zone_info', zones: zoneInfos }, '*');
+    window.parent.postMessage({ type: 'kuztom_zone_info', zones: zoneInfos }, '*');
   }
 }
 
 async function loadDesignConfig() {
   if (!designName) return;
-  const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json?t=' + Date.now();
+  // designs-light.json : sans base64, beaucoup plus léger
+  // Pas de ?t=Date.now() — le cache HTTP de GitHub Pages fait son travail
+  const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs-light.json';
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const designs = await res.json();
-    const data = Array.isArray(designs) ? (designs.find(d => d.shopify_handle === designName) || designs.find(d => d.id === designName)) : null;
-    if (!data) throw new Error('design non trouvé dans designs.json');
+    // Recherche par id en priorité (plus fiable), puis par shopify_handle
+    const data = Array.isArray(designs)
+      ? (designs.find(d => d.id === designName) || designs.find(d => d.shopify_handle === designName))
+      : null;
+    if (!data) throw new Error('design non trouvé');
     CFG = data;
+    // Assurer les bonnes dimensions
+    if (!CFG.design) CFG.design = { x: 0, y: 0, width: TEX_W, height: TEX_H };
     state.gobeletColor = CFG.gobelet_color || '#f5f0eb';
     (CFG.text_zones || []).forEach(z => { state.texts[z.id] = z.placeholder || ''; });
     (CFG.arch_zones || []).forEach(z => { state.texts[z.id] = ''; });
@@ -371,12 +286,15 @@ async function loadDesignConfig() {
 }
 
 async function loadFonts() {
-  const families = [...new Set((CFG.text_zones || []).map(z => z.font_family).filter(Boolean))];
+  const families = [...new Set([
+    ...(CFG.text_zones || []).map(z => z.font_family),
+    ...(CFG.arch_zones || []).map(z => z.font_family)
+  ].filter(Boolean))];
   if (!families.length) { state.fontsReady = true; return; }
   await new Promise(resolve => {
-    const link  = document.createElement('link');
-    link.rel    = 'stylesheet';
-    link.href   = 'https://fonts.googleapis.com/css2?display=swap&family=' +
+    const link = document.createElement('link');
+    link.rel   = 'stylesheet';
+    link.href  = 'https://fonts.googleapis.com/css2?display=swap&family=' +
       families.map(f => f.replace(/ /g, '+')).join('&family=') + '&display=swap';
     link.onload  = resolve;
     link.onerror = resolve;
@@ -410,10 +328,8 @@ function loadDesignImage() {
       img.src = CFG.design_url;
     } else {
       let url = CFG.design_url;
-      if (!url.startsWith('http') && !url.startsWith('//')) {
-        url = REPO_BASE + '/' + url.replace(/^\//, '');
-      }
-      img.src = url + (url.includes('?') ? '&' : '?') + '_v=' + Date.now();
+      if (!url.startsWith('http') && !url.startsWith('//')) url = REPO_BASE + '/' + url.replace(/^\//, '');
+      img.src = url;
     }
   });
 }
@@ -425,9 +341,8 @@ let rotY = Math.PI;
 
 function initThree() {
   const container = document.getElementById('canvas-container');
-  var size = getSize(container);
+  var size = getSize();
   var w = size.w, h = size.h;
-
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
@@ -435,105 +350,69 @@ function initThree() {
   renderer.shadowMap.enabled = true;
   renderer.domElement.style.display = 'block';
   container.appendChild(renderer.domElement);
-
   scene = new THREE.Scene();
 
-  /* ── Fond avec dégradé + lignes de perspective ─────────────────
-     Les lignes sont dessinées directement dans le canvas de fond
-     Three.js → naturellement derrière le gobelet, aucun z-index,
-     aucun risque Android. ──────────────────────────────────────── */
-  const bgCanvas  = document.createElement('canvas');
-  bgCanvas.width  = bgCanvas.height = 512;
-  const bgCtx     = bgCanvas.getContext('2d');
-
-  /* Dégradé radial — gris chaud professionnel */
-  const gradient  = bgCtx.createRadialGradient(256, 256, 0, 256, 256, 380);
+  const bgCanvas = document.createElement('canvas');
+  bgCanvas.width = bgCanvas.height = 512;
+  const bgCtx    = bgCanvas.getContext('2d');
+  const gradient = bgCtx.createRadialGradient(256, 256, 0, 256, 256, 380);
   gradient.addColorStop(0, '#dddbd8');
   gradient.addColorStop(1, '#a8a5a1');
   bgCtx.fillStyle = gradient;
   bgCtx.fillRect(0, 0, 512, 512);
-
-  /* Ombre portée douce sous le gobelet */
-  /* Ombre portée réaliste — sous la base du gobelet */
-  /* Ombre portée studio — visible et naturelle */
   const shadowGrad = bgCtx.createRadialGradient(256, 450, 0, 256, 450, 115);
-  shadowGrad.addColorStop(0,   'rgba(20, 16, 12, 0.88)');
-  shadowGrad.addColorStop(0.35,'rgba(20, 16, 12, 0.60)');
-  shadowGrad.addColorStop(0.65,'rgba(20, 16, 12, 0.25)');
-  shadowGrad.addColorStop(1,   'rgba(20, 16, 12, 0)');
+  shadowGrad.addColorStop(0,    'rgba(20, 16, 12, 0.88)');
+  shadowGrad.addColorStop(0.35, 'rgba(20, 16, 12, 0.60)');
+  shadowGrad.addColorStop(0.65, 'rgba(20, 16, 12, 0.25)');
+  shadowGrad.addColorStop(1,    'rgba(20, 16, 12, 0)');
   bgCtx.save();
-  bgCtx.translate(256, 450);
-  bgCtx.scale(1, 0.32);
-  bgCtx.translate(-256, -450);
+  bgCtx.translate(256, 450); bgCtx.scale(1, 0.32); bgCtx.translate(-256, -450);
   bgCtx.fillStyle = shadowGrad;
-  bgCtx.beginPath();
-  bgCtx.arc(256, 450, 115, 0, Math.PI * 2);
-  bgCtx.fill();
+  bgCtx.beginPath(); bgCtx.arc(256, 450, 115, 0, Math.PI * 2); bgCtx.fill();
   bgCtx.restore();
-
   scene.background = new THREE.CanvasTexture(bgCanvas);
 
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
   camera.position.set(0, 0, 5);
-
   scene.add(new THREE.AmbientLight(0xffffff, 0.7));
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
-  dirLight.position.set(3, 5, 3);
-  dirLight.castShadow = true;
-  scene.add(dirLight);
+  dirLight.position.set(3, 5, 3); dirLight.castShadow = true; scene.add(dirLight);
   const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
-  backLight.position.set(-3, 2, -3);
-  scene.add(backLight);
+  backLight.position.set(-3, 2, -3); scene.add(backLight);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), new THREE.ShadowMaterial({ opacity: 0.15 }));
+  floor.rotation.x = -Math.PI / 2; floor.position.y = -1.5; floor.receiveShadow = true; scene.add(floor);
 
-  const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(10, 10),
-    new THREE.ShadowMaterial({ opacity: 0.15 })
-  );
-  floor.rotation.x = -Math.PI / 2;
-  floor.position.y = -1.5;
-  floor.receiveShadow = true;
-  scene.add(floor);
-
-  const gobeletTexture          = new THREE.CanvasTexture(textureCanvas);
-  gobeletTexture.wrapS          = THREE.RepeatWrapping;
-  gobeletTexture.wrapT          = THREE.RepeatWrapping;
+  const gobeletTexture    = new THREE.CanvasTexture(textureCanvas);
+  gobeletTexture.wrapS    = THREE.RepeatWrapping;
+  gobeletTexture.wrapT    = THREE.RepeatWrapping;
   gobeletTexture.repeat.set(1, 1);
   gobeletTexture.offset.set(0, 0);
-  gobeletTexture.flipY          = false;
-  gobeletTexture.encoding       = THREE.sRGBEncoding;
-  window._gobeletTexture        = gobeletTexture;
+  gobeletTexture.flipY    = false;
+  gobeletTexture.encoding = THREE.sRGBEncoding;
+  window._gobeletTexture  = gobeletTexture;
 
   bodyMaterial = new THREE.MeshStandardMaterial({
-    map:         gobeletTexture,
-    color:       new THREE.Color('#ffffff'),
-    roughness:   0.3,
-    metalness:   0.1,
-    transparent: true,
-    opacity:     0.82,
-    depthWrite:  false,
-    alphaTest:   0,
-    side:        THREE.FrontSide,
+    map: gobeletTexture, color: new THREE.Color('#ffffff'),
+    roughness: 0.3, metalness: 0.1,
+    transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
   });
   bodyMaterial.needsUpdate = true;
 
   rotY = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
-
   gobeletGroup = new THREE.Group();
-  gobeletGroup.rotation.x = 0.035; /* 2° exactement */
+  gobeletGroup.rotation.x = 0.035;
   gobeletGroup.rotation.y = rotY;
-  /* Animation d'entrée : dos → face → position finale */
-  const _targetY  = rotY;
-  const _startY   = rotY + Math.PI;
-  const _entryStart = Date.now();
+
+  const _targetY = rotY, _startY = rotY + Math.PI, _entryStart = Date.now();
   gobeletGroup.rotation.y = _startY;
   (function _animEntry() {
-    const t = Math.min((Date.now()-_entryStart)/1100, 1);
-    const ease = 1 - Math.pow(1-t, 3);
+    const t = Math.min((Date.now() - _entryStart) / 1100, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
     gobeletGroup.rotation.y = _startY + (_targetY - _startY) * ease;
     if (t < 1) requestAnimationFrame(_animEntry);
   })();
-  scene.add(gobeletGroup);
 
+  scene.add(gobeletGroup);
   loadGobelet();
   initInteraction();
   window.addEventListener('resize', onResize);
@@ -554,15 +433,9 @@ function loadGobelet() {
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
       child.material = new THREE.MeshStandardMaterial({
-        map:         window._gobeletTexture,
-        color:       new THREE.Color('#ffffff'),
-        roughness:   0.3,
-        metalness:   0.1,
-        transparent: true,
-        opacity:     0.82,
-        depthWrite:  false,
-        alphaTest:   0,
-        side:        THREE.FrontSide,
+        map: window._gobeletTexture, color: new THREE.Color('#ffffff'),
+        roughness: 0.3, metalness: 0.1,
+        transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
       });
       child.material.needsUpdate = true;
       child.castShadow = false;
@@ -575,12 +448,11 @@ function loadGobelet() {
     gobeletGroup.position.sub(center);
     const scaleFactor = 1.746 / size.y;
     gobeletGroup.scale.setScalar(scaleFactor);
-    gobeletGroup.rotation.x = 0.21; /* ~12° — entre 0.15 et 0.28 */
+    gobeletGroup.rotation.x = 0.21;
     gobeletGroup.rotation.z = 0;
     gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.805);
     gobeletGroup.position.y -= 0.02;
-    gobeletGroup.rotation.y  = rotY;
-
+    gobeletGroup.rotation.y = rotY;
     gobeletGroup.updateMatrixWorld(true);
     var finalBox  = new THREE.Box3().setFromObject(gobeletGroup);
     var finalSize = finalBox.getSize(new THREE.Vector3());
@@ -588,16 +460,6 @@ function loadGobelet() {
     storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.32;
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
-
-    /* disc1 supprimé : évitait la bande blanche visible sous le gobelet */
-    const boxDisc = new THREE.Box3().setFromObject(gobeletGroup);
-
-    gobeletGroup.updateMatrixWorld(true);
-    /* disc2 supprimé : évite la bande blanche visible sous le gobelet */
-
-    gobeletGroup.updateMatrixWorld(true);
-    /* shadow supprimé : trop visible avec le fond gris */
-
     onResize();
     drawTexture();
     requestAnimationFrame(() => { if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true; });
@@ -606,46 +468,26 @@ function loadGobelet() {
 }
 
 function fallbackGeometry() {
-  gobeletGroup.add(new THREE.Mesh(
-    new THREE.CylinderGeometry(1.12, 0.88, 2.9, 64, 1, true),
-    bodyMaterial
-  ));
-  const bottom = new THREE.Mesh(
-    new THREE.CircleGeometry(0.88, 64),
-    new THREE.MeshStandardMaterial({
-      color: new THREE.Color(parseHexColor(state.gobeletColor)),
-      roughness: 0.35, metalness: 0.04,
-    })
-  );
-  bottom.rotation.x = -Math.PI / 2;
-  bottom.position.y = -1.45;
+  gobeletGroup.add(new THREE.Mesh(new THREE.CylinderGeometry(1.12, 0.88, 2.9, 64, 1, true), bodyMaterial));
+  const bottom = new THREE.Mesh(new THREE.CircleGeometry(0.88, 64), new THREE.MeshStandardMaterial({
+    color: new THREE.Color(parseHexColor(state.gobeletColor)), roughness: 0.35, metalness: 0.04
+  }));
+  bottom.rotation.x = -Math.PI / 2; bottom.position.y = -1.45;
   gobeletGroup.add(bottom);
-  drawTexture();
-  hideLoading();
+  drawTexture(); hideLoading();
 }
 
 function hideLoading() {
   const el = document.getElementById('loading-indicator');
-  if (el) {
-    el.classList.add('hidden');
-    setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500);
-  }
+  if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
 }
 
-let autoRotate = false;
-let autoRotateSpeed = 0.003;
-let photoEditMode = false; /* Bloque rotation pendant réglage photo */
-let lastInteraction = 0;
+let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
 
 function animate() {
   requestAnimationFrame(animate);
-  /* Rotation automatique lente si activée et pas d'interaction */
   if (autoRotate && gobeletGroup && !isDragging && !photoEditMode) {
-    const idle = Date.now() - lastInteraction > 2000;
-    if (idle) {
-      rotY += autoRotateSpeed;
-      gobeletGroup.rotation.y = rotY;
-    }
+    if (Date.now() - lastInteraction > 2000) { rotY += autoRotateSpeed; gobeletGroup.rotation.y = rotY; }
   }
   renderer.render(scene, camera);
 }
@@ -655,8 +497,7 @@ function initInteraction() {
   el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; lastInteraction = Date.now(); });
   window.addEventListener('mousemove', e => {
     if (!isDragging) return;
-    rotY += (e.clientX - lastPointerX) * 0.01;
-    lastPointerX = e.clientX;
+    rotY += (e.clientX - lastPointerX) * 0.01; lastPointerX = e.clientX;
     gobeletGroup.rotation.y = rotY;
   });
   window.addEventListener('mouseup', () => { isDragging = false; });
@@ -666,18 +507,15 @@ function initInteraction() {
   }, { passive: true });
   el.addEventListener('touchmove', e => {
     if (!isDragging || e.touches.length !== 1) return;
-    rotY += (e.touches[0].clientX - lastPointerX) * 0.01;
-    lastPointerX = e.touches[0].clientX;
-    gobeletGroup.rotation.y = rotY;
-    e.preventDefault();
+    rotY += (e.touches[0].clientX - lastPointerX) * 0.01; lastPointerX = e.touches[0].clientX;
+    gobeletGroup.rotation.y = rotY; e.preventDefault();
   }, { passive: false });
   el.addEventListener('touchend', () => { isDragging = false; });
 }
 
 function onResize() {
   if (!renderer) return;
-  var container = document.getElementById('canvas-container');
-  var size = getSize(container);
+  var size = getSize();
   var w = size.w, h = size.h;
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -691,66 +529,35 @@ function onResize() {
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
-
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
-    const zone = (CFG.text_zones || []).find(function(z) { return z.id === data.zoneId; })
-              || (CFG.arch_zones || []).find(function(z) { return z.id === data.zoneId; });
-    if (zone) {
-      state.texts[zone.id] = data.value;
-      drawTexture();
-      if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
-    }
+    const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId)
+              || (CFG.arch_zones  || []).find(z => z.id === data.zoneId);
+    if (zone) { state.texts[zone.id] = data.value; drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true; }
   }
-
-  /* Couleur texte par zone */
-  if (data.type === 'UPDATE_ZONE_COLOR' && data.zoneId !== undefined && data.color) {
-    const zone = CFG.text_zones && CFG.text_zones.find(z => z.id === data.zoneId);
-    if (zone) { zone._colorOverride = data.color; drawTexture(); }
-    return;
+  if (data.type === 'UPDATE_ZONE_COLOR' && data.zoneId && data.color) {
+    const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId);
+    if (zone) { zone._colorOverride = data.color; drawTexture(); } return;
   }
-
-  /* Police par zone */
-  if (data.type === 'UPDATE_ZONE_FONT' && data.zoneId !== undefined && data.font) {
-    const zone = CFG.text_zones && CFG.text_zones.find(z => z.id === data.zoneId);
-    if (zone) {
-      zone.font_family = data.font;
-      loadFont(data.font).then(function(){ drawTexture(); });
-    }
-    return;
+  if (data.type === 'UPDATE_ZONE_FONT' && data.zoneId && data.font) {
+    const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId);
+    if (zone) { zone.font_family = data.font; document.fonts.load(`48px "${data.font}"`).then(() => drawTexture()); } return;
   }
-
-  /* Rotation automatique */
-  if (data.type === 'SET_AUTO_ROTATE') {
-    autoRotate = !!data.value;
-    autoRotateSpeed = data.speed || 0.003;
-    return;
-  }
-
-  /* Génération image pour partage */
+  if (data.type === 'SET_AUTO_ROTATE') { autoRotate = !!data.value; autoRotateSpeed = data.speed || 0.003; return; }
   if (data.type === 'REQUEST_SHARE_IMAGE') {
     try {
       renderer.render(scene, camera);
       const dataUrl = renderer.domElement.toDataURL('image/png');
-      window.parent.postMessage({ type: 'SHARE_IMAGE_READY', dataUrl: dataUrl }, '*');
-    } catch(e) {
-      window.parent.postMessage({ type: 'SHARE_IMAGE_ERROR' }, '*');
-    }
+      window.parent.postMessage({ type: 'SHARE_IMAGE_READY', dataUrl }, '*');
+    } catch(e) { window.parent.postMessage({ type: 'SHARE_IMAGE_ERROR' }, '*'); }
     return;
   }
-
   if (data.type === 'UPDATE_COLOR' && data.value) {
     state.gobeletColor = data.value;
     if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
-    /* Couleur texte forcée par variante (toggle admin) */
-    if (data.textColorOverride) {
-      (CFG.text_zones || []).forEach(function(z) { z._colorOverride = data.textColorOverride; });
-    } else {
-      (CFG.text_zones || []).forEach(function(z) { delete z._colorOverride; });
-    }
-    drawTexture();
-    if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+    if (data.textColorOverride) { (CFG.text_zones || []).forEach(z => { z._colorOverride = data.textColorOverride; }); }
+    else { (CFG.text_zones || []).forEach(z => { delete z._colorOverride; }); }
+    drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
-
   if (data.type === 'UPDATE_PHOTO' && data.zoneId && data.value) {
     const img = new Image();
     img.onload = function() {
@@ -758,27 +565,21 @@ window.addEventListener('message', function(e) {
       state.photoCrop[data.zoneId] = {zoom: 1, offsetX: 0, offsetY: 0};
       state.activeCropZone = data.zoneId;
       photoEditMode = true;
-      drawTexture();
-      if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
-      /* Informer le parent que le crop est disponible */
+      drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
       window.parent.postMessage({type: 'PHOTO_READY', zoneId: data.zoneId}, '*');
     };
     img.src = data.value;
   }
-
   if (data.type === 'PHOTO_CROP' && data.zoneId) {
-    if (!state.photoCrop[data.zoneId]) state.photoCrop[data.zoneId] = {zoom:1,offsetX:0,offsetY:0};
+    if (!state.photoCrop[data.zoneId]) state.photoCrop[data.zoneId] = {zoom:1, offsetX:0, offsetY:0};
     if (data.zoom !== undefined) state.photoCrop[data.zoneId].zoom = Math.max(0.5, Math.min(5, data.zoom));
     if (data.offsetX !== undefined) state.photoCrop[data.zoneId].offsetX = data.offsetX;
     if (data.offsetY !== undefined) state.photoCrop[data.zoneId].offsetY = data.offsetY;
-    drawTexture();
-    if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+    drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
-
   if (data.type === 'PHOTO_CROP_RESET' && data.zoneId) {
     state.photoCrop[data.zoneId] = {zoom:1, offsetX:0, offsetY:0};
-    drawTexture();
-    if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+    drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
 });
 
@@ -804,6 +605,5 @@ if (document.readyState === 'loading') {
   init();
 }
 </script>
-
 </body>
 </html>
