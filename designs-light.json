@@ -4565,8 +4565,8 @@
       },
       {
         "id": "texte_mpbbehsjclpa",
-        "label": "Zone de texte 2",
-        "order": 2,
+        "label": "Zone de texte 3",
+        "order": 3,
         "x": 1506,
         "y": 973,
         "width": 396,
@@ -4584,8 +4584,8 @@
       },
       {
         "id": "texte_mppguavyfv0j",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 4",
+        "order": 4,
         "x": 300,
         "y": 268,
         "width": 780,
@@ -10704,8 +10704,8 @@
       },
       {
         "id": "texte_mppguavyfv0j",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 2",
+        "order": 2,
         "x": 264,
         "y": 268,
         "width": 780,
