@@ -863,15 +863,38 @@ function drawZone(zone, type) {
     const isCalig = CALIG_FONTS.some(f => (zone.font_family||'').includes(f));
     const heightRatio = isCalig ? 0.72 : 0.75;
     let fs = zone.font_size || 48;
+    // Mesure pixel réelle — fonctionne pour toutes les polices sans exception
+    const _tmpC = document.createElement('canvas');
+    const _tmpX = _tmpC.getContext('2d');
+    function _realBounds(font, text) {
+      _tmpC.width = 2000; _tmpC.height = 800;
+      _tmpX.clearRect(0, 0, 2000, 800);
+      _tmpX.font = font;
+      _tmpX.fillStyle = '#000';
+      _tmpX.textBaseline = 'middle';
+      _tmpX.textAlign = 'center';
+      _tmpX.fillText(text, 1000, 400);
+      const d = _tmpX.getImageData(0, 0, 2000, 800).data;
+      let minY=800, maxY=0, minX=2000, maxX=0;
+      for (let y=0;y<800;y++) for (let x=0;x<2000;x++) {
+        if (d[(y*2000+x)*4+3]>10) {
+          if(y<minY)minY=y; if(y>maxY)maxY=y;
+          if(x<minX)minX=x; if(x>maxX)maxX=x;
+        }
+      }
+      return { w: maxX>minX ? maxX-minX : 0, h: maxY>minY ? maxY-minY : 0 };
+    }
     while (fs > 6) {
-      ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
-      const maxW = Math.max(...lines.map(l => ctx.measureText(l).width));
-      // Mesure la hauteur réelle des glyphes pour cette police spécifique
-      const m = ctx.measureText(lines.join(' '));
-      const realH = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || (fs * heightRatio);
-      const totalH = lines.length * realH + (lines.length - 1) * (fs * (lh - 1));
-      if (maxW <= zone.width && totalH <= zone.height) break;
-      fs -= 1;
+      const font = `${fs}px '${zone.font_family||'Jost'}'`;
+      let totalW = 0, totalH = 0;
+      lines.forEach((line, i) => {
+        const b = _realBounds(font, line||' ');
+        if (b.w > totalW) totalW = b.w;
+        totalH += b.h;
+        if (i < lines.length - 1) totalH += fs * ((lh||1.3) - 1);
+      });
+      if (totalW <= zone.width && totalH <= zone.height) break;
+      fs -= 2;
     }
     ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
     ctx.textAlign = zone.align||'center';
@@ -2433,14 +2456,32 @@ function update3D() {
       const CALIG_FONTS3 = ['Allura','Alex Brush','Dancing Script','Great Vibes','Parisienne','Sacramento','Tangerine','Pinyon Script','Mr De Haviland','Lavishly Yours','Ephesis','Style Script','Rouge Script','Italianno','Hurricane','Clicker Script','Borel'];
       const isCalig3 = CALIG_FONTS3.some(f => (z.font_family||'').includes(f));
       const heightRatio3 = isCalig3 ? 0.72 : 0.75;
+      const _tmp3C = document.createElement('canvas');
+      const _tmp3X = _tmp3C.getContext('2d');
+      function _realBounds3(font, txt) {
+        _tmp3C.width = 2000; _tmp3C.height = 800;
+        _tmp3X.clearRect(0, 0, 2000, 800);
+        _tmp3X.font = font; _tmp3X.fillStyle = '#000';
+        _tmp3X.textBaseline = 'middle'; _tmp3X.textAlign = 'center';
+        _tmp3X.fillText(txt, 1000, 400);
+        const d = _tmp3X.getImageData(0, 0, 2000, 800).data;
+        let minY=800,maxY=0,minX=2000,maxX=0;
+        for(let y=0;y<800;y++) for(let x=0;x<2000;x++) {
+          if(d[(y*2000+x)*4+3]>10){if(y<minY)minY=y;if(y>maxY)maxY=y;if(x<minX)minX=x;if(x>maxX)maxX=x;}
+        }
+        return {w:maxX>minX?maxX-minX:0,h:maxY>minY?maxY-minY:0};
+      }
       while (fs > 6) {
-        ptexCtx.font=`${fs}px '${z.font_family||'Jost'}'`;
-        const maxW=Math.max(...lines.map(l=>ptexCtx.measureText(l).width));
-        const m3 = ptexCtx.measureText(lines.join(' '));
-        const realH3 = (m3.actualBoundingBoxAscent + m3.actualBoundingBoxDescent) || (fs * heightRatio3);
-        const totalH = lines.length * realH3 + (lines.length - 1) * (fs * (lh - 1));
-        if (maxW<=z.width && totalH<=z.height) break;
-        fs-=1;
+        const font3 = `${fs}px '${z.font_family||'Jost'}'`;
+        let totalW3=0, totalH3=0;
+        lines.forEach((line,i)=>{
+          const b=_realBounds3(font3,line||' ');
+          if(b.w>totalW3)totalW3=b.w;
+          totalH3+=b.h;
+          if(i<lines.length-1)totalH3+=fs*(lh-1);
+        });
+        if(totalW3<=z.width && totalH3<=z.height) break;
+        fs-=2;
       }
       const cx=z.x+z.width/2, cy=z.y+z.height/2;
       const angle=(z.rotation||0)*Math.PI/180;
