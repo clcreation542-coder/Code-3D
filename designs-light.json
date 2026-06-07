@@ -11287,7 +11287,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -11333,8 +11333,8 @@
       },
       {
         "id": "texte_mpbbehsjclpa",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 2",
+        "order": 2,
         "x": 671,
         "y": 543,
         "width": 697,
