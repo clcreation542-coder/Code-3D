@@ -4990,8 +4990,8 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1457,
-        "y": 94,
+        "x": 1458,
+        "y": 71,
         "width": 511,
         "height": 100,
         "shape": "rectangle",
@@ -5009,8 +5009,8 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1514,
-        "y": 894,
+        "x": 1516,
+        "y": 901,
         "width": 396,
         "height": 122,
         "shape": "rectangle",
@@ -9237,7 +9237,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1373,
-        "y": 55,
+        "y": 69,
         "width": 525,
         "height": 100,
         "shape": "rectangle",
@@ -9255,8 +9255,8 @@
         "id": "texte_mpzbz81jdair",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1509,
-        "y": 662,
+        "x": 1485,
+        "y": 735,
         "width": 252,
         "height": 61,
         "shape": "rectangle",
@@ -9276,8 +9276,8 @@
         "id": "photo_mpypuln3byb0",
         "label": "Photo",
         "order": 1,
-        "x": 1479,
-        "y": 282,
+        "x": 1477,
+        "y": 353,
         "width": 317,
         "height": 380,
         "shape": "rectangle"
@@ -11640,6 +11640,107 @@
         "shape": "rectangle"
       }
     ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-bapteme-couronne-ensoleillee-mq4d0ierzba0",
+    "name": "Gobelet Baptême - Couronne Ensoleillée",
+    "shopify_handle": "gobelet-bapteme-couronne-ensoleillee",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 5.8,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#090909",
+        "opacity": 0.9,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1418,
+        "y": 380,
+        "width": 320,
+        "height": 331,
+        "shape": "oval",
+        "lineHeight": 1.3,
+        "font_size": 97,
+        "color": "#c6920b",
+        "placeholder": "1 an\nAmbre",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "id": "texte_mppgu4277c7u",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 219,
+        "y": 283,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "lineHeight": 1.2,
+        "font_size": 100,
+        "color": "#c6920b",
+        "placeholder": "",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 50
+      },
+      {
+        "id": "texte_mppj2siuzf37",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1385,
+        "y": 857,
+        "width": 387,
+        "height": 105,
+        "shape": "rectangle",
+        "lineHeight": 1.5,
+        "font_size": 54,
+        "color": "#c6920b",
+        "placeholder": "14/06/2025",
+        "font_family": "Parisienne",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      }
+    ],
+    "photo_zones": [],
     "arch_zones": []
   }
 ]
