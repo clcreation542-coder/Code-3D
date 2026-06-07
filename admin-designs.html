@@ -865,7 +865,7 @@ function drawZone(zone, type) {
       ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
       const maxW = Math.max(...lines.map(l => ctx.measureText(l).width));
       const totalH = lines.length * fs * lh;
-      if (maxW <= zone.width - 16 && totalH <= zone.height - 8) break;
+      if (maxW <= zone.width && totalH <= zone.height) break;
       fs -= 1;
     }
     ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
@@ -2429,7 +2429,7 @@ function update3D() {
         ptexCtx.font=`${fs}px '${z.font_family||'Jost'}'`;
         const maxW=Math.max(...lines.map(l=>ptexCtx.measureText(l).width));
         const totalH=lines.length*fs*lh;
-        if (maxW<=z.width-16 && totalH<=z.height-8) break;
+        if (maxW<=z.width && totalH<=z.height) break;
         fs-=1;
       }
       const cx=z.x+z.width/2, cy=z.y+z.height/2;
