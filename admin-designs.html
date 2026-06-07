@@ -859,17 +859,14 @@ function drawZone(zone, type) {
     ctx.fillStyle = zone.color||'#7a5c2e';
     const lh = zone.lineHeight||1.3;
     const lines = zone.placeholder.split('\n');
-    let fs = zone.font_size || 48;
-    // Auto-shrink : trouve la taille qui remplit vraiment la zone
-    // Coefficient de correction pour compenser les métriques des polices calligraphiques
-    let fs = zone.font_size || 48;
     const CALIG_FONTS = ['Allura','Alex Brush','Dancing Script','Great Vibes','Parisienne','Sacramento','Tangerine','Pinyon Script','Mr De Haviland','Lavishly Yours','Ephesis','Style Script','Rouge Script','Italianno','Hurricane','Clicker Script','Borel'];
     const isCalig = CALIG_FONTS.some(f => (zone.font_family||'').includes(f));
     const heightRatio = isCalig ? 0.52 : 0.75;
+    let fs = zone.font_size || 48;
     while (fs > 6) {
       ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
       const maxW = Math.max(...lines.map(l => ctx.measureText(l).width));
-      const totalH = lines.length * fs * heightRatio + (lines.length - 1) * (fs * ((lh||1.3) - 1));
+      const totalH = lines.length * fs * heightRatio + (lines.length - 1) * (fs * (lh - 1));
       if (maxW <= zone.width && totalH <= zone.height) break;
       fs -= 1;
     }
