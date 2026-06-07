@@ -82,11 +82,13 @@ function getFontSize(zone, text) {
   const lines = text.split('\n');
   const CALIG_FONTS = ['Allura','Alex Brush','Dancing Script','Great Vibes','Parisienne','Sacramento','Tangerine','Pinyon Script','Mr De Haviland','Lavishly Yours','Ephesis','Style Script','Rouge Script','Italianno','Hurricane','Clicker Script','Borel'];
   const isCalig = CALIG_FONTS.some(f => (zone.font_family||'').includes(f));
-  const heightRatio = isCalig ? 0.52 : 0.75;
+  const heightRatioFallback = isCalig ? 0.72 : 0.75;
   while (size > 8) {
     ctx2d.font = `${size}px "${zone.font_family}"`;
     const maxW = Math.max(...lines.map(l => ctx2d.measureText(l).width));
-    const totalH = lines.length * size * heightRatio + (lines.length - 1) * (size * (lh - 1));
+    const m = ctx2d.measureText(lines.join(' '));
+    const realH = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || (size * heightRatioFallback);
+    const totalH = lines.length * realH + (lines.length - 1) * (size * (lh - 1));
     if (maxW <= zone.width && totalH <= zone.height) break;
     size -= 1;
   }
