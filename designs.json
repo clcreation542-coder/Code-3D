@@ -309,7 +309,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-bleu-royal-or.webp",
     "design": {
       "x": 0,
@@ -466,9 +466,9 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1394,
+        "x": 1410,
         "y": 347,
-        "width": 416,
+        "width": 385,
         "height": 166,
         "shape": "rectangle",
         "lineHeight": 1.5,
@@ -2177,7 +2177,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-coeur-geometrique-fleuri.webp",
     "design": {
       "x": 0,
@@ -2764,7 +2764,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-pampa-bordeaux.webp",
     "design": {
       "x": 0,
@@ -3168,7 +3168,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 6,
+    "rotation_y": 5.9,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-eucalyptus-elegant.webp",
     "design": {
       "x": 0,
@@ -3793,7 +3793,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-brin-de-nature-dore.webp",
     "design": {
       "x": 0,
@@ -3894,7 +3894,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-couronne-automne-boise-coton.webp",
     "design": {
       "x": 0,
@@ -4197,7 +4197,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.9,
+    "rotation_y": 5.8,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-baiser-romantique.webp",
     "design": {
       "x": 0,
@@ -4436,7 +4436,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.6,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-eclat-de-coeurs.webp",
     "design": {
       "x": 0,
@@ -4732,7 +4732,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-ourson-calin.webp",
     "design": {
       "x": 0,
@@ -4852,7 +4852,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.6,
+    "rotation_y": 5.5,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-roseraie.webp",
     "design": {
       "x": 0,
@@ -5256,7 +5256,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.4,
+    "rotation_y": 5.3,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-la-maison-de-feerie.webp",
     "design": {
       "x": 0,
@@ -5477,7 +5477,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 6,
+    "rotation_y": 5.9,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-boheme-croix-pampa.webp",
     "design": {
       "x": 0,
@@ -5698,7 +5698,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.6,
+    "rotation_y": 5.5,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-ourson-coeur-bleu.webp",
     "design": {
       "x": 0,
@@ -5818,7 +5818,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-ourson-montgolfiere-vert-marron.webp",
     "design": {
       "x": 0,
@@ -6028,7 +6028,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -6121,7 +6121,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.9,
+    "rotation_y": 5.8,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-safari-enchante.webp",
     "design": {
       "x": 0,
@@ -6588,7 +6588,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-les-animaux-de-la-ferme.webp",
     "design": {
       "x": 0,
@@ -7426,7 +7426,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.9,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-lenvol-de-lourson.webp",
     "design": {
       "x": 0,
@@ -7804,7 +7804,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-douceur-royale.webp",
     "design": {
       "x": 0,
@@ -8025,7 +8025,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-citron-bleu-dolce-vita.webp",
     "design": {
       "x": 0,
@@ -9180,7 +9180,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.7,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-couronne-azur-photo.webp",
     "design": {
       "x": 0,
@@ -9423,7 +9423,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-doux-ourson-photo.webp",
     "design": {
       "x": 0,
@@ -9719,7 +9719,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -9794,7 +9794,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -9933,7 +9933,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-dolce-vita.webp",
     "design": {
       "x": 0,
@@ -10392,7 +10392,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 705,
-        "y": 347,
+        "y": 314,
         "width": 560,
         "height": 368,
         "shape": "rectangle",
@@ -10436,7 +10436,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-bulles-dor.webp",
     "design": {
       "x": 0,
@@ -10826,7 +10826,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 1.5,
+    "rotation_y": 1.4,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-noeuds-etoiles-scintillantes.webp",
     "design": {
       "x": 0,
@@ -11021,7 +11021,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.6,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-couronne-solaire.webp",
     "design": {
       "x": 0,
@@ -11205,7 +11205,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -11235,7 +11235,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1477,
-        "y": 350,
+        "y": 338,
         "width": 316,
         "height": 320,
         "shape": "rectangle",
@@ -11279,7 +11279,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 1.5,
+    "rotation_y": 1.4,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-pluie-de-confettis.webp",
     "design": {
       "x": 0,
@@ -11613,7 +11613,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1401,
-        "y": 31,
+        "y": 88,
         "width": 407,
         "height": 91,
         "shape": "rectangle",
