@@ -83,7 +83,9 @@ function getFontSize(zone, text) {
   while (size > 8) {
     ctx2d.font = `${size}px "${zone.font_family}"`;
     const maxW   = Math.max(...lines.map(l => ctx2d.measureText(l).width));
-    const totalH = lines.length * size * lh;
+    const metrics = ctx2d.measureText('Mg');
+    const realLineH = (metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent) || size;
+    const totalH = lines.length * realLineH + (lines.length - 1) * (size * (lh - 1));
     if (maxW <= zone.width && totalH <= zone.height) break;
     size -= 1;
   }
