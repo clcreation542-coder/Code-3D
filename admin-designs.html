@@ -861,10 +861,13 @@ function drawZone(zone, type) {
     const lines = zone.placeholder.split('\n');
     let fs = zone.font_size || 48;
     // Auto-shrink : réduire la taille jusqu'à ce que le texte tienne dans la zone
+    // On utilise la hauteur réelle mesurée (pas la taille nominale × interligne)
     while (fs > 6) {
       ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
       const maxW = Math.max(...lines.map(l => ctx.measureText(l).width));
-      const totalH = lines.length * fs * lh;
+      const metrics = ctx.measureText('Mg');
+      const realLineH = (metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent) || fs;
+      const totalH = lines.length * realLineH + (lines.length - 1) * (fs * (lh - 1));
       if (maxW <= zone.width && totalH <= zone.height) break;
       fs -= 1;
     }
@@ -2428,7 +2431,9 @@ function update3D() {
       while (fs > 6) {
         ptexCtx.font=`${fs}px '${z.font_family||'Jost'}'`;
         const maxW=Math.max(...lines.map(l=>ptexCtx.measureText(l).width));
-        const totalH=lines.length*fs*lh;
+        const metrics = ptexCtx.measureText('Mg');
+        const realLineH = (metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent) || fs;
+        const totalH = lines.length * realLineH + (lines.length - 1) * (fs * (lh - 1));
         if (maxW<=z.width && totalH<=z.height) break;
         fs-=1;
       }
