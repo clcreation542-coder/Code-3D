@@ -861,12 +861,15 @@ function drawZone(zone, type) {
     const lines = zone.placeholder.split('\n');
     const CALIG_FONTS = ['Allura','Alex Brush','Dancing Script','Great Vibes','Parisienne','Sacramento','Tangerine','Pinyon Script','Mr De Haviland','Lavishly Yours','Ephesis','Style Script','Rouge Script','Italianno','Hurricane','Clicker Script','Borel'];
     const isCalig = CALIG_FONTS.some(f => (zone.font_family||'').includes(f));
-    const heightRatio = isCalig ? 0.52 : 0.75;
+    const heightRatio = isCalig ? 0.72 : 0.75;
     let fs = zone.font_size || 48;
     while (fs > 6) {
       ctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
       const maxW = Math.max(...lines.map(l => ctx.measureText(l).width));
-      const totalH = lines.length * fs * heightRatio + (lines.length - 1) * (fs * (lh - 1));
+      // Mesure la hauteur réelle des glyphes pour cette police spécifique
+      const m = ctx.measureText(lines.join(' '));
+      const realH = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || (fs * heightRatio);
+      const totalH = lines.length * realH + (lines.length - 1) * (fs * (lh - 1));
       if (maxW <= zone.width && totalH <= zone.height) break;
       fs -= 1;
     }
@@ -2429,11 +2432,13 @@ function update3D() {
       let fs=z.font_size||48;
       const CALIG_FONTS3 = ['Allura','Alex Brush','Dancing Script','Great Vibes','Parisienne','Sacramento','Tangerine','Pinyon Script','Mr De Haviland','Lavishly Yours','Ephesis','Style Script','Rouge Script','Italianno','Hurricane','Clicker Script','Borel'];
       const isCalig3 = CALIG_FONTS3.some(f => (z.font_family||'').includes(f));
-      const heightRatio3 = isCalig3 ? 0.52 : 0.75;
+      const heightRatio3 = isCalig3 ? 0.72 : 0.75;
       while (fs > 6) {
         ptexCtx.font=`${fs}px '${z.font_family||'Jost'}'`;
         const maxW=Math.max(...lines.map(l=>ptexCtx.measureText(l).width));
-        const totalH = lines.length * fs * heightRatio3 + (lines.length - 1) * (fs * (lh - 1));
+        const m3 = ptexCtx.measureText(lines.join(' '));
+        const realH3 = (m3.actualBoundingBoxAscent + m3.actualBoundingBoxDescent) || (fs * heightRatio3);
+        const totalH = lines.length * realH3 + (lines.length - 1) * (fs * (lh - 1));
         if (maxW<=z.width && totalH<=z.height) break;
         fs-=1;
       }
