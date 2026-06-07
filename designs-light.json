@@ -4860,7 +4860,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -5365,7 +5365,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -5394,9 +5394,9 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1423,
-        "y": 388,
-        "width": 430,
+        "x": 1544,
+        "y": 382,
+        "width": 188,
         "height": 67,
         "shape": "rectangle",
         "lineHeight": 1,
@@ -5413,12 +5413,12 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 1440,
-        "y": 590,
-        "width": 396,
-        "height": 81,
+        "x": 1508,
+        "y": 622,
+        "width": 260,
+        "height": 63,
         "shape": "rectangle",
-        "lineHeight": 1.5,
+        "lineHeight": 1,
         "font_size": 68,
         "color": "#030303",
         "placeholder": "15 juin 2025",
@@ -5437,8 +5437,8 @@
         "width": 780,
         "height": 459,
         "shape": "rectangle",
-        "lineHeight": 1.5,
-        "font_size": 85,
+        "lineHeight": 1.2,
+        "font_size": 98,
         "color": "#00b8f1",
         "placeholder": "",
         "font_family": "Parisienne",
@@ -5451,8 +5451,8 @@
         "id": "texte_mpyfatknkx7m",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1423,
-        "y": 455,
+        "x": 1410,
+        "y": 464,
         "width": 430,
         "height": 135,
         "shape": "rectangle",
@@ -7812,7 +7812,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -7833,7 +7833,7 @@
         "hex": "#090909",
         "opacity": 0.9,
         "force_text_color": true,
-        "text_color_override": "#fed1ad"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -7842,12 +7842,12 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1347,
-        "y": 408,
-        "width": 527,
+        "y": 383,
+        "width": 543,
         "height": 134,
         "shape": "rectangle",
-        "lineHeight": 1.5,
-        "font_size": 81,
+        "lineHeight": 1,
+        "font_size": 92,
         "color": "#d48592",
         "placeholder": "Baptême & 1 an de",
         "font_family": "Allura",
@@ -7860,13 +7860,13 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1347,
-        "y": 608,
-        "width": 396,
-        "height": 179,
+        "x": 1415,
+        "y": 542,
+        "width": 459,
+        "height": 151,
         "shape": "rectangle",
-        "lineHeight": 1.5,
-        "font_size": 109,
+        "lineHeight": 1,
+        "font_size": 144,
         "color": "#d48592",
         "placeholder": "Kïara",
         "font_family": "Allura",
@@ -7884,8 +7884,8 @@
         "width": 780,
         "height": 459,
         "shape": "rectangle",
-        "lineHeight": 1.5,
-        "font_size": 85,
+        "lineHeight": 1.2,
+        "font_size": 100,
         "color": "#d48592",
         "placeholder": "",
         "font_family": "Allura",
@@ -7898,8 +7898,8 @@
         "id": "texte_mpx0ottwlztn",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 1457,
-        "y": 808,
+        "x": 1428,
+        "y": 933,
         "width": 366,
         "height": 128,
         "shape": "rectangle",
@@ -9719,7 +9719,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -9794,7 +9794,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -11205,7 +11205,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -11242,7 +11242,7 @@
         "lineHeight": 1,
         "font_size": 121,
         "color": "#bc9c22",
-        "placeholder": "50\nans\nChristelle",
+        "placeholder": "50 ans\nChristelle",
         "font_family": "Great Vibes",
         "align": "center",
         "multiline": false,
