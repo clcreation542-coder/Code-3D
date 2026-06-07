@@ -577,22 +577,34 @@ async function generatePNGImprimeur(slot, fileName) {
   document.querySelectorAll('.lta').forEach(ta => { userTexts[ta.dataset.zid] = ta.value; });
   if (slotZoneColors && slotZoneColors[slot]) Object.assign(userColors, slotZoneColors[slot]);
 
-  // Charger les polices Google Fonts dynamiquement si pas déjà chargées
+  // Charger les polices Google Fonts et forcer leur rendu dans le DOM
   const fontsToLoad = [...new Set((d.text_zones||[]).map(z=>z.font_family).filter(Boolean))];
-  for (const font of fontsToLoad) {
+  
+  // Créer un élément DOM invisible pour forcer le navigateur à rendre chaque police
+  const fontForcer = document.createElement('div');
+  fontForcer.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;';
+  fontsToLoad.forEach(font => {
+    const span = document.createElement('span');
+    span.style.fontFamily = `'${font}'`;
+    span.textContent = 'AaBbCc';
+    fontForcer.appendChild(span);
+    // Injecter aussi la feuille de style si pas déjà présente
     if (!document.querySelector(`link[href*="${font.replace(/\s+/g,'+')}"]`)) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/\s+/g,'+')}:wght@400;700&display=swap`;
       document.head.appendChild(link);
-      await new Promise(r => { link.onload = r; link.onerror = r; setTimeout(r, 2000); });
     }
-    try {
-      await document.fonts.load(`48px '${font}'`);
-    } catch(e) {}
-  }
+  });
+  document.body.appendChild(fontForcer);
+  
+  // Attendre que les polices soient vraiment disponibles
   await document.fonts.ready;
-  await new Promise(r => setTimeout(r, 500));
+  for (const font of fontsToLoad) {
+    try { await document.fonts.load(`48px '${font}'`); } catch(e) {}
+  }
+  await new Promise(r => setTimeout(r, 800));
+  document.body.removeChild(fontForcer);
 
   // Vérification polices
   const fontStatuses = await Promise.all(fontsToLoad.map(async f => ({name:f, ok: await document.fonts.check(`48px '${f}'`)})));
