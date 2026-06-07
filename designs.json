@@ -6028,7 +6028,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -6058,7 +6058,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1462,
-        "y": 407,
+        "y": 370,
         "width": 324,
         "height": 326,
         "shape": "circle",
@@ -6077,9 +6077,9 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1426,
-        "y": 905,
+        "y": 892,
         "width": 396,
-        "height": 111,
+        "height": 88,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 83,
@@ -7434,7 +7434,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -7464,9 +7464,9 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1346,
-        "y": 22,
+        "y": 72,
         "width": 558,
-        "height": 167,
+        "height": 162,
         "shape": "rectangle",
         "lineHeight": 1,
         "font_size": 82,
@@ -7483,9 +7483,9 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1427,
-        "y": 811,
+        "y": 899,
         "width": 396,
-        "height": 122,
+        "height": 88,
         "shape": "rectangle",
         "lineHeight": 1.5,
         "font_size": 68,
