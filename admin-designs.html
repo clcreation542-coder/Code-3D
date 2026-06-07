@@ -2805,10 +2805,9 @@ async function deployDesign() {
     app.unsaved=false;
     const dot=document.getElementById('unsaved-dot');
     if(dot) dot.style.display='none';
-    /* Vider le cache localStorage pour forcer rechargement depuis GitHub */
-    localStorage.removeItem('kuztom_designs');
-    /* Recharger les designs depuis GitHub pour avoir les URLs à jour */
-    await loadDesignsFromGitHub();
+    // Ne PAS vider le localStorage ni recharger depuis GitHub
+    // car cela écraserait les modifications locales non encore modifiées
+    // Le cache sera invalidé naturellement après 1h sur le site client
     reset('success',`✅ Déployé ! (designs.json + designs-light.json)`,4000);
     renderDesignList();
     renderProps();
