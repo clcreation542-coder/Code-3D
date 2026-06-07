@@ -2805,9 +2805,8 @@ async function deployDesign() {
     app.unsaved=false;
     const dot=document.getElementById('unsaved-dot');
     if(dot) dot.style.display='none';
-    // Ne PAS vider le localStorage ni recharger depuis GitHub
-    // car cela écraserait les modifications locales non encore modifiées
-    // Le cache sera invalidé naturellement après 1h sur le site client
+    // Persister l'état actuel pour que les points de statut soient corrects
+    save();
     reset('success',`✅ Déployé ! (designs.json + designs-light.json)`,4000);
     renderDesignList();
     renderProps();
