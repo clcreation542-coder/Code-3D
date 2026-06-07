@@ -313,12 +313,45 @@ function buildZones(slot,d){
     wrap.innerHTML='<div class="rt">Personnalisation</div>'+zones.map(z=>{
       const col=slotZoneColors[slot][z.id]||z.color||'#7a5c2e';
       const ph=(z.placeholder||'').replace(/"/g,'&quot;');
-      return `<div class="zgroup"><div class="zlbl">${z.label||z.id}</div><div class="zinprow"><textarea class="lta" rows="2" data-zid="${z.id}" data-slot="${slot}">${ph}</textarea><input type="color" class="zcpick" data-zid="${z.id}" data-slot="${slot}" value="${col}"></div></div>`;
+      return `<div class="zgroup"><div class="zlbl" style="display:flex;align-items:center;justify-content:space-between;">${z.label||z.id}<span class="fs-indicator" data-zid="${z.id}" style="font-size:10px;color:var(--gold);background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);border-radius:10px;padding:1px 7px;font-family:monospace;">—</span></div><div class="zinprow"><textarea class="lta" rows="2" data-zid="${z.id}" data-slot="${slot}">${ph}</textarea><input type="color" class="zcpick" data-zid="${z.id}" data-slot="${slot}" value="${col}"></div></div>`;
     }).join('');
   }
+  // Calcul taille police réelle (auto-shrink) pour l'indicateur
+  const _fsCanvas = document.createElement('canvas');
+  const _fsCtx = _fsCanvas.getContext('2d');
+  function calcFontSize(zone, text) {
+    let fs = zone.font_size || 48;
+    const lh = zone.lineHeight || 1.3;
+    const lines = (text||'').split('\n');
+    if (!lines.some(l=>l.trim())) return fs;
+    while (fs > 6) {
+      _fsCtx.font = `${fs}px '${zone.font_family||'Jost'}'`;
+      const maxW = Math.max(...lines.map(l => _fsCtx.measureText(l).width));
+      const m = _fsCtx.measureText('Agyjpq');
+      const realH = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs*0.8;
+      const totalH = lines.length * realH + (lines.length-1) * (fs*(lh-1));
+      if (maxW <= zone.width && totalH <= zone.height) break;
+      fs -= 1;
+    }
+    return fs;
+  }
+  function updateFsIndicator(zid, zone, text) {
+    const el = document.querySelector(`.fs-indicator[data-zid="${zid}"]`);
+    if (!el) return;
+    const fs = calcFontSize(zone, text);
+    el.textContent = fs + 'px';
+    el.style.color = fs < 20 ? '#e06c75' : fs < 40 ? '#e8a020' : 'var(--gold)';
+  }
+
+  // Events textarea
   wrap.querySelectorAll('.lta').forEach(ta=>{
+    const zone = zones.find(z=>z.id===ta.dataset.zid);
     postTo(ta.dataset.slot,{type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value});
-    ta.addEventListener('input',()=>postTo(ta.dataset.slot,{type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value}));
+    if (zone) updateFsIndicator(ta.dataset.zid, zone, ta.value);
+    ta.addEventListener('input',()=>{
+      postTo(ta.dataset.slot,{type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value});
+      if (zone) updateFsIndicator(ta.dataset.zid, zone, ta.value);
+    });
   });
   wrap.querySelectorAll('.zcpick').forEach(cp=>{
     function sendColor(){slotZoneColors[cp.dataset.slot][cp.dataset.zid]=cp.value;postTo(cp.dataset.slot,{type:'UPDATE_ZONE_COLOR',zoneId:cp.dataset.zid,color:cp.value});}
