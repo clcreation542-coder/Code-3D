@@ -555,13 +555,19 @@ async function generatePNGImprimeur(slot, fileName) {
   if (d.design_url) {
     await new Promise(resolve => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
       img.onload = () => {
         const di = d.design||{x:0,y:0,width:W,height:H};
         ctx.drawImage(img, di.x||0, di.y||0, W, H);
         resolve();
       };
-      img.onerror = resolve;
+      img.onerror = () => {
+        // Retry sans cache-bust
+        const img2 = new Image();
+        img2.crossOrigin = 'anonymous';
+        img2.onload = () => { ctx.drawImage(img2, 0, 0, W, H); resolve(); };
+        img2.onerror = resolve;
+        img2.src = d.design_url;
+      };
       img.src = d.design_url + (d.design_url.includes('?')?'&':'?') + 't=' + Date.now();
     });
   }
@@ -571,12 +577,22 @@ async function generatePNGImprimeur(slot, fileName) {
   document.querySelectorAll('.lta').forEach(ta => { userTexts[ta.dataset.zid] = ta.value; });
   if (slotZoneColors && slotZoneColors[slot]) Object.assign(userColors, slotZoneColors[slot]);
 
-  // Charger les polices
+  // Charger les polices Google Fonts dynamiquement si pas déjà chargées
   const fontsToLoad = [...new Set((d.text_zones||[]).map(z=>z.font_family).filter(Boolean))];
   for (const font of fontsToLoad) {
-    try { await document.fonts.load(`48px '${font}'`); } catch(e) {}
+    if (!document.querySelector(`link[href*="${font.replace(/\s+/g,'+')}"]`)) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/\s+/g,'+')}:wght@400;700&display=swap`;
+      document.head.appendChild(link);
+      await new Promise(r => { link.onload = r; link.onerror = r; setTimeout(r, 2000); });
+    }
+    try {
+      await document.fonts.load(`48px '${font}'`);
+    } catch(e) {}
   }
-  await new Promise(r => setTimeout(r, 300));
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 500));
 
   // Vérification polices
   const fontStatuses = await Promise.all(fontsToLoad.map(async f => ({name:f, ok: await document.fonts.check(`48px '${f}'`)})));
