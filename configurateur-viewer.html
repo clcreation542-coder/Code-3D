@@ -80,17 +80,37 @@ function getFontSize(zone, text) {
   let size = zone.font_size || 48;
   const lh = zone.lineHeight || 1.3;
   const lines = text.split('\n');
-  const CALIG_FONTS = ['Allura','Alex Brush','Dancing Script','Great Vibes','Parisienne','Sacramento','Tangerine','Pinyon Script','Mr De Haviland','Lavishly Yours','Ephesis','Style Script','Rouge Script','Italianno','Hurricane','Clicker Script','Borel'];
-  const isCalig = CALIG_FONTS.some(f => (zone.font_family||'').includes(f));
-  const heightRatioFallback = isCalig ? 0.72 : 0.75;
+  const _tmpC = document.createElement('canvas');
+  const _tmpX = _tmpC.getContext('2d');
+  function _realBounds(font, txt) {
+    _tmpC.width = 2000; _tmpC.height = 800;
+    _tmpX.clearRect(0, 0, 2000, 800);
+    _tmpX.font = font;
+    _tmpX.fillStyle = '#000';
+    _tmpX.textBaseline = 'middle';
+    _tmpX.textAlign = 'center';
+    _tmpX.fillText(txt, 1000, 400);
+    const d = _tmpX.getImageData(0, 0, 2000, 800).data;
+    let minY=800, maxY=0, minX=2000, maxX=0;
+    for (let y=0;y<800;y++) for (let x=0;x<2000;x++) {
+      if (d[(y*2000+x)*4+3]>10) {
+        if(y<minY)minY=y; if(y>maxY)maxY=y;
+        if(x<minX)minX=x; if(x>maxX)maxX=x;
+      }
+    }
+    return { w: maxX>minX ? maxX-minX : 0, h: maxY>minY ? maxY-minY : 0 };
+  }
   while (size > 8) {
-    ctx2d.font = `${size}px "${zone.font_family}"`;
-    const maxW = Math.max(...lines.map(l => ctx2d.measureText(l).width));
-    const m = ctx2d.measureText(lines.join(' '));
-    const realH = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || (size * heightRatioFallback);
-    const totalH = lines.length * realH + (lines.length - 1) * (size * (lh - 1));
-    if (maxW <= zone.width && totalH <= zone.height) break;
-    size -= 1;
+    const font = `${size}px "${zone.font_family}"`;
+    let totalW = 0, totalH = 0;
+    lines.forEach((line, i) => {
+      const b = _realBounds(font, line||' ');
+      if (b.w > totalW) totalW = b.w;
+      totalH += b.h;
+      if (i < lines.length - 1) totalH += size * (lh - 1);
+    });
+    if (totalW <= zone.width && totalH <= zone.height) break;
+    size -= 2;
   }
   return size;
 }
@@ -556,6 +576,183 @@ window.addEventListener('message', function(e) {
       const dataUrl = renderer.domElement.toDataURL('image/png');
       window.parent.postMessage({ type: 'SHARE_IMAGE_READY', dataUrl }, '*');
     } catch(e) { window.parent.postMessage({ type: 'SHARE_IMAGE_ERROR' }, '*'); }
+    return;
+  }
+
+  if (data.type === 'SET_ORDERS_TOKEN' && data.token) {
+    localStorage.setItem('kuztom_orders_token', data.token);
+    return;
+  }
+  if (data.type === 'REQUEST_PRINT_PNG') {
+    // Génération PNG imprimeur 1970x1140 avec stroke 2.5px + bonne police + photo
+    (async function() {
+      try {
+        const W = TEX_W, H = TEX_H;
+        const printCanvas = document.createElement('canvas');
+        printCanvas.width = W; printCanvas.height = H;
+        const pctx = printCanvas.getContext('2d', {alpha: true});
+        pctx.clearRect(0, 0, W, H);
+
+        // 1. Photos client EN PREMIER (sous le WebP)
+        (CFG.photo_zones || []).forEach(zone => {
+          const img = state.photos[zone.id];
+          if (!img) return;
+          const zx=zone.x, zy=zone.y, zw=zone.width, zh=zone.height;
+          const iw=img.naturalWidth||img.width||1, ih=img.naturalHeight||img.height||1;
+          const crop = state.photoCrop[zone.id] || {zoom:1,offsetX:0,offsetY:0};
+          const baseScale = Math.max(zw/iw, zh/ih);
+          const scale = baseScale * crop.zoom;
+          const sw=iw*scale, sh=ih*scale;
+          const ox=zx+(zw-sw)/2+crop.offsetX, oy=zy+(zh-sh)/2+crop.offsetY;
+          pctx.save();
+          pctx.beginPath(); pctx.rect(zx,zy,zw,zh); pctx.clip();
+          pctx.drawImage(img, ox, oy, sw, sh);
+          pctx.restore();
+        });
+
+        // 2. WebP du design PAR-DESSUS les photos
+        if (state.designImage) {
+          const d = CFG.design || {x:0,y:0,width:W,height:H};
+          pctx.drawImage(state.designImage, d.x||0, d.y||0, W, H);
+        }
+
+        // 3. Charger les polices correctement avant de dessiner
+        const families = [...new Set([
+          ...(CFG.text_zones||[]).map(z=>z.font_family),
+          ...(CFG.arch_zones||[]).map(z=>z.font_family)
+        ].filter(Boolean))];
+        const fontForcer = document.createElement('div');
+        fontForcer.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;';
+        families.forEach(font => {
+          const span = document.createElement('span');
+          span.style.fontFamily = `'${font}'`;
+          span.textContent = 'AaBbCc';
+          fontForcer.appendChild(span);
+          if (!document.querySelector(`link[href*="${font.replace(/\s+/g,'+')}"]`)) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/\s+/g,'+')}:wght@400;700&display=swap`;
+            document.head.appendChild(link);
+          }
+        });
+        document.body.appendChild(fontForcer);
+        await document.fonts.ready;
+        for (const font of families) {
+          try { await document.fonts.load(`48px '${font}'`); } catch(e) {}
+        }
+        await new Promise(r => setTimeout(r, 600));
+        document.body.removeChild(fontForcer);
+
+        // 4. Textes avec stroke 2.5px
+        const STROKE_WIDTH = 2.5;
+        (CFG.text_zones||[]).forEach(zone => {
+          const txt = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'')).trim();
+          if (!txt) return;
+          const lh = zone.lineHeight||1.3;
+          const lines = txt.split('\n');
+          let fs = zone.font_size||48;
+          while (fs > 6) {
+            pctx.font = `${fs}px '${zone.font_family||'Jost'}'`;
+            const maxW = Math.max(...lines.map(l=>pctx.measureText(l).width));
+            const m = pctx.measureText('Agyjpq');
+            const realH = (m.actualBoundingBoxAscent+m.actualBoundingBoxDescent)||fs*0.8;
+            const totalH = lines.length*realH+(lines.length-1)*(fs*(lh-1));
+            if (maxW<=zone.width && totalH<=zone.height) break;
+            fs -= 1;
+          }
+          const cx=zone.x+zone.width/2, cy=zone.y+zone.height/2;
+          const angle=(zone.rotation||0)*Math.PI/180;
+          pctx.save();
+          if(angle){pctx.translate(cx,cy);pctx.rotate(angle);pctx.translate(-cx,-cy);}
+          pctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
+          pctx.textAlign=zone.align||'center';
+          pctx.textBaseline='middle';
+          const tx=zone.align==='left'?zone.x+8:zone.align==='right'?zone.x+zone.width-8:zone.x+zone.width/2;
+          const lineH=fs*lh, totalH=lines.length*lineH;
+          const startY=cy-totalH/2+lineH/2;
+          const color=zone._colorOverride||zone.color||'#7a5c2e';
+          pctx.strokeStyle=color; pctx.lineWidth=STROKE_WIDTH; pctx.lineJoin='round';
+          lines.forEach((line,i)=>pctx.strokeText(line,tx,startY+i*lineH));
+          pctx.fillStyle=color;
+          lines.forEach((line,i)=>pctx.fillText(line,tx,startY+i*lineH));
+          pctx.restore();
+        });
+
+        // 5. Zones arche
+        (CFG.arch_zones||[]).forEach(zone => {
+          const txt = (state.texts[zone.id]||'').trim();
+          if (!txt) return;
+          const isUp=(zone.direction||'up')==='up';
+          const startDeg=zone.start_angle!==undefined?zone.start_angle:-90;
+          const r=zone.radius||280, spacing=zone.letter_spacing||1.0, fs=zone.font_size||60;
+          pctx.save();
+          pctx.font=`${fs}px '${zone.font_family||'Dancing Script'}'`;
+          const color=zone._colorOverride||zone.color||'#7a5c2e';
+          pctx.strokeStyle=color; pctx.fillStyle=color;
+          pctx.lineWidth=STROKE_WIDTH; pctx.lineJoin='round';
+          pctx.textAlign='center'; pctx.textBaseline='alphabetic';
+          const chars=txt.split('');
+          const charWidths=chars.map(ch=>pctx.measureText(ch).width*spacing);
+          const total=charWidths.reduce((a,b)=>a+b,0);
+          const totalRad=total/r, startRad=startDeg*Math.PI/180;
+          if(isUp){
+            let angle=startRad-totalRad/2;
+            chars.forEach((ch,i)=>{
+              const half=charWidths[i]/(2*r); angle+=half;
+              pctx.save();
+              pctx.translate(zone.cx+r*Math.cos(angle),zone.cy+r*Math.sin(angle));
+              pctx.rotate(angle+Math.PI/2);
+              pctx.strokeText(ch,0,0); pctx.fillText(ch,0,0);
+              pctx.restore(); angle+=half;
+            });
+          } else {
+            let angle=startRad+totalRad/2;
+            chars.forEach((ch,i)=>{
+              const half=charWidths[i]/(2*r); angle-=half;
+              pctx.save();
+              pctx.translate(zone.cx+r*Math.cos(angle),zone.cy+r*Math.sin(angle));
+              pctx.rotate(angle-Math.PI/2);
+              pctx.strokeText(ch,0,0); pctx.fillText(ch,0,0);
+              pctx.restore(); angle-=half;
+            });
+          }
+          pctx.restore();
+        });
+
+        // 6. Convertir en base64
+        const b64 = printCanvas.toDataURL('image/png').split(',')[1];
+
+        // 7. Upload vers GitHub orders/
+        const TOKEN = localStorage.getItem('kuztom_orders_token') || '';
+        const REPO = 'clcreation542-coder/Code-3D';
+        const ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
+        const designSlug = (CFG.shopify_handle||CFG.id||'design').slice(0,40);
+        const filename = `orders/${designSlug}-${ts}.png`;
+        const apiUrl = `https://api.github.com/repos/${REPO}/contents/${filename}`;
+
+        const uploadRes = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${TOKEN}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github+json'
+          },
+          body: JSON.stringify({
+            message: `order: ${filename}`,
+            content: b64
+          })
+        });
+
+        if (!uploadRes.ok) throw new Error('Upload échoué: ' + uploadRes.status);
+
+        const pngUrl = `https://clcreation542-coder.github.io/Code-3D/${filename}`;
+        window.parent.postMessage({ type: 'PRINT_PNG_READY', url: pngUrl }, '*');
+
+      } catch(e) {
+        console.error('generatePrintPNG error:', e);
+        window.parent.postMessage({ type: 'PRINT_PNG_ERROR', error: e.message }, '*');
+      }
+    })();
     return;
   }
   if (data.type === 'UPDATE_COLOR' && data.value) {
