@@ -594,7 +594,6 @@ async function generatePNGImprimeur(slot, fileName) {
         resolve();
       };
       img.onerror = () => {
-        // Retry sans cache-bust
         const img2 = new Image();
         img2.crossOrigin = 'anonymous';
         img2.onload = () => { ctx.drawImage(img2, 0, 0, W, H); resolve(); };
@@ -602,6 +601,47 @@ async function generatePNGImprimeur(slot, fileName) {
         img2.src = d.design_url;
       };
       img.src = d.design_url + (d.design_url.includes('?')?'&':'?') + 't=' + Date.now();
+    });
+  }
+
+  // Photos client avec zoom/position exact
+  const photoZones = d.photo_zones || [];
+  for (const pz of photoZones) {
+    const fileInput = document.querySelector('.photo-file-input[data-zid="' + pz.id + '"][data-slot="' + slot + '"]');
+    if (!fileInput || !fileInput.files || !fileInput.files[0]) continue;
+    await new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+          const zx=pz.x, zy=pz.y, zw=pz.width, zh=pz.height;
+          const iw=img.naturalWidth||img.width||1, ih=img.naturalHeight||img.height||1;
+          const crop = (liveCropState[slot] && liveCropState[slot][pz.id]) || {zoom:1,offsetX:0,offsetY:0};
+          const baseScale = Math.max(zw/iw, zh/ih);
+          const scale = baseScale * crop.zoom;
+          const sw=iw*scale, sh=ih*scale;
+          const ox=zx+(zw-sw)/2+crop.offsetX, oy=zy+(zh-sh)/2+crop.offsetY;
+          ctx.save();
+          ctx.beginPath(); ctx.rect(zx,zy,zw,zh); ctx.clip();
+          ctx.drawImage(img, ox, oy, sw, sh);
+          ctx.restore();
+          resolve();
+        };
+        img.onerror = resolve;
+        img.src = ev.target.result;
+      };
+      reader.onerror = resolve;
+      reader.readAsDataURL(fileInput.files[0]);
+    });
+  }
+
+  // Redessiner le WebP PAR-DESSUS les photos
+  if (d.design_url && photoZones.length > 0) {
+    await new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => { ctx.drawImage(img, 0, 0, W, H); resolve(); };
+      img.onerror = resolve;
+      img.src = d.design_url;
     });
   }
 
