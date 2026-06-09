@@ -578,6 +578,18 @@ window.addEventListener('message', function(e) {
     } catch(e) { window.parent.postMessage({ type: 'SHARE_IMAGE_ERROR' }, '*'); }
     return;
   }
+  if (data.type === 'REQUEST_PREVIEW_SCREENSHOT') {
+    try {
+      const savedRotY = rotY;
+      gobeletGroup.rotation.y = 0;
+      renderer.render(scene, camera);
+      const dataUrl = renderer.domElement.toDataURL('image/jpeg', 0.88);
+      gobeletGroup.rotation.y = savedRotY;
+      renderer.render(scene, camera);
+      window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT', dataUrl }, '*');
+    } catch(e) { window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT_ERROR' }, '*'); }
+    return;
+  }
 
   if (data.type === 'SET_ORDERS_TOKEN' && data.token) {
     localStorage.setItem('kuztom_orders_token', data.token);
