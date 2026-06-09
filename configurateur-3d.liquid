@@ -1,561 +1,632 @@
 {% comment %}
-  Kuztom — Configurateur 3D
-  Gauche/haut : iframe viewer 3D
-  Droite/bas  : nom shop, titre produit, zones texte, zones photo, couleurs
+  Kuztom — Configurateur 3D v4
+  Viewer gauche + injection JS des champs dans la colonne droite product-info
+  Optimisations v4 :
+  - Cache localStorage 1h du designs.json côté client
+  - Utilisation de designs-light.json (sans base64)
+  - Suppression du ?t=Date.now() qui bypassait le cache à chaque visite
+  - Invalidation du cache uniquement si le hash GitHub a changé
 {% endcomment %}
 
-{%- liquid
-  assign design_handle = section.settings.design_handle | strip
-  if design_handle == blank
-    assign design_handle = product.handle
-  endif
-  assign viewer_height = section.settings.viewer_height | default: 560
-  assign viewer_url    = 'https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html?design=' | append: design_handle
-  assign couleur_blocks = section.blocks | where: 'type', 'couleur'
--%}
-
-<div id="kz-root" data-design="{{ design_handle }}">
-  <div class="kz-layout">
-
-    <div class="kz-left" style="--kz-h:{{ viewer_height }}px;">
-      <div class="kz-iframe-wrap">
-        <iframe
-          id="kz-iframe"
-          src="{{ viewer_url }}"
-          title="Aperçu 3D"
-          style="width:100%;height:100%;border:none;display:block;position:relative;z-index:1;"
-        ></iframe>
-      </div>
-      <p class="kz-hint">Explorer &agrave; 360&deg; &rarr;</p>
-    </div>
-
-    <div class="kz-right">
-
-      <div class="kz-header">
-        <p class="kz-shop">{{ shop.name }}</p>
-        <h1 class="kz-title">{{ product.title }}</h1>
-      </div>
-
-      {%- for block in section.blocks -%}
-
-        {%- if block.type == 'zone_texte' -%}
-          <div class="kz-group" {{ block.shopify_attributes }}>
-            {%- if block.settings.label != blank -%}
-              <label class="kz-label" for="kz-ta-{{ block.id }}">
-                {{- block.settings.label -}}
-              </label>
-            {%- endif -%}
-            <textarea
-              id="kz-ta-{{ block.id }}"
-              class="kz-textarea"
-              data-zone-id="{{ block.settings.zone_id }}"
-              rows="3"
-            ></textarea>
-          </div>
-        {%- endif -%}
-
-        {%- if block.type == 'zone_photo' -%}
-          <div class="kz-group" {{ block.shopify_attributes }}>
-            {%- if block.settings.label != blank -%}
-              <p class="kz-label">{{- block.settings.label -}}</p>
-            {%- endif -%}
-            <label class="kz-upload" for="kz-ph-{{ block.id }}">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="16 16 12 12 8 16"></polyline>
-                <line x1="12" y1="12" x2="12" y2="21"></line>
-                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
-              </svg>
-              <span class="kz-upload-text">Choisir une photo</span>
-              <input
-                type="file"
-                id="kz-ph-{{ block.id }}"
-                class="kz-file"
-                data-zone-id="{{ block.settings.zone_id }}"
-                accept="image/*"
-              >
-            </label>
-          </div>
-        {%- endif -%}
-
-        {%- if block.type == 'couleur' -%}
-          {%- assign hex = block.settings.couleur_hex | strip -%}
-          {%- if hex != blank -%}
-            {%- unless forloop.first == false and forloop.index0 > 0 -%}{%- endunless -%}
-            <button
-              type="button"
-              class="kz-swatch"
-              data-color="{{ hex }}"
-              style="background:{{ hex }};"
-              aria-label="{%- if block.settings.label != blank -%}{{ block.settings.label }}{%- else -%}{{ hex }}{%- endif -%}"
-              {{ block.shopify_attributes }}
-            ></button>
-          {%- endif -%}
-        {%- endif -%}
-
-      {%- endfor -%}
-
-    </div>
-  </div>
-</div>
-
-{{- '<!-- Mini viewer mobile (visible uniquement sous 767px quand le grand viewer est hors écran) -->' }}
-<div id="kz-mini-viewer" aria-hidden="true">
-  <iframe
-    src="{{ viewer_url }}"
-    title="Aperçu miniature"
-    tabindex="-1"
-    style="width:144px;height:144px;border:none;display:block;transform:scale(0.5);transform-origin:top left;pointer-events:none;"
-  ></iframe>
-</div>
-
-{%- if couleur_blocks.size > 0 -%}
-<script>
-// Regroup swatches into a wrapper injected before first swatch
-(function () {
-  var root = document.getElementById('kz-root');
-  if (!root) return;
-  var swatches = root.querySelectorAll('.kz-swatch');
-  if (!swatches.length) return;
-  var wrapper = document.createElement('div');
-  wrapper.className = 'kz-swatches-wrap';
-  swatches[0].parentNode.insertBefore(wrapper, swatches[0]);
-  swatches.forEach(function (s) { wrapper.appendChild(s); });
-})();
-</script>
-{%- endif -%}
+{%- assign effective_handle = product.handle -%}
 
 <style>
-  #kz-root {
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-    font-family: inherit;
+  /* Cache l'image produit native — remplacée par le viewer */
+  .product-gallery { display:none !important; }
+
+  /* Masquer UNIQUEMENT l'option couleur Shopify native si elle existe */
+  .product-info__variant-picker .variant-picker__option[data-option-name="Couleur"] { display:none !important; }
+
+  /* Le viewer s'intègre dans la grille Impact */
+  #kuztom-viewer-col {
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    grid-column:1;
+    grid-row:1;
   }
 
-  .kz-layout {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+  .kuztom-iframe-wrap {
+    position:relative;
+    background:#faf8f5;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 2px 16px rgba(0,0,0,0.07);
   }
-
-  /* ── Gauche : viewer ───────────────────────────────────── */
-
-  .kz-left {
-    flex: 0 0 50%;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .kz-iframe-wrap {
-    flex: 1;
-    min-height: var(--kz-h, 560px);
-    position: relative;
-    border-radius: 16px;
-    background: #faf8f5;
-    overflow: hidden;
-  }
-
-  /* Angle de mur en arrière-plan — deux plans en perspective légère */
-  .kz-iframe-wrap::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+  .kuztom-iframe-wrap::before {
+    content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
     background:
-      linear-gradient(135deg,
-        #e8e3dc 0%,
-        #e8e3dc 48%,
-        #ede9e3 48.5%,
-        #ede9e3 100%
-      );
-    border-radius: 16px;
+      linear-gradient(to bottom right, transparent calc(50% - 0.6px), rgba(148,136,126,0.38) calc(50% - 0.6px), rgba(148,136,126,0.38) calc(50% + 0.6px), transparent calc(50% + 0.6px)) no-repeat left bottom / 22% 36%,
+      linear-gradient(to bottom left, transparent calc(50% - 0.6px), rgba(148,136,126,0.38) calc(50% - 0.6px), rgba(148,136,126,0.38) calc(50% + 0.6px), transparent calc(50% + 0.6px)) no-repeat right bottom / 22% 36%;
   }
+  .kuztom-iframe-wrap iframe { position:absolute; inset:0; width:100%; height:100%; z-index:1; border:none; display:block; }
+  @keyframes kuztom-spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  .kuztom-hint { text-align:center; font-size:13px; color:#b8a898; padding:10px 0 14px; letter-spacing:0.06em; margin:6px 0 0 0; border-top:1px solid #ede9e3; }
 
-  .kz-hint {
-    text-align: center;
-    font-size: 13px;
-    color: #b8a898;
-    letter-spacing: 0.06em;
-    padding: 11px 0 13px;
-    margin: 0;
-    border-top: 1px solid #ede9e3;
+  /* Champs injectés dans product-info */
+  #kuztom-injected-fields { display:flex; flex-direction:column; gap:22px; margin-bottom:8px; }
+  .kuztom-field-group { display:flex; flex-direction:column; gap:8px; }
+  .kuztom-label { display:block; font-size:12px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:#1c1c1c; margin:0; }
+  .kuztom-textarea { width:100%; padding:12px 16px; border:1.5px solid #e0dbd4; border-radius:10px; font-size:16px !important; font-family:inherit; color:#1c1c1c; background:#fdfcfb; outline:none; resize:vertical; min-height:80px; line-height:1.55; transition:border-color 120ms; box-sizing:border-box; }
+  .kuztom-textarea:focus { border-color:#c9a96e; }
+  .kuztom-upload-label { display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border:1.5px dashed #c4bfb9; border-radius:10px; cursor:pointer; font-size:14px; color:#555; background:#fafaf8; transition:border-color 120ms,background 120ms; user-select:none; width:fit-content; }
+  .kuztom-upload-label:hover { border-color:#c9a96e; background:#fffdf8; }
+  .kuztom-file-input { position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; }
+  .kuztom-crop-controls { margin-top:10px; padding:12px 14px; background:#fafaf8; border:1px solid #e8e2db; border-radius:8px; }
+  .kuztom-crop-row { display:flex; align-items:center; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+  .kuztom-crop-lbl { font-size:12px; color:#888; min-width:75px; }
+  .kuztom-crop-btn { width:34px; height:34px; border:1px solid #c4bfb9; border-radius:6px; background:#fff; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; color:#555; padding:0; }
+  .kuztom-crop-btn:hover { background:#f5f0eb; border-color:#c9a96e; }
+  .kuztom-crop-zoom { flex:1; min-width:80px; accent-color:#c9a96e; }
+  .kuztom-crop-reset { font-size:12px; color:#888; background:none; border:none; cursor:pointer; padding:2px 0; text-decoration:underline; display:block; margin-top:4px; }
+  .kuztom-swatches { display:flex; flex-wrap:wrap; gap:10px; }
+  .kuztom-swatch { width:32px; height:32px; border-radius:50%; border:2px solid transparent; cursor:pointer; padding:0; outline:none; box-shadow:0 1px 4px rgba(0,0,0,0.22); transition:transform 120ms,border-color 120ms; flex-shrink:0; }
+  .kuztom-swatch:hover { transform:scale(1.15); }
+  .kuztom-swatch.active { border-color:#1c1c1c; }
+  .kuztom-color-label { font-size:13px; color:#555; margin-top:6px; font-style:italic; }
+  #kuztom-share-btn { width:100%; padding:10px; background:linear-gradient(135deg,#c9a96e,#e8d5a3); color:#1a1a1a; border:none; border-radius:10px; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; transition:opacity 0.2s; }
+  #kuztom-share-btn:hover { opacity:0.88; }
+
+  /* Overlay crop mobile */
+  #kuztom-crop-overlay { display:none; position:absolute; bottom:0; left:0; right:0; z-index:10; background:rgba(255,255,255,0.88); padding:8px 12px; border-top:1px solid #e8e2db; backdrop-filter:blur(2px); }
+  #kuztom-crop-overlay .kuztom-crop-row { display:flex; align-items:center; gap:6px; margin-bottom:8px; flex-wrap:wrap; }
+  #kuztom-crop-overlay .kuztom-crop-lbl { font-size:12px; color:#555; min-width:60px; }
+  #kuztom-crop-overlay .kuztom-crop-btn { width:40px; height:40px; border:1px solid #c4bfb9; border-radius:6px; background:rgba(255,255,255,0.95); cursor:pointer; font-size:20px; display:flex; align-items:center; justify-content:center; color:#555; padding:0; }
+  #kuztom-crop-overlay .kuztom-crop-zoom { flex:1; min-width:80px; accent-color:#c9a96e; }
+
+  /* Mini viewer mobile */
+  #kuztom-mini-viewer { display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); width:80px; height:80px; border-radius:12px; border:2px solid #c9a96e; overflow:hidden; box-shadow:0 3px 14px rgba(0,0,0,0.2); z-index:9999; cursor:pointer; background:#faf8f5; }
+  #kuztom-mini-iframe { position:absolute; top:0; left:0; width:380px !important; height:380px !important; transform:scale(0.21); transform-origin:top left; pointer-events:none; border:none; }
+
+  /* Mobile */
+  @media (max-width:767px) {
+    #kuztom-viewer-col { width:100%; flex:none; }
+    .kuztom-iframe-wrap { height:100vw; max-height:420px; min-height:320px; }
   }
-
-  .kz-hint::before {
-    content: '↻\00a0';
-  }
-
-  /* ── Droite : champs ───────────────────────────────────── */
-
-  .kz-right {
-    flex: 0 0 50%;
-    width: 50%;
-    padding: 40px 36px;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    overflow-y: auto;
-    box-sizing: border-box;
-  }
-
-  .kz-header { display: flex; flex-direction: column; gap: 5px; }
-
-  .kz-shop {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #aaa;
-    margin: 0;
-  }
-
-  .kz-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1c1c1c;
-    margin: 0;
-    line-height: 1.25;
-  }
-
-  /* ── Groupe champ ──────────────────────────────────────── */
-
-  .kz-group {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-
-  .kz-label {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    color: #1c1c1c;
-    margin: 0;
-  }
-
-  /* ── Textarea ──────────────────────────────────────────── */
-
-  .kz-textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid #e0dbd4;
-    border-radius: 10px;
-    font-size: 15px;
-    font-family: inherit;
-    color: #1c1c1c;
-    background: #fdfcfb;
-    outline: none;
-    resize: vertical;
-    min-height: 80px;
-    line-height: 1.55;
-    transition: border-color 120ms;
-    box-sizing: border-box;
-    white-space: pre-wrap;
-  }
-
-  .kz-textarea:focus { border-color: #c9a96e; }
-
-  /* ── Upload photo ──────────────────────────────────────── */
-
-  .kz-upload {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border: 1.5px dashed #c4bfb9;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #555;
-    background: #fafaf8;
-    transition: border-color 120ms, background 120ms;
-    user-select: none;
-    width: fit-content;
-  }
-
-  .kz-upload:hover {
-    border-color: #c9a96e;
-    background: #fffdf8;
-  }
-
-  .kz-file {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* ── Swatches couleur ──────────────────────────────────── */
-
-  .kz-swatches-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .kz-swatch {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
-    padding: 0;
-    outline: none;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.20);
-    transition: transform 120ms, border-color 120ms;
-    flex-shrink: 0;
-  }
-
-  .kz-swatch:hover  { transform: scale(1.15); }
-  .kz-swatch.active { border-color: #1c1c1c; }
-
-  /* ── Mini viewer mobile ────────────────────────────────── */
-
-  #kz-mini-viewer {
-    display: none;
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    z-index: 999;
-    width: 72px;
-    height: 72px;
-    border-radius: 12px;
-    border: 2px solid #c9a96e;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-    cursor: pointer;
-    background: #faf8f5;
-  }
-
-  @media (max-width: 767px) {
-    #kz-mini-viewer.kz-mini-visible {
-      display: block;
-    }
-  }
-
-  /* ── Mobile ────────────────────────────────────────────── */
-
-  @media (max-width: 767px) {
-    .kz-layout { flex-direction: column; }
-
-    .kz-left  { flex: none; width: 100%; }
-    .kz-right { flex: none; width: 100%; padding: 24px 16px; }
-
-    .kz-iframe-wrap { min-height: 280px; }
-  }
+  @media (min-width:768px) { #kuztom-mini-viewer { display:none !important; } }
 </style>
 
+<div id="kuztom-viewer-col">
+  <div class="kuztom-iframe-wrap" id="kuztom-iframe-wrap">
+    <iframe id="kuztom-iframe" title="Aperçu 3D de votre gobelet"></iframe>
+    <div id="kuztom-crop-overlay">
+      <div class="kuztom-crop-row">
+        <span class="kuztom-crop-lbl">🔍 Zoom</span>
+        <button type="button" class="kuztom-crop-btn" id="kco-zm">−</button>
+        <input type="range" class="kuztom-crop-zoom" id="kco-slider" min="50" max="300" value="100" step="5">
+        <button type="button" class="kuztom-crop-btn" id="kco-zp">+</button>
+      </div>
+      <div class="kuztom-crop-row" style="margin-bottom:0;">
+        <button type="button" class="kuztom-crop-btn" id="kco-l">◀</button>
+        <button type="button" class="kuztom-crop-btn" id="kco-r">▶</button>
+        <button type="button" class="kuztom-crop-btn" id="kco-u">▲</button>
+        <button type="button" class="kuztom-crop-btn" id="kco-d">▼</button>
+        <button type="button" id="kuztom-crop-validate" style="flex:1;margin:0;padding:8px 6px;background:#c9a96e;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">✅ Valider</button>
+      </div>
+    </div>
+  </div>
+  <p class="kuztom-hint"><span style="display:inline-block;animation:kuztom-spin 3s linear infinite">↻</span> &nbsp;Explorer à 360°</p>
+</div>
+
+<div id="kuztom-mini-viewer">
+  <iframe id="kuztom-mini-iframe" title="Mini aperçu gobelet"></iframe>
+</div>
+
 <script>
 (function () {
-  var VIEWER_ORIGIN = 'https://clcreation542-coder.github.io';
-  var REPO_BASE     = 'https://clcreation542-coder.github.io/Code-3D';
-  var root          = document.getElementById('kz-root');
-  var iframe        = document.getElementById('kz-iframe');
-  if (!root || !iframe) return;
+  var VIEWER_ORIGIN  = '*';
+  var VIEWER_BASE    = 'https://clcreation542-coder.github.io/Code-3D/configurateur-viewer.html';
+  // On utilise designs-light.json : pas de base64, beaucoup plus léger
+  var DESIGNS_URL    = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs-light.json';
+  var CACHE_KEY      = 'kuztom_designs_cache';
+  var CACHE_TTL      = 60 * 60 * 1000; // 1 heure en ms
 
-  var designHandle = root.dataset.design || '';
-  var viewerReady  = false;
-  var pendingSync  = false;
+  var productHandle  = {{ effective_handle | json }};
+  var iframe         = document.getElementById('kuztom-iframe');
+  var miniIframe     = document.getElementById('kuztom-mini-iframe');
+  var miniViewer     = document.getElementById('kuztom-mini-viewer');
+  var iframeWrap     = document.getElementById('kuztom-iframe-wrap');
+  var viewerReady    = false;
+  var formBuilt      = false;
+  var isMobile       = window.innerWidth < 768;
+  var photoCropState = {};
+  var CROP_STEP      = 20;
+  var activeCropZone = null;
+  var zoneInfoCache  = {};
+  var currentDesignName = '';
+  var fieldsContainer   = null;
 
-  /* ── postMessage helper ─────────────────────────────── */
-  function post(data) {
-    if (iframe.contentWindow) {
-      iframe.contentWindow.postMessage(data, VIEWER_ORIGIN);
-    }
-  }
-
-  /* ── Envoyer toutes les valeurs courantes au viewer ─── */
-  function syncAll() {
-    root.querySelectorAll('.kz-textarea[data-zone-id]').forEach(function (ta) {
-      post({ type: 'kuztom_update', zoneId: ta.dataset.zoneId, value: ta.value });
-    });
-    var active = root.querySelector('.kz-swatch.active');
-    if (active) {
-      post({ type: 'kuztom_color', color: active.dataset.color });
-    }
-  }
-
-  /* ── Quand le viewer signale qu'il est prêt ─────────── */
-  window.addEventListener('message', function (e) {
-    if (!e.data || e.data.type !== 'kuztom_ready') return;
-    viewerReady = true;
-    if (pendingSync) { syncAll(); pendingSync = false; }
-  });
-
-  /* ── Charger le JSON du design pour valeurs par défaut ─ */
-  if (designHandle) {
-    fetch(REPO_BASE + '/designs/' + encodeURIComponent(designHandle) + '.json')
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-      .then(function (cfg) {
-        var zones = (cfg && Array.isArray(cfg.text_zones)) ? cfg.text_zones : [];
-        zones.forEach(function (zone) {
-          if (!zone.id || !zone.placeholder) return;
-          var ta = root.querySelector('.kz-textarea[data-zone-id="' + zone.id + '"]');
-          if (ta && ta.value === '') {
-            /* Respecte les \n — textarea.value les préserve nativement */
-            ta.value = zone.placeholder;
-          }
-        });
-        if (viewerReady) {
-          syncAll();
-        } else {
-          pendingSync = true;
+  /* ─── CACHE designs-light.json ─────────────────────────────────
+     On charge depuis localStorage si le cache est encore valide (<1h).
+     Sinon on fetch GitHub, et on stocke avec un timestamp.
+     Résultat : 1 seul fetch réseau par heure maximum, au lieu de 1 par visite.
+  ─────────────────────────────────────────────────────────────── */
+  function loadDesigns(callback) {
+    try {
+      var cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        var parsed = JSON.parse(cached);
+        if (parsed && parsed.ts && parsed.data && (Date.now() - parsed.ts) < CACHE_TTL) {
+          // Cache valide — on l'utilise directement, 0 requête réseau
+          callback(parsed.data);
+          return;
         }
+      }
+    } catch(e) {}
+    // Cache absent ou expiré — on fetch
+    fetch(DESIGNS_URL)
+      .then(function(r) { return r.ok ? r.json() : Promise.reject('HTTP ' + r.status); })
+      .then(function(designs) {
+        if (!Array.isArray(designs)) throw new Error('Format inattendu');
+        // Mise en cache avec timestamp
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: designs }));
+        } catch(e) {}
+        callback(designs);
       })
-      .catch(function () {
-        if (viewerReady) { syncAll(); } else { pendingSync = true; }
-      });
+      .catch(function(e) { console.warn('Kuztom: erreur chargement designs:', e); });
   }
 
-  /* ── Textareas : postMessage à chaque frappe ─────────── */
-  root.querySelectorAll('.kz-textarea[data-zone-id]').forEach(function (ta) {
-    ta.addEventListener('input', function () {
-      post({ type: 'kuztom_update', zoneId: ta.dataset.zoneId, value: ta.value });
+  /* ─── Taille carrée viewer ──────────────────────────────────── */
+  function sizeViewer() {
+    if (!iframeWrap) return;
+    var w = iframeWrap.offsetWidth;
+    if (!w) w = Math.round(window.innerWidth * 0.5);
+    iframeWrap.style.height = w + 'px';
+    if (iframe) iframe.style.height = w + 'px';
+  }
+  sizeViewer();
+  window.addEventListener('resize', sizeViewer);
+
+  /* ─── Mini viewer mobile ────────────────────────────────────── */
+  if (isMobile && iframeWrap && miniViewer) {
+    window.addEventListener('scroll', function () {
+      var rect = iframeWrap.getBoundingClientRect();
+      miniViewer.style.display = (rect.bottom > 0 && rect.top < window.innerHeight) ? 'none' : 'block';
+    }, { passive: true });
+    miniViewer.addEventListener('click', function () {
+      iframeWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-  });
+  }
 
-  /* ── Swatches couleur ───────────────────────────────── */
-  root.querySelectorAll('.kz-swatch').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      root.querySelectorAll('.kz-swatch').forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-      post({ type: 'kuztom_color', color: btn.dataset.color });
+  function post(data) {
+    if (iframe && iframe.contentWindow) iframe.contentWindow.postMessage(data, VIEWER_ORIGIN);
+    if (miniIframe && miniIframe.contentWindow) miniIframe.contentWindow.postMessage(data, VIEWER_ORIGIN);
+  }
+
+  function sendCrop(zoneId) {
+    var c = photoCropState[zoneId] || { zoom: 1, offsetX: 0, offsetY: 0 };
+    post({ type: 'PHOTO_CROP', zoneId: zoneId, zoom: c.zoom, offsetX: c.offsetX, offsetY: c.offsetY });
+    if (fieldsContainer) {
+      var slider = fieldsContainer.querySelector('.kuztom-crop-zoom[data-zone-id="' + zoneId + '"]');
+      if (slider) slider.value = Math.round(c.zoom * 100);
+    }
+    var mobSlider = document.getElementById('kco-slider');
+    if (mobSlider) mobSlider.value = Math.round(c.zoom * 100);
+  }
+
+  /* ─── Overlay crop mobile ───────────────────────────────────── */
+  (function() {
+    var overlay = document.getElementById('kuztom-crop-overlay');
+    if (!overlay) return;
+    function getC() {
+      if (!activeCropZone) return { zoom: 1, offsetX: 0, offsetY: 0 };
+      if (!photoCropState[activeCropZone]) photoCropState[activeCropZone] = { zoom: 1, offsetX: 0, offsetY: 0 };
+      return photoCropState[activeCropZone];
+    }
+    var slider = document.getElementById('kco-slider');
+    if (slider) slider.addEventListener('input', function() {
+      var c = getC(); c.zoom = parseInt(slider.value) / 100;
+      if (activeCropZone) sendCrop(activeCropZone);
     });
-  });
-
-  /* Premier swatch actif par défaut */
-  var first = root.querySelector('.kz-swatch');
-  if (first) first.classList.add('active');
-
-  /* ── Photos : lire en base64 puis postMessage ─────────── */
-  root.querySelectorAll('.kz-file[data-zone-id]').forEach(function (input) {
-    input.addEventListener('change', function () {
-      var file = input.files && input.files[0];
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function (ev) {
-        post({ type: 'kuztom_photo', zoneId: input.dataset.zoneId, dataUrl: ev.target.result });
-        var span = input.closest('.kz-upload') && input.closest('.kz-upload').querySelector('.kz-upload-text');
-        if (span) span.textContent = file.name;
-      };
-      reader.readAsDataURL(file);
+    ['kco-zm','kco-zp','kco-l','kco-r','kco-u','kco-d'].forEach(function(id) {
+      var btn = document.getElementById(id);
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var c = getC();
+        if (id === 'kco-zm') c.zoom = Math.max(0.5, c.zoom - 0.1);
+        if (id === 'kco-zp') c.zoom = Math.min(3, c.zoom + 0.1);
+        if (id === 'kco-l')  c.offsetX -= CROP_STEP;
+        if (id === 'kco-r')  c.offsetX += CROP_STEP;
+        if (id === 'kco-u')  c.offsetY -= CROP_STEP;
+        if (id === 'kco-d')  c.offsetY += CROP_STEP;
+        if (activeCropZone) sendCrop(activeCropZone);
+      });
     });
-  });
+    var validate = document.getElementById('kuztom-crop-validate');
+    if (validate) validate.addEventListener('click', function() {
+      overlay.style.display = 'none'; activeCropZone = null;
+    });
+  })();
 
-})();
-</script>
+  /* ─── Propriétés panier ─────────────────────────────────────── */
+  function injectProp(form, key, value) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'properties[' + key + ']';
+    input.value = value;
+    input.setAttribute('data-kuztom', '1');
+    form.appendChild(input);
+  }
 
-<script>
-/* ── Mini viewer mobile — IntersectionObserver ─────────── */
-(function () {
-  var mini    = document.getElementById('kz-mini-viewer');
-  var mainWrap = document.querySelector('#kz-root .kz-iframe-wrap');
-  if (!mini || !mainWrap || !window.IntersectionObserver) return;
+  function updateLineItemProperties() {
+    var form = document.querySelector('form[action*="/cart/add"]');
+    if (!form || !fieldsContainer) return;
+    form.querySelectorAll('input[data-kuztom]').forEach(function(el) { el.remove(); });
 
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        mini.classList.remove('kz-mini-visible');
-      } else {
-        mini.classList.add('kz-mini-visible');
+    injectProp(form, '_Design', currentDesignName || '');
+    var colorLabel = fieldsContainer.querySelector('.kuztom-color-label');
+    injectProp(form, 'Couleur gobelet', colorLabel ? colorLabel.textContent : '');
+    var dateEl = document.getElementById('kuztom-event-date');
+    if (dateEl && dateEl.value) injectProp(form, 'Date evenement', dateEl.value);
+
+    fieldsContainer.querySelectorAll('.kuztom-textarea[data-zone-id]').forEach(function(ta) {
+      var zoneId = ta.dataset.zoneId;
+      var label = (ta.closest('.kuztom-field-group').querySelector('.kuztom-label') || {}).textContent || zoneId;
+      var val = ta.value.trim();
+      var info = zoneInfoCache[zoneId];
+      if (val) {
+        injectProp(form, label, val);
+        injectProp(form, '_' + label + ' lignes', String(val.split('\n').length));
+        if (info) injectProp(form, '_' + label + ' police', String(info.fontSize) + 'px');
       }
     });
-  }, { threshold: 0.1 });
+    fieldsContainer.querySelectorAll('.kuztom-textarea[data-arch-zone-id]').forEach(function(ta) {
+      var label = (ta.closest('.kuztom-field-group').querySelector('.kuztom-label') || {}).textContent || ta.dataset.archZoneId;
+      var val = ta.value.trim();
+      if (val) injectProp(form, label, val);
+    });
+  }
 
-  observer.observe(mainWrap);
+  function syncAll() {
+    if (!fieldsContainer) return;
+    fieldsContainer.querySelectorAll('.kuztom-textarea[data-zone-id]').forEach(function(ta) {
+      post({ type: 'UPDATE_TEXT', zoneId: ta.dataset.zoneId, value: ta.value });
+    });
+    fieldsContainer.querySelectorAll('.kuztom-textarea[data-arch-zone-id]').forEach(function(ta) {
+      post({ type: 'UPDATE_TEXT', zoneId: ta.dataset.archZoneId, value: ta.value });
+    });
+    var active = fieldsContainer.querySelector('.kuztom-swatch.active');
+    if (active) post({ type: 'UPDATE_COLOR', value: active.dataset.color });
+    updateLineItemProperties();
+  }
 
-  mini.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.addEventListener('message', function(e) {
+    if (!e.data) return;
+    if (e.data.type === 'kuztom_zone_info') {
+      (e.data.zones || []).forEach(function(z) { zoneInfoCache[z.id] = z; });
+      updateLineItemProperties();
+      return;
+    }
+    if (e.data.type === 'kuztom_ready') {
+      viewerReady = true;
+      // Envoyer le token orders au viewer de façon sécurisée
+      var ordersToken = localStorage.getItem('kuztom_orders_token') || '';
+      if (ordersToken) post({ type: 'SET_ORDERS_TOKEN', token: ordersToken });
+      if (formBuilt) syncAll();
+      return;
+    }
+    if (e.data.type === 'PRINT_PNG_READY') {
+      // PNG imprimeur uploadé sur GitHub — stocker le lien et soumettre le panier
+      var pngUrl = e.data.url;
+      var form = document.querySelector('form[action*="/cart/add"]');
+      if (form) {
+        injectProp(form, '_PNG imprimeur', pngUrl);
+        injectProp(form, 'note', '📥 PNG imprimeur : ' + pngUrl);
+      }
+      // Soumettre le formulaire
+      if (window._kuztomPendingSubmit) {
+        window._kuztomPendingSubmit = false;
+        if (form) form.submit();
+      }
+      return;
+    }
+    if (e.data.type === 'PRINT_PNG_ERROR') {
+      // En cas d'erreur d'upload, on laisse passer la commande quand même
+      console.warn('PNG imprimeur non généré:', e.data.error);
+      if (window._kuztomPendingSubmit) {
+        window._kuztomPendingSubmit = false;
+        var form = document.querySelector('form[action*="/cart/add"]');
+        if (form) form.submit();
+      }
+      return;
+    }
+    if (e.data.type === 'SHARE_IMAGE_READY') {
+      var sb = document.getElementById('kuztom-share-btn');
+      if (sb) { sb.textContent = '📤 Partager le modèle'; sb.disabled = false; }
+      fetch(e.data.dataUrl).then(function(r) { return r.blob(); }).then(function(blob) {
+        var file = new File([blob], 'gobelet-kuztom.png', { type: 'image/png' });
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({ title: 'Mon gobelet — Kuztom', text: 'Découvrez ce modèle sur kuztom.fr', files: [file] }).catch(function() {});
+        } else {
+          var a = document.createElement('a'); a.href = e.data.dataUrl; a.download = 'gobelet-kuztom.png'; a.click();
+        }
+      }).catch(function() {});
+      return;
+    }
+    if (e.data.type === 'SHARE_IMAGE_ERROR') {
+      var sb = document.getElementById('kuztom-share-btn');
+      if (sb) { sb.textContent = '📤 Partager le modèle'; sb.disabled = false; }
+    }
   });
+
+  /* ─── Construction du formulaire ────────────────────────────── */
+  function buildForm(design) {
+    var container = document.createElement('div');
+    container.id = 'kuztom-injected-fields';
+    fieldsContainer = container;
+    currentDesignName = design.name || '';
+
+    var textZones = [].concat(
+      (design.text_zones || []).map(function(z) { return Object.assign({}, z, { _kind: 'text' }); }),
+      (design.arch_zones || []).map(function(z) { return Object.assign({}, z, { _kind: 'arch' }); })
+    ).sort(function(a, b) { return (a.order || 99) - (b.order || 99); });
+
+    textZones.forEach(function(zone) {
+      var group = document.createElement('div'); group.className = 'kuztom-field-group';
+      var lbl = document.createElement('label'); lbl.className = 'kuztom-label';
+      lbl.textContent = zone.label || ''; lbl.htmlFor = 'kuztom-ta-' + zone.id;
+      group.appendChild(lbl);
+      var ta = document.createElement('textarea'); ta.id = 'kuztom-ta-' + zone.id;
+      ta.className = 'kuztom-textarea';
+      if (zone._kind === 'arch') {
+        ta.rows = 1; ta.style.minHeight = '48px'; ta.style.resize = 'none';
+        ta.dataset.archZoneId = zone.id;
+      } else {
+        ta.dataset.zoneId = zone.id; ta.rows = 3;
+      }
+      var _key = 'kuztom_draft_' + productHandle + '_' + zone.id;
+      var _saved = ''; try { _saved = localStorage.getItem(_key) || ''; } catch(e) {}
+      ta.value = _saved || (zone._kind === 'arch' ? '' : zone.placeholder) || '';
+      if (_saved) post({ type: 'UPDATE_TEXT', zoneId: zone.id, value: _saved });
+      ta.addEventListener('input', function() {
+        // Calcul taille police réelle avec auto-shrink
+        var MIN_FONT_PX = 40;
+        var lines = ta.value.split('\n');
+        var lh = zone.lineHeight || 1.3;
+        var fs = zone.font_size || 48;
+        var testCanvas = document.createElement('canvas');
+        var testCtx = testCanvas.getContext('2d');
+        while (fs > 6) {
+          testCtx.font = fs + 'px "' + (zone.font_family || 'Jost') + '"';
+          var maxW = Math.max.apply(null, lines.map(function(l) { return testCtx.measureText(l).width; }));
+          var m = testCtx.measureText('Agyjpq');
+          var realH = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.8;
+          var totalH = lines.length * realH + (lines.length - 1) * (fs * (lh - 1));
+          if (maxW <= zone.width && totalH <= zone.height) break;
+          fs -= 1;
+        }
+        // Bloquer si trop petit
+        var warn = group.querySelector('.kuztom-font-warn');
+        if (fs < MIN_FONT_PX && ta.value.length > 0) {
+          // Supprimer le dernier caractère
+          ta.value = ta.value.slice(0, -1);
+          if (!warn) {
+            warn = document.createElement('p');
+            warn.className = 'kuztom-font-warn';
+            warn.style.cssText = 'font-size:12px;color:#c0392b;margin-top:4px;';
+            warn.textContent = '⚠️ Texte trop long — taille minimum 40px pour l\'impression atteinte.';
+            group.appendChild(warn);
+          }
+          return;
+        } else if (warn) {
+          warn.remove();
+        }
+        post({ type: 'UPDATE_TEXT', zoneId: zone.id, value: ta.value });
+        updateLineItemProperties();
+        try { localStorage.setItem(_key, ta.value); } catch(e) {}
+      });
+      group.appendChild(ta); container.appendChild(group);
+    });
+
+    /* Zones photo */
+    (design.photo_zones || []).forEach(function(zone) {
+      var group = document.createElement('div'); group.className = 'kuztom-field-group';
+      var lbl = document.createElement('p'); lbl.className = 'kuztom-label'; lbl.textContent = zone.label || ''; group.appendChild(lbl);
+      var inputId = 'kuztom-ph-' + zone.id;
+      var uploadLabel = document.createElement('label'); uploadLabel.className = 'kuztom-upload-label'; uploadLabel.htmlFor = inputId;
+      uploadLabel.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path></svg><span class="kuztom-upload-text">Choisir une photo</span>';
+      var fileInput = document.createElement('input'); fileInput.type = 'file'; fileInput.id = inputId;
+      fileInput.className = 'kuztom-file-input'; fileInput.accept = 'image/*'; fileInput.dataset.zoneId = zone.id;
+      var cropDiv = document.createElement('div'); cropDiv.className = 'kuztom-crop-controls'; cropDiv.style.display = 'none';
+      cropDiv.innerHTML = '<div class="kuztom-crop-row"><span class="kuztom-crop-lbl">🔍 Zoom</span><button type="button" class="kuztom-crop-btn" data-action="zoom-out" data-zone-id="' + zone.id + '">−</button><input type="range" class="kuztom-crop-zoom" data-zone-id="' + zone.id + '" min="50" max="300" value="100" step="5"><button type="button" class="kuztom-crop-btn" data-action="zoom-in" data-zone-id="' + zone.id + '">+</button></div><div class="kuztom-crop-row"><span class="kuztom-crop-lbl">↔ Position</span><button type="button" class="kuztom-crop-btn" data-action="left" data-zone-id="' + zone.id + '">◀</button><button type="button" class="kuztom-crop-btn" data-action="right" data-zone-id="' + zone.id + '">▶</button><button type="button" class="kuztom-crop-btn" data-action="up" data-zone-id="' + zone.id + '">▲</button><button type="button" class="kuztom-crop-btn" data-action="down" data-zone-id="' + zone.id + '">▼</button></div><button type="button" class="kuztom-crop-reset" data-zone-id="' + zone.id + '">↺ Réinitialiser</button>';
+      fileInput.addEventListener('change', function() {
+        var file = fileInput.files && fileInput.files[0]; if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          photoCropState[zone.id] = { zoom: 1, offsetX: 0, offsetY: 0 };
+          post({ type: 'UPDATE_PHOTO', zoneId: zone.id, value: ev.target.result });
+          var span = uploadLabel.querySelector('.kuztom-upload-text'); if (span) span.textContent = file.name;
+          activeCropZone = zone.id;
+          if (isMobile) {
+            var overlay = document.getElementById('kuztom-crop-overlay'); if (overlay) overlay.style.display = 'block';
+            var ms = document.getElementById('kco-slider'); if (ms) ms.value = 100;
+            if (iframeWrap) iframeWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            container.querySelectorAll('.kuztom-crop-controls').forEach(function(el) { el.style.display = 'none'; });
+            cropDiv.style.display = 'block';
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+      cropDiv.querySelector('.kuztom-crop-zoom').addEventListener('input', function(e) {
+        if (!photoCropState[zone.id]) photoCropState[zone.id] = { zoom: 1, offsetX: 0, offsetY: 0 };
+        photoCropState[zone.id].zoom = parseInt(e.target.value) / 100; sendCrop(zone.id);
+      });
+      cropDiv.querySelectorAll('.kuztom-crop-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var a = btn.dataset.action;
+          if (!photoCropState[zone.id]) photoCropState[zone.id] = { zoom: 1, offsetX: 0, offsetY: 0 };
+          var c = photoCropState[zone.id];
+          if (a === 'zoom-in')  c.zoom = Math.min(3, c.zoom + 0.1);
+          if (a === 'zoom-out') c.zoom = Math.max(0.5, c.zoom - 0.1);
+          if (a === 'left')  c.offsetX -= CROP_STEP;
+          if (a === 'right') c.offsetX += CROP_STEP;
+          if (a === 'up')    c.offsetY -= CROP_STEP;
+          if (a === 'down')  c.offsetY += CROP_STEP;
+          sendCrop(zone.id);
+        });
+      });
+      cropDiv.querySelector('.kuztom-crop-reset').addEventListener('click', function() {
+        photoCropState[zone.id] = { zoom: 1, offsetX: 0, offsetY: 0 };
+        post({ type: 'PHOTO_CROP_RESET', zoneId: zone.id });
+        cropDiv.querySelector('.kuztom-crop-zoom').value = 100;
+      });
+      uploadLabel.appendChild(fileInput);
+      group.appendChild(uploadLabel); group.appendChild(cropDiv); container.appendChild(group);
+    });
+
+    /* Couleurs */
+    var colors = design.variant_colors || [];
+    if (colors.length > 0) {
+      var group = document.createElement('div'); group.className = 'kuztom-field-group';
+      var lbl = document.createElement('p'); lbl.className = 'kuztom-label'; lbl.textContent = 'Couleur du gobelet'; group.appendChild(lbl);
+      var swatches = document.createElement('div'); swatches.className = 'kuztom-swatches';
+      var colorLabel = document.createElement('p'); colorLabel.className = 'kuztom-color-label';
+      colorLabel.textContent = colors[0] ? (colors[0].name || colors[0].hex) : '';
+      colors.forEach(function(color, idx) {
+        var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'kuztom-swatch';
+        btn.style.background = color.hex; btn.dataset.color = color.hex;
+        btn.setAttribute('aria-label', color.name || color.hex);
+        if (idx === 0) btn.classList.add('active');
+        btn.addEventListener('click', function() {
+          swatches.querySelectorAll('.kuztom-swatch').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active'); colorLabel.textContent = color.name || color.hex;
+          post({ type: 'UPDATE_COLOR', value: color.hex, opacity: color.opacity !== undefined ? color.opacity : 0.88, textColorOverride: color.force_text_color ? color.text_color_override : null });
+          updateLineItemProperties();
+        });
+        swatches.appendChild(btn);
+      });
+      group.appendChild(swatches); group.appendChild(colorLabel); container.appendChild(group);
+    }
+
+    /* Date */
+    var dateWrapper = document.createElement('div');
+    dateWrapper.style.cssText = 'padding:14px 16px;border:1.5px dashed #c9a96e;border-radius:12px;background:rgba(201,169,110,0.06);';
+    var dateLbl = document.createElement('p'); dateLbl.style.cssText = 'font-size:13px;font-weight:600;color:#c9a96e;margin-bottom:8px;'; dateLbl.textContent = '📅 Date de votre événement';
+    var dateInput = document.createElement('input'); dateInput.type = 'date'; dateInput.id = 'kuztom-event-date';
+    dateInput.style.cssText = 'width:auto;max-width:180px;padding:7px 10px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px;outline:none;font-family:inherit;height:38px;';
+    var dateNote = document.createElement('p'); dateNote.style.cssText = 'font-size:12px;color:#8a8078;line-height:1.6;margin:0;';
+    dateNote.textContent = "Cette information est précieuse pour notre équipe afin d'organiser votre commande dans les meilleures conditions et vous garantir une livraison avant votre événement. Ce champ est optionnel et n'apparaît pas sur votre gobelet.";
+    dateWrapper.appendChild(dateLbl); dateWrapper.appendChild(dateInput); dateWrapper.appendChild(dateNote);
+    container.appendChild(dateWrapper);
+    dateInput.addEventListener('change', function() { updateLineItemProperties(); });
+
+    /* Partager */
+    var shareBtn = document.createElement('button'); shareBtn.id = 'kuztom-share-btn'; shareBtn.textContent = '📤 Partager le modèle'; shareBtn.type = 'button';
+    shareBtn.addEventListener('click', function() {
+      shareBtn.textContent = '⏳ Génération en cours...'; shareBtn.disabled = true;
+      post({ type: 'REQUEST_SHARE_IMAGE' });
+    });
+    container.appendChild(shareBtn);
+
+    /* Injection dans product-info après le titre */
+    function inject() {
+      var productInfo = document.querySelector('.product-info');
+      if (!productInfo) { setTimeout(inject, 100); return; }
+      var titleBlock = productInfo.querySelector('[data-block-type="title"]');
+      if (titleBlock && titleBlock.nextSibling) {
+        productInfo.insertBefore(container, titleBlock.nextSibling);
+      } else {
+        productInfo.prepend(container);
+      }
+    }
+    inject();
+
+    formBuilt = true;
+    if (viewerReady) syncAll();
+  }
+
+  /* ─── Chargement principal ──────────────────────────────────── */
+  loadDesigns(function(designs) {
+    var design = null;
+    // Recherche par shopify_handle en priorité
+    for (var i = 0; i < designs.length; i++) {
+      if (designs[i].shopify_handle && designs[i].shopify_handle === productHandle) {
+        design = designs[i]; break;
+      }
+    }
+    // Fallback : recherche par id commençant par le handle
+    if (!design) {
+      for (var i = 0; i < designs.length; i++) {
+        if (designs[i].id && designs[i].id.startsWith(productHandle)) {
+          design = designs[i]; break;
+        }
+      }
+    }
+    if (!design || design.active === false) return;
+
+    if (iframeWrap) {
+      var iframeW = iframeWrap.offsetWidth || window.innerWidth * 0.5;
+      iframe.setAttribute('width', iframeW);
+      iframe.setAttribute('height', iframeW);
+    }
+    // Pas de ?t=Date.now() — on laisse le cache HTTP de GitHub Pages travailler
+    var src = VIEWER_BASE + '?design=' + encodeURIComponent(design.id);
+    iframe.src = src;
+    if (miniIframe) miniIframe.src = src;
+    buildForm(design);
+  });
+
+  /* ─── Interception bouton panier → génération PNG imprimeur ── */
+  (function() {
+    function interceptCartButton() {
+      var form = document.querySelector('form[action*="/cart/add"]');
+      if (!form) { setTimeout(interceptCartButton, 500); return; }
+      form.addEventListener('submit', function(e) {
+        // Si le PNG est déjà en cours, ne pas bloquer deux fois
+        if (window._kuztomPendingSubmit) return;
+        // Si pas de viewer chargé, laisser passer
+        if (!viewerReady) return;
+        e.preventDefault();
+        e.stopPropagation();
+        window._kuztomPendingSubmit = true;
+        // Timeout de sécurité : si le PNG prend trop longtemps, soumettre quand même
+        setTimeout(function() {
+          if (window._kuztomPendingSubmit) {
+            window._kuztomPendingSubmit = false;
+            form.submit();
+          }
+        }, 15000);
+        // Demander la génération du PNG imprimeur au viewer
+        post({ type: 'REQUEST_PRINT_PNG' });
+      }, true);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', interceptCartButton);
+    } else {
+      setTimeout(interceptCartButton, 600);
+    }
+  })();
+  (function() {
+    function autoSelectQuantity() {
+      var variantPicker = document.querySelector('variant-picker');
+      if (!variantPicker) return;
+      var fieldsets = variantPicker.querySelectorAll('fieldset.variant-picker__option');
+      if (fieldsets.length < 2) return;
+      var contenanceFieldset = fieldsets[0];
+      var quantiteFieldset = fieldsets[1];
+      contenanceFieldset.addEventListener('change', function() {
+        setTimeout(function() {
+          var firstAvailable = quantiteFieldset.querySelector('input[type="radio"]:not([disabled])');
+          if (firstAvailable && !firstAvailable.checked) { firstAvailable.click(); return; }
+          var dropdown = quantiteFieldset.querySelector('select');
+          if (dropdown) {
+            var firstOpt = dropdown.querySelector('option:not([disabled])');
+            if (firstOpt && dropdown.value !== firstOpt.value) {
+              dropdown.value = firstOpt.value;
+              dropdown.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
+        }, 200);
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', autoSelectQuantity);
+    } else {
+      setTimeout(autoSelectQuantity, 500);
+    }
+  })();
+
 })();
 </script>
-
-{% schema %}
-{
-  "name": "Configurateur 3D",
-  "tag": "section",
-  "class": "kuztom-3d-section",
-  "settings": [
-    {
-      "type": "text",
-      "id": "design_handle",
-      "label": "Handle du design (laisser vide = handle produit Shopify)",
-      "info": "Correspond au fichier designs/<handle>.json sur GitHub Pages",
-      "default": ""
-    },
-    {
-      "type": "range",
-      "id": "viewer_height",
-      "label": "Hauteur du viewer (px)",
-      "min": 300,
-      "max": 800,
-      "step": 20,
-      "default": 560
-    }
-  ],
-  "blocks": [
-    {
-      "type": "zone_texte",
-      "name": "Zone de texte",
-      "settings": [
-        {
-          "type": "text",
-          "id": "zone_id",
-          "label": "ID de la zone (doit correspondre à l'ID dans le JSON design)",
-          "default": "zone_1"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label affiché au client",
-          "default": "Votre texte"
-        }
-      ]
-    },
-    {
-      "type": "zone_photo",
-      "name": "Zone photo",
-      "settings": [
-        {
-          "type": "text",
-          "id": "zone_id",
-          "label": "ID de la zone (doit correspondre à l'ID dans le JSON design)",
-          "default": "photo_1"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label affiché au client",
-          "default": "Votre photo"
-        }
-      ]
-    },
-    {
-      "type": "couleur",
-      "name": "Couleur",
-      "settings": [
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Nom de la couleur (optionnel)",
-          "default": ""
-        },
-        {
-          "type": "text",
-          "id": "couleur_hex",
-          "label": "Couleur HEX",
-          "default": "#f5f0eb"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Configurateur 3D"
-    }
-  ]
-}
-{% endschema %}
