@@ -40,11 +40,6 @@ const params     = new URLSearchParams(window.location.search);
 const designName = params.get('design') || '';
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
 
-// ═══════════════════════════════════════════
-//  DIMENSIONS UNIFIÉES — alignées sur les WebP réels 1970x1140
-//  Identiques dans admin-designs.html, configurateur-viewer.html
-//  et PNG imprimeur. Ne jamais modifier sans modifier les 3.
-// ═══════════════════════════════════════════
 const TEX_W = 1970, TEX_H = 1140;
 
 function getSize() {
@@ -244,28 +239,22 @@ function drawTexture() {
   ctx2d.globalAlpha = 1.0;
   ctx2d.globalCompositeOperation = 'source-over';
 
-  // 1. Photos client EN PREMIER (sous le WebP)
   (CFG.photo_zones || []).forEach(zone => {
     const img = state.photos[zone.id];
     if (img) drawPhotoZone(zone, img);
     else drawPhotoPlaceholder(zone);
   });
 
-  // 2. WebP du design PAR-DESSUS les photos
   if (state.designImage) {
     const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
-    // Toujours dessiner sur toute la surface TEX_W×TEX_H
-    // Les anciens designs ont width:2000 height:1024 dans le JSON — on ignore ces valeurs
     ctx2d.drawImage(state.designImage, d.x||0, d.y||0, TEX_W, TEX_H);
   }
 
-  // 3. Textes au-dessus de tout
   (CFG.text_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     drawTextZone(zone, txt);
   });
 
-  // 4. Zones arche
   (CFG.arch_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     if (txt && txt.trim()) drawArchZone(zone, txt);
@@ -273,7 +262,6 @@ function drawTexture() {
 
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
 
-  // Envoyer infos zones au parent pour line item properties
   var zoneInfos = (CFG.text_zones || []).map(function(zone) {
     var txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     return {
@@ -289,20 +277,16 @@ function drawTexture() {
 
 async function loadDesignConfig() {
   if (!designName) return;
-  // designs.json : contient les design_url (URLs GitHub Pages, pas de base64)
-  // designs-light.json ne contient pas les design_url — ne pas l'utiliser ici
   const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const designs = await res.json();
-    // Recherche par id en priorité (plus fiable), puis par shopify_handle
     const data = Array.isArray(designs)
       ? (designs.find(d => d.id === designName) || designs.find(d => d.shopify_handle === designName))
       : null;
     if (!data) throw new Error('design non trouvé');
     CFG = data;
-    // Assurer les bonnes dimensions
     if (!CFG.design) CFG.design = { x: 0, y: 0, width: TEX_W, height: TEX_H };
     state.gobeletColor = CFG.gobelet_color || '#f5f0eb';
     (CFG.text_zones || []).forEach(z => { state.texts[z.id] = z.placeholder || ''; });
@@ -556,6 +540,7 @@ function onResize() {
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
+
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId)
               || (CFG.arch_zones  || []).find(z => z.id === data.zoneId);
@@ -590,13 +575,24 @@ window.addEventListener('message', function(e) {
     } catch(e) { window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT_ERROR' }, '*'); }
     return;
   }
-
   if (data.type === 'SET_ORDERS_TOKEN' && data.token) {
     localStorage.setItem('kuztom_orders_token', data.token);
     return;
   }
+
+  // ── NOUVEAU : PNG client pour gobelet vierge ──
+  if (data.type === 'SET_DESIGN_IMAGE' && data.dataUrl) {
+    const img = new Image();
+    img.onload = () => {
+      state.designImage = img;
+      drawTexture();
+      if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+    };
+    img.src = data.dataUrl;
+    return;
+  }
+
   if (data.type === 'REQUEST_PRINT_PNG') {
-    // Génération PNG imprimeur 1970x1140 avec stroke 2.5px + bonne police + photo
     (async function() {
       try {
         const W = TEX_W, H = TEX_H;
@@ -605,7 +601,6 @@ window.addEventListener('message', function(e) {
         const pctx = printCanvas.getContext('2d', {alpha: true});
         pctx.clearRect(0, 0, W, H);
 
-        // 1. Photos client EN PREMIER (sous le WebP)
         (CFG.photo_zones || []).forEach(zone => {
           const img = state.photos[zone.id];
           if (!img) return;
@@ -622,13 +617,11 @@ window.addEventListener('message', function(e) {
           pctx.restore();
         });
 
-        // 2. WebP du design PAR-DESSUS les photos
         if (state.designImage) {
           const d = CFG.design || {x:0,y:0,width:W,height:H};
           pctx.drawImage(state.designImage, d.x||0, d.y||0, W, H);
         }
 
-        // 3. Charger les polices correctement avant de dessiner
         const families = [...new Set([
           ...(CFG.text_zones||[]).map(z=>z.font_family),
           ...(CFG.arch_zones||[]).map(z=>z.font_family)
@@ -655,7 +648,6 @@ window.addEventListener('message', function(e) {
         await new Promise(r => setTimeout(r, 600));
         document.body.removeChild(fontForcer);
 
-        // 4. Textes avec stroke 2.5px
         const STROKE_WIDTH = 2.5;
         (CFG.text_zones||[]).forEach(zone => {
           const txt = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'')).trim();
@@ -690,7 +682,6 @@ window.addEventListener('message', function(e) {
           pctx.restore();
         });
 
-        // 5. Zones arche
         (CFG.arch_zones||[]).forEach(zone => {
           const txt = (state.texts[zone.id]||'').trim();
           if (!txt) return;
@@ -731,10 +722,7 @@ window.addEventListener('message', function(e) {
           pctx.restore();
         });
 
-        // 6. Convertir en base64
         const b64 = printCanvas.toDataURL('image/png').split(',')[1];
-
-        // 7. Upload vers GitHub orders/
         const TOKEN = localStorage.getItem('kuztom_orders_token') || '';
         const REPO = 'clcreation542-coder/Code-3D';
         const ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
@@ -767,6 +755,7 @@ window.addEventListener('message', function(e) {
     })();
     return;
   }
+
   if (data.type === 'UPDATE_COLOR' && data.value) {
     state.gobeletColor = data.value;
     if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
