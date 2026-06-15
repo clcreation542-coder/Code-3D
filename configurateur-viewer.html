@@ -218,8 +218,7 @@ function drawPhotoZone(zone, img) {
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
-  // FIX : op >= 1.0 = Blanc opaque | op < 1.0 = Translucide
-  const isSolid = (op >= 1.0);
+  const isSolid = (op === 0);
   if (isSolid) {
     ctx2d.globalAlpha = 1;
     ctx2d.fillStyle   = '#ffffff';
