@@ -11634,9 +11634,9 @@
         "label": "Photo",
         "order": 1,
         "x": 1432,
-        "y": 366,
+        "y": 328,
         "width": 295,
-        "height": 349,
+        "height": 387,
         "shape": "rectangle"
       }
     ],
