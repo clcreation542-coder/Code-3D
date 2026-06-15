@@ -580,7 +580,7 @@ window.addEventListener('message', function(e) {
     return;
   }
 
-  // ── NOUVEAU : PNG client pour gobelet vierge ──
+  // ── PNG client pour gobelet vierge ──
   if (data.type === 'SET_DESIGN_IMAGE' && data.dataUrl) {
     const img = new Image();
     img.onload = () => {
@@ -730,19 +730,35 @@ window.addEventListener('message', function(e) {
         const filename = `orders/${designSlug}-${ts}.png`;
         const apiUrl = `https://api.github.com/repos/${REPO}/contents/${filename}`;
 
-        const uploadRes = await fetch(apiUrl, {
+        // Gestion du 409 (conflit si fichier existant)
+        let uploadBody = { message: `order: ${filename}`, content: b64 };
+        let uploadRes = await fetch(apiUrl, {
           method: 'PUT',
           headers: {
             'Authorization': `token ${TOKEN}`,
             'Content-Type': 'application/json',
             'Accept': 'application/vnd.github+json'
           },
-          body: JSON.stringify({
-            message: `order: ${filename}`,
-            content: b64
-          })
+          body: JSON.stringify(uploadBody)
         });
-
+        if (uploadRes.status === 409) {
+          const getRes = await fetch(apiUrl, {
+            headers: { 'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github+json' }
+          });
+          if (getRes.ok) {
+            const existing = await getRes.json();
+            uploadBody.sha = existing.sha;
+            uploadRes = await fetch(apiUrl, {
+              method: 'PUT',
+              headers: {
+                'Authorization': `token ${TOKEN}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/vnd.github+json'
+              },
+              body: JSON.stringify(uploadBody)
+            });
+          }
+        }
         if (!uploadRes.ok) throw new Error('Upload échoué: ' + uploadRes.status);
 
         const pngUrl = `https://clcreation542-coder.github.io/Code-3D/${filename}`;
