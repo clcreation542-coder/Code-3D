@@ -218,22 +218,28 @@ function drawPhotoZone(zone, img) {
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
-  const isSolid = (op === 0);
+  // FIX : op >= 1.0 = Blanc opaque | op < 1.0 = Translucide
+  const isSolid = (op >= 1.0);
   if (isSolid) {
     ctx2d.globalAlpha = 1;
     ctx2d.fillStyle   = '#ffffff';
     ctx2d.fillRect(0, 0, TEX_W, TEX_H);
     if (bodyMaterial) {
-      bodyMaterial.transparent = false; bodyMaterial.opacity = 1;
-      bodyMaterial.depthWrite = true; bodyMaterial.needsUpdate = true;
+      bodyMaterial.transparent = false;
+      bodyMaterial.opacity     = 1;
+      bodyMaterial.depthWrite  = true;
+      bodyMaterial.needsUpdate = true;
     }
   } else {
     ctx2d.globalAlpha = op;
     ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
     ctx2d.fillRect(0, 0, TEX_W, TEX_H);
     if (bodyMaterial) {
-      bodyMaterial.transparent = true; bodyMaterial.opacity = 0.82;
-      bodyMaterial.depthWrite = false; bodyMaterial.alphaTest = 0; bodyMaterial.needsUpdate = true;
+      bodyMaterial.transparent = true;
+      bodyMaterial.opacity     = 0.82;
+      bodyMaterial.depthWrite  = false;
+      bodyMaterial.alphaTest   = 0;
+      bodyMaterial.needsUpdate = true;
     }
   }
   ctx2d.globalAlpha = 1.0;
@@ -402,6 +408,7 @@ function initThree() {
   gobeletTexture.encoding = THREE.sRGBEncoding;
   window._gobeletTexture  = gobeletTexture;
 
+  // Matériau initial : translucide par défaut
   bodyMaterial = new THREE.MeshStandardMaterial({
     map: gobeletTexture, color: new THREE.Color('#ffffff'),
     roughness: 0.3, metalness: 0.1,
@@ -472,6 +479,7 @@ function loadGobelet() {
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
     onResize();
+    // Appliquer la couleur initiale correctement après chargement du GLB
     drawTexture();
     requestAnimationFrame(() => { if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true; });
     hideLoading();
@@ -580,7 +588,6 @@ window.addEventListener('message', function(e) {
     return;
   }
 
-  // ── PNG client pour gobelet vierge ──
   if (data.type === 'SET_DESIGN_IMAGE' && data.dataUrl) {
     const img = new Image();
     img.onload = () => {
@@ -730,7 +737,6 @@ window.addEventListener('message', function(e) {
         const filename = `orders/${designSlug}-${ts}.png`;
         const apiUrl = `https://api.github.com/repos/${REPO}/contents/${filename}`;
 
-        // Gestion du 409 (conflit si fichier existant)
         let uploadBody = { message: `order: ${filename}`, content: b64 };
         let uploadRes = await fetch(apiUrl, {
           method: 'PUT',
@@ -777,7 +783,8 @@ window.addEventListener('message', function(e) {
     if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
     if (data.textColorOverride) { (CFG.text_zones || []).forEach(z => { z._colorOverride = data.textColorOverride; }); }
     else { (CFG.text_zones || []).forEach(z => { delete z._colorOverride; }); }
-    drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+    drawTexture();
+    if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
   if (data.type === 'UPDATE_PHOTO' && data.zoneId && data.value) {
     const img = new Image();
