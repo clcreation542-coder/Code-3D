@@ -9520,9 +9520,9 @@
         "label": "Photo",
         "order": 1,
         "x": 1452,
-        "y": 305,
+        "y": 346,
         "width": 391,
-        "height": 509,
+        "height": 468,
         "shape": "rectangle"
       }
     ],
