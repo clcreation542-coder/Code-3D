@@ -6,10 +6,13 @@
   <title>Viewer Gobelet — Kuztom</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: transparent; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #a8a5a1; }
     #viewer { width: 100%; height: 100%; position: relative; }
+    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: transparent; }
     #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: #a8a5a1; }
     #canvas-container canvas { display: block; position: absolute; top: 0; left: 0; }
+    #loading-indicator { display: none !important; }
     #loading-indicator { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: #efefed; z-index: 5; transition: opacity 400ms ease; }
     #loading-indicator.hidden { opacity: 0; pointer-events: none; }
     .loading-ring { width: 32px; height: 32px; border: 1.5px solid #e0ddd8; border-top-color: #c9a96e; border-radius: 50%; animation: spin 900ms linear infinite; }
@@ -74,8 +77,7 @@ function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 function getFontSize(zone, text) {
   let size = zone.font_size || 48;
   const lh = zone.lineHeight || 1.3;
-  const lines = text.split('\
-');
+  const lines = text.split('\n');
   const _tmpC = document.createElement('canvas');
   const _tmpX = _tmpC.getContext('2d');
   function _realBounds(font, txt) {
@@ -115,8 +117,7 @@ function drawTextZone(zone, text) {
   if (!text || !text.trim()) return;
   const lh     = zone.lineHeight || 1.3;
   const size   = getFontSize(zone, text);
-  const lines  = text.split('\
-');
+  const lines  = text.split('\n');
   const lineH  = size * lh;
   const totalH = lines.length * lineH;
   const cx     = zone.x + zone.width / 2;
@@ -193,7 +194,7 @@ function drawPhotoPlaceholder(zone) {
   ctx2d.fillStyle = 'rgba(160,160,160,0.7)';
   ctx2d.font = `${iconSize}px Arial`;
   ctx2d.textAlign = 'center'; ctx2d.textBaseline = 'middle';
-  ctx2d.fillText('\ud83d\udcf7', cx, cy - iconSize * 0.15);
+  ctx2d.fillText('📷', cx, cy - iconSize * 0.15);
   const fontSize = Math.min(zw, zh) * 0.1;
   ctx2d.font = `${fontSize}px Jost, sans-serif`;
   ctx2d.fillStyle = 'rgba(120,120,120,0.9)';
@@ -220,8 +221,7 @@ function drawPhotoZone(zone, img) {
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
-  // FIX : op >= 1.0 = Blanc opaque | op < 1.0 = Translucide
-  const isSolid = (op >= 1.0);
+  const isSolid = (op === 0);
   if (isSolid) {
     ctx2d.globalAlpha = 1;
     ctx2d.fillStyle   = '#ffffff';
@@ -275,8 +275,7 @@ function drawTexture() {
     return {
       id: zone.id, label: zone.label || zone.id,
       fontSize: getFontSize(zone, txt || 'A'),
-      lineCount: txt ? txt.split('\
-').length : 0
+      lineCount: txt ? txt.split('\n').length : 0
     };
   });
   if (window.parent && zoneInfos.length) {
@@ -348,7 +347,7 @@ function loadDesignImage() {
       img.src = CFG.design_url;
     } else {
       let url = CFG.design_url;
-      if (!url.startsWith('http') && !url.startsWith('//')) url = REPO_BASE + '/' + url.replace(/^\\//, '');
+      if (!url.startsWith('http') && !url.startsWith('//')) url = REPO_BASE + '/' + url.replace(/^\//, '');
       img.src = url;
     }
   });
@@ -502,8 +501,10 @@ function fallbackGeometry() {
 function hideLoading() {
   const el = document.getElementById('loading-indicator');
   if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
-  /* FIX SKELETON : envoyer kuztom_ready quand le gobelet est vraiment chargé */
-  window.parent.postMessage({ type: 'kuztom_ready' }, '*');
+  /* Notifier le parent que la scène est vraiment prête (gobelet visible) */
+  setTimeout(function() {
+    window.parent.postMessage({ type: 'kuztom_scene_ready' }, '*');
+  }, 200);
 }
 
 let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
@@ -645,10 +646,10 @@ window.addEventListener('message', function(e) {
           span.style.fontFamily = `'${font}'`;
           span.textContent = 'AaBbCc';
           fontForcer.appendChild(span);
-          if (!document.querySelector(`link[href*="${font.replace(/\\s+/g,'+')}"]`)) {
+          if (!document.querySelector(`link[href*="${font.replace(/\s+/g,'+')}"]`)) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
-            link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/\\s+/g,'+')}:wght@400;700&display=swap`;
+            link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/\s+/g,'+')}:wght@400;700&display=swap`;
             document.head.appendChild(link);
           }
         });
@@ -665,8 +666,7 @@ window.addEventListener('message', function(e) {
           const txt = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'')).trim();
           if (!txt) return;
           const lh = zone.lineHeight||1.3;
-          const lines = txt.split('\
-');
+          const lines = txt.split('\n');
           let fs = zone.font_size||48;
           while (fs > 6) {
             pctx.font = `${fs}px '${zone.font_family||'Jost'}'`;
@@ -830,7 +830,7 @@ async function init() {
   await Promise.all([loadFonts(), loadDesignImage()]);
   drawTexture();
   initThree();
-  /* kuztom_ready est envoyé dans hideLoading(), après le chargement complet du GLB */
+  window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
 
 if (document.readyState === 'loading') {
