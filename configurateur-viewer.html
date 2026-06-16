@@ -6,11 +6,11 @@
   <title>Viewer Gobelet — Kuztom</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; height: 100%; overflow: hidden; background: transparent; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #a8a5a1; }
     #viewer { width: 100%; height: 100%; position: relative; }
-    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: transparent; }
+    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: #a8a5a1; }
     #canvas-container canvas { display: block; position: absolute; top: 0; left: 0; }
-    #loading-indicator { display: none !important; }
+    #loading-indicator { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: #efefed; z-index: 5; transition: opacity 400ms ease; }
     #loading-indicator.hidden { opacity: 0; pointer-events: none; }
     .loading-ring { width: 32px; height: 32px; border: 1.5px solid #e0ddd8; border-top-color: #c9a96e; border-radius: 50%; animation: spin 900ms linear infinite; }
     .loading-text { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; font-family: 'Inter', sans-serif; }
@@ -498,10 +498,6 @@ function fallbackGeometry() {
 function hideLoading() {
   const el = document.getElementById('loading-indicator');
   if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
-  /* Notifier le parent que la scène est vraiment prête (gobelet visible) */
-  setTimeout(function() {
-    window.parent.postMessage({ type: 'kuztom_scene_ready' }, '*');
-  }, 200);
 }
 
 let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
