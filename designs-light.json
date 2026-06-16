@@ -11537,7 +11537,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.8,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-instant-fleuri-photo.webp",
     "design": {
       "x": 0,
@@ -11599,7 +11599,7 @@
         "height": 85,
         "shape": "rectangle",
         "lineHeight": 1,
-        "font_size": 92,
+        "font_size": 71,
         "color": "#eca194",
         "placeholder": "1 an de Malya",
         "font_family": "Parisienne",
