@@ -11580,7 +11580,7 @@
         "height": 496,
         "shape": "rectangle",
         "lineHeight": 1.5,
-        "font_size": 48,
+        "font_size": 100,
         "color": "#eca194",
         "placeholder": "",
         "font_family": "Italianno",
