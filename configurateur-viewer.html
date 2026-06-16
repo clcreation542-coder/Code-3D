@@ -6,9 +6,9 @@
   <title>Viewer Gobelet — Kuztom</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; height: 100%; overflow: hidden; background: #a8a5a1; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: transparent; }
     #viewer { width: 100%; height: 100%; position: relative; }
-    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: #a8a5a1; }
+    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: transparent; }
     #canvas-container canvas { display: block; position: absolute; top: 0; left: 0; }
     #loading-indicator { display: none !important; }
     #loading-indicator.hidden { opacity: 0; pointer-events: none; }
@@ -498,6 +498,10 @@ function fallbackGeometry() {
 function hideLoading() {
   const el = document.getElementById('loading-indicator');
   if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
+  /* Notifier le parent que la scène est vraiment prête (gobelet visible) */
+  setTimeout(function() {
+    window.parent.postMessage({ type: 'kuztom_scene_ready' }, '*');
+  }, 200);
 }
 
 let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
