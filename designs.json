@@ -11759,7 +11759,22 @@
       "height": 1140
     },
     "active": true,
-    "variant_colors": [],
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
     "text_zones": [
       {
         "id": "texte_mqhaa1w0z8cz",
