@@ -733,7 +733,7 @@
         "lineHeight": 1.2,
         "font_size": 100,
         "color": "#b07a84",
-        "placeholder": "0",
+        "placeholder": "",
         "font_family": "Parisienne",
         "align": "center",
         "multiline": false,
