@@ -29,13 +29,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 1,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -130,13 +123,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f6efe3"
       }
     ],
     "text_zones": [
@@ -231,13 +217,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -330,13 +309,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -452,13 +424,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f5e3d3"
       }
     ],
     "text_zones": [
@@ -551,13 +516,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -767,13 +725,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fded1b"
       }
     ],
     "text_zones": [
@@ -867,13 +818,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1063,13 +1007,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -1145,13 +1082,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fcfdf3"
       }
     ],
     "text_zones": [
@@ -1246,13 +1176,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -1327,13 +1250,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1448,13 +1364,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -1548,13 +1457,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1650,13 +1552,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -1751,13 +1646,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -1850,13 +1738,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -1972,13 +1853,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -2073,13 +1947,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f1e4d1"
       }
     ],
     "text_zones": [
@@ -2193,13 +2060,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -2294,13 +2154,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fef6ec"
       }
     ],
     "text_zones": [
@@ -2395,13 +2248,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f1e796"
       }
     ],
     "text_zones": [
@@ -2496,13 +2342,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fffef5"
       }
     ],
     "text_zones": [
@@ -2595,13 +2434,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2698,13 +2530,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -2780,13 +2605,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f1e2c9"
       }
     ],
     "text_zones": [
@@ -2879,13 +2697,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2982,13 +2793,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f5f0f2"
       }
     ],
     "text_zones": [
@@ -3083,13 +2887,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f5f0f2"
       }
     ],
     "text_zones": [
@@ -3184,13 +2981,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f5f0f2"
       }
     ],
     "text_zones": [
@@ -3285,13 +3075,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f4ede1"
       }
     ],
     "text_zones": [
@@ -3405,13 +3188,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f9f1ef"
       }
     ],
     "text_zones": [
@@ -3506,13 +3282,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f8f2bd"
       }
     ],
     "text_zones": [
@@ -3606,13 +3375,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3708,13 +3470,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -3807,13 +3562,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -3910,13 +3658,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f0e1d1"
       }
     ],
     "text_zones": [
@@ -4011,13 +3752,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -4110,13 +3844,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -4269,13 +3996,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#d4bea3"
       }
     ],
     "text_zones": [
@@ -4351,13 +4071,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -4527,13 +4240,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -4647,13 +4353,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -4748,13 +4447,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#feeee1"
       }
     ],
     "text_zones": [
@@ -4868,13 +4560,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#e8e6e3"
       }
     ],
     "text_zones": [
@@ -4969,13 +4654,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -5070,13 +4748,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -5171,13 +4842,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -5272,13 +4936,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -5372,13 +5029,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -5493,13 +5143,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -5613,13 +5256,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -5714,13 +5350,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffebdb"
       }
     ],
     "text_zones": [
@@ -5834,13 +5463,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -5954,13 +5576,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6035,13 +5650,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6137,13 +5745,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -6218,13 +5819,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6320,13 +5914,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6421,13 +6008,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -6522,13 +6102,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6604,13 +6177,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -6704,13 +6270,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6806,13 +6365,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -6888,13 +6440,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -6969,13 +6514,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7165,13 +6703,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -7265,13 +6796,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7442,13 +6966,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -7543,13 +7060,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffebdb"
       }
     ],
     "text_zones": [
@@ -7719,13 +7229,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -7819,13 +7322,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7940,13 +7436,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8041,13 +7530,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8123,13 +7605,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -8224,13 +7699,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -8325,13 +7793,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -8426,13 +7887,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -8527,13 +7981,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -8628,13 +8075,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8710,13 +8150,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#fafafa"
       }
     ],
     "text_zones": [
@@ -8810,13 +8243,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -8912,13 +8338,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#fed1ad"
       }
     ],
     "text_zones": [
@@ -8993,13 +8412,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9095,13 +8507,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -9195,13 +8600,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9307,13 +8705,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9438,13 +8829,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 1,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -10250,13 +9634,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f7d3a1"
       }
     ],
     "text_zones": [
@@ -10370,13 +9747,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -10451,13 +9821,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -10666,13 +10029,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#f4e2ef"
       }
     ],
     "text_zones": [
@@ -10936,13 +10292,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#bc9c22"
       }
     ],
     "text_zones": [
@@ -11035,13 +10384,6 @@
         "name": "Blanc",
         "hex": "#ffffff",
         "opacity": 0,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -11213,13 +10555,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -11294,13 +10629,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -11545,13 +10873,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
