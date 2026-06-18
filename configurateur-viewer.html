@@ -407,7 +407,6 @@ function initThree() {
   gobeletTexture.encoding = THREE.sRGBEncoding;
   window._gobeletTexture  = gobeletTexture;
 
-  // Matériau initial : translucide par défaut
   bodyMaterial = new THREE.MeshStandardMaterial({
     map: gobeletTexture, color: new THREE.Color('#ffffff'),
     roughness: 0.3, metalness: 0.1,
@@ -478,9 +477,9 @@ function loadGobelet() {
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
     onResize();
-    // Appliquer la couleur initiale correctement après chargement du GLB
     drawTexture();
     requestAnimationFrame(() => { if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true; });
+    // ── FIX SKELETON : hideLoading appelé ici, APRÈS que le GLB est chargé et affiché ──
     hideLoading();
   }, null, () => fallbackGeometry());
 }
@@ -498,6 +497,8 @@ function fallbackGeometry() {
 function hideLoading() {
   const el = document.getElementById('loading-indicator');
   if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
+  // ── FIX SKELETON : kuztom_ready envoyé ICI, quand le gobelet est vraiment visible ──
+  window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
 
 let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
@@ -586,7 +587,6 @@ window.addEventListener('message', function(e) {
     localStorage.setItem('kuztom_orders_token', data.token);
     return;
   }
-
   if (data.type === 'SET_DESIGN_IMAGE' && data.dataUrl) {
     const img = new Image();
     img.onload = () => {
@@ -597,7 +597,6 @@ window.addEventListener('message', function(e) {
     img.src = data.dataUrl;
     return;
   }
-
   if (data.type === 'REQUEST_PRINT_PNG') {
     (async function() {
       try {
@@ -823,7 +822,7 @@ async function init() {
   await Promise.all([loadFonts(), loadDesignImage()]);
   drawTexture();
   initThree();
-  window.parent.postMessage({ type: 'kuztom_ready' }, '*');
+  // kuztom_ready est maintenant envoyé dans hideLoading(), après le chargement du GLB
 }
 
 if (document.readyState === 'loading') {
