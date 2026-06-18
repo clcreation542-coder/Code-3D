@@ -673,13 +673,6 @@
         "opacity": 0,
         "force_text_color": false,
         "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#090909",
-        "opacity": 0.9,
-        "force_text_color": true,
-        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -11458,13 +11451,6 @@
         "hex": "#ffffff",
         "opacity": 0,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
-      },
-      {
-        "name": "Noir",
-        "hex": "#000000",
-        "opacity": 0.9,
-        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
