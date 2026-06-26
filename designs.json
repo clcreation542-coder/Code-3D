@@ -4514,7 +4514,7 @@
         "x": 1412,
         "y": 177,
         "width": 483,
-        "height": 76,
+        "height": 65,
         "shape": "rectangle",
         "lineHeight": 1.2,
         "font_size": 81,
@@ -10898,7 +10898,7 @@
       },
       {
         "id": "texte_mpzbw0t8ajnj",
-        "label": "Zone de texte 1",
+        "label": "Zone de text",
         "order": 1,
         "x": 1297,
         "y": 99,
