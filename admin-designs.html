@@ -1660,7 +1660,7 @@ function renderGlobalProps(d) {
       const scaleX=W/TEX_W, scaleY=H/TEX_H;
       ectx.drawImage(img, (di.x||0)*scaleX, (di.y||0)*scaleY, W, H);
     }
-    const scaleX=W/2000, scaleY=H/1024;
+    const scaleX=1, scaleY=1;
     const STROKE_WIDTH = 2.5; /* Épaisseur contour — équivalent niveau 5 Canva */
 
     (d.text_zones||[]).forEach(z=>{
