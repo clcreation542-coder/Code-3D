@@ -10924,7 +10924,7 @@
         "width": 234,
         "height": 61,
         "shape": "rectangle",
-        "lineHeight": 1.2,
+        "lineHeight": 1,
         "font_size": 86,
         "color": "#000000",
         "placeholder": "25.09.2024",
