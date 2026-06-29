@@ -116,7 +116,6 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .pdel{color:var(--danger);font-size:9px;opacity:.7;}
 .sbtn{width:100%;padding:7px;background:transparent;border:1px dashed var(--border);border-radius:7px;color:var(--muted);font-family:'Jost',sans-serif;font-size:11px;cursor:pointer;transition:all .2s;}
 .sbtn:hover{border-color:var(--gold);color:var(--gold);}
-/* Bouton upload PNG client */
 #vierge-upload-wrap{margin-bottom:16px;}
 #vierge-upload-wrap .rt{margin-bottom:9px;}
 .vierge-upload-zone{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;border:2px dashed rgba(201,169,110,0.35);border-radius:12px;background:rgba(201,169,110,0.04);cursor:pointer;transition:all .2s;text-align:center;}
@@ -221,7 +220,6 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
   <div id="zcl">✕</div>
   <iframe id="ifrZ" src="" width="700" height="700" style="border:none;border-radius:14px;display:block;"></iframe>
 </div>
-<!-- Input file caché pour PNG client (gobelet vierge) -->
 <input type="file" id="vierge-file-input-a" accept="image/png,image/jpeg,image/webp" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;" data-slot="a">
 <input type="file" id="vierge-file-input-b" accept="image/png,image/jpeg,image/webp" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;" data-slot="b">
 <script>
@@ -231,7 +229,6 @@ const LHKEY='kuztom_live_lock_until',LAKEY='kuztom_live_attempts',LHASHKEY='kuzt
 const LIBKEY='kuztom_live_colors',PRESKEY='kuztom_live_presets';
 const TEXTCOLORS=['#2c2521','#7a5c2e','#C9A96E','#ffffff','#000000','#8B0000','#1a3a6a','#2d5a2d','#6a1a6a','#8B4513','#D4175A','#FF7A00','#4A90D9','#50C878','#9B59B6','#E74C3C','#F39C12','#1ABC9C','#34495E','#E8C5A0'];
 
-// Design gobelet vierge (pseudo-design interne, pas dans designs.json)
 const DESIGN_VIERGE = {
   id: '__vierge__',
   name: 'Gobelet Vierge',
@@ -240,7 +237,6 @@ const DESIGN_VIERGE = {
   design_url: null
 };
 
-// PNG client uploadé par slot
 const viergeDataUrl = { a: null, b: null };
 
 (function(){
@@ -299,18 +295,14 @@ function postTo(slot,data){
 function renderGallery(q=''){
   const list=document.getElementById('glist');
   const items=designs.filter(d=>!q||d.name.toLowerCase().includes(q.toLowerCase()));
-
-  // Gobelet Vierge toujours en haut
   const isViergeA = slotDesign.a && slotDesign.a._isVierge;
   const isViergeB = slotDesign.b && slotDesign.b._isVierge;
   let html = `<div class="gitem gitem-vierge${isViergeA?' active-a':isViergeB?' active-b':''}" data-id="__vierge__">🖼️ Gobelet Vierge</div>`;
-
   html += items.map(d=>{
     const isA=slotDesign.a&&slotDesign.a.id===d.id;
     const isB=slotDesign.b&&slotDesign.b.id===d.id;
     return `<div class="gitem${isA?' active-a':isB?' active-b':''}" data-id="${d.id}">${d.name}</div>`;
   }).join('');
-
   list.innerHTML = html;
   list.querySelectorAll('.gitem').forEach(item=>{
     item.addEventListener('click',()=>{
@@ -328,12 +320,10 @@ document.getElementById('gsrch').addEventListener('input',e=>renderGallery(e.tar
 function loadDesignInSlot(slot,d){
   slotDesign[slot]=d;
   if(d._isVierge){
-    // Gobelet vierge : charger le viewer sans design, envoyer le PNG client si déjà uploadé
     const url=VB+'?v='+Date.now();
     const ifr=document.getElementById('ifr'+slot.toUpperCase());
     if(ifr){
       ifr.src=url;
-      // Quand le viewer sera prêt, on envoie le PNG client si déjà chargé
       ifr.onload = function(){
         if(viergeDataUrl[slot]){
           setTimeout(()=>postTo(slot,{type:'SET_DESIGN_IMAGE',dataUrl:viergeDataUrl[slot]}),800);
@@ -358,19 +348,16 @@ function buildControls(slot,d){
   buildSwatches(slot,d);
 }
 
-// ── Gestion upload PNG client pour gobelet vierge ──
 function setupViergeUpload(slot){
   const input = document.getElementById('vierge-file-input-'+slot);
   if(!input)return;
-  input.value=''; // reset
+  input.value='';
   input.onchange = function(){
     const file = input.files&&input.files[0]; if(!file)return;
     const reader = new FileReader();
     reader.onload = function(ev){
       viergeDataUrl[slot] = ev.target.result;
-      // Envoyer au viewer via postMessage SET_DESIGN_IMAGE
       postTo(slot,{type:'SET_DESIGN_IMAGE',dataUrl:ev.target.result});
-      // Mettre à jour le nom affiché
       const nameEl = document.getElementById('vierge-fname-'+slot);
       if(nameEl){nameEl.textContent='✅ '+file.name;nameEl.style.display='block';}
       document.getElementById('pname').value = file.name.replace(/\.[^.]+$/,'')+'-rendu.png';
@@ -379,10 +366,17 @@ function setupViergeUpload(slot){
   };
 }
 
+// ═══════════════════════════════════════════
+//  BUG FIX : buildZones — tout le HTML est
+//  construit d'un seul coup avec wrap.innerHTML
+//  puis les listeners sont attachés une seule fois.
+//  Avant : wrap.innerHTML += photoHtml détruisait
+//  les listeners sur les textarea → UPDATE_TEXT
+//  n'était plus jamais envoyé au viewer.
+// ═══════════════════════════════════════════
 function buildZones(slot,d){
   const wrap=document.getElementById('zonesWrap');
 
-  // ── CAS SPÉCIAL : Gobelet Vierge ──
   if(d._isVierge){
     wrap.innerHTML=`
       <div class="rt">PNG client</div>
@@ -401,16 +395,36 @@ function buildZones(slot,d){
   }
 
   const zones=(d.text_zones||[]).slice().sort((a,b)=>(a.ordre||a.order||99)-(b.ordre||b.order||99));
-  const photoZonesCheck=d.photo_zones||[];
-  if(!zones.length&&!photoZonesCheck.length){wrap.innerHTML='<div class="rt">Personnalisation</div><div style="color:var(--muted);font-size:12px;font-style:italic;">Aucune zone</div>';return;}
-  if(!zones.length){wrap.innerHTML='<div class="rt">Personnalisation</div>';}
-  else{
-    wrap.innerHTML='<div class="rt">Personnalisation</div>'+zones.map(z=>{
+  const photoZones=d.photo_zones||[];
+
+  if(!zones.length&&!photoZones.length){
+    wrap.innerHTML='<div class="rt">Personnalisation</div><div style="color:var(--muted);font-size:12px;font-style:italic;">Aucune zone</div>';
+    return;
+  }
+
+  // ── Construire TOUT le HTML en une seule fois ──
+  let html = '<div class="rt">Personnalisation</div>';
+
+  if(zones.length){
+    html += zones.map(z=>{
       const col=slotZoneColors[slot][z.id]||z.color||'#7a5c2e';
       const ph=(z.placeholder||'').replace(/"/g,'&quot;');
       return `<div class="zgroup"><div class="zlbl" style="display:flex;align-items:center;justify-content:space-between;">${z.label||z.id}<span class="fs-indicator" data-zid="${z.id}" style="font-size:10px;color:var(--gold);background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);border-radius:10px;padding:1px 7px;font-family:monospace;">—</span></div><div class="zinprow"><textarea class="lta" rows="2" data-zid="${z.id}" data-slot="${slot}">${ph}</textarea><input type="color" class="zcpick" data-zid="${z.id}" data-slot="${slot}" value="${col}"></div></div>`;
     }).join('');
   }
+
+  if(photoZones.length>0){
+    html += '<div class="rt" style="margin-top:12px;">Photo</div>';
+    photoZones.forEach(function(pz){
+      var uid='live-ph-'+slot+'-'+pz.id;
+      html+='<div class="zgroup"><div class="zlbl">'+(pz.label||'Photo')+'</div><label class="photo-upload-btn" for="'+uid+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path></svg><span class="live-ph-name-'+pz.id+'">Choisir une photo</span><input type="file" id="'+uid+'" class="photo-file-input" accept="image/*" data-zid="'+pz.id+'" data-slot="'+slot+'"></label><div class="crop-controls" id="crop-'+slot+'-'+pz.id+'" style="display:none;"><div class="crop-row"><span class="crop-lbl">Zoom</span><button type="button" class="crop-btn" data-action="zm" data-zid="'+pz.id+'" data-slot="'+slot+'">−</button><input type="range" class="crop-slider" data-zid="'+pz.id+'" data-slot="'+slot+'" min="50" max="300" value="100" step="5"><button type="button" class="crop-btn" data-action="zp" data-zid="'+pz.id+'" data-slot="'+slot+'">+</button></div><div class="crop-row"><span class="crop-lbl">Position</span><button type="button" class="crop-btn" data-action="l" data-zid="'+pz.id+'" data-slot="'+slot+'">◀</button><button type="button" class="crop-btn" data-action="r" data-zid="'+pz.id+'" data-slot="'+slot+'">▶</button><button type="button" class="crop-btn" data-action="u" data-zid="'+pz.id+'" data-slot="'+slot+'">▲</button><button type="button" class="crop-btn" data-action="d" data-zid="'+pz.id+'" data-slot="'+slot+'">▼</button></div><button type="button" class="crop-reset" data-zid="'+pz.id+'" data-slot="'+slot+'">↺ Réinitialiser</button></div></div>';
+    });
+  }
+
+  // Un seul assignement innerHTML — pas de += qui détruirait les listeners
+  wrap.innerHTML = html;
+
+  // ── Listeners texte — attachés UNE SEULE FOIS après le innerHTML final ──
   const _fsCanvas=document.createElement('canvas');
   const _fsCtx=_fsCanvas.getContext('2d');
   function calcFontSize(zone,text){
@@ -436,6 +450,7 @@ function buildZones(slot,d){
     el.textContent=fs+'px';
     el.style.color=fs<20?'#e06c75':fs<40?'#e8a020':'var(--gold)';
   }
+
   wrap.querySelectorAll('.lta').forEach(ta=>{
     const zone=zones.find(z=>z.id===ta.dataset.zid);
     postTo(ta.dataset.slot,{type:'UPDATE_TEXT',zoneId:ta.dataset.zid,value:ta.value});
@@ -445,65 +460,62 @@ function buildZones(slot,d){
       if(zone)updateFsIndicator(ta.dataset.zid,zone,ta.value);
     });
   });
+
   wrap.querySelectorAll('.zcpick').forEach(cp=>{
     function sendColor(){slotZoneColors[cp.dataset.slot][cp.dataset.zid]=cp.value;postTo(cp.dataset.slot,{type:'UPDATE_ZONE_COLOR',zoneId:cp.dataset.zid,color:cp.value});}
     cp.addEventListener('input',sendColor);cp.addEventListener('change',sendColor);
   });
-  var photoZones=d.photo_zones||[];
-  if(photoZones.length>0){
-    var photoHtml='<div class="rt" style="margin-top:12px;">Photo</div>';
-    photoZones.forEach(function(pz){
-      var uid='live-ph-'+slot+'-'+pz.id;
-      photoHtml+='<div class="zgroup"><div class="zlbl">'+(pz.label||'Photo')+'</div><label class="photo-upload-btn" for="'+uid+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path></svg><span class="live-ph-name-'+pz.id+'">Choisir une photo</span><input type="file" id="'+uid+'" class="photo-file-input" accept="image/*" data-zid="'+pz.id+'" data-slot="'+slot+'"></label><div class="crop-controls" id="crop-'+slot+'-'+pz.id+'" style="display:none;"><div class="crop-row"><span class="crop-lbl">Zoom</span><button type="button" class="crop-btn" data-action="zm" data-zid="'+pz.id+'" data-slot="'+slot+'">−</button><input type="range" class="crop-slider" data-zid="'+pz.id+'" data-slot="'+slot+'" min="50" max="300" value="100" step="5"><button type="button" class="crop-btn" data-action="zp" data-zid="'+pz.id+'" data-slot="'+slot+'">+</button></div><div class="crop-row"><span class="crop-lbl">Position</span><button type="button" class="crop-btn" data-action="l" data-zid="'+pz.id+'" data-slot="'+slot+'">◀</button><button type="button" class="crop-btn" data-action="r" data-zid="'+pz.id+'" data-slot="'+slot+'">▶</button><button type="button" class="crop-btn" data-action="u" data-zid="'+pz.id+'" data-slot="'+slot+'">▲</button><button type="button" class="crop-btn" data-action="d" data-zid="'+pz.id+'" data-slot="'+slot+'">▼</button></div><button type="button" class="crop-reset" data-zid="'+pz.id+'" data-slot="'+slot+'">↺ Réinitialiser</button></div></div>';
-    });
-    wrap.innerHTML+=photoHtml;
-    wrap.querySelectorAll('.photo-file-input').forEach(function(input){
-      input.addEventListener('change',function(){
-        var file=input.files&&input.files[0];if(!file)return;
-        var zid=input.dataset.zid;var sl=input.dataset.slot;
-        var reader=new FileReader();
-        reader.onload=function(ev){
-          if(!liveCropState[sl])liveCropState[sl]={};
-          liveCropState[sl][zid]={zoom:1,offsetX:0,offsetY:0};
-          postTo(sl,{type:'UPDATE_PHOTO',zoneId:zid,value:ev.target.result});
-          var nameEl=wrap.querySelector('.live-ph-name-'+zid);if(nameEl)nameEl.textContent=file.name;
-          var cropEl=document.getElementById('crop-'+sl+'-'+zid);if(cropEl)cropEl.style.display='block';
-        };
-        reader.readAsDataURL(file);
-      });
-    });
-    wrap.querySelectorAll('.crop-slider').forEach(function(slider){
-      slider.addEventListener('input',function(){
-        var zid=slider.dataset.zid;var sl=slider.dataset.slot;
-        if(!liveCropState[sl])liveCropState[sl]={};
-        if(!liveCropState[sl][zid])liveCropState[sl][zid]={zoom:1,offsetX:0,offsetY:0};
-        liveCropState[sl][zid].zoom=parseInt(slider.value)/100;sendLiveCrop(sl,zid);
-      });
-    });
-    wrap.querySelectorAll('.crop-btn').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var zid=btn.dataset.zid;var sl=btn.dataset.slot;var action=btn.dataset.action;
-        if(!liveCropState[sl])liveCropState[sl]={};
-        if(!liveCropState[sl][zid])liveCropState[sl][zid]={zoom:1,offsetX:0,offsetY:0};
-        var c=liveCropState[sl][zid];var STEP=20;
-        if(action==='zm'){c.zoom=Math.max(0.5,c.zoom-0.1);}
-        if(action==='zp'){c.zoom=Math.min(3,c.zoom+0.1);}
-        if(action==='l'){c.offsetX-=STEP;}if(action==='r'){c.offsetX+=STEP;}
-        if(action==='u'){c.offsetY-=STEP;}if(action==='d'){c.offsetY+=STEP;}
-        sendLiveCrop(sl,zid);
-      });
-    });
-    wrap.querySelectorAll('.crop-reset').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var zid=btn.dataset.zid;var sl=btn.dataset.slot;
+
+  // ── Listeners photo ──
+  wrap.querySelectorAll('.photo-file-input').forEach(function(input){
+    input.addEventListener('change',function(){
+      var file=input.files&&input.files[0];if(!file)return;
+      var zid=input.dataset.zid;var sl=input.dataset.slot;
+      var reader=new FileReader();
+      reader.onload=function(ev){
         if(!liveCropState[sl])liveCropState[sl]={};
         liveCropState[sl][zid]={zoom:1,offsetX:0,offsetY:0};
-        postTo(sl,{type:'PHOTO_CROP_RESET',zoneId:zid});
-        var slider=wrap.querySelector('.crop-slider[data-zid="'+zid+'"][data-slot="'+sl+'"]');
-        if(slider)slider.value=100;
-      });
+        postTo(sl,{type:'UPDATE_PHOTO',zoneId:zid,value:ev.target.result});
+        var nameEl=wrap.querySelector('.live-ph-name-'+zid);if(nameEl)nameEl.textContent=file.name;
+        var cropEl=document.getElementById('crop-'+sl+'-'+zid);if(cropEl)cropEl.style.display='block';
+      };
+      reader.readAsDataURL(file);
     });
-  }
+  });
+
+  wrap.querySelectorAll('.crop-slider').forEach(function(slider){
+    slider.addEventListener('input',function(){
+      var zid=slider.dataset.zid;var sl=slider.dataset.slot;
+      if(!liveCropState[sl])liveCropState[sl]={};
+      if(!liveCropState[sl][zid])liveCropState[sl][zid]={zoom:1,offsetX:0,offsetY:0};
+      liveCropState[sl][zid].zoom=parseInt(slider.value)/100;sendLiveCrop(sl,zid);
+    });
+  });
+
+  wrap.querySelectorAll('.crop-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var zid=btn.dataset.zid;var sl=btn.dataset.slot;var action=btn.dataset.action;
+      if(!liveCropState[sl])liveCropState[sl]={};
+      if(!liveCropState[sl][zid])liveCropState[sl][zid]={zoom:1,offsetX:0,offsetY:0};
+      var c=liveCropState[sl][zid];var STEP=20;
+      if(action==='zm'){c.zoom=Math.max(0.5,c.zoom-0.1);}
+      if(action==='zp'){c.zoom=Math.min(3,c.zoom+0.1);}
+      if(action==='l'){c.offsetX-=STEP;}if(action==='r'){c.offsetX+=STEP;}
+      if(action==='u'){c.offsetY-=STEP;}if(action==='d'){c.offsetY+=STEP;}
+      sendLiveCrop(sl,zid);
+    });
+  });
+
+  wrap.querySelectorAll('.crop-reset').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var zid=btn.dataset.zid;var sl=btn.dataset.slot;
+      if(!liveCropState[sl])liveCropState[sl]={};
+      liveCropState[sl][zid]={zoom:1,offsetX:0,offsetY:0};
+      postTo(sl,{type:'PHOTO_CROP_RESET',zoneId:zid});
+      var slider=wrap.querySelector('.crop-slider[data-zid="'+zid+'"][data-slot="'+sl+'"]');
+      if(slider)slider.value=100;
+    });
+  });
 }
 
 function buildSwatches(slot,d){
@@ -676,7 +688,6 @@ async function generatePNGImprimeur(slot, fileName) {
   const ctx = canvas.getContext('2d', {alpha:true});
   ctx.clearRect(0,0,W,H);
 
-  // ── CAS GOBELET VIERGE : afficher directement le PNG client ──
   if(d._isVierge){
     const dataUrl = viergeDataUrl[slot];
     if(!dataUrl){ alert('Aucun PNG client uploadé pour ce slot.'); return; }
