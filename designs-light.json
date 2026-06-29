@@ -10859,7 +10859,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": true,
+    "active": false,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -10898,12 +10898,12 @@
       },
       {
         "id": "texte_mpzbw0t8ajnj",
-        "label": "Zone de text",
+        "label": "Zone de texte 1",
         "order": 1,
         "x": 1297,
-        "y": 99,
+        "y": 77,
         "width": 564,
-        "height": 85,
+        "height": 127,
         "shape": "rectangle",
         "lineHeight": 1,
         "font_size": 71,
@@ -10919,9 +10919,9 @@
         "id": "texte_mpzbz81jdair",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1458,
-        "y": 715,
-        "width": 242,
+        "x": 1464,
+        "y": 745,
+        "width": 234,
         "height": 61,
         "shape": "rectangle",
         "lineHeight": 1.2,
@@ -10940,8 +10940,8 @@
         "id": "photo_mq188rwv70p2",
         "label": "Photo",
         "order": 1,
-        "x": 1432,
-        "y": 328,
+        "x": 1434,
+        "y": 358,
         "width": 295,
         "height": 387,
         "shape": "rectangle"
