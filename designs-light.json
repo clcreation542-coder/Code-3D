@@ -11124,5 +11124,72 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "https-kuztom-fr-products-gobelet-anniversaire-constellation-doree-photo-mr9fgcwaz3ea",
+    "name": "Gobelet Anniversaire - Constellation Dorée Photo",
+    "shopify_handle": "https-kuztom-fr-products-gobelet-anniversaire-constellation-doree-photo",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 0,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/https-kuztom-fr-products-gobelet-anniversaire-constellation-doree-photo.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "id": "texte_mr9fhkimfk2n",
+        "label": "Zone de texte",
+        "order": 1,
+        "x": 206,
+        "y": 227,
+        "width": 564,
+        "height": 574,
+        "shape": "rectangle",
+        "lineHeight": 1,
+        "font_size": 150,
+        "color": "#c49c27",
+        "placeholder": "18 ans\nClémence",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "multiline": false,
+        "rotation": 0,
+        "max_chars": 0
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "photo_mr9fk2r1vlf5",
+        "label": "Photo",
+        "order": 1,
+        "x": 1270,
+        "y": 227,
+        "width": 444,
+        "height": 596,
+        "shape": "rectangle"
+      }
+    ],
+    "arch_zones": []
   }
 ]
