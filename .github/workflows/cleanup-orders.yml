@@ -15,7 +15,7 @@ jobs:
       - name: Récupérer le repo
         uses: actions/checkout@v4
 
-      - name: Supprimer les fichiers de plus de 7 jours dans orders/
+      - name: Supprimer les fichiers de plus de 5 jours dans orders/
         run: |
           python3 << 'EOF'
           import os, re, datetime
