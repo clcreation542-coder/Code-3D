@@ -144,7 +144,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -164,7 +165,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
