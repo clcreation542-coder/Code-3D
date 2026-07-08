@@ -97,6 +97,10 @@ function getFontSize(zone, text) {
   }
   while (size > 8) {
     const font = `${size}px "${zone.font_family}"`;
+    // Zone ovale/cercle : espace utilisable = rectangle inscrit dans l'ellipse (≈70,7%).
+    const shape = zone.shape || 'rectangle';
+    const fitW = (shape==='oval'||shape==='circle') ? zone.width*0.707 : zone.width;
+    const fitH = (shape==='oval'||shape==='circle') ? zone.height*0.707 : zone.height;
     let totalW = 0, totalH = 0;
     lines.forEach((line, i) => {
       const b = _realBounds(font, line||' ');
@@ -104,7 +108,7 @@ function getFontSize(zone, text) {
       totalH += b.h;
       if (i < lines.length - 1) totalH += size * (lh - 1);
     });
-    if (totalW <= zone.width && totalH <= zone.height) break;
+    if (totalW <= fitW && totalH <= fitH) break;
     size -= 2;
   }
   return size;
@@ -130,6 +134,14 @@ function drawTextZone(zone, text) {
   const startX = zone.align === 'center' ? cx
                : zone.align === 'right'  ? zone.x + zone.width
                : zone.x;
+  // Contour (comme l'admin) : épaisseur par zone, défaut 2.5
+  const strokeW = (zone.stroke_preview !== undefined ? zone.stroke_preview : 2.5);
+  if (strokeW > 0) {
+    ctx2d.strokeStyle = zone._colorOverride || zone.color || '#2c2521';
+    ctx2d.lineWidth = strokeW;
+    ctx2d.lineJoin = 'round';
+    lines.forEach((line, i) => ctx2d.strokeText(line, startX, startY + i * lineH));
+  }
   lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
   ctx2d.restore();
 }
@@ -648,20 +660,33 @@ window.addEventListener('message', function(e) {
         document.body.removeChild(fontForcer);
 
         const STROKE_WIDTH = 2.5;
+        // Mesure identique à l'admin (bounds pixel réels) — canvas de mesure dédié
+        const _measC = document.createElement('canvas'); _measC.width=2000; _measC.height=800;
+        const _measX = _measC.getContext('2d');
+        function _printBounds(font, txt){
+          _measX.clearRect(0,0,2000,800);
+          _measX.font=font; _measX.fillStyle='#000'; _measX.textBaseline='middle'; _measX.textAlign='center';
+          _measX.fillText(txt,1000,400);
+          const d=_measX.getImageData(0,0,2000,800).data;
+          let minY=800,maxY=0,minX=2000,maxX=0;
+          for(let y=0;y<800;y++)for(let x=0;x<2000;x++){ if(d[(y*2000+x)*4+3]>10){ if(y<minY)minY=y; if(y>maxY)maxY=y; if(x<minX)minX=x; if(x>maxX)maxX=x; } }
+          return { w: maxX>minX?maxX-minX:0, h: maxY>minY?maxY-minY:0 };
+        }
         (CFG.text_zones||[]).forEach(zone => {
           const txt = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'')).trim();
           if (!txt) return;
           const lh = zone.lineHeight||1.3;
           const lines = txt.split('\n');
+          const shape = zone.shape || 'rectangle';
+          const fitW = (shape==='oval'||shape==='circle') ? zone.width*0.707 : zone.width;
+          const fitH = (shape==='oval'||shape==='circle') ? zone.height*0.707 : zone.height;
           let fs = zone.font_size||48;
           while (fs > 6) {
-            pctx.font = `${fs}px '${zone.font_family||'Jost'}'`;
-            const maxW = Math.max(...lines.map(l=>pctx.measureText(l).width));
-            const m = pctx.measureText('Agyjpq');
-            const realH = (m.actualBoundingBoxAscent+m.actualBoundingBoxDescent)||fs*0.8;
-            const totalH = lines.length*realH+(lines.length-1)*(fs*(lh-1));
-            if (maxW<=zone.width && totalH<=zone.height) break;
-            fs -= 1;
+            const font = `${fs}px '${zone.font_family||'Jost'}'`;
+            let totalW=0, totalH=0;
+            lines.forEach((line,i)=>{ const b=_printBounds(font,line||' '); if(b.w>totalW)totalW=b.w; totalH+=b.h; if(i<lines.length-1) totalH+=fs*(lh-1); });
+            if (totalW<=fitW && totalH<=fitH) break;
+            fs -= 2;
           }
           const cx=zone.x+zone.width/2, cy=zone.y+zone.height/2;
           const angle=(zone.rotation||0)*Math.PI/180;
@@ -674,8 +699,9 @@ window.addEventListener('message', function(e) {
           const lineH=fs*lh, totalH=lines.length*lineH;
           const startY=cy-totalH/2+lineH/2;
           const color=zone._colorOverride||zone.color||'#7a5c2e';
-          pctx.strokeStyle=color; pctx.lineWidth=STROKE_WIDTH; pctx.lineJoin='round';
-          lines.forEach((line,i)=>pctx.strokeText(line,tx,startY+i*lineH));
+          const strokeW=(zone.stroke_print!==undefined?zone.stroke_print:STROKE_WIDTH);
+          if(strokeW>0){ pctx.strokeStyle=color; pctx.lineWidth=strokeW; pctx.lineJoin='round';
+            lines.forEach((line,i)=>pctx.strokeText(line,tx,startY+i*lineH)); }
           pctx.fillStyle=color;
           lines.forEach((line,i)=>pctx.fillText(line,tx,startY+i*lineH));
           pctx.restore();
