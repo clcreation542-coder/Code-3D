@@ -1911,10 +1911,15 @@ function renderGlobalProps(d) {
           ${fontLines || '<div style="color:#888;font-size:12px;">Aucune police spécifique</div>'}
         </div>
         <div style="background:#1a1a1a;border-radius:8px;padding:12px;margin-bottom:12px;">
-          <div style="font-size:11px;color:rgba(201,169,110,0.7);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Contour des lettres</div>
+          <div style="font-size:11px;color:rgba(201,169,110,0.7);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Contour des lettres (PNG imprimeur)</div>
           <div style="display:flex;align-items:center;gap:8px;">
             <span style="color:#4caf50;font-size:16px;">✅</span>
-            <span style="font-size:13px;color:#e8e0d0;">Activé — épaisseur 2.5px (équivalent niveau 5)</span>
+            <span style="font-size:13px;color:#e8e0d0;">${(()=>{
+              const vals=[...new Set((d.text_zones||[]).filter(z=>(z.placeholder||'').trim()).map(z=>(z.stroke_print ?? 2.5)))];
+              if(!vals.length) return 'Aucun texte';
+              if(vals.length===1) return vals[0]>0 ? ('Activé — épaisseur '+vals[0]+'px') : 'Désactivé (0px)';
+              return 'Épaisseurs par zone : '+vals.join(', ')+' px';
+            })()}</span>
           </div>
         </div>
         <div style="background:#1a1a1a;border-radius:8px;padding:12px;margin-bottom:16px;">
