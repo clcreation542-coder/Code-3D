@@ -232,16 +232,17 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1442,
-        "y": 398,
-        "width": 324,
-        "height": 326,
+        "x": 1390,
+        "y": 363,
+        "width": 428,
+        "height": 414,
         "shape": "circle",
         "placeholder": "Melissandre\net\nThibault",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -252,15 +253,16 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1278,
-        "y": 912,
+        "y": 923,
         "width": 652,
-        "height": 122,
+        "height": 81,
         "shape": "rectangle",
         "placeholder": "6 septembre 2025",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
