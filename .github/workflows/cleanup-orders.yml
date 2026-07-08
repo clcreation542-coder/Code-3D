@@ -1,37 +1,31 @@
 name: Nettoyage automatique du dossier orders
-
 on:
   schedule:
     - cron: '0 3 * * *'
   workflow_dispatch:
-
 jobs:
   cleanup:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
       - name: Récupérer le repo
         uses: actions/checkout@v4
-
       - name: Supprimer les fichiers de plus de 5 jours dans orders/
         run: |
           python3 << 'EOF'
           import os, re, datetime
-
           RETENTION_DAYS = 5
           now = datetime.datetime.utcnow()
           cutoff = now - datetime.timedelta(days=RETENTION_DAYS)
-
           folder = "orders"
           deleted = []
           skipped = []
-
+          FAR_FUTURE = 9999999999  # même borne que côté JavaScript (configurateur-viewer.html)
           # Formats de date rencontrés dans les noms de fichiers de commandes
+          pattern_inverted = re.compile(r'^(\d{10})-')  # nouveau format : compte à rebours
           pattern_iso = re.compile(r'(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2})-(\d{2})')
           pattern_court = re.compile(r'^(\d{2})(\d{2})(\d{2})-(\d{2})(\d{2})-')
-
           if not os.path.isdir(folder):
               print("Dossier orders/ introuvable, rien à faire.")
           else:
@@ -39,15 +33,29 @@ jobs:
                   path = os.path.join(folder, filename)
                   if not os.path.isfile(path):
                       continue
-
                   file_date = None
-                  m = pattern_iso.search(filename)
-                  if m:
-                      y, mo, d, h, mi, s = map(int, m.groups())
+
+                  # 1) Nouveau format : compte à rebours (ex: 8216489181-3d.png)
+                  m0 = pattern_inverted.match(filename)
+                  if m0:
+                      inverted = int(m0.group(1))
+                      epoch_seconds = FAR_FUTURE - inverted
                       try:
-                          file_date = datetime.datetime(y, mo, d, h, mi, s)
-                      except ValueError:
+                          file_date = datetime.datetime.utcfromtimestamp(epoch_seconds)
+                      except (ValueError, OSError, OverflowError):
                           file_date = None
+
+                  # 2) Format ISO (ex: design-2026-07-08T10-00-47.png)
+                  if file_date is None:
+                      m = pattern_iso.search(filename)
+                      if m:
+                          y, mo, d, h, mi, s = map(int, m.groups())
+                          try:
+                              file_date = datetime.datetime(y, mo, d, h, mi, s)
+                          except ValueError:
+                              file_date = None
+
+                  # 3) Ancien format court (ex: 260708-1200-kzt-...)
                   if file_date is None:
                       m2 = pattern_court.match(filename)
                       if m2:
@@ -62,22 +70,19 @@ jobs:
                       # on préfère NE PAS supprimer le fichier plutôt que de se tromper.
                       skipped.append(filename)
                       continue
-
                   if file_date < cutoff:
                       os.remove(path)
                       deleted.append(filename)
-
               print(f"{len(deleted)} fichier(s) supprime(s).")
               print(f"{len(skipped)} fichier(s) ignore(s) (date non reconnue, laisses par securite).")
           EOF
-
       - name: Envoyer les suppressions sur GitHub si besoin
         run: |
           if [ -n "$(git status --porcelain orders/)" ]; then
             git config user.name "kuztom-cleanup-bot"
             git config user.email "actions@github.com"
             git add orders/
-            git commit -m "Nettoyage automatique : suppression des fichiers orders/ de plus de 7 jours"
+            git commit -m "Nettoyage automatique : suppression des fichiers orders/ de plus de 5 jours"
             git push
           else
             echo "Rien a nettoyer aujourd'hui."
