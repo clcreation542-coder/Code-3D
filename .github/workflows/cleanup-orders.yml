@@ -20,7 +20,7 @@ jobs:
           python3 << 'EOF'
           import os, re, datetime
 
-          RETENTION_DAYS = 7
+          RETENTION_DAYS = 5
           now = datetime.datetime.utcnow()
           cutoff = now - datetime.timedelta(days=RETENTION_DAYS)
 
