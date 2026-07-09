@@ -761,7 +761,8 @@ window.addEventListener('message', function(e) {
         const inverted = String(FAR_FUTURE - nowSeconds).padStart(10, '0');
         const designSlug = (CFG.shopify_handle||CFG.id||'design').slice(0,40);
         const nameTag = data.origin || designSlug;
-        const filename = `orders/${inverted}-${nameTag}.jpg`;
+        const rand = Math.random().toString(36).slice(2, 6);
+        const filename = `orders/${inverted}-${rand}-${nameTag}.jpg`;
         const uploadRes = await fetch(PROXY_URL + '/file', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'X-Auth-Key': PROXY_KEY },
