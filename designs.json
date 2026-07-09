@@ -5559,7 +5559,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 1.4,
+    "rotation_y": 1.3788101090755203,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-panda-bambou.webp",
     "design": {
       "x": 0,
@@ -5596,13 +5596,14 @@
         "x": 746,
         "y": 128,
         "width": 542,
-        "height": 206,
+        "height": 195,
         "shape": "rectangle",
         "placeholder": "Baptiste\n1 an",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -5612,7 +5613,7 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 703,
+        "x": 724,
         "y": 813,
         "width": 564,
         "height": 106,
@@ -5621,7 +5622,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -6297,7 +6299,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -6316,7 +6319,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -6335,7 +6339,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -6457,16 +6462,17 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1465,
-        "y": 401,
-        "width": 324,
-        "height": 326,
+        "x": 1420,
+        "y": 349,
+        "width": 404,
+        "height": 394,
         "shape": "circle",
         "placeholder": "Emy\n1 an",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -6485,7 +6491,8 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -6498,7 +6505,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.6,
+    "rotation_y": 5.532693728822025,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-mon-petit-tracteur.webp",
     "design": {
       "x": 0,
@@ -6533,7 +6540,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1410,
-        "y": 107,
+        "y": 109,
         "width": 560,
         "height": 105,
         "shape": "rectangle",
@@ -6541,7 +6548,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -6560,7 +6568,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -6882,7 +6891,7 @@
     ],
     "text_zones": [
       {
-        "lineHeight": 1.5,
+        "lineHeight": 1.2,
         "font_size": 81,
         "color": "#704b3d",
         "multiline": false,
@@ -6890,15 +6899,16 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1417,
-        "y": 346,
+        "y": 330,
         "width": 340,
-        "height": 210,
-        "shape": "rectangle",
+        "height": 240,
+        "shape": "oval",
         "placeholder": "Yowen\n1an",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -6917,7 +6927,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -6927,8 +6938,8 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 238,
-        "y": 268,
+        "x": 240,
+        "y": 273,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -6936,7 +6947,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -6992,7 +7004,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -7011,7 +7024,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -7030,7 +7044,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -8001,13 +8016,14 @@
         "x": 1383,
         "y": 157,
         "width": 520,
-        "height": 150,
+        "height": 123,
         "shape": "rectangle",
         "placeholder": "1 an de Lyam",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -8026,7 +8042,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -8036,8 +8053,8 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 305,
-        "y": 268,
+        "x": 303,
+        "y": 280,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -8045,7 +8062,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -8092,16 +8110,17 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1442,
-        "y": 407,
-        "width": 324,
-        "height": 326,
-        "shape": "rectangle",
+        "x": 1390,
+        "y": 341,
+        "width": 435,
+        "height": 449,
+        "shape": "oval",
         "placeholder": "NOAM\n1 AN",
         "font_family": "Borel",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -8120,7 +8139,8 @@
         "font_family": "Borel",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -8176,7 +8196,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -8195,7 +8216,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -8214,7 +8236,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -8270,7 +8293,8 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -8289,7 +8313,8 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -8308,7 +8333,8 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -8364,7 +8390,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -8383,7 +8410,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -8524,16 +8552,17 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1418,
-        "y": 380,
-        "width": 320,
-        "height": 331,
+        "x": 1405,
+        "y": 360,
+        "width": 352,
+        "height": 351,
         "shape": "oval",
         "placeholder": "1 an\nAmbre",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -8552,10 +8581,11 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
-        "lineHeight": 1.5,
+        "lineHeight": 1,
         "font_size": 54,
         "color": "#c6920b",
         "multiline": false,
@@ -8571,7 +8601,8 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -8627,10 +8658,11 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
-        "lineHeight": 1.5,
+        "lineHeight": 1,
         "font_size": 65,
         "color": "#1f3f70",
         "multiline": false,
@@ -8638,7 +8670,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1373,
-        "y": 69,
+        "y": 61,
         "width": 525,
         "height": 100,
         "shape": "rectangle",
@@ -8646,7 +8678,8 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.1,
@@ -8665,7 +8698,8 @@
         "font_family": "Advent Pro",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [
@@ -8856,7 +8890,8 @@
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -8875,7 +8910,8 @@
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -8894,7 +8930,8 @@
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [
@@ -8926,7 +8963,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -8961,7 +8998,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -8980,7 +9018,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -8990,7 +9029,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 45,
+        "x": 43,
         "y": 247,
         "width": 780,
         "height": 459,
@@ -8999,7 +9038,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9062,7 +9102,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -9081,7 +9122,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9137,7 +9179,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9156,7 +9199,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9212,7 +9256,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9275,8 +9320,8 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1394,
-        "y": 336,
+        "x": 1397,
+        "y": 333,
         "width": 458,
         "height": 428,
         "shape": "circle",
@@ -9284,7 +9329,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9303,7 +9349,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9351,7 +9398,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1380,
-        "y": 228,
+        "y": 220,
         "width": 538,
         "height": 126,
         "shape": "rectangle",
@@ -9359,7 +9406,8 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9378,7 +9426,8 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9388,7 +9437,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 288,
+        "x": 290,
         "y": 268,
         "width": 780,
         "height": 459,
@@ -9397,7 +9446,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9453,7 +9503,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9466,13 +9517,14 @@
         "x": 1531,
         "y": 268,
         "width": 322,
-        "height": 89,
+        "height": 80,
         "shape": "rectangle",
         "placeholder": "Jason",
         "font_family": "Graduate",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9491,7 +9543,8 @@
         "font_family": "Graduate",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9510,7 +9563,8 @@
         "font_family": "Graduate",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9566,7 +9620,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9585,7 +9640,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -9604,7 +9660,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9651,27 +9708,28 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1466,
-        "y": 321,
-        "width": 340,
-        "height": 190,
+        "x": 1513,
+        "y": 304,
+        "width": 292,
+        "height": 217,
         "shape": "oval",
         "placeholder": "40\nans",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
-        "lineHeight": 1.5,
+        "lineHeight": 1,
         "font_size": 73,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 1355,
-        "y": 849,
+        "x": 1378,
+        "y": 847,
         "width": 562,
         "height": 95,
         "shape": "rectangle",
@@ -9679,7 +9737,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -9698,7 +9757,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -9708,16 +9768,17 @@
         "id": "texte_mpzplc0xeikt",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1346,
+        "x": 1360,
         "y": 101,
         "width": 580,
-        "height": 122,
+        "height": 113,
         "shape": "rectangle",
         "placeholder": "Louis",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9773,7 +9834,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -9792,7 +9854,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9848,7 +9911,8 @@
         "font_family": "EB Garamond",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9867,7 +9931,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9886,7 +9951,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -9905,7 +9971,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -9961,7 +10028,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -9980,7 +10048,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -9999,7 +10068,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10047,15 +10117,16 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1421,
-        "y": 340,
+        "y": 329,
         "width": 415,
-        "height": 382,
+        "height": 389,
         "shape": "oval",
         "placeholder": "30 ans\nJustine",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10074,7 +10145,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10130,7 +10202,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -10149,7 +10222,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -10168,7 +10242,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10181,7 +10256,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 1.4,
+    "rotation_y": 1.43116998663535,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-noeuds-etoiles-scintillantes.webp",
     "design": {
       "x": 0,
@@ -10224,7 +10299,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10243,7 +10319,8 @@
         "font_family": "Borel",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10262,7 +10339,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10318,7 +10396,8 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10337,7 +10416,8 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10356,7 +10436,8 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10412,7 +10493,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -10431,7 +10513,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10442,7 +10525,7 @@
         "label": "Zone de texte 3",
         "order": 3,
         "x": 269,
-        "y": 313,
+        "y": 315,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -10450,7 +10533,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10506,10 +10590,11 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
-        "lineHeight": 1.6,
+        "lineHeight": 1,
         "font_size": 190,
         "color": "#000000",
         "multiline": false,
@@ -10519,13 +10604,14 @@
         "x": 365,
         "y": 430,
         "width": 558,
-        "height": 292,
+        "height": 171,
         "shape": "rectangle",
         "placeholder": "40 ans",
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10572,16 +10658,17 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1475,
-        "y": 351,
-        "width": 316,
-        "height": 320,
-        "shape": "rectangle",
+        "x": 1426,
+        "y": 281,
+        "width": 402,
+        "height": 454,
+        "shape": "circle",
         "placeholder": "50 ans\nChristelle",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10600,7 +10687,8 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10648,15 +10736,16 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 633,
-        "y": 280,
+        "y": 232,
         "width": 718,
-        "height": 341,
+        "height": 439,
         "shape": "rectangle",
         "placeholder": "70",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10667,15 +10756,16 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 640,
-        "y": 621,
+        "y": 671,
         "width": 704,
-        "height": 209,
+        "height": 136,
         "shape": "rectangle",
         "placeholder": "Patrick",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10731,7 +10821,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -10750,7 +10841,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10798,15 +10890,16 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1350,
-        "y": 98,
+        "y": 134,
         "width": 602,
-        "height": 168,
+        "height": 114,
         "shape": "rectangle",
         "placeholder": "30 ANS",
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -10825,7 +10918,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_print": 1.5
       },
       {
         "lineHeight": 1,
@@ -10844,7 +10938,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -10900,7 +10995,8 @@
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -10919,12 +11015,13 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
         "font_size": 86,
-        "color": "#000000",
+        "color": "#eca194",
         "multiline": false,
         "id": "texte_mpzbz81jdair",
         "label": "Zone de texte 2",
@@ -10938,7 +11035,8 @@
         "font_family": "Montserrat",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [
@@ -11181,7 +11279,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [
