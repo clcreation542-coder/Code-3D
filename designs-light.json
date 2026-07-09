@@ -1277,7 +1277,8 @@
         "font_family": "Mr De Haviland",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -1296,7 +1297,8 @@
         "font_family": "Graduate",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -1315,7 +1317,8 @@
         "font_family": "Mr De Haviland",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
@@ -1334,7 +1337,8 @@
         "font_family": "Graduate",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -1672,7 +1676,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -1691,7 +1696,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -1710,7 +1716,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -1766,7 +1773,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -1785,7 +1793,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.5,
@@ -1804,7 +1813,8 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.1,
@@ -1823,7 +1833,8 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 30
+        "max_chars": 30,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -2180,7 +2191,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -2199,7 +2211,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.1,
@@ -2218,7 +2231,8 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 30
+        "max_chars": 30,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -4088,16 +4102,17 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1452,
-        "y": 398,
-        "width": 324,
-        "height": 326,
+        "x": 1390,
+        "y": 325,
+        "width": 448,
+        "height": 458,
         "shape": "circle",
         "placeholder": "Lydie\n&\nAurélien",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.1,
@@ -4116,7 +4131,8 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -4135,7 +4151,8 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 50,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
