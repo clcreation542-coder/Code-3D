@@ -747,7 +747,7 @@ window.addEventListener('message', function(e) {
           pctx.restore();
         });
 
-        const b64 = printCanvas.toDataURL('image/png').split(',')[1];
+        const b64 = printCanvas.toDataURL('image/jpeg', 0.95).split(',')[1];
         // ── Nom triable : compte à rebours depuis une date lointaine dans le futur.
         // Plus la commande est récente, plus le nombre est petit → GitHub (tri A→Z)
         // affiche automatiquement la commande la plus récente en haut de la liste.
@@ -759,7 +759,7 @@ window.addEventListener('message', function(e) {
         const inverted = String(FAR_FUTURE - nowSeconds).padStart(10, '0');
         const designSlug = (CFG.shopify_handle||CFG.id||'design').slice(0,40);
         const nameTag = data.origin || designSlug;
-        const filename = `orders/${inverted}-${nameTag}.png`;
+        const filename = `orders/${inverted}-${nameTag}.jpg`;
         const UPLOAD_ENDPOINT = 'https://code-3-d.vercel.app/api/upload';
 
         const uploadRes = await fetch(UPLOAD_ENDPOINT, {
