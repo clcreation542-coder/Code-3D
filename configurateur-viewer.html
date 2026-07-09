@@ -39,6 +39,8 @@
 const params     = new URLSearchParams(window.location.search);
 const designName = params.get('design') || '';
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
+  const PROXY_URL = 'https://kuztom-proxy.contact-kuztom.workers.dev';
+  const PROXY_KEY = 'kz-proxy-9f3a7c2e-kuztom-2026';
 
 const TEX_W = 1970, TEX_H = 1140;
 
@@ -760,12 +762,10 @@ window.addEventListener('message', function(e) {
         const designSlug = (CFG.shopify_handle||CFG.id||'design').slice(0,40);
         const nameTag = data.origin || designSlug;
         const filename = `orders/${inverted}-${nameTag}.jpg`;
-        const UPLOAD_ENDPOINT = 'https://code-3-d.vercel.app/api/upload';
-
-        const uploadRes = await fetch(UPLOAD_ENDPOINT, {
+        const uploadRes = await fetch(PROXY_URL + '/file', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ filename: filename, content: b64, message: `order: ${filename}` })
+          headers: { 'Content-Type': 'application/json', 'X-Auth-Key': PROXY_KEY },
+          body: JSON.stringify({ path: filename, content: b64, message: `order: ${filename}` })
         });
         if (!uploadRes.ok) throw new Error('Upload échoué: ' + uploadRes.status);
         const uploadData = await uploadRes.json();
