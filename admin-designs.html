@@ -470,7 +470,7 @@ function calculateFontSize(ctx, zone, texW, texH) {
     lines.forEach((line, i) => {
       const b = _realTextBounds(font, line || ' ');
       if (b.w > totalW) totalW = b.w;
-      totalH += b.h;
+      totalH += (line && line.trim()) ? b.h : _realTextBounds(font, 'Ag').h;
       if (i < lines.length - 1) totalH += fs * (lh - 1);
     });
     if (totalW <= texW && totalH <= texH) break;
