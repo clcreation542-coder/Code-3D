@@ -9147,7 +9147,7 @@
         "width": 256,
         "height": 70,
         "shape": "rectangle",
-        "placeholder": "11.03.2021",
+        "placeholder": "11.03.2021\n",
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
