@@ -9135,7 +9135,7 @@
         "stroke_preview": 1.5
       },
       {
-        "lineHeight": 1.2,
+        "lineHeight": 1,
         "font_size": 85,
         "color": "#ba9071",
         "multiline": false,
@@ -9143,9 +9143,9 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1513,
-        "y": 814,
+        "y": 825,
         "width": 256,
-        "height": 106,
+        "height": 72,
         "shape": "rectangle",
         "placeholder": "11.03.2021",
         "font_family": "Italianno",
