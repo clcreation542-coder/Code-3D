@@ -9922,7 +9922,7 @@
     ],
     "text_zones": [
       {
-        "lineHeight": 1,
+        "lineHeight": 0.8,
         "font_size": 112,
         "color": "#704b3d",
         "multiline": false,
@@ -9930,9 +9930,9 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1513,
-        "y": 304,
+        "y": 295,
         "width": 292,
-        "height": 217,
+        "height": 203,
         "shape": "oval",
         "placeholder": "40\nans",
         "font_family": "Allura",
