@@ -784,9 +784,11 @@ window.addEventListener('message', function(e) {
         }
         if (lastErr || !uploadData) throw (lastErr || new Error('Upload échoué après 3 tentatives'));
         const pngUrl = uploadData.url || `https://clcreation542-coder.github.io/Code-3D/${filename}`;
+        window.__kzPrinting = false;
         window.parent.postMessage({ type: 'PRINT_PNG_READY', url: pngUrl }, '*');
 
       } catch(e) {
+        window.__kzPrinting = false;
         console.error('generatePrintPNG error:', e);
         window.parent.postMessage({ type: 'PRINT_PNG_ERROR', error: e.message }, '*');
       }
