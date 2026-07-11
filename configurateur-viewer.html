@@ -608,6 +608,8 @@ window.addEventListener('message', function(e) {
   if (data.type === 'REQUEST_PRINT_PNG') {
     (async function() {
       try {
+        if (window.__kzPrinting) return;
+        window.__kzPrinting = true;
         const W = TEX_W, H = TEX_H;
         const printCanvas = document.createElement('canvas');
         printCanvas.width = W; printCanvas.height = H;
