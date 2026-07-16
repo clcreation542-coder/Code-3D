@@ -14297,5 +14297,102 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-souvenir-boheme-mrmt0evzqsk9",
+    "name": "Gobelet Mariage Personnalisé – Souvenir Bohème",
+    "shopify_handle": "gobelet-mariage-souvenir-boheme",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 5.445427266222308,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-souvenir-boheme.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2000,
+      "height": 1024
+    },
+    "active": false,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.5,
+        "font_size": 85,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mpbapgk1g4o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1463,
+        "y": 194,
+        "width": 507,
+        "height": 154,
+        "shape": "rectangle",
+        "placeholder": "TEAM MARIÉ",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.1,
+        "font_size": 70,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mpbbehsjclpa",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1487,
+        "y": 714,
+        "width": 459,
+        "height": 204,
+        "shape": "rectangle",
+        "placeholder": "EVG\nGABRIEL",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.2,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mppguavyfv0j",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 334,
+        "y": 255,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "placeholder": "",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 50,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
