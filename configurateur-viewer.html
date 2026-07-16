@@ -751,39 +751,53 @@ window.addEventListener('message', function(e) {
           pctx.restore();
         });
 
-        const b64 = printCanvas.toDataURL('image/png').split(',')[1];
-        // ── Nom triable : compte à rebours depuis une date lointaine dans le futur.
-        // Plus la commande est récente, plus le nombre est petit → GitHub (tri A→Z)
-        // affiche automatiquement la commande la plus récente en haut de la liste.
-        // ── Mot d'origine : chaque configurateur (ia/canva/texte/pro/3d) envoie
-        // data.origin dans le message REQUEST_PRINT_PNG — utilisé en priorité ;
-        // à défaut on retombe sur le nom du design (catalogue).
-        const FAR_FUTURE = 9999999999; // borne au-delà de l'année 2286, largement suffisant
+// ── PNG en binaire (même qualité, plus léger que le base64) ──
+        const blob = await new Promise(function (res) { printCanvas.toBlob(res, 'image/png'); });
+        if (!blob) throw new Error('Génération du PNG impossible');
+
+        const FAR_FUTURE = 9999999999;
         const nowSeconds = Math.floor(Date.now() / 1000);
         const inverted = String(FAR_FUTURE - nowSeconds).padStart(10, '0');
-        const designSlug = (CFG.shopify_handle||CFG.id||'design').slice(0,40);
+        const designSlug = (CFG.shopify_handle || CFG.id || 'design').slice(0, 40);
         const nameTag = data.origin || designSlug;
         const rand = Math.random().toString(36).slice(2, 6);
-       const filename = `orders/${inverted}-${rand}-${nameTag}.png`;
-       let uploadData = null, lastErr = null;
-        for (let attempt = 1; attempt <= 3; attempt++) {
-          try {
-            const uploadRes = await fetch(PROXY_URL + '/file', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'X-Auth-Key': PROXY_KEY },
-              body: JSON.stringify({ path: filename, content: b64, message: `order: ${filename}` })
-            });
-            if (!uploadRes.ok) throw new Error('Upload échoué: ' + uploadRes.status);
-            uploadData = await uploadRes.json();
-            lastErr = null;
-            break;
-          } catch (err) {
-            lastErr = err;
-            if (attempt < 3) await new Promise(r => setTimeout(r, 1500 * attempt));
-          }
+        const filename = `orders/${inverted}-${rand}-${nameTag}.png`;
+
+        // Envoi binaire via XHR → permet de connaître la VRAIE progression.
+        function kzUpload() {
+          return new Promise(function (resolve, reject) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', PROXY_URL + '/file?path=' + encodeURIComponent(filename), true);
+            xhr.setRequestHeader('Content-Type', 'image/png');
+            xhr.setRequestHeader('X-Auth-Key', PROXY_KEY);
+            xhr.timeout = 45000;
+            xhr.upload.onprogress = function (ev) {
+              if (ev.lengthComputable) {
+                const pct = Math.round((ev.loaded / ev.total) * 100);
+                window.parent.postMessage({ type: 'PRINT_PNG_PROGRESS', percent: pct }, '*');
+              }
+            };
+            xhr.onload = function () {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                try { resolve(JSON.parse(xhr.responseText)); }
+                catch (e) { reject(new Error('Réponse invalide')); }
+              } else { reject(new Error('Upload échoué: ' + xhr.status)); }
+            };
+            xhr.onerror = function () { reject(new Error('Erreur réseau')); };
+            xhr.ontimeout = function () { reject(new Error('Timeout')); };
+            xhr.send(blob);
+          });
         }
-        if (lastErr || !uploadData) throw (lastErr || new Error('Upload échoué après 3 tentatives'));
-        const pngUrl = uploadData.url || `https://clcreation542-coder.github.io/Code-3D/${filename}`;
+
+        let uploadData = null, lastErr = null;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          try { uploadData = await kzUpload(); lastErr = null; break; }
+          catch (err) { lastErr = err; if (attempt < 3) await new Promise(r => setTimeout(r, 1500 * attempt)); }
+        }
+        if (lastErr || !uploadData || !uploadData.url) throw (lastErr || new Error('Upload échoué après 3 tentatives'));
+
+        // Toujours l'URL du Worker (fini le lien github périmé qui tombait en 404).
+        const pngUrl = uploadData.url;
         window.__kzPrinting = false;
         window.parent.postMessage({ type: 'PRINT_PNG_READY', url: pngUrl }, '*');
 
