@@ -41,14 +41,16 @@ const designName = params.get('design') || '';
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
   const PROXY_URL = 'https://kuztom-proxy.contact-kuztom.workers.dev';
   const PROXY_KEY = 'kz-proxy-9f3a7c2e-kuztom-2026';
-
 const TEX_W = 1970, TEX_H = 1140;
+
+// KZ : décalage de texture qui met le CENTRE d'un design image face caméra (0 = aucun).
+// Appliqué uniquement pour les designs importés (IA / Canva / Pro) via SET_DESIGN_IMAGE.
+const KZ_IMAGE_FRONT_OFFSET = 0.75;
 
 function getSize() {
   var w = window.innerWidth || 375;
   return { w: w, h: w };
 }
-
 let CFG = {
   id: '', name: '',
   gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
@@ -57,7 +59,6 @@ let CFG = {
   design: { x: 0, y: 0, width: TEX_W, height: TEX_H },
   variant_colors: [], text_zones: [], photo_zones: [], arch_zones: []
 };
-
 const state = {
   texts: {}, photos: {}, photoCrop: {},
   activeCropZone: null,
@@ -65,14 +66,11 @@ const state = {
   designImage: null,
   fontsReady: false,
 };
-
 const textureCanvas  = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
 textureCanvas.height = TEX_H;
 const ctx2d = textureCanvas.getContext('2d');
-
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
-
 function getFontSize(zone, text) {
   let size = zone.font_size || 48;
   const lh = zone.lineHeight || 1.3;
@@ -115,7 +113,6 @@ function getFontSize(zone, text) {
   }
   return size;
 }
-
 function drawTextZone(zone, text) {
   if (!text || !text.trim()) return;
   const lh     = zone.lineHeight || 1.3;
@@ -147,7 +144,6 @@ function drawTextZone(zone, text) {
   lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
   ctx2d.restore();
 }
-
 function drawArchZone(zone, text) {
   if (!text || !text.trim()) return;
   const isUp = (zone.direction || 'up') === 'up';
@@ -192,7 +188,6 @@ function drawArchZone(zone, text) {
   }
   ctx2d.restore();
 }
-
 function drawPhotoPlaceholder(zone) {
   const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
   ctx2d.save();
@@ -212,7 +207,6 @@ function drawPhotoPlaceholder(zone) {
   ctx2d.fillText('Votre photo', cx, cy + iconSize * 0.6);
   ctx2d.restore();
 }
-
 function drawPhotoZone(zone, img) {
   const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
   const iw = img.naturalWidth  || img.width  || 1;
@@ -228,7 +222,6 @@ function drawPhotoZone(zone, img) {
   ctx2d.drawImage(img, ox, oy, sw, sh);
   ctx2d.restore();
 }
-
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
@@ -257,30 +250,24 @@ function drawTexture() {
   }
   ctx2d.globalAlpha = 1.0;
   ctx2d.globalCompositeOperation = 'source-over';
-
   (CFG.photo_zones || []).forEach(zone => {
     const img = state.photos[zone.id];
     if (img) drawPhotoZone(zone, img);
     else drawPhotoPlaceholder(zone);
   });
-
   if (state.designImage) {
     const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
     ctx2d.drawImage(state.designImage, d.x||0, d.y||0, TEX_W, TEX_H);
   }
-
   (CFG.text_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     drawTextZone(zone, txt);
   });
-
   (CFG.arch_zones || []).forEach(zone => {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     if (txt && txt.trim()) drawArchZone(zone, txt);
   });
-
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
-
   var zoneInfos = (CFG.text_zones || []).map(function(zone) {
     var txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     return {
@@ -293,7 +280,6 @@ function drawTexture() {
     window.parent.postMessage({ type: 'kuztom_zone_info', zones: zoneInfos }, '*');
   }
 }
-
 async function loadDesignConfig() {
   if (!designName) return;
   const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
@@ -314,7 +300,6 @@ async function loadDesignConfig() {
     showError(`Design "${designName}" introuvable (${e.message})`);
   }
 }
-
 async function loadFonts() {
   const families = [...new Set([
     ...(CFG.text_zones || []).map(z => z.font_family),
@@ -338,7 +323,6 @@ async function loadFonts() {
   } catch (_) {}
   state.fontsReady = true;
 }
-
 function loadDesignImage() {
   if (!CFG.design_url) return Promise.resolve();
   return new Promise(resolve => {
@@ -363,12 +347,10 @@ function loadDesignImage() {
     }
   });
 }
-
 let renderer, scene, camera, gobeletGroup, bodyMaterial;
 let storedCameraZ = 5;
 let isDragging = false, lastPointerX = 0;
 let rotY = Math.PI;
-
 function initThree() {
   const container = document.getElementById('canvas-container');
   var size = getSize();
@@ -381,7 +363,6 @@ function initThree() {
   renderer.domElement.style.display = 'block';
   container.appendChild(renderer.domElement);
   scene = new THREE.Scene();
-
   const bgCanvas = document.createElement('canvas');
   bgCanvas.width = bgCanvas.height = 512;
   const bgCtx    = bgCanvas.getContext('2d');
@@ -401,7 +382,6 @@ function initThree() {
   bgCtx.beginPath(); bgCtx.arc(256, 450, 115, 0, Math.PI * 2); bgCtx.fill();
   bgCtx.restore();
   scene.background = new THREE.CanvasTexture(bgCanvas);
-
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
   camera.position.set(0, 0, 5);
   scene.add(new THREE.AmbientLight(0xffffff, 0.7));
@@ -411,7 +391,6 @@ function initThree() {
   backLight.position.set(-3, 2, -3); scene.add(backLight);
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), new THREE.ShadowMaterial({ opacity: 0.15 }));
   floor.rotation.x = -Math.PI / 2; floor.position.y = -1.5; floor.receiveShadow = true; scene.add(floor);
-
   const gobeletTexture    = new THREE.CanvasTexture(textureCanvas);
   gobeletTexture.wrapS    = THREE.RepeatWrapping;
   gobeletTexture.wrapT    = THREE.RepeatWrapping;
@@ -420,19 +399,16 @@ function initThree() {
   gobeletTexture.flipY    = false;
   gobeletTexture.encoding = THREE.sRGBEncoding;
   window._gobeletTexture  = gobeletTexture;
-
   bodyMaterial = new THREE.MeshStandardMaterial({
     map: gobeletTexture, color: new THREE.Color('#ffffff'),
     roughness: 0.3, metalness: 0.1,
     transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
   });
   bodyMaterial.needsUpdate = true;
-
   rotY = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
   gobeletGroup = new THREE.Group();
   gobeletGroup.rotation.x = 0.035;
   gobeletGroup.rotation.y = rotY;
-
   const _targetY = rotY, _startY = rotY + Math.PI, _entryStart = Date.now();
   gobeletGroup.rotation.y = _startY;
   (function _animEntry() {
@@ -441,7 +417,6 @@ function initThree() {
     gobeletGroup.rotation.y = _startY + (_targetY - _startY) * ease;
     if (t < 1) requestAnimationFrame(_animEntry);
   })();
-
   scene.add(gobeletGroup);
   loadGobelet();
   initInteraction();
@@ -449,7 +424,6 @@ function initThree() {
   onResize();
   animate();
 }
-
 function loadGobelet() {
   const url = CFG.model_url || `${REPO_BASE}/Gobelet 25 33.glb`;
   if (typeof THREE.GLTFLoader === 'undefined') { fallbackGeometry(); return; }
@@ -496,7 +470,6 @@ function loadGobelet() {
     hideLoading();
   }, null, () => fallbackGeometry());
 }
-
 function fallbackGeometry() {
   gobeletGroup.add(new THREE.Mesh(new THREE.CylinderGeometry(1.12, 0.88, 2.9, 64, 1, true), bodyMaterial));
   const bottom = new THREE.Mesh(new THREE.CircleGeometry(0.88, 64), new THREE.MeshStandardMaterial({
@@ -506,15 +479,12 @@ function fallbackGeometry() {
   gobeletGroup.add(bottom);
   drawTexture(); hideLoading();
 }
-
 function hideLoading() {
   const el = document.getElementById('loading-indicator');
   if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
   window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
-
 let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
-
 function animate() {
   requestAnimationFrame(animate);
   if (autoRotate && gobeletGroup && !isDragging && !photoEditMode) {
@@ -522,7 +492,6 @@ function animate() {
   }
   renderer.render(scene, camera);
 }
-
 function initInteraction() {
   const el = renderer.domElement;
   el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; lastInteraction = Date.now(); });
@@ -543,7 +512,6 @@ function initInteraction() {
   }, { passive: false });
   el.addEventListener('touchend', () => { isDragging = false; });
 }
-
 function onResize() {
   if (!renderer) return;
   var size = getSize();
@@ -556,56 +524,12 @@ function onResize() {
   camera.lookAt(0, 0, 0);
   camera.updateProjectionMatrix();
 }
-
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
-  if (data.type === 'REQUEST_MOCKUP_PNG') {
-    (async function () {
-      try {
-        if (window.__kzMockup) return;
-        window.__kzMockup = true;
-        var _kzBg = scene.background;
-        scene.background = new THREE.Color(0xffffff);
-        var front  = Math.PI + (CFG.rotation_y || 0);
-        var angles = (data.angles && data.angles.length) ? data.angles : [0];
-        var savedRotY = rotY;
-        var urls = [];
-        for (var i = 0; i < angles.length; i++) {
-          gobeletGroup.rotation.y = front + angles[i];
-          renderer.render(scene, camera);
-          var blob = await new Promise(function (res) { renderer.domElement.toBlob(res, 'image/png'); });
-          if (!blob) continue;
-          var FAR_FUTURE = 9999999999;
-          var inverted = String(FAR_FUTURE - Math.floor(Date.now() / 1000)).padStart(10, '0');
-          var rand = Math.random().toString(36).slice(2, 6);
-          var filename = 'orders/' + inverted + '-' + rand + '-mockup' + i + '.png';
-          var url = await new Promise(function (resolve) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', PROXY_URL + '/file?path=' + encodeURIComponent(filename), true);
-            xhr.setRequestHeader('Content-Type', 'image/png');
-            xhr.setRequestHeader('X-Auth-Key', PROXY_KEY);
-            xhr.timeout = 45000;
-            xhr.onload    = function () { try { resolve(JSON.parse(xhr.responseText).url); } catch (e) { resolve(null); } };
-            xhr.onerror   = function () { resolve(null); };
-            xhr.ontimeout = function () { resolve(null); };
-            xhr.send(blob);
-          });
-          if (url) urls.push(url);
-        }
-        scene.background = _kzBg;
-        gobeletGroup.rotation.y = savedRotY;
-        renderer.render(scene, camera);
-        window.__kzMockup = false;
-        window.parent.postMessage({ type: 'MOCKUP_PNG_READY', urls: urls }, '*');
-      } catch (e) {
-        window.__kzMockup = false;
-        window.parent.postMessage({ type: 'MOCKUP_PNG_ERROR', error: e.message }, '*');
-      }
-    })();
-    return;
-  }
+
   // ── KUZTOM : capture "sur gobelet" pour l'aperçu client (panier / récap) ──
+  // Version HORS-ECRAN : rendu sur un renderer séparé invisible → aucun flash sur le viewer client.
   if (data.type === 'REQUEST_MOCKUP_PNG') {
     (async function () {
       try {
@@ -613,12 +537,20 @@ window.addEventListener('message', function(e) {
         window.__kzMockup = true;
         var front  = Math.PI + (CFG.rotation_y || 0);                     // vue de face (design vers la caméra)
         var angles = (data.angles && data.angles.length) ? data.angles : [0]; // Phase 1 : [0] = face seule
-        var savedRotY = rotY;
+        var off = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: false });
+        off.setPixelRatio(1);
+        off.setSize(900, 900, false);
+        off.outputEncoding = THREE.sRGBEncoding;
         var urls = [];
         for (var i = 0; i < angles.length; i++) {
+          // Fond blanc + angle voulu, rendu HORS-ECRAN, puis restauration SYNCHRONE (avant tout await)
+          var _bg = scene.background, _rot = gobeletGroup.rotation.y;
+          scene.background = new THREE.Color(0xffffff);
           gobeletGroup.rotation.y = front + angles[i];
-          renderer.render(scene, camera);
-          var blob = await new Promise(function (res) { renderer.domElement.toBlob(res, 'image/png'); });
+          off.render(scene, camera);
+          scene.background = _bg;
+          gobeletGroup.rotation.y = _rot;
+          var blob = await new Promise(function (res) { off.domElement.toBlob(res, 'image/png'); });
           if (!blob) continue;
           var FAR_FUTURE = 9999999999;
           var inverted = String(FAR_FUTURE - Math.floor(Date.now() / 1000)).padStart(10, '0');
@@ -637,8 +569,7 @@ window.addEventListener('message', function(e) {
           });
           if (url) urls.push(url);
         }
-        gobeletGroup.rotation.y = savedRotY;
-        renderer.render(scene, camera);
+        off.dispose();
         window.__kzMockup = false;
         window.parent.postMessage({ type: 'MOCKUP_PNG_READY', urls: urls }, '*');
       } catch (e) {
@@ -687,6 +618,9 @@ window.addEventListener('message', function(e) {
     const img = new Image();
     img.onload = () => {
       state.designImage = img;
+      // KZ : design importé (IA / Canva / Pro) → on centre le design face caméra sur le gobelet 3D.
+      // N'affecte que la vue 3D et le mockup ; le PNG imprimeur (dessin à plat) reste intact.
+      if (window._gobeletTexture) { window._gobeletTexture.offset.x = KZ_IMAGE_FRONT_OFFSET; window._gobeletTexture.needsUpdate = true; }
       drawTexture();
       if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
     };
@@ -703,7 +637,6 @@ window.addEventListener('message', function(e) {
         printCanvas.width = W; printCanvas.height = H;
         const pctx = printCanvas.getContext('2d', {alpha: true});
         pctx.clearRect(0, 0, W, H);
-
         (CFG.photo_zones || []).forEach(zone => {
           const img = state.photos[zone.id];
           if (!img) return;
@@ -719,12 +652,10 @@ window.addEventListener('message', function(e) {
           pctx.drawImage(img, ox, oy, sw, sh);
           pctx.restore();
         });
-
         if (state.designImage) {
           const d = CFG.design || {x:0,y:0,width:W,height:H};
           pctx.drawImage(state.designImage, d.x||0, d.y||0, W, H);
         }
-
         const families = [...new Set([
           ...(CFG.text_zones||[]).map(z=>z.font_family),
           ...(CFG.arch_zones||[]).map(z=>z.font_family)
@@ -750,7 +681,6 @@ window.addEventListener('message', function(e) {
         }
         await new Promise(r => setTimeout(r, 600));
         document.body.removeChild(fontForcer);
-
         const STROKE_WIDTH = 2.5;
         // Mesure identique à l'admin (bounds pixel réels) — canvas de mesure dédié
         const _measC = document.createElement('canvas'); _measC.width=2000; _measC.height=800;
@@ -798,7 +728,6 @@ window.addEventListener('message', function(e) {
           lines.forEach((line,i)=>pctx.fillText(line,tx,startY+i*lineH));
           pctx.restore();
         });
-
         (CFG.arch_zones||[]).forEach(zone => {
           const txt = (state.texts[zone.id]||'').trim();
           if (!txt) return;
@@ -838,11 +767,9 @@ window.addEventListener('message', function(e) {
           }
           pctx.restore();
         });
-
 // ── PNG en binaire (même qualité, plus léger que le base64) ──
         const blob = await new Promise(function (res) { printCanvas.toBlob(res, 'image/png'); });
         if (!blob) throw new Error('Génération du PNG impossible');
-
         const FAR_FUTURE = 9999999999;
         const nowSeconds = Math.floor(Date.now() / 1000);
         const inverted = String(FAR_FUTURE - nowSeconds).padStart(10, '0');
@@ -850,7 +777,6 @@ window.addEventListener('message', function(e) {
         const nameTag = data.origin || designSlug;
         const rand = Math.random().toString(36).slice(2, 6);
         const filename = `orders/${inverted}-${rand}-${nameTag}.png`;
-
         // Envoi binaire via XHR → permet de connaître la VRAIE progression.
         function kzUpload() {
           return new Promise(function (resolve, reject) {
@@ -876,19 +802,16 @@ window.addEventListener('message', function(e) {
             xhr.send(blob);
           });
         }
-
         let uploadData = null, lastErr = null;
         for (let attempt = 1; attempt <= 3; attempt++) {
           try { uploadData = await kzUpload(); lastErr = null; break; }
           catch (err) { lastErr = err; if (attempt < 3) await new Promise(r => setTimeout(r, 1500 * attempt)); }
         }
         if (lastErr || !uploadData || !uploadData.url) throw (lastErr || new Error('Upload échoué après 3 tentatives'));
-
         // Toujours l'URL du Worker (fini le lien github périmé qui tombait en 404).
         const pngUrl = uploadData.url;
         window.__kzPrinting = false;
         window.parent.postMessage({ type: 'PRINT_PNG_READY', url: pngUrl }, '*');
-
       } catch(e) {
         window.__kzPrinting = false;
         console.error('generatePrintPNG error:', e);
@@ -897,7 +820,6 @@ window.addEventListener('message', function(e) {
     })();
     return;
   }
-
   if (data.type === 'UPDATE_COLOR' && data.value) {
     state.gobeletColor = data.value;
     if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
@@ -930,7 +852,6 @@ window.addEventListener('message', function(e) {
     drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
 });
-
 function showError(msg) {
   const el  = document.getElementById('error-msg');
   const txt = document.getElementById('error-text');
@@ -938,14 +859,12 @@ function showError(msg) {
   if (el)  el.classList.add('visible');
   hideLoading();
 }
-
 async function init() {
   await loadDesignConfig();
   await Promise.all([loadFonts(), loadDesignImage()]);
   drawTexture();
   initThree();
 }
-
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
