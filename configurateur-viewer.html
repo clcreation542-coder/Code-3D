@@ -6,22 +6,16 @@
   <title>Viewer Gobelet — Kuztom</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; height: 100%; overflow: hidden; background: 
-#a8a5a1; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #a8a5a1; }
     #viewer { width: 100%; height: 100%; position: relative; }
-    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: 
-#a8a5a1; }
+    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: #a8a5a1; }
     #canvas-container canvas { display: block; position: absolute; top: 0; left: 0; }
-    #loading-indicator { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: 
-#efefed; z-index: 5; transition: opacity 400ms ease; }
+    #loading-indicator { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: #efefed; z-index: 5; transition: opacity 400ms ease; }
     #loading-indicator.hidden { opacity: 0; pointer-events: none; }
-    .loading-ring { width: 32px; height: 32px; border: 1.5px solid 
-#e0ddd8; border-top-color: 
-#c9a96e; border-radius: 50%; animation: spin 900ms linear infinite; }
+    .loading-ring { width: 32px; height: 32px; border: 1.5px solid #e0ddd8; border-top-color: #c9a96e; border-radius: 50%; animation: spin 900ms linear infinite; }
     .loading-text { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; font-family: 'Inter', sans-serif; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    #error-msg { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; flex-direction: column; gap: 12px; font-family: 'Inter', sans-serif; font-size: 13px; color: #888; text-align: center; padding: 24px; background: 
-#efefed; z-index: 10; }
+    #error-msg { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; flex-direction: column; gap: 12px; font-family: 'Inter', sans-serif; font-size: 13px; color: #888; text-align: center; padding: 24px; background: #efefed; z-index: 10; }
     #error-msg.visible { display: flex; }
   </style>
 </head>
@@ -54,8 +48,7 @@ function getSize() {
 }
 let CFG = {
   id: '', name: '',
-  gobelet_color: '
-#f5f0eb', gobelet_opacity: 0.88,
+  gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
   rotation_y: 0, model_url: null,
   design_url: null,
   design: { x: 0, y: 0, width: TEX_W, height: TEX_H },
@@ -64,8 +57,7 @@ let CFG = {
 const state = {
   texts: {}, photos: {}, photoCrop: {},
   activeCropZone: null,
-  gobeletColor: '
-#f5f0eb',
+  gobeletColor: '#f5f0eb',
   designImage: null,
   fontsReady: false,
 };
@@ -73,8 +65,7 @@ const textureCanvas  = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
 textureCanvas.height = TEX_H;
 const ctx2d = textureCanvas.getContext('2d');
-function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '
-#ffffff'; }
+function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 function getFontSize(zone, text) {
   let size = zone.font_size || 48;
   const lh = zone.lineHeight || 1.3;
@@ -100,7 +91,7 @@ function getFontSize(zone, text) {
     return { w: maxX>minX ? maxX-minX : 0, h: maxY>minY ? maxY-minY : 0 };
   }
   while (size > 8) {
-    const font = ${size}px "${zone.font_family}";
+    const font = `${size}px "${zone.font_family}"`;
     // Zone ovale/cercle : espace utilisable = rectangle inscrit dans l'ellipse (≈70,7%).
     const shape = zone.shape || 'rectangle';
     const fitW = (shape==='oval'||shape==='circle') ? zone.width*0.707 : zone.width;
@@ -129,9 +120,8 @@ function drawTextZone(zone, text) {
   const angle  = (zone.rotation || 0) * Math.PI / 180;
   ctx2d.save();
   if (angle) { ctx2d.translate(cx, cy); ctx2d.rotate(angle); ctx2d.translate(-cx, -cy); }
-  ctx2d.font         = ${size}px "${zone.font_family}";
-  ctx2d.fillStyle    = zone._colorOverride || zone.color || '
-#2c2521';
+  ctx2d.font         = `${size}px "${zone.font_family}"`;
+  ctx2d.fillStyle    = zone._colorOverride || zone.color || '#2c2521';
   ctx2d.textAlign    = zone.align || 'center';
   ctx2d.textBaseline = 'middle';
   const startY = cy - totalH / 2 + lineH / 2;
@@ -141,8 +131,7 @@ function drawTextZone(zone, text) {
   // Contour (comme l'admin) : épaisseur par zone, défaut 2.5
   const strokeW = (zone.stroke_preview !== undefined ? zone.stroke_preview : 2.5);
   if (strokeW > 0) {
-    ctx2d.strokeStyle = zone._colorOverride || zone.color || '
-#2c2521';
+    ctx2d.strokeStyle = zone._colorOverride || zone.color || '#2c2521';
     ctx2d.lineWidth = strokeW;
     ctx2d.lineJoin = 'round';
     lines.forEach((line, i) => ctx2d.strokeText(line, startX, startY + i * lineH));
@@ -158,9 +147,8 @@ function drawArchZone(zone, text) {
   const spacing = zone.letter_spacing || 1.0;
   const fs = zone.font_size || 60;
   ctx2d.save();
-  ctx2d.font = ${fs}px "${zone.font_family || 'Dancing Script'}";
-  ctx2d.fillStyle = zone._colorOverride || zone.color || '
-#7a5c2e';
+  ctx2d.font = `${fs}px "${zone.font_family || 'Dancing Script'}"`;
+  ctx2d.fillStyle = zone._colorOverride || zone.color || '#7a5c2e';
   ctx2d.textAlign = 'center';
   ctx2d.textBaseline = 'alphabetic';
   const chars = text.split('');
@@ -205,11 +193,11 @@ function drawPhotoPlaceholder(zone) {
   const cx = zx + zw/2, cy = zy + zh/2;
   const iconSize = Math.min(zw, zh) * 0.35;
   ctx2d.fillStyle = 'rgba(160,160,160,0.7)';
-  ctx2d.font = ${iconSize}px Arial;
+  ctx2d.font = `${iconSize}px Arial`;
   ctx2d.textAlign = 'center'; ctx2d.textBaseline = 'middle';
   ctx2d.fillText('📷', cx, cy - iconSize * 0.15);
   const fontSize = Math.min(zw, zh) * 0.1;
-  ctx2d.font = ${fontSize}px Jost, sans-serif;
+  ctx2d.font = `${fontSize}px Jost, sans-serif`;
   ctx2d.fillStyle = 'rgba(120,120,120,0.9)';
   ctx2d.fillText('Votre photo', cx, cy + iconSize * 0.6);
   ctx2d.restore();
@@ -235,8 +223,7 @@ function drawTexture() {
   const isSolid = (op === 0);
   if (isSolid) {
     ctx2d.globalAlpha = 1;
-    ctx2d.fillStyle   = '
-#ffffff';
+    ctx2d.fillStyle   = '#ffffff';
     ctx2d.fillRect(0, 0, TEX_W, TEX_H);
     if (bodyMaterial) {
       bodyMaterial.transparent = false;
@@ -293,7 +280,7 @@ async function loadDesignConfig() {
   const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
   try {
     const res = await fetch(url);
-    if (!res.ok) throw new Error(HTTP ${res.status});
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const designs = await res.json();
     const data = Array.isArray(designs)
       ? (designs.find(d => d.id === designName) || designs.find(d => d.shopify_handle === designName))
@@ -301,12 +288,11 @@ async function loadDesignConfig() {
     if (!data) throw new Error('design non trouvé');
     CFG = data;
     if (!CFG.design) CFG.design = { x: 0, y: 0, width: TEX_W, height: TEX_H };
-    state.gobeletColor = CFG.gobelet_color || '
-#f5f0eb';
+    state.gobeletColor = CFG.gobelet_color || '#f5f0eb';
     (CFG.text_zones || []).forEach(z => { state.texts[z.id] = z.placeholder || ''; });
     (CFG.arch_zones || []).forEach(z => { state.texts[z.id] = ''; });
   } catch (e) {
-    showError(Design "${designName}" introuvable (${e.message}));
+    showError(`Design "${designName}" introuvable (${e.message})`);
   }
 }
 async function loadFonts() {
@@ -327,7 +313,7 @@ async function loadFonts() {
   try {
     await Promise.all(families.map(f => {
       const zone = (CFG.text_zones || []).find(z => z.font_family === f);
-      return document.fonts.load(${(zone && zone.font_size) || 48}px "${f}");
+      return document.fonts.load(`${(zone && zone.font_size) || 48}px "${f}"`);
     }));
   } catch (_) {}
   state.fontsReady = true;
@@ -376,10 +362,8 @@ function initThree() {
   bgCanvas.width = bgCanvas.height = 512;
   const bgCtx    = bgCanvas.getContext('2d');
   const gradient = bgCtx.createRadialGradient(256, 256, 0, 256, 256, 380);
-  gradient.addColorStop(0, '
-#dddbd8');
-  gradient.addColorStop(1, '
-#a8a5a1');
+  gradient.addColorStop(0, '#dddbd8');
+  gradient.addColorStop(1, '#a8a5a1');
   bgCtx.fillStyle = gradient;
   bgCtx.fillRect(0, 0, 512, 512);
   const shadowGrad = bgCtx.createRadialGradient(256, 450, 0, 256, 450, 115);
@@ -411,8 +395,7 @@ function initThree() {
   gobeletTexture.encoding = THREE.sRGBEncoding;
   window._gobeletTexture  = gobeletTexture;
   bodyMaterial = new THREE.MeshStandardMaterial({
-    map: gobeletTexture, color: new THREE.Color('
-#ffffff'),
+    map: gobeletTexture, color: new THREE.Color('#ffffff'),
     roughness: 0.3, metalness: 0.1,
     transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
   });
@@ -437,7 +420,7 @@ function initThree() {
   animate();
 }
 function loadGobelet() {
-  const url = CFG.model_url || ${REPO_BASE}/Gobelet 25 33.glb;
+  const url = CFG.model_url || `${REPO_BASE}/Gobelet 25 33.glb`;
   if (typeof THREE.GLTFLoader === 'undefined') { fallbackGeometry(); return; }
   const loader = new THREE.GLTFLoader();
   if (typeof THREE.DRACOLoader !== 'undefined') {
@@ -449,8 +432,7 @@ function loadGobelet() {
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
       child.material = new THREE.MeshStandardMaterial({
-        map: window._gobeletTexture, color: new THREE.Color('
-#ffffff'),
+        map: window._gobeletTexture, color: new THREE.Color('#ffffff'),
         roughness: 0.3, metalness: 0.1,
         transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
       });
@@ -639,7 +621,7 @@ window.addEventListener('message', function(e) {
   }
   if (data.type === 'UPDATE_ZONE_FONT' && data.zoneId && data.font) {
     const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId);
-    if (zone) { zone.font_family = data.font; document.fonts.load(48px "${data.font}").then(() => drawTexture()); } return;
+    if (zone) { zone.font_family = data.font; document.fonts.load(`48px "${data.font}"`).then(() => drawTexture()); } return;
   }
   if (data.type === 'SET_AUTO_ROTATE') { autoRotate = !!data.value; autoRotateSpeed = data.speed || 0.003; return; }
   if (data.type === 'REQUEST_SHARE_IMAGE') {
@@ -709,20 +691,20 @@ window.addEventListener('message', function(e) {
         fontForcer.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;';
         families.forEach(font => {
           const span = document.createElement('span');
-          span.style.fontFamily = '${font}';
+          span.style.fontFamily = `'${font}'`;
           span.textContent = 'AaBbCc';
           fontForcer.appendChild(span);
-          if (!document.querySelector(link[href*="${font.replace(/\s+/g,'+')}"])) {
+          if (!document.querySelector(`link[href*="${font.replace(/\s+/g,'+')}"]`)) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
-            link.href = https://fonts.googleapis.com/css2?family=${font.replace(/\s+/g,'+')}:wght@400;700&display=swap;
+            link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/\s+/g,'+')}:wght@400;700&display=swap`;
             document.head.appendChild(link);
           }
         });
         document.body.appendChild(fontForcer);
         await document.fonts.ready;
         for (const font of families) {
-          try { await document.fonts.load(48px '${font}'); } catch(e) {}
+          try { await document.fonts.load(`48px '${font}'`); } catch(e) {}
         }
         await new Promise(r => setTimeout(r, 600));
         document.body.removeChild(fontForcer);
@@ -749,7 +731,7 @@ window.addEventListener('message', function(e) {
           const fitH = (shape==='oval'||shape==='circle') ? zone.height*0.707 : zone.height;
           let fs = zone.font_size||48;
           while (fs > 6) {
-            const font = ${fs}px '${zone.font_family||'Jost'}';
+            const font = `${fs}px '${zone.font_family||'Jost'}'`;
             let totalW=0, totalH=0;
             lines.forEach((line,i)=>{ const b=_printBounds(font,line||' '); if(b.w>totalW)totalW=b.w; totalH+=b.h; if(i<lines.length-1) totalH+=fs*(lh-1); });
             if (totalW<=fitW && totalH<=fitH) break;
@@ -759,14 +741,13 @@ window.addEventListener('message', function(e) {
           const angle=(zone.rotation||0)*Math.PI/180;
           pctx.save();
           if(angle){pctx.translate(cx,cy);pctx.rotate(angle);pctx.translate(-cx,-cy);}
-          pctx.font=${fs}px '${zone.font_family||'Jost'}';
+          pctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
           pctx.textAlign=zone.align||'center';
           pctx.textBaseline='middle';
           const tx=zone.align==='left'?zone.x+8:zone.align==='right'?zone.x+zone.width-8:zone.x+zone.width/2;
           const lineH=fs*lh, totalH=lines.length*lineH;
           const startY=cy-totalH/2+lineH/2;
-          const color=zone._colorOverride||zone.color||'
-#7a5c2e';
+          const color=zone._colorOverride||zone.color||'#7a5c2e';
           const strokeW=(zone.stroke_print!==undefined?zone.stroke_print:STROKE_WIDTH);
           if(strokeW>0){ pctx.strokeStyle=color; pctx.lineWidth=strokeW; pctx.lineJoin='round';
             lines.forEach((line,i)=>pctx.strokeText(line,tx,startY+i*lineH)); }
@@ -781,9 +762,8 @@ window.addEventListener('message', function(e) {
           const startDeg=zone.start_angle!==undefined?zone.start_angle:-90;
           const r=zone.radius||280, spacing=zone.letter_spacing||1.0, fs=zone.font_size||60;
           pctx.save();
-          pctx.font=${fs}px '${zone.font_family||'Dancing Script'}';
-          const color=zone._colorOverride||zone.color||'
-#7a5c2e';
+          pctx.font=`${fs}px '${zone.font_family||'Dancing Script'}'`;
+          const color=zone._colorOverride||zone.color||'#7a5c2e';
           pctx.strokeStyle=color; pctx.fillStyle=color;
           pctx.lineWidth=STROKE_WIDTH; pctx.lineJoin='round';
           pctx.textAlign='center'; pctx.textBaseline='alphabetic';
@@ -823,7 +803,7 @@ window.addEventListener('message', function(e) {
         const designSlug = (CFG.shopify_handle || CFG.id || 'design').slice(0, 40);
         const nameTag = data.origin || designSlug;
         const rand = Math.random().toString(36).slice(2, 6);
-        const filename = orders/${inverted}-${rand}-${nameTag}.png;
+        const filename = `orders/${inverted}-${rand}-${nameTag}.png`;
         // Envoi binaire via XHR → permet de connaître la VRAIE progression.
         function kzUpload() {
           return new Promise(function (resolve, reject) {
