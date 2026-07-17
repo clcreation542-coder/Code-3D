@@ -72,47 +72,140 @@ const ctx2d = textureCanvas.getContext('2d');
 
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 
-function getFontSize(zone, text) {
-  let size = zone.font_size || 48;
-  const lh = zone.lineHeight || 1.3;
-  const lines = text.split('\n');
-  const _tmpC = document.createElement('canvas');
-  const _tmpX = _tmpC.getContext('2d');
-  function _realBounds(font, txt) {
-    _tmpC.width = 2000; _tmpC.height = 800;
-    _tmpX.clearRect(0, 0, 2000, 800);
-    _tmpX.font = font;
-    _tmpX.fillStyle = '#000';
-    _tmpX.textBaseline = 'middle';
-    _tmpX.textAlign = 'center';
-    _tmpX.fillText(txt, 1000, 400);
-    const d = _tmpX.getImageData(0, 0, 2000, 800).data;
-    let minY=800, maxY=0, minX=2000, maxX=0;
-    for (let y=0;y<800;y++) for (let x=0;x<2000;x++) {
-      if (d[(y*2000+x)*4+3]>10) {
-        if(y<minY)minY=y; if(y>maxY)maxY=y;
-        if(x<minX)minX=x; if(x>maxX)maxX=x;
-      }
+// ══════════════════════════════════════════════════════════════════
+//  KZ_LAYOUT v1 — SOURCE DE VÉRITÉ UNIQUE
+//  ⚠️ Bloc DUPLIQUÉ À L'IDENTIQUE dans :
+//       kuztom-admin.html · configurateur-viewer.html · configurateur-3d.liquid
+//     Toute modif doit être reportée dans les trois + KZ_LAYOUT_VERSION incrémentée.
+//
+//  AVANT : la mesure additionnait les pixels réellement allumés (totalH += b.h)
+//  alors que le dessin empile n × fs × lh. Deux définitions différentes de
+//  « hauteur totale » → le texte sortait de sa boîte sans que rien ne l'arrête.
+//  Ici la mesure reproduit la GÉOMÉTRIE EXACTE du dessin : centre de la 1re
+//  ligne à -totalH/2 + lineH/2, moins l'ascendante réelle, plus la descendante
+//  de la dernière, plus la moitié du contour.
+//  Bonus : plus de getImageData sur 2000×800 (qui coupait les grandes polices
+//  et coûtait des millions de lectures de pixels à chaque frappe).
+// ══════════════════════════════════════════════════════════════════
+const KZ_LAYOUT_VERSION = 1;
+const KZ_FS_MIN = 8;
+const KZ_FS_STEP = 2;
+const _kzMeasureCtx = document.createElement('canvas').getContext('2d');
+
+function KZ_fontSize(ctx, zone, text, boxW, boxH) {
+  const lh    = zone.lineHeight || 1.3;
+  const lines = String(text == null ? '' : text).split('\n');
+  const shape = zone.shape || 'rectangle';
+  const fitW  = (shape === 'oval' || shape === 'circle') ? boxW * 0.707 : boxW;
+  const fitH  = (shape === 'oval' || shape === 'circle') ? boxH * 0.707 : boxH;
+  const strokeW = (zone.stroke_preview !== undefined ? zone.stroke_preview : 2.5);
+  const half    = strokeW / 2;
+
+  const prevBaseline = ctx.textBaseline;
+  ctx.textBaseline = 'middle';
+
+  let fs = zone.font_size || 48;
+  while (fs > KZ_FS_MIN) {
+    ctx.font = `${fs}px '${zone.font_family || 'Jost'}'`;
+
+    const lineH  = fs * lh;
+    const totalH = lines.length * lineH;
+    const c0 = -totalH / 2 + lineH / 2;
+
+    const mFirst = ctx.measureText(lines[0] || ' ');
+    const mLast  = ctx.measureText(lines[lines.length - 1] || ' ');
+    const asc  = (mFirst.actualBoundingBoxAscent  !== undefined) ? mFirst.actualBoundingBoxAscent  : fs * 0.35;
+    const desc = (mLast.actualBoundingBoxDescent  !== undefined) ? mLast.actualBoundingBoxDescent  : fs * 0.35;
+
+    const inkTop    = c0 - asc - half;
+    const inkBottom = c0 + (lines.length - 1) * lineH + desc + half;
+
+    let maxW = 0;
+    for (let i = 0; i < lines.length; i++) {
+      const m = ctx.measureText(lines[i] || ' ');
+      const w = (m.actualBoundingBoxLeft !== undefined && m.actualBoundingBoxRight !== undefined)
+        ? Math.abs(m.actualBoundingBoxLeft) + Math.abs(m.actualBoundingBoxRight)
+        : m.width;
+      if (w > maxW) maxW = w;
     }
-    return { w: maxX>minX ? maxX-minX : 0, h: maxY>minY ? maxY-minY : 0 };
+
+    const fitsH = (inkTop >= -fitH / 2) && (inkBottom <= fitH / 2);
+    const fitsW = (maxW + strokeW) <= fitW;
+    if (fitsH && fitsW) break;
+    fs -= KZ_FS_STEP;
   }
-  while (size > 8) {
-    const font = `${size}px "${zone.font_family}"`;
-    // Zone ovale/cercle : espace utilisable = rectangle inscrit dans l'ellipse (≈70,7%).
-    const shape = zone.shape || 'rectangle';
-    const fitW = (shape==='oval'||shape==='circle') ? zone.width*0.707 : zone.width;
-    const fitH = (shape==='oval'||shape==='circle') ? zone.height*0.707 : zone.height;
-    let totalW = 0, totalH = 0;
-    lines.forEach((line, i) => {
-      const b = _realBounds(font, line||' ');
-      if (b.w > totalW) totalW = b.w;
-      totalH += b.h;
-      if (i < lines.length - 1) totalH += size * (lh - 1);
-    });
-    if (totalW <= fitW && totalH <= fitH) break;
-    size -= 2;
+
+  ctx.textBaseline = prevBaseline;
+  return fs;
+}
+
+// 8 formes de zone. AVANT : le viewer clippait TOUJOURS un rectangle, donc un
+// cœur ou une arche créé dans l'admin sortait carré chez le client ET à l'impression.
+function KZ_zonePath(c, zone) {
+  const shape = zone.shape || 'rectangle';
+  const x = zone.x, y = zone.y, w = zone.width, h = zone.height;
+  c.beginPath();
+  switch (shape) {
+    case 'circle':
+    case 'oval':
+      c.ellipse(x + w/2, y + h/2, w/2, h/2, 0, 0, Math.PI*2);
+      break;
+    case 'rounded': {
+      const r = Math.min(w,h) * 0.18;
+      c.moveTo(x+r,y); c.lineTo(x+w-r,y); c.arcTo(x+w,y,x+w,y+r,r);
+      c.lineTo(x+w,y+h-r); c.arcTo(x+w,y+h,x+w-r,y+h,r);
+      c.lineTo(x+r,y+h); c.arcTo(x,y+h,x,y+h-r,r);
+      c.lineTo(x,y+r); c.arcTo(x,y,x+r,y,r);
+      break;
+    }
+    case 'arch': {
+      const r = Math.min(w/2, h);
+      c.moveTo(x, y+h);
+      c.lineTo(x, y+r);
+      c.arc(x+w/2, y+r, w/2, Math.PI, 0);
+      c.lineTo(x+w, y+h);
+      break;
+    }
+    case 'hexagon': {
+      const cx2=x+w/2, cy2=y+h/2, rx=w/2, ry=h/2;
+      for (let i=0;i<6;i++) {
+        const ang=(Math.PI/3)*i-Math.PI/6;
+        const px=cx2+rx*Math.cos(ang), py=cy2+ry*Math.sin(ang);
+        if(i===0) c.moveTo(px,py); else c.lineTo(px,py);
+      }
+      break;
+    }
+    case 'diamond': {
+      const cx2=x+w/2, cy2=y+h/2;
+      c.moveTo(cx2,y); c.lineTo(x+w,cy2); c.lineTo(cx2,y+h); c.lineTo(x,cy2);
+      break;
+    }
+    case 'heart': {
+      const cx2=x+w/2, cy2=y+h/2, sz=Math.min(w,h)*0.45;
+      c.moveTo(cx2,cy2+sz*0.9);
+      c.bezierCurveTo(cx2-sz*1.3,cy2+sz*0.3,cx2-sz*1.4,cy2-sz*0.6,cx2,cy2-sz*0.15);
+      c.bezierCurveTo(cx2+sz*1.4,cy2-sz*0.6,cx2+sz*1.3,cy2+sz*0.3,cx2,cy2+sz*0.9);
+      break;
+    }
+    default:
+      c.rect(x,y,w,h);
   }
-  return size;
+  c.closePath();
+}
+
+function KZ_zoneBegin(c, zone) {
+  c.save();
+  const rot = zone.rotation || 0;
+  if (rot) {
+    const cx = zone.x + zone.width/2, cy = zone.y + zone.height/2;
+    c.translate(cx, cy); c.rotate(rot * Math.PI / 180); c.translate(-cx, -cy);
+  }
+}
+function KZ_zoneEnd(c) { c.restore(); }
+
+// Compat : l'ancien nom reste appelé par drawTextZone et par le PNG imprimeur.
+function getFontSize(zone, text) {
+  return KZ_fontSize(_kzMeasureCtx, zone, text, zone.width, zone.height);
 }
 
 function drawTextZone(zone, text) {
@@ -194,9 +287,9 @@ function drawArchZone(zone, text) {
 
 function drawPhotoPlaceholder(zone) {
   const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
-  ctx2d.save();
+  KZ_zoneBegin(ctx2d, zone);
   ctx2d.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx2d.beginPath(); ctx2d.rect(zx, zy, zw, zh); ctx2d.fill();
+  KZ_zonePath(ctx2d, zone); ctx2d.fill();
   ctx2d.strokeStyle = 'rgba(180,180,180,0.8)';
   ctx2d.lineWidth = 3; ctx2d.setLineDash([12, 8]); ctx2d.stroke(); ctx2d.setLineDash([]);
   const cx = zx + zw/2, cy = zy + zh/2;
@@ -222,10 +315,10 @@ function drawPhotoZone(zone, img) {
   const sw = iw * scale, sh = ih * scale;
   const ox = zx + (zw - sw) / 2 + crop.offsetX;
   const oy = zy + (zh - sh) / 2 + crop.offsetY;
-  ctx2d.save();
-  ctx2d.beginPath(); ctx2d.rect(zx, zy, zw, zh); ctx2d.clip();
+  KZ_zoneBegin(ctx2d, zone);
+  KZ_zonePath(ctx2d, zone); ctx2d.clip();
   ctx2d.drawImage(img, ox, oy, sw, sh);
-  ctx2d.restore();
+  KZ_zoneEnd(ctx2d);
 }
 
 function drawTexture() {
@@ -618,10 +711,10 @@ window.addEventListener('message', function(e) {
           const scale = baseScale * crop.zoom;
           const sw=iw*scale, sh=ih*scale;
           const ox=zx+(zw-sw)/2+crop.offsetX, oy=zy+(zh-sh)/2+crop.offsetY;
-          pctx.save();
-          pctx.beginPath(); pctx.rect(zx,zy,zw,zh); pctx.clip();
+          KZ_zoneBegin(pctx, zone);
+          KZ_zonePath(pctx, zone); pctx.clip();
           pctx.drawImage(img, ox, oy, sw, sh);
-          pctx.restore();
+          KZ_zoneEnd(pctx);
         });
         if (state.designImage) {
           const d = CFG.design || {x:0,y:0,width:W,height:H};
@@ -653,34 +746,15 @@ window.addEventListener('message', function(e) {
         await new Promise(r => setTimeout(r, 600));
         document.body.removeChild(fontForcer);
         const STROKE_WIDTH = 2.5;
-        // Mesure identique à l'admin (bounds pixel réels) — canvas de mesure dédié
-        const _measC = document.createElement('canvas'); _measC.width=2000; _measC.height=800;
-        const _measX = _measC.getContext('2d');
-        function _printBounds(font, txt){
-          _measX.clearRect(0,0,2000,800);
-          _measX.font=font; _measX.fillStyle='#000'; _measX.textBaseline='middle'; _measX.textAlign='center';
-          _measX.fillText(txt,1000,400);
-          const d=_measX.getImageData(0,0,2000,800).data;
-          let minY=800,maxY=0,minX=2000,maxX=0;
-          for(let y=0;y<800;y++)for(let x=0;x<2000;x++){ if(d[(y*2000+x)*4+3]>10){ if(y<minY)minY=y; if(y>maxY)maxY=y; if(x<minX)minX=x; if(x>maxX)maxX=x; } }
-          return { w: maxX>minX?maxX-minX:0, h: maxY>minY?maxY-minY:0 };
-        }
         (CFG.text_zones||[]).forEach(zone => {
           const txt = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'')).trim();
           if (!txt) return;
           const lh = zone.lineHeight||1.3;
           const lines = txt.split('\n');
-          const shape = zone.shape || 'rectangle';
-          const fitW = (shape==='oval'||shape==='circle') ? zone.width*0.707 : zone.width;
-          const fitH = (shape==='oval'||shape==='circle') ? zone.height*0.707 : zone.height;
-          let fs = zone.font_size||48;
-          while (fs > 6) {
-            const font = `${fs}px '${zone.font_family||'Jost'}'`;
-            let totalW=0, totalH=0;
-            lines.forEach((line,i)=>{ const b=_printBounds(font,line||' '); if(b.w>totalW)totalW=b.w; totalH+=b.h; if(i<lines.length-1) totalH+=fs*(lh-1); });
-            if (totalW<=fitW && totalH<=fitH) break;
-            fs -= 2;
-          }
+          // KZ_LAYOUT v1 : même fonction que l'écran et que l'admin.
+          // (avant : plancher à 6 ici contre 8 à l'écran → l'imprimeur pouvait
+          //  descendre plus bas que ce que le client avait vu)
+          const fs = KZ_fontSize(pctx, zone, txt, zone.width, zone.height);
           const cx=zone.x+zone.width/2, cy=zone.y+zone.height/2;
           const angle=(zone.rotation||0)*Math.PI/180;
           pctx.save();
@@ -688,7 +762,12 @@ window.addEventListener('message', function(e) {
           pctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
           pctx.textAlign=zone.align||'center';
           pctx.textBaseline='middle';
-          const tx=zone.align==='left'?zone.x+8:zone.align==='right'?zone.x+zone.width-8:zone.x+zone.width/2;
+          // KZ_LAYOUT v1 : même ancrage horizontal qu'à l'écran (drawTextZone).
+          // Avant, l'imprimeur laissait 8px de marge que l'écran ne laissait pas :
+          // le PNG livré n'était pas exactement ce que le client avait validé.
+          const tx = zone.align === 'center' ? zone.x + zone.width/2
+                   : zone.align === 'right'  ? zone.x + zone.width
+                   : zone.x;
           const lineH=fs*lh, totalH=lines.length*lineH;
           const startY=cy-totalH/2+lineH/2;
           const color=zone._colorOverride||zone.color||'#7a5c2e';
