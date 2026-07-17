@@ -547,53 +547,6 @@ window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
 
-  // ── KUZTOM : capture "sur gobelet" pour l'aperçu client (panier / récap) ──
-  if (data.type === 'REQUEST_MOCKUP_PNG') {
-    (async function () {
-      try {
-        if (window.__kzMockup) return;
-        window.__kzMockup = true;
-        var _kzBg = scene.background;
-        scene.background = new THREE.Color(0xffffff);
-        var front  = Math.PI + (CFG.rotation_y || 0);               // vue de face (design vers la caméra)
-        var angles = (data.angles && data.angles.length) ? data.angles : [0];
-        var savedRotY = rotY;
-        var urls = [];
-        for (var i = 0; i < angles.length; i++) {
-          gobeletGroup.rotation.y = front + angles[i];
-          renderer.render(scene, camera);
-          var blob = await new Promise(function (res) { renderer.domElement.toBlob(res, 'image/png'); });
-          if (!blob) continue;
-          var FAR_FUTURE = 9999999999;
-          var inverted = String(FAR_FUTURE - Math.floor(Date.now() / 1000)).padStart(10, '0');
-          var rand = Math.random().toString(36).slice(2, 6);
-          var filename = 'orders/' + inverted + '-' + rand + '-mockup' + i + '.png';
-          var url = await new Promise(function (resolve) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', PROXY_URL + '/file?path=' + encodeURIComponent(filename), true);
-            xhr.setRequestHeader('Content-Type', 'image/png');
-            xhr.setRequestHeader('X-Auth-Key', PROXY_KEY);
-            xhr.timeout = 45000;
-            xhr.onload    = function () { try { resolve(JSON.parse(xhr.responseText).url); } catch (e) { resolve(null); } };
-            xhr.onerror   = function () { resolve(null); };
-            xhr.ontimeout = function () { resolve(null); };
-            xhr.send(blob);
-          });
-          if (url) urls.push(url);
-        }
-        scene.background = _kzBg;
-        gobeletGroup.rotation.y = savedRotY;
-        renderer.render(scene, camera);
-        window.__kzMockup = false;
-        window.parent.postMessage({ type: 'MOCKUP_PNG_READY', urls: urls }, '*');
-      } catch (e) {
-        window.__kzMockup = false;
-        window.parent.postMessage({ type: 'MOCKUP_PNG_ERROR', error: e.message }, '*');
-      }
-    })();
-    return;
-  }
-
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId)
               || (CFG.arch_zones  || []).find(z => z.id === data.zoneId);
