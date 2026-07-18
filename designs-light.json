@@ -12207,7 +12207,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12282,7 +12282,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -12304,7 +12304,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12370,8 +12370,8 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 301,
-        "y": 255,
+        "x": 284,
+        "y": 269,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -12379,7 +12379,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -12401,7 +12401,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12425,8 +12425,8 @@
         "color": "#f4b320",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
-        "label": "Zone de texte 1",
-        "order": 1,
+        "label": "Zone de texte 2",
+        "order": 2,
         "x": 1368,
         "y": 240,
         "width": 568,
@@ -12445,8 +12445,8 @@
         "color": "#f4b320",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
-        "label": "Zone de texte 2",
-        "order": 2,
+        "label": "Zone de texte 3",
+        "order": 3,
         "x": 1422,
         "y": 901,
         "width": 459,
@@ -12465,10 +12465,10 @@
         "color": "#f4b320",
         "multiline": false,
         "id": "texte_mppguavyfv0j",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 4",
+        "order": 4,
         "x": 301,
-        "y": 269,
+        "y": 282,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -12476,7 +12476,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -12518,7 +12518,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12593,7 +12593,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -12635,7 +12635,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12710,7 +12710,7 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -12732,7 +12732,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12807,7 +12807,7 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -12829,7 +12829,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12904,7 +12904,7 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -12926,7 +12926,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12970,8 +12970,8 @@
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
-        "label": "Zone de texte 2",
-        "order": 2,
+        "label": "Zone de texte 3",
+        "order": 3,
         "x": 1463,
         "y": 854,
         "width": 459,
@@ -12990,8 +12990,8 @@
         "color": "#000000",
         "multiline": false,
         "id": "texte_mppguavyfv0j",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 4",
+        "order": 4,
         "x": 340,
         "y": 255,
         "width": 780,
@@ -13001,7 +13001,7 @@
         "font_family": "Tangerine",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -13010,8 +13010,8 @@
         "color": "#000000",
         "multiline": false,
         "id": "texte_mrms323mwe9n",
-        "label": "Zone de texte 1",
-        "order": 1,
+        "label": "Zone de texte 2",
+        "order": 2,
         "x": 1463,
         "y": 435,
         "width": 455,
@@ -13043,7 +13043,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -13118,7 +13118,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -13160,7 +13160,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -13215,7 +13215,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -13255,7 +13255,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
