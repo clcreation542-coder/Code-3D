@@ -87,55 +87,59 @@ function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 //  Bonus : plus de getImageData sur 2000×800 (qui coupait les grandes polices
 //  et coûtait des millions de lectures de pixels à chaque frappe).
 // ══════════════════════════════════════════════════════════════════
-const KZ_LAYOUT_VERSION = 1;
+const KZ_LAYOUT_VERSION = 2;
 const KZ_FS_MIN = 8;
 const KZ_FS_STEP = 2;
 const _kzMeasureCtx = document.createElement('canvas').getContext('2d');
 
 function KZ_fontSize(ctx, zone, text, boxW, boxH) {
-  const lh    = zone.lineHeight || 1.3;
-  const lines = String(text == null ? '' : text).split('\n');
-  const shape = zone.shape || 'rectangle';
-  const fitW  = (shape === 'oval' || shape === 'circle') ? boxW * 0.707 : boxW;
-  const fitH  = (shape === 'oval' || shape === 'circle') ? boxH * 0.707 : boxH;
-  const strokeW = (zone.stroke_preview !== undefined ? zone.stroke_preview : 2.5);
-  const half    = strokeW / 2;
-
-  const prevBaseline = ctx.textBaseline;
+  var lh    = zone.lineHeight || 1.3;
+  var lines = String(text == null ? '' : text).split('\n');
+  var shape = zone.shape || 'rectangle';
+  var fitW  = (shape === 'oval' || shape === 'circle') ? boxW * 0.707 : boxW;
+  var fitH  = (shape === 'oval' || shape === 'circle') ? boxH * 0.707 : boxH;
+  var strokeW = (zone.stroke_preview !== undefined ? zone.stroke_preview : 2.5);
+  var half    = strokeW / 2;
+  var align   = zone.align || 'center';
+  var prevBaseline = ctx.textBaseline, prevAlign = ctx.textAlign;
   ctx.textBaseline = 'middle';
-
-  let fs = zone.font_size || 48;
+  ctx.textAlign    = align;
+  var fs = zone.font_size || 48;
   while (fs > KZ_FS_MIN) {
-    ctx.font = `${fs}px '${zone.font_family || 'Jost'}'`;
-
-    const lineH  = fs * lh;
-    const totalH = lines.length * lineH;
-    const c0 = -totalH / 2 + lineH / 2;
-
-    const mFirst = ctx.measureText(lines[0] || ' ');
-    const mLast  = ctx.measureText(lines[lines.length - 1] || ' ');
-    const asc  = (mFirst.actualBoundingBoxAscent  !== undefined) ? mFirst.actualBoundingBoxAscent  : fs * 0.35;
-    const desc = (mLast.actualBoundingBoxDescent  !== undefined) ? mLast.actualBoundingBoxDescent  : fs * 0.35;
-
-    const inkTop    = c0 - asc - half;
-    const inkBottom = c0 + (lines.length - 1) * lineH + desc + half;
-
-    let maxW = 0;
-    for (let i = 0; i < lines.length; i++) {
-      const m = ctx.measureText(lines[i] || ' ');
-      const w = (m.actualBoundingBoxLeft !== undefined && m.actualBoundingBoxRight !== undefined)
-        ? Math.abs(m.actualBoundingBoxLeft) + Math.abs(m.actualBoundingBoxRight)
-        : m.width;
-      if (w > maxW) maxW = w;
+    ctx.font = fs + "px '" + (zone.font_family || 'Jost') + "'";
+    var lineH  = fs * lh;
+    var totalH = lines.length * lineH;
+    var c0 = -totalH / 2 + lineH / 2;
+    var mFirst = ctx.measureText(lines[0] || ' ');
+    var mLast  = ctx.measureText(lines[lines.length - 1] || ' ');
+    var asc  = (mFirst.actualBoundingBoxAscent  !== undefined) ? mFirst.actualBoundingBoxAscent  : fs * 0.35;
+    var desc = (mLast.actualBoundingBoxDescent  !== undefined) ? mLast.actualBoundingBoxDescent  : fs * 0.35;
+    var inkTop    = c0 - asc - half;
+    var inkBottom = c0 + (lines.length - 1) * lineH + desc + half;
+    var maxL = 0, maxR = 0, maxAdv = 0;
+    for (var i = 0; i < lines.length; i++) {
+      var m = ctx.measureText(lines[i] || ' ');
+      if (m.width > maxAdv) maxAdv = m.width;
+      if (m.actualBoundingBoxLeft !== undefined && m.actualBoundingBoxRight !== undefined) {
+        if (m.actualBoundingBoxLeft  > maxL) maxL = m.actualBoundingBoxLeft;
+        if (m.actualBoundingBoxRight > maxR) maxR = m.actualBoundingBoxRight;
+      } else {
+        if (m.width/2 > maxL) maxL = m.width/2;
+        if (m.width/2 > maxR) maxR = m.width/2;
+      }
     }
-
-    const fitsH = (inkTop >= -fitH / 2) && (inkBottom <= fitH / 2);
-    const fitsW = (maxW + strokeW) <= fitW;
+    var fitsW;
+    if (align === 'center') {
+      fitsW = (maxL + half <= fitW/2) && (maxR + half <= fitW/2);
+    } else {
+      fitsW = (maxL + maxR + strokeW) <= fitW;
+    }
+    var fitsH = (inkTop >= -fitH / 2) && (inkBottom <= fitH / 2);
     if (fitsH && fitsW) break;
     fs -= KZ_FS_STEP;
   }
-
   ctx.textBaseline = prevBaseline;
+  ctx.textAlign    = prevAlign;
   return fs;
 }
 
