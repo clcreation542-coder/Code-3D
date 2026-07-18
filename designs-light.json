@@ -4428,7 +4428,7 @@
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -4545,7 +4545,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       }
     ],
     "photo_zones": [],
@@ -4641,7 +4641,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -4738,7 +4738,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       },
       {
         "lineHeight": 1.2,
@@ -4854,7 +4854,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -4951,7 +4951,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -5048,7 +5048,7 @@
         "font_family": "Sacramento",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       }
     ],
     "photo_zones": [],
@@ -5144,7 +5144,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -5241,7 +5241,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       },
       {
         "lineHeight": 1,
@@ -5357,7 +5357,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -5473,7 +5473,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -5550,7 +5550,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -5687,7 +5687,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -5881,7 +5881,7 @@
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -5958,7 +5958,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -6055,7 +6055,7 @@
         "font_family": "Advent Pro",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       }
     ],
     "photo_zones": [],
@@ -6142,7 +6142,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 201,
+        "x": 205,
         "y": 268,
         "width": 780,
         "height": 459,
@@ -6151,7 +6151,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -6248,7 +6248,7 @@
         "font_family": "EB Garamond",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       }
     ],
     "photo_zones": [],
@@ -6324,7 +6324,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -6421,7 +6421,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -6962,7 +6962,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -7407,7 +7407,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -7504,7 +7504,7 @@
         "font_family": "Sacramento",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       }
     ],
     "photo_zones": [],
@@ -7600,7 +7600,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       },
       {
         "lineHeight": 1.5,
@@ -7716,7 +7716,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       }
     ],
     "photo_zones": [],
@@ -7792,7 +7792,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -7889,7 +7889,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -7986,7 +7986,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8083,7 +8083,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8722,7 +8722,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -11709,7 +11709,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -11806,7 +11806,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -11894,7 +11894,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12002,7 +12002,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12110,7 +12110,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -12185,7 +12185,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
