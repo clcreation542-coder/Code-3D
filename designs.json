@@ -5749,7 +5749,7 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 81,
+        "font_size": 90,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -5769,7 +5769,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -6518,7 +6518,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -6672,7 +6672,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -6734,7 +6734,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 101,
         "color": "#e20613",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -6760,8 +6760,8 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 298,
-        "y": 268,
+        "x": 291,
+        "y": 270,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -6769,7 +6769,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50
+        "max_chars": 0
       }
     ],
     "photo_zones": [],
@@ -7081,7 +7081,7 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 81,
+        "font_size": 100,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -7101,15 +7101,15 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 71,
+        "font_size": 100,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1343,
-        "y": 923,
-        "width": 489,
+        "x": 1392,
+        "y": 921,
+        "width": 392,
         "height": 127,
         "shape": "rectangle",
         "placeholder": "10 mai 2025",
@@ -7136,7 +7136,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -7233,7 +7233,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8180,7 +8180,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8277,7 +8277,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8319,7 +8319,7 @@
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 81,
+        "font_size": 89,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -8354,7 +8354,7 @@
         "font_family": "Borel",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8396,7 +8396,7 @@
     "text_zones": [
       {
         "lineHeight": 1.1,
-        "font_size": 75,
+        "font_size": 80,
         "color": "#ed98b4",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -8442,8 +8442,8 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 314,
-        "y": 262,
+        "x": 316,
+        "y": 264,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -8451,7 +8451,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8493,7 +8493,7 @@
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 90,
+        "font_size": 106,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -8513,7 +8513,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 78,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -8548,7 +8548,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8625,7 +8625,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -8799,7 +8799,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -9102,7 +9102,7 @@
         "id": "texte_mpzauz28ez1k",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 294,
+        "x": 292,
         "y": 238,
         "width": 804,
         "height": 496,
@@ -9116,7 +9116,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 92,
+        "font_size": 99,
         "color": "#ba9071",
         "multiline": false,
         "id": "texte_mpzbw0t8ajnj",
@@ -9259,7 +9259,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -9343,7 +9343,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -9411,7 +9411,7 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1228,
+        "x": 1225,
         "y": 499,
         "width": 467,
         "height": 243,
@@ -9477,7 +9477,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -9570,7 +9570,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -9667,7 +9667,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -9729,16 +9729,16 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 65,
+        "font_size": 118,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1531,
-        "y": 268,
+        "y": 275,
         "width": 322,
-        "height": 80,
+        "height": 61,
         "shape": "rectangle",
         "placeholder": "Jason",
         "font_family": "Graduate",
@@ -9764,12 +9764,12 @@
         "font_family": "Graduate",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
         "lineHeight": 1,
-        "font_size": 80,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpzp8cx661yk",
@@ -9846,7 +9846,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 86,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -9872,7 +9872,7 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 329,
+        "x": 327,
         "y": 268,
         "width": 780,
         "height": 459,
@@ -9881,7 +9881,7 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -9978,7 +9978,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -10060,7 +10060,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 104,
         "color": "#e60b5e",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -10152,7 +10152,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -10254,7 +10254,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 62,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -10289,7 +10289,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -10331,7 +10331,7 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 95,
+        "font_size": 100,
         "color": "#7b629a",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -10366,7 +10366,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -10443,7 +10443,7 @@
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       },
       {
@@ -10609,7 +10609,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1405,
-        "y": 469,
+        "y": 471,
         "width": 384,
         "height": 345,
         "shape": "circle",
@@ -10622,7 +10622,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 102,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -10657,7 +10657,7 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -10754,7 +10754,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -10908,7 +10908,7 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -11062,7 +11062,7 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -11610,7 +11610,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 50,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
@@ -11632,7 +11632,7 @@
       "width": 2000,
       "height": 1024
     },
-    "active": false,
+    "active": true,
     "variant_colors": [
       {
         "name": "Translucide",
@@ -11672,15 +11672,15 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 68,
+        "font_size": 92,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1231,
-        "y": 908,
-        "width": 459,
+        "x": 1255,
+        "y": 913,
+        "width": 411,
         "height": 99,
         "shape": "rectangle",
         "placeholder": "02 août 2025",
