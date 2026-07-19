@@ -1630,9 +1630,9 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1386,
+        "x": 1399,
         "y": 724,
-        "width": 250,
+        "width": 237,
         "height": 61,
         "shape": "rectangle",
         "placeholder": "10 mai 2025",
@@ -1673,7 +1673,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.9,
+    "rotation_y": 5.951572749300663,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-alliances-hiver-chic.webp",
     "design": {
       "x": 0,
@@ -7053,7 +7053,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8643062867009474,
+    "rotation_y": 5.8468529941810035,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-animaux-de-la-foret.webp",
     "design": {
       "x": 0,
@@ -10089,7 +10089,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.6,
+    "rotation_y": 5.654866776461628,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-bulles-dor.webp",
     "design": {
       "x": 0,
@@ -10574,7 +10574,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.829399701661061,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ballons-gold-black.webp",
     "design": {
       "x": 0,
@@ -10768,7 +10768,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 2.6,
+    "rotation_y": 5.6199601914217405,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-black-and-beer-panoramique.webp",
     "design": {
       "x": 0,
@@ -13152,7 +13152,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.445427266222308,
+    "rotation_y": 5.811946409141117,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-gender-reveal-personnalise-boy-or-girl.webp",
     "design": {
       "x": 0,
@@ -13269,7 +13269,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.445427266222308,
+    "rotation_y": 6.021385919380437,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-photo-bouquet-terracotta.webp",
     "design": {
       "x": 0,
