@@ -14329,5 +14329,102 @@
       }
     ],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-2-mrt61vqec8k2",
+    "name": "Brouillon 2",
+    "shopify_handle": "",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.6199601914217405,
+    "design_url": null,
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#ffffff",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 243,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mrt61vqehjea",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1494,
+        "y": 372,
+        "width": 332,
+        "height": 295,
+        "shape": "circle",
+        "placeholder": "30",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 66,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mrt61vqe2l58",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1462,
+        "y": 810,
+        "width": 396,
+        "height": 88,
+        "shape": "rectangle",
+        "placeholder": "11 juillet 2026",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.2,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mrt61vqemb3x",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 366,
+        "y": 290,
+        "width": 619,
+        "height": 459,
+        "shape": "rectangle",
+        "placeholder": "",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
