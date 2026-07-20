@@ -14380,7 +14380,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 15,
+        "max_chars": 2,
         "stroke_preview": 1.5
       },
       {
