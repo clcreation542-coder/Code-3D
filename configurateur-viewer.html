@@ -671,13 +671,22 @@ window.addEventListener('message', function(e) {
     return;
   }
 
-  if (data.type === 'REQUEST_PREVIEW_SCREENSHOT') {
-    try {
-      const savedRotY = rotY;
+  const savedRotY = rotY;
+      const savedRotX = gobeletGroup.rotation.x;
+      const savedFov  = camera.fov;
+      const savedZ    = camera.position.z;
       gobeletGroup.rotation.y = 0;
+      gobeletGroup.rotation.x = 0;
+      camera.fov = 22;
+      camera.position.z = savedZ * (Math.tan((45*Math.PI/180)/2) / Math.tan((22*Math.PI/180)/2));
+      camera.updateProjectionMatrix();
       renderer.render(scene, camera);
       const dataUrl = renderer.domElement.toDataURL('image/jpeg', 0.88);
       gobeletGroup.rotation.y = savedRotY;
+      gobeletGroup.rotation.x = savedRotX;
+      camera.fov = savedFov;
+      camera.position.z = savedZ;
+      camera.updateProjectionMatrix();
       renderer.render(scene, camera);
       window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT', dataUrl }, '*');
     } catch(e) { window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT_ERROR' }, '*'); }
