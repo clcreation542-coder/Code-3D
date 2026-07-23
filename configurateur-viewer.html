@@ -43,40 +43,11 @@ const PROXY_URL  = 'https://kuztom-proxy.contact-kuztom.workers.dev';
 const PROXY_KEY  = '';
 const TEX_W = 1970, TEX_H = 1140;
 
-// ══════════════════════════════════════════════════════════════════
-//  KZ_LAPTOP_FIT v1 — CORRECTIF « ORDINATEURS PORTABLES UNIQUEMENT »
-//  Problème : getSize() forçait un rendu CARRÉ (h = w). Sur un écran
-//  d'ordinateur portable (large mais peu haut), ce carré dépasse la place
-//  verticale disponible → le haut/bas du gobelet est rogné.
-//  Le fixe (grand écran haut) et le téléphone (écran étroit) n'étaient pas
-//  concernés → on NE change QUE les portables.
-//
-//  Détection d'un portable : appareil NON tactile + écran large (≥1000)
-//  ET peu haut (≤900). Le téléphone (tactile/étroit) et le fixe (écran haut)
-//  ne rentrent pas dans cette condition → AUCUN changement pour eux.
-//
-//  Sur portable : le canvas prend la vraie hauteur disponible (plus de carré
-//  qui déborde) ET la caméra recule pour que le gobelet tienne EN ENTIER,
-//  quelle que soit la taille exacte du portable (1366×768, 1536×864, …).
-// ══════════════════════════════════════════════════════════════════
-function KZ_isLaptop() {
-  try {
-    var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-    if (coarse) return false;                        // téléphones / tablettes tactiles → non concernés
-    var sw = (window.screen && window.screen.width)  ? window.screen.width  : window.innerWidth;
-    var sh = (window.screen && window.screen.height) ? window.screen.height : window.innerHeight;
-    return sw >= 1000 && sh <= 900;                  // large + peu haut = ordinateur portable
-  } catch (e) { return false; }
-}
 function getSize() {
   var w = window.innerWidth || 375;
-  if (KZ_isLaptop()) {
-    var h = window.innerHeight || w;                 // portable : vraie hauteur → plus de rognage
-    if (h <= 0) h = w;
-    return { w: w, h: h };
-  }
-  return { w: w, h: w };                              // fixe & téléphone : comportement d'origine (carré)
+  return { w: w, h: w };
 }
+
 let CFG = {
   id: '', name: '',
   gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
@@ -85,6 +56,7 @@ let CFG = {
   design: { x: 0, y: 0, width: TEX_W, height: TEX_H },
   variant_colors: [], text_zones: [], photo_zones: [], arch_zones: []
 };
+
 const state = {
   texts: {}, photos: {}, photoCrop: {},
   activeCropZone: null,
@@ -92,11 +64,14 @@ const state = {
   designImage: null,
   fontsReady: false,
 };
+
 const textureCanvas  = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
 textureCanvas.height = TEX_H;
 const ctx2d = textureCanvas.getContext('2d');
+
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
+
 // ══════════════════════════════════════════════════════════════════
 //  KZ_LAYOUT v1 — SOURCE DE VÉRITÉ UNIQUE
 //  ⚠️ Bloc DUPLIQUÉ À L'IDENTIQUE dans :
@@ -116,6 +91,7 @@ const KZ_LAYOUT_VERSION = 2;
 const KZ_FS_MIN = 8;
 const KZ_FS_STEP = 2;
 const _kzMeasureCtx = document.createElement('canvas').getContext('2d');
+
 function KZ_fontSize(ctx, zone, text, boxW, boxH) {
   var lh    = zone.lineHeight || 1.3;
   var lines = String(text == null ? '' : text).split('\n');
@@ -166,6 +142,7 @@ function KZ_fontSize(ctx, zone, text, boxW, boxH) {
   ctx.textAlign    = prevAlign;
   return fs;
 }
+
 // 8 formes de zone. AVANT : le viewer clippait TOUJOURS un rectangle, donc un
 // cœur ou une arche créé dans l'admin sortait carré chez le client ET à l'impression.
 function KZ_zonePath(c, zone) {
@@ -219,6 +196,7 @@ function KZ_zonePath(c, zone) {
   }
   c.closePath();
 }
+
 function KZ_zoneBegin(c, zone) {
   c.save();
   const rot = zone.rotation || 0;
@@ -228,10 +206,12 @@ function KZ_zoneBegin(c, zone) {
   }
 }
 function KZ_zoneEnd(c) { c.restore(); }
+
 // Compat : l'ancien nom reste appelé par drawTextZone et par le PNG imprimeur.
 function getFontSize(zone, text) {
   return KZ_fontSize(_kzMeasureCtx, zone, text, zone.width, zone.height);
 }
+
 function drawTextZone(zone, text) {
   if (!text || !text.trim()) return;
   const lh     = zone.lineHeight || 1.3;
@@ -263,6 +243,7 @@ function drawTextZone(zone, text) {
   lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
   ctx2d.restore();
 }
+
 function drawArchZone(zone, text) {
   if (!text || !text.trim()) return;
   const isUp = (zone.direction || 'up') === 'up';
@@ -307,6 +288,7 @@ function drawArchZone(zone, text) {
   }
   ctx2d.restore();
 }
+
 function drawPhotoPlaceholder(zone) {
   const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
   KZ_zoneBegin(ctx2d, zone);
@@ -326,6 +308,7 @@ function drawPhotoPlaceholder(zone) {
   ctx2d.fillText('Votre photo', cx, cy + iconSize * 0.6);
   ctx2d.restore();
 }
+
 function drawPhotoZone(zone, img) {
   const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
   const iw = img.naturalWidth  || img.width  || 1;
@@ -341,6 +324,7 @@ function drawPhotoZone(zone, img) {
   ctx2d.drawImage(img, ox, oy, sw, sh);
   KZ_zoneEnd(ctx2d);
 }
+
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
@@ -399,6 +383,7 @@ function drawTexture() {
     window.parent.postMessage({ type: 'kuztom_zone_info', zones: zoneInfos }, '*');
   }
 }
+
 async function loadDesignConfig() {
   if (!designName) return;
   const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
@@ -419,6 +404,7 @@ async function loadDesignConfig() {
     showError(`Design "${designName}" introuvable (${e.message})`);
   }
 }
+
 async function loadFonts() {
   const families = [...new Set([
     ...(CFG.text_zones || []).map(z => z.font_family),
@@ -442,6 +428,7 @@ async function loadFonts() {
   } catch (_) {}
   state.fontsReady = true;
 }
+
 function loadDesignImage() {
   if (!CFG.design_url) return Promise.resolve();
   return new Promise(resolve => {
@@ -466,31 +453,12 @@ function loadDesignImage() {
     }
   });
 }
+
 let renderer, scene, camera, gobeletGroup, bodyMaterial;
 let storedCameraZ = 5;
-let kzFinalSize = null;          // KZ_LAPTOP_FIT : dimensions réelles du gobelet, pour recalculer le cadrage au resize
 let isDragging = false, lastPointerX = 0;
 let rotY = Math.PI;
 
-// KZ_LAPTOP_FIT : calcule la distance caméra.
-//  · Fixe & téléphone → cadrage d'origine (INCHANGÉ).
-//  · Portable → recule assez pour que le gobelet tienne EN ENTIER (hauteur ET
-//    largeur), avec une marge de sécurité, quelle que soit la taille du portable.
-function KZ_computeCameraZ(finalSize) {
-  var fov = 45 * Math.PI / 180;
-  var t   = Math.tan(fov / 2);
-  if (KZ_isLaptop()) {
-    var size   = getSize();
-    var aspect = (size.h > 0) ? (size.w / size.h) : 1;
-    var halfH  = finalSize.y / 2;
-    var halfW  = Math.max(finalSize.x, finalSize.z) / 2;
-    var distV  = halfH / t;                 // tenir en hauteur
-    var distH  = (halfW / t) / aspect;      // tenir en largeur
-    return Math.max(distV, distH) * 1.42;   // marge de sécurité portable
-  }
-  var finalMax = Math.max(finalSize.x, finalSize.y, finalSize.z);
-  return (finalMax / 2) / t * 1.32;         // fixe & téléphone : valeur d'origine
-}
 function initThree() {
   const container = document.getElementById('canvas-container');
   var size = getSize();
@@ -564,6 +532,7 @@ function initThree() {
   onResize();
   animate();
 }
+
 function loadGobelet() {
   const url = CFG.model_url || `${REPO_BASE}/Gobelet 25 33.glb`;
   if (typeof THREE.GLTFLoader === 'undefined') { fallbackGeometry(); return; }
@@ -600,8 +569,8 @@ function loadGobelet() {
     gobeletGroup.updateMatrixWorld(true);
     var finalBox  = new THREE.Box3().setFromObject(gobeletGroup);
     var finalSize = finalBox.getSize(new THREE.Vector3());
-    kzFinalSize   = finalSize;                       // KZ_LAPTOP_FIT : mémorise pour le resize
-    storedCameraZ = KZ_computeCameraZ(finalSize);    // KZ_LAPTOP_FIT : cadrage adapté (portable) ou d'origine
+    var finalMax  = Math.max(finalSize.x, finalSize.y, finalSize.z);
+    storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.32;
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
     onResize();
@@ -610,6 +579,7 @@ function loadGobelet() {
     hideLoading();
   }, null, () => fallbackGeometry());
 }
+
 function fallbackGeometry() {
   gobeletGroup.add(new THREE.Mesh(new THREE.CylinderGeometry(1.12, 0.88, 2.9, 64, 1, true), bodyMaterial));
   const bottom = new THREE.Mesh(new THREE.CircleGeometry(0.88, 64), new THREE.MeshStandardMaterial({
@@ -619,12 +589,15 @@ function fallbackGeometry() {
   gobeletGroup.add(bottom);
   drawTexture(); hideLoading();
 }
+
 function hideLoading() {
   const el = document.getElementById('loading-indicator');
   if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
   window.parent.postMessage({ type: 'kuztom_ready' }, '*');
 }
+
 let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
+
 function animate() {
   requestAnimationFrame(animate);
   if (autoRotate && gobeletGroup && !isDragging && !photoEditMode) {
@@ -632,6 +605,7 @@ function animate() {
   }
   renderer.render(scene, camera);
 }
+
 function initInteraction() {
   const el = renderer.domElement;
   el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; lastInteraction = Date.now(); });
@@ -652,6 +626,7 @@ function initInteraction() {
   }, { passive: false });
   el.addEventListener('touchend', () => { isDragging = false; });
 }
+
 function onResize() {
   if (!renderer) return;
   var size = getSize();
@@ -659,29 +634,34 @@ function onResize() {
   if (w === 0 || h === 0) return;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
-  if (kzFinalSize) storedCameraZ = KZ_computeCameraZ(kzFinalSize);  // KZ_LAPTOP_FIT : réajuste si l'écran change
   camera.aspect = w / h;
   camera.position.set(0, 0, storedCameraZ);
   camera.lookAt(0, 0, 0);
   camera.updateProjectionMatrix();
 }
+
 window.addEventListener('message', function(e) {
   const data = e.data;
   if (!data || typeof data !== 'object') return;
+
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId)
               || (CFG.arch_zones  || []).find(z => z.id === data.zoneId);
     if (zone) { state.texts[zone.id] = data.value; drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true; }
   }
+
   if (data.type === 'UPDATE_ZONE_COLOR' && data.zoneId && data.color) {
     const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId);
     if (zone) { zone._colorOverride = data.color; drawTexture(); } return;
   }
+
   if (data.type === 'UPDATE_ZONE_FONT' && data.zoneId && data.font) {
     const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId);
     if (zone) { zone.font_family = data.font; document.fonts.load(`48px "${data.font}"`).then(() => drawTexture()); } return;
   }
+
   if (data.type === 'SET_AUTO_ROTATE') { autoRotate = !!data.value; autoRotateSpeed = data.speed || 0.003; return; }
+
   if (data.type === 'REQUEST_SHARE_IMAGE') {
     try {
       renderer.render(scene, camera);
@@ -690,6 +670,7 @@ window.addEventListener('message', function(e) {
     } catch(e) { window.parent.postMessage({ type: 'SHARE_IMAGE_ERROR' }, '*'); }
     return;
   }
+
   if (data.type === 'REQUEST_PREVIEW_SCREENSHOT') {
     try {
       const savedRotY = rotY;
@@ -702,6 +683,7 @@ window.addEventListener('message', function(e) {
     } catch(e) { window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT_ERROR' }, '*'); }
     return;
   }
+
   if (data.type === 'SET_DESIGN_IMAGE' && data.dataUrl) {
     const img = new Image();
     img.onload = () => {
@@ -712,6 +694,7 @@ window.addEventListener('message', function(e) {
     img.src = data.dataUrl;
     return;
   }
+
   if (data.type === 'REQUEST_PRINT_PNG') {
     (async function() {
       try {
@@ -891,6 +874,7 @@ window.addEventListener('message', function(e) {
     })();
     return;
   }
+
   if (data.type === 'UPDATE_COLOR' && data.value) {
     state.gobeletColor = data.value;
     if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
@@ -899,6 +883,7 @@ window.addEventListener('message', function(e) {
     drawTexture();
     if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
+
   if (data.type === 'UPDATE_PHOTO' && data.zoneId && data.value) {
     const img = new Image();
     img.onload = function() {
@@ -911,6 +896,7 @@ window.addEventListener('message', function(e) {
     };
     img.src = data.value;
   }
+
   if (data.type === 'PHOTO_CROP' && data.zoneId) {
     if (!state.photoCrop[data.zoneId]) state.photoCrop[data.zoneId] = {zoom:1, offsetX:0, offsetY:0};
     if (data.zoom !== undefined) state.photoCrop[data.zoneId].zoom = Math.max(0.5, Math.min(5, data.zoom));
@@ -918,11 +904,13 @@ window.addEventListener('message', function(e) {
     if (data.offsetY !== undefined) state.photoCrop[data.zoneId].offsetY = data.offsetY;
     drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
+
   if (data.type === 'PHOTO_CROP_RESET' && data.zoneId) {
     state.photoCrop[data.zoneId] = {zoom:1, offsetX:0, offsetY:0};
     drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
 });
+
 function showError(msg) {
   const el  = document.getElementById('error-msg');
   const txt = document.getElementById('error-text');
@@ -930,12 +918,14 @@ function showError(msg) {
   if (el)  el.classList.add('visible');
   hideLoading();
 }
+
 async function init() {
   await loadDesignConfig();
   await Promise.all([loadFonts(), loadDesignImage()]);
   drawTexture();
   initThree();
 }
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
