@@ -55,15 +55,18 @@ const PROXY_KEY  = '';
 //  tex_w / tex_h   : format du canvas ET du PNG imprimeur, calé sur la
 //                    zone imprimable réelle du produit.
 // ══════════════════════════════════════════════════════════════════
-const KZ_MODELES_VERSION = 1;
+const KZ_MODELES_VERSION = 2;
 const ECHO_ARRIERE = 0.22;   // écho du décor vu par transparence de l'autre côté
 
 const MODELES_3D = [
   { nom: 'Gobelet 25/33 cl (par défaut)', url: '',
-    mesh_impression: null,         tex_w: 1970, tex_h: 1140 },   // paroi ~224 × 115 mm
+    mesh_impression: null,         tex_w: 1970, tex_h: 1140 },   // paroi ~194 × 115 mm
   { nom: 'Verre à vin Events',
     url: 'https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb',
-    mesh_impression: 'Cylinder_1', tex_w: 1970, tex_h:  420 },   // zone 188 × 40 mm
+    mesh_impression: 'Cylinder_1', tex_w: 1970, tex_h:  420 },   // zone 190 × 40 mm
+  { nom: 'Flûte à champagne Events',
+    url: 'https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb',
+    mesh_impression: 'Cylinder_1', tex_w: 1970, tex_h:  427 },   // zone 161,5 × 35 mm
 ];
 
 function modele3DCourant() {
@@ -411,6 +414,12 @@ function drawTexture() {
       m.needsUpdate = true;
     });
   }
+  // ── Écho arrière : à masquer dès que le verre devient opaque ────────────
+  // Le clone d'écho est transparent avec depthTest:false. En mode opaque, la
+  // coque part dans la passe « opaque » de three.js, rendue AVANT la passe
+  // transparente : l'écho serait alors peint PAR-DESSUS toute la face avant,
+  // d'où un décor délavé et une image fantôme en miroir.
+  echoObjs.forEach(function (o) { o.visible = !isSolid; });
   // Corps non imprimé (tige, pied…) : il suit la teinte et l'opacité du verre.
   // depthWrite reste vrai pour que la tige occulte le pied placé derrière elle.
   if (corpsMats.length) {
@@ -530,7 +539,7 @@ function loadDesignImage() {
 let renderer, scene, camera, gobeletGroup, bodyMaterial;
 // decorMats : matériaux qui portent le décor (coque d'impression).
 // corpsMats : matériaux du corps non imprimé (tige, pied…) — vide pour le gobelet.
-let decorMats = [], corpsMats = [];
+let decorMats = [], corpsMats = [], echoObjs = [];
 function matsDecor() { return decorMats.length ? decorMats : (bodyMaterial ? [bodyMaterial] : []); }
 let storedCameraZ = 5;
 let isDragging = false, lastPointerX = 0;
@@ -622,7 +631,7 @@ function loadGobelet() {
   loader.load(url, gltf => {
     const meshImpr = modele3DCourant().mesh_impression;
     const fantomes = [];
-    decorMats = []; corpsMats = [];
+    decorMats = []; corpsMats = []; echoObjs = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
       child.castShadow = false;
@@ -672,7 +681,7 @@ function loadGobelet() {
       }
     });
     // Ajout hors traverse, pour ne pas la perturber
-    fantomes.forEach(f => { if (f.parent) f.parent.add(f.obj); });
+    fantomes.forEach(f => { if (f.parent) { f.parent.add(f.obj); echoObjs.push(f.obj); } });
     // Sécurité : si le nom du mesh d'impression ne correspond à rien, on
     // retexture tout le modèle plutôt que de livrer un verre vierge.
     if (meshImpr && !decorMats.length) {
