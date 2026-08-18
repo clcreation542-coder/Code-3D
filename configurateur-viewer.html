@@ -41,7 +41,40 @@ const designName = params.get('design') || '';
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
 const PROXY_URL  = 'https://kuztom-proxy.contact-kuztom.workers.dev';
 const PROXY_KEY  = '';
-const TEX_W = 1970, TEX_H = 1140;
+// ══════════════════════════════════════════════════════════════════
+//  KZ_MODELES v1 — MODÈLES 3D DISPONIBLES
+//  ⚠️ Bloc MIROIR de celui de kuztomadmin (KZ_STUDIO). Toute modif ici
+//     doit être reportée à l'identique là-bas, et KZ_MODELES_VERSION
+//     incrémentée des deux côtés.
+//
+//  url             : adresse du .glb. Vide = gobelet par défaut.
+//  mesh_impression : nom du mesh qui porte le DÉCOR. Les autres meshes
+//                    (tige, pied…) reçoivent une matière unie à la teinte
+//                    du verre. null = tout le modèle est décoré
+//                    (comportement historique du gobelet).
+//  tex_w / tex_h   : format du canvas ET du PNG imprimeur, calé sur la
+//                    zone imprimable réelle du produit.
+// ══════════════════════════════════════════════════════════════════
+const KZ_MODELES_VERSION = 1;
+const ECHO_ARRIERE = 0.22;   // écho du décor vu par transparence de l'autre côté
+
+const MODELES_3D = [
+  { nom: 'Gobelet 25/33 cl (par défaut)', url: '',
+    mesh_impression: null,         tex_w: 1970, tex_h: 1140 },   // paroi ~224 × 115 mm
+  { nom: 'Verre à vin Events',
+    url: 'https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb',
+    mesh_impression: 'Cylinder_1', tex_w: 1970, tex_h:  420 },   // zone 188 × 40 mm
+];
+
+function modele3DCourant() {
+  const u = (typeof CFG !== 'undefined' && CFG && CFG.model_url) || '';
+  return MODELES_3D.find(m => m.url === u)
+      || { nom: 'Personnalisé', url: u, mesh_impression: null, tex_w: 1970, tex_h: 1140 };
+}
+
+// Format de la texture = format du PNG imprimeur. Il DÉPEND du produit.
+// Valeurs par défaut = gobelet 25/33 ; ajustées par appliquerFormatTexture().
+let TEX_W = 1970, TEX_H = 1140;
 
 function getSize() {
   var w = window.innerWidth || 375;
@@ -69,6 +102,21 @@ const textureCanvas  = document.createElement('canvas');
 textureCanvas.width  = TEX_W;
 textureCanvas.height = TEX_H;
 const ctx2d = textureCanvas.getContext('2d');
+
+// Applique le format de texture du modèle 3D du design courant.
+// Doit être appelée dès que CFG.model_url est connu, AVANT le premier
+// drawTexture() et AVANT la création de la CanvasTexture dans initThree().
+// Renvoie true si le format a changé.
+function appliquerFormatTexture() {
+  const m = modele3DCourant();
+  const w = m.tex_w || 1970, h = m.tex_h || 1140;
+  if (w === TEX_W && h === TEX_H) return false;
+  TEX_W = w; TEX_H = h;
+  textureCanvas.width  = TEX_W;
+  textureCanvas.height = TEX_H;
+  if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
+  return true;
+}
 
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 
@@ -329,27 +377,51 @@ function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
   const isSolid = (op === 0);
+  // Coque dédiée : le corps du verre porte déjà sa propre matière, l'encre
+  // de la coque est opaque. Gobelet : comportement historique.
+  // Si le mesh d'impression n'a pas été trouvé dans le GLB (decorMats rempli
+  // mais corpsMats vide), on retombe volontairement sur le rendu gobelet,
+  // sinon le verre entier deviendrait une surface d'encre opaque.
+  const coqueDediee = !!modele3DCourant().mesh_impression
+                      && (!decorMats.length || corpsMats.length > 0);
   if (isSolid) {
     ctx2d.globalAlpha = 1;
     ctx2d.fillStyle   = '#ffffff';
     ctx2d.fillRect(0, 0, TEX_W, TEX_H);
-    if (bodyMaterial) {
-      bodyMaterial.transparent = false;
-      bodyMaterial.opacity     = 1;
-      bodyMaterial.depthWrite  = true;
-      bodyMaterial.needsUpdate = true;
-    }
+    matsDecor().forEach(function (m) {
+      m.transparent = false;
+      m.opacity     = 1;
+      m.depthWrite  = true;
+      m.needsUpdate = true;
+    });
   } else {
-    ctx2d.globalAlpha = op;
-    ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
-    ctx2d.fillRect(0, 0, TEX_W, TEX_H);
-    if (bodyMaterial) {
-      bodyMaterial.transparent = true;
-      bodyMaterial.opacity     = 0.82;
-      bodyMaterial.depthWrite  = false;
-      bodyMaterial.alphaTest   = 0;
-      bodyMaterial.needsUpdate = true;
+    // Si le modèle a une coque d'impression dédiée, on NE peint PAS le fond :
+    // sinon la zone d'impression devient une bande opaque et la transparence
+    // du PNG est perdue.
+    if (!coqueDediee) {
+      ctx2d.globalAlpha = op;
+      ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
+      ctx2d.fillRect(0, 0, TEX_W, TEX_H);
     }
+    matsDecor().forEach(function (m) {
+      m.transparent = true;
+      m.opacity     = coqueDediee ? 1 : 0.82;
+      m.depthWrite  = false;
+      m.alphaTest   = 0;
+      m.needsUpdate = true;
+    });
+  }
+  // Corps non imprimé (tige, pied…) : il suit la teinte et l'opacité du verre.
+  // depthWrite reste vrai pour que la tige occulte le pied placé derrière elle.
+  if (corpsMats.length) {
+    const c = parseHexColor(state.gobeletColor);
+    corpsMats.forEach(function (m) {
+      m.color.set(c);
+      if (op >= 0.999 || isSolid) { m.transparent = false; m.opacity = 1; }
+      else                        { m.transparent = true;  m.opacity = op; }
+      m.depthWrite  = true;
+      m.needsUpdate = true;
+    });
   }
   ctx2d.globalAlpha = 1.0;
   ctx2d.globalCompositeOperation = 'source-over';
@@ -396,6 +468,7 @@ async function loadDesignConfig() {
       : null;
     if (!data) throw new Error('design non trouvé');
     CFG = data;
+    appliquerFormatTexture();   // le format du canvas suit le modèle 3D du design
     if (!CFG.design) CFG.design = { x: 0, y: 0, width: TEX_W, height: TEX_H };
     state.gobeletColor = CFG.gobelet_color || '#f5f0eb';
     (CFG.text_zones || []).forEach(z => { state.texts[z.id] = z.placeholder || ''; });
@@ -455,6 +528,10 @@ function loadDesignImage() {
 }
 
 let renderer, scene, camera, gobeletGroup, bodyMaterial;
+// decorMats : matériaux qui portent le décor (coque d'impression).
+// corpsMats : matériaux du corps non imprimé (tige, pied…) — vide pour le gobelet.
+let decorMats = [], corpsMats = [];
+function matsDecor() { return decorMats.length ? decorMats : (bodyMaterial ? [bodyMaterial] : []); }
 let storedCameraZ = 5;
 let isDragging = false, lastPointerX = 0;
 let rotY = Math.PI;
@@ -543,17 +620,76 @@ function loadGobelet() {
     loader.setDRACOLoader(draco);
   }
   loader.load(url, gltf => {
+    const meshImpr = modele3DCourant().mesh_impression;
+    const fantomes = [];
+    decorMats = []; corpsMats = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
-      child.material = new THREE.MeshStandardMaterial({
+      child.castShadow = false;
+      // ── Corps du verre (tige, pied…) : teinte unie, AUCUN décor.
+      // Sinon le visuel coule sur la tige et le pied. depthWrite:true pour que
+      // la tige occulte le pied derrière elle — sans ça, un matériau
+      // transparent ne s'écrit pas dans le tampon de profondeur et TOUT se voit.
+      if (meshImpr && child.name !== meshImpr) {
+        const mc = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(parseHexColor(state.gobeletColor)),
+          roughness: 0.45, metalness: 0.02,
+          transparent: true, opacity: 0.9, depthWrite: true, side: THREE.FrontSide,
+        });
+        mc.needsUpdate = true;
+        child.material = mc;
+        child.renderOrder = 0;              // le corps est dessiné EN PREMIER
+        corpsMats.push(mc);
+        return;
+      }
+      // ── Coque d'impression (ou tout le gobelet si mesh_impression = null)
+      const mat = new THREE.MeshStandardMaterial({
         map: window._gobeletTexture, color: new THREE.Color('#ffffff'),
         roughness: 0.3, metalness: 0.1,
-        transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
+        transparent: true, opacity: meshImpr ? 1 : 0.82,
+        depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
       });
-      child.material.needsUpdate = true;
-      child.castShadow = false;
+      mat.needsUpdate = true;
+      child.material = mat;
+      // La coque passe APRÈS le corps : three.js trie les objets transparents
+      // par distance, et ici les deux ont le même centre → ordre imprévisible.
+      child.renderOrder = 10;
+      decorMats.push(mat);
+      // ── FACE ARRIÈRE FANTÔME ────────────────────────────────────────────
+      // Sur un verre givré on devine le décor de l'autre côté. On clone la
+      // coque en n'affichant QUE ses faces arrière. Sans test de profondeur,
+      // son intensité ne dépend plus de l'opacité du verre.
+      if (meshImpr && ECHO_ARRIERE > 0) {
+        const fant = child.clone();
+        const mf   = mat.clone();
+        mf.side = THREE.BackSide;
+        mf.opacity = ECHO_ARRIERE;
+        mf.depthWrite = false;
+        mf.depthTest  = false;
+        mf.needsUpdate = true;
+        fant.material = mf; fant.renderOrder = 5; fant.castShadow = false;
+        fantomes.push({ parent: child.parent, obj: fant });
+      }
     });
-    gltf.scene.traverse(child => { if (child.isMesh) bodyMaterial = child.material; });
+    // Ajout hors traverse, pour ne pas la perturber
+    fantomes.forEach(f => { if (f.parent) f.parent.add(f.obj); });
+    // Sécurité : si le nom du mesh d'impression ne correspond à rien, on
+    // retexture tout le modèle plutôt que de livrer un verre vierge.
+    if (meshImpr && !decorMats.length) {
+      console.warn('[kuztom] mesh_impression "' + meshImpr + '" introuvable — décor appliqué à tout le modèle');
+      corpsMats = [];
+      gltf.scene.traverse(child => {
+        if (!child.isMesh) return;
+        const mat = new THREE.MeshStandardMaterial({
+          map: window._gobeletTexture, color: new THREE.Color('#ffffff'),
+          roughness: 0.3, metalness: 0.1,
+          transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
+        });
+        child.material = mat;
+        decorMats.push(mat);
+      });
+    }
+    bodyMaterial = decorMats[decorMats.length - 1] || bodyMaterial;
     gobeletGroup.add(gltf.scene);
     const box    = new THREE.Box3().setFromObject(gobeletGroup);
     const size   = box.getSize(new THREE.Vector3());
