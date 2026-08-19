@@ -14573,5 +14573,102 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-3-mt043qi692nr",
+    "name": "Gobelet Retraite Personnalisé – Cap sur la Retraite",
+    "shopify_handle": "gobelet-retraite-cap-sur-la-retraite",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 0,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-retraite-cap-sur-la-retraite.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt043qi6vckc",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1336,
+        "y": 217,
+        "width": 496,
+        "height": 129,
+        "shape": "rectangle",
+        "placeholder": "Retraite de",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 200,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt043qi6b5m3",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1312,
+        "y": 346,
+        "width": 545,
+        "height": 190,
+        "shape": "rectangle",
+        "placeholder": "Marguerite",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.2,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt043qi6zacj",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 1360,
+        "y": 536,
+        "width": 450,
+        "height": 104,
+        "shape": "rectangle",
+        "placeholder": "20 novembre 2026",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
