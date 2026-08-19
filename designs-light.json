@@ -8926,7 +8926,7 @@
         "label": "Photo",
         "order": 1,
         "x": 1477,
-        "y": 315,
+        "y": 319,
         "width": 317,
         "height": 418,
         "shape": "rectangle"
@@ -11697,7 +11697,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.585053606381854,
+    "rotation_y": 5.6199601914217405,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-personnalise-photo-ballons-roses.webp",
     "design": {
       "x": 0,
@@ -11731,8 +11731,8 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1442,
-        "y": 829,
+        "x": 1431,
+        "y": 836,
         "width": 427,
         "height": 140,
         "shape": "rectangle",
@@ -11769,10 +11769,10 @@
         "id": "photo_mrmq4ntuxehp",
         "label": "Photo",
         "order": 3,
-        "x": 1471,
-        "y": 304,
-        "width": 367,
-        "height": 495,
+        "x": 1431,
+        "y": 273,
+        "width": 424,
+        "height": 506,
         "shape": "rectangle"
       }
     ],
