@@ -14226,6 +14226,103 @@
     "arch_zones": []
   },
   {
+    "id": "brouillon-1-mszab46bb804",
+    "name": "Ballons Marine & Argent",
+    "shopify_handle": "gobelet-anniversaire-ballons-marine-argent",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 0,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ballons-marine-argent.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 600,
+        "color": "#122c56",
+        "multiline": false,
+        "id": "mszab46c67ow",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 703,
+        "y": 217,
+        "width": 565,
+        "height": 353,
+        "shape": "rectangle",
+        "placeholder": "50",
+        "font_family": "Italianno",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 100,
+        "color": "#122c56",
+        "multiline": false,
+        "id": "mszab46c7m0u",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 630,
+        "y": 570,
+        "width": 712,
+        "height": 107,
+        "shape": "rectangle",
+        "placeholder": "Jean-marc",
+        "font_family": "Graduate",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 100,
+        "color": "#122c56",
+        "multiline": false,
+        "id": "texte_mt03jcbgjm1m",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 614,
+        "y": 753,
+        "width": 743,
+        "height": 113,
+        "shape": "rectangle",
+        "placeholder": "21 octobre 2026",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
     "id": "brouillon-2-mt02ek71ouzd",
     "name": "Gobelet Baptême Personnalisé – Ourson Rose & Or",
     "shopify_handle": "gobelet-bapteme-ourson-rose-or",
