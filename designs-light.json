@@ -9462,13 +9462,13 @@
     "text_zones": [
       {
         "lineHeight": 0.8,
-        "font_size": 4100000,
+        "font_size": 400,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 259,
+        "x": 257,
         "y": 341,
         "width": 780,
         "height": 459,
