@@ -469,26 +469,10 @@ function drawTexture() {
 
 async function loadDesignConfig() {
   if (!designName) return;
-  // Catalogue servi par le CDN Cloudflare (meme fichier, meme contenu que
-  // designs.json : les deux sont deployes ensemble par l'admin).
-  // AVANT : raw.githubusercontent.com. Ce n'est pas un CDN mais l'interface de
-  // lecture de GitHub : elle limite le debit. Sous affluence, la requete pouvait
-  // echouer et le configurateur restait muet, sans message pour le client.
-  // On garde l'ancienne adresse en secours si le CDN ne repond pas.
-  const urls = [
-    'https://code-3d.pages.dev/designs-light.json',
-    'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json'
-  ];
+  const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
   try {
-    let res = null, derniereErreur = null;
-    for (const u of urls) {
-      try {
-        const r = await fetch(u);
-        if (r.ok) { res = r; break; }
-        derniereErreur = new Error(`HTTP ${r.status}`);
-      } catch (e) { derniereErreur = e; }
-    }
-    if (!res) throw (derniereErreur || new Error('catalogue injoignable'));
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const designs = await res.json();
     const data = Array.isArray(designs)
       ? (designs.find(d => d.id === designName) || designs.find(d => d.shopify_handle === designName))
