@@ -15023,5 +15023,82 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-4-mt7l9d1pjrh7",
+    "name": "Gobelet Baby Shower Personnalisé – Petits Pieds Roses",
+    "shopify_handle": "gobelet-baby-shower-petits-pieds-roses",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.5184364492350666,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-baby-shower-petits-pieds-roses.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 150,
+        "color": "#f099b9",
+        "multiline": false,
+        "id": "mt7l9d1pb6bz",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 797,
+        "y": 404,
+        "width": 377,
+        "height": 293,
+        "shape": "rectangle",
+        "placeholder": "de Sarah",
+        "font_family": "Alex Brush",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 66,
+        "color": "#f099b9",
+        "multiline": false,
+        "id": "mt7l9d1p2l7t",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 787,
+        "y": 911,
+        "width": 396,
+        "height": 88,
+        "shape": "rectangle",
+        "placeholder": "11 juillet 2026",
+        "font_family": "Alex Brush",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
