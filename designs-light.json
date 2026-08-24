@@ -14911,6 +14911,83 @@
     "arch_zones": []
   },
   {
+    "id": "brouillon-4-mt08bhjh2ypr",
+    "name": "Gobelet Crémaillère Personnalisé – Pampa Bohème",
+    "shopify_handle": "gobelet-cremaillere-pampa-boheme",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.4660765716752369,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-cremaillere-pampa-boheme.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 150,
+        "color": "#87554a",
+        "multiline": false,
+        "id": "mt08bhjhagi4",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 644,
+        "y": 330,
+        "width": 683,
+        "height": 327,
+        "shape": "rectangle",
+        "placeholder": "Crémaillère de\nCatherine",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 100,
+        "color": "#87554a",
+        "multiline": false,
+        "id": "mt08bhjhoyel",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 794,
+        "y": 714,
+        "width": 383,
+        "height": 97,
+        "shape": "rectangle",
+        "placeholder": "11/07/2026",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
     "id": "brouillon-5-mt77o91ipult",
     "name": "verre-a-vin-eucalyptus",
     "shopify_handle": "verre-a-vin-eucalyptus",
