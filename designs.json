@@ -14826,6 +14826,91 @@
     "arch_zones": []
   },
   {
+    "id": "brouillon-4-mt07wk5dge21",
+    "name": "Gobelet Crémaillère Personnalisé – Eucalyptus Aquarelle",
+    "shopify_handle": "gobelet-cremaillere-eucalyptus-aquarelle",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.4660765716752369,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-cremaillere-eucalyptus-aquarelle.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Couleur",
+        "hex": "#ffffff",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 170,
+        "color": "#76937c",
+        "multiline": false,
+        "id": "mt07wk5d6d3d",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 649,
+        "y": 331,
+        "width": 672,
+        "height": 418,
+        "shape": "rectangle",
+        "placeholder": "Crémaillère \nde\nSalomé",
+        "font_family": "Cinzel",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 48,
+        "color": "#76937c",
+        "multiline": false,
+        "id": "texte_mt080s8waoza",
+        "label": "Texte",
+        "order": 2,
+        "x": 648,
+        "y": 788,
+        "width": 675,
+        "height": 138,
+        "shape": "rectangle",
+        "placeholder": "18 juillet 2026",
+        "font_family": "Cinzel",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
     "id": "brouillon-5-mt77o91ipult",
     "name": "verre-a-vin-eucalyptus",
     "shopify_handle": "verre-a-vin-eucalyptus",
