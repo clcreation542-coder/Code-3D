@@ -15234,5 +15234,62 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-4-mt7mihpsowhd",
+    "name": "Gobelet Baby Shower Personnalisé – Chaussons & Fil à Linge",
+    "shopify_handle": "gobelet-baby-shower-chaussons-fil-a-linge",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.4486232791552935,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-baby-shower-chaussons-fil-a-linge.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 250,
+        "color": "#4e4436",
+        "multiline": false,
+        "id": "mt7mihpsklmn",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 791,
+        "y": 935,
+        "width": 389,
+        "height": 159,
+        "shape": "rectangle",
+        "placeholder": "de Juliette",
+        "font_family": "Parisienne",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
