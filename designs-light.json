@@ -15025,6 +15025,63 @@
     "arch_zones": []
   },
   {
+    "id": "brouillon-4-mt7kpix21vfh",
+    "name": "Gobelet Gender Reveal Personnalisé – Ballons Cœur Bleu & Rose",
+    "shopify_handle": "gobelet-gender-reveal-ballons-coeur-bleu-rose",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.5533430342749535,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-gender-reveal-ballons-coeur-bleu-rose.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 180,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt7kpix3fc7n",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 609,
+        "y": 331,
+        "width": 671,
+        "height": 551,
+        "shape": "rectangle",
+        "placeholder": "Alex & Sarah",
+        "font_family": "Italianno",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
     "id": "brouillon-4-mt7l9d1pjrh7",
     "name": "Gobelet Baby Shower Personnalisé – Petits Pieds Roses",
     "shopify_handle": "gobelet-baby-shower-petits-pieds-roses",
