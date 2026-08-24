@@ -15485,5 +15485,102 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-2-mt7n1otxhw4u",
+    "name": "Gobelet EVG Personnalisé – Gentleman Moustache",
+    "shopify_handle": "gobelet-evg-gentleman-moustache",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 6.178465552059927,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-evg-gentleman-moustache.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt7n1otx82lb",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1291,
+        "y": 80,
+        "width": 376,
+        "height": 203,
+        "shape": "rectangle",
+        "placeholder": "EVG ALEX",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt7n1otx72ma",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1281,
+        "y": 860,
+        "width": 396,
+        "height": 88,
+        "shape": "rectangle",
+        "placeholder": "11 juillet 2026",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.2,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt7n1otx7c0y",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 107,
+        "y": 318,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "placeholder": "",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
