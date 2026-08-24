@@ -14749,6 +14749,83 @@
     "arch_zones": []
   },
   {
+    "id": "brouillon-3-mt07e8j8xv6u",
+    "name": "Gobelet Retraite Personnalisé – Eucalyptus Champêtre",
+    "shopify_handle": "gobelet-retraite-eucalyptus-champetre",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.5184364492350666,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-retraite-eucalyptus-champetre.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 250,
+        "color": "#42520a",
+        "multiline": false,
+        "id": "mt07e8j8urap",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 551,
+        "y": 222,
+        "width": 868,
+        "height": 442,
+        "shape": "rectangle",
+        "placeholder": "Retraite de \nBrigitte",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 100,
+        "color": "#42520a",
+        "multiline": false,
+        "id": "mt07e8j8k0em",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 787,
+        "y": 880,
+        "width": 396,
+        "height": 88,
+        "shape": "rectangle",
+        "placeholder": "11 juillet 2026",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
     "id": "brouillon-5-mt77o91ipult",
     "name": "verre-a-vin-eucalyptus",
     "shopify_handle": "verre-a-vin-eucalyptus",
