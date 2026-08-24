@@ -15582,5 +15582,82 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-3-mt7n4defyubf",
+    "name": "Gobelet Remise de Diplôme Personnalisé – Toque & Confettis Dorés",
+    "shopify_handle": "gobelet-diplome-toque-confettis-dores",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 6.161012259539983,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-diplome-toque-confettis-dores.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 200,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt7n4defd0o2",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1115,
+        "y": 90,
+        "width": 681,
+        "height": 185,
+        "shape": "rectangle",
+        "placeholder": "Félicitation Julie",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 150,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mt7n4def7j6n",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1240,
+        "y": 812,
+        "width": 484,
+        "height": 160,
+        "shape": "rectangle",
+        "placeholder": "11 juillet 2026",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
