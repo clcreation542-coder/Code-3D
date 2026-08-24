@@ -15388,5 +15388,102 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-3-mt7mssyt1zaa",
+    "name": "Gobelet EVJF Personnalisé – Duo de Cocktails",
+    "shopify_handle": "gobelet-evjf-duo-de-cocktails",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 6.178465552059927,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-evjf-duo-de-cocktails.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.4,
+        "font_size": 200,
+        "color": "#f58a48",
+        "multiline": false,
+        "id": "mt7mssyta20w",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1179,
+        "y": 162,
+        "width": 594,
+        "height": 194,
+        "shape": "rectangle",
+        "placeholder": "EVJF de Manon",
+        "font_family": "Style Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 15,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.5,
+        "font_size": 100,
+        "color": "#f58a48",
+        "multiline": false,
+        "id": "mt7mssythylu",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1278,
+        "y": 853,
+        "width": 396,
+        "height": 88,
+        "shape": "rectangle",
+        "placeholder": "11 juillet 2026",
+        "font_family": "Style Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.2,
+        "font_size": 100,
+        "color": "#f58a48",
+        "multiline": false,
+        "id": "mt7mssytacng",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 107,
+        "y": 341,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "placeholder": "",
+        "font_family": "Style Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
