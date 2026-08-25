@@ -17,6 +17,34 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     #error-msg { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; flex-direction: column; gap: 12px; font-family: 'Inter', sans-serif; font-size: 13px; color: #888; text-align: center; padding: 24px; background: #efefed; z-index: 10; }
     #error-msg.visible { display: flex; }
+
+    /* ══════════════════════════════════════════════════════════════
+       KZ_ZOOM v1 — loupe + / − (verrerie uniquement)
+       ══════════════════════════════════════════════════════════════ */
+    #kz-zoom {
+      position: absolute; right: 14px; bottom: 14px; z-index: 6;
+      display: none; flex-direction: column; gap: 8px;
+      pointer-events: none;
+    }
+    #kz-zoom button {
+      pointer-events: auto; touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      width: 42px; height: 42px; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(253, 251, 247, 0.94);
+      border: 1px solid #e0d9cc; border-radius: 50%;
+      color: #1a1510; cursor: pointer;
+      box-shadow: 0 3px 10px rgba(26, 21, 16, 0.16);
+      transition: background-color 200ms ease, transform 200ms cubic-bezier(.16,1,.3,1), opacity 200ms ease;
+    }
+    #kz-zoom button:hover:not(:disabled) { background: #fff; transform: translateY(-1px); }
+    #kz-zoom button:active:not(:disabled) { transform: translateY(0); }
+    #kz-zoom button:disabled { opacity: 0.34; cursor: default; }
+    #kz-zoom button:focus-visible { outline: 2px solid #c4a882; outline-offset: 2px; }
+    #kz-zoom svg { display: block; }
+    @media (prefers-reduced-motion: reduce) {
+      #kz-zoom button { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -31,6 +59,24 @@
     <span style="font-size:24px">&#9888;</span>
     <span id="error-text">Design introuvable.</span>
   </div>
+  <!-- KZ_ZOOM v1 — masqué par défaut, activé seulement pour la verrerie -->
+  <div id="kz-zoom">
+    <button id="kz-zoom-plus" type="button" aria-label="Zoomer sur la personnalisation" title="Zoomer">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="10.5" cy="10.5" r="6.6"></circle>
+        <line x1="15.6" y1="15.6" x2="20.6" y2="20.6"></line>
+        <line x1="10.5" y1="7.7" x2="10.5" y2="13.3"></line>
+        <line x1="7.7" y1="10.5" x2="13.3" y2="10.5"></line>
+      </svg>
+    </button>
+    <button id="kz-zoom-moins" type="button" aria-label="Dézoomer" title="Dézoomer">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="10.5" cy="10.5" r="6.6"></circle>
+        <line x1="15.6" y1="15.6" x2="20.6" y2="20.6"></line>
+        <line x1="7.7" y1="10.5" x2="13.3" y2="10.5"></line>
+      </svg>
+    </button>
+  </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -38,6 +84,7 @@
 <script>
 const params     = new URLSearchParams(window.location.search);
 const designName = params.get('design') || '';
+const KZ_MINI    = params.get('mini') === '1';   // vignette flottante mobile : pas de commandes
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
 const PROXY_URL  = 'https://kuztom-proxy.contact-kuztom.workers.dev';
 const PROXY_KEY  = '';
@@ -547,6 +594,161 @@ let storedCameraZ = 5;
 let isDragging = false, lastPointerX = 0;
 let rotY = Math.PI;
 
+// ══════════════════════════════════════════════════════════════════
+//  KZ_ZOOM v1 — ZOOM RECADRÉ SUR LE BUVANT
+//  ⚠️ Bloc MIROIR de celui de kuztomadmin (KZ_STUDIO). Toute modif ici
+//     doit être reportée à l'identique là-bas, et KZ_ZOOM_VERSION
+//     incrémentée des deux côtés.
+//
+//  Principe : la caméra se rapproche ET monte à la hauteur du bandeau
+//  imprimé, en regardant droit devant (pas de bascule). Le décor reste
+//  donc parfaitement droit, et la rotation au doigt continue de
+//  fonctionner à toutes les distances puisque c'est l'OBJET qui tourne,
+//  jamais la caméra.
+//
+//  Réservé à la verrerie : sur un gobelet le décor occupe déjà toute la
+//  paroi. Le discriminant est mesh_impression (null = gobelet).
+// ══════════════════════════════════════════════════════════════════
+const KZ_ZOOM_VERSION     = 1;
+const KZ_ZOOM_NIVEAUX     = 3;      // niveau 0 = vue d'ensemble, donc 2 clics pour aller au plus près
+const KZ_ZOOM_REMPLISSAGE = 0.52;   // part du cadre occupée par le verre au zoom max.
+                                    // Au-delà de ~0,6 la silhouette déborde du cadre :
+                                    // on ne voit plus que du blanc et l'objet se perd.
+const KZ_ZOOM_PLANCHER    = 0.22;   // jamais plus près que 22 % de la distance d'origine
+const KZ_ZOOM_DUREE       = 420;    // ms — transition calée sur le TEMPS, pas sur les images
+                                    // par seconde : sur un téléphone lent la durée
+                                    // ressentie reste la même.
+
+let kzDecorMeshes = [];
+let kzDecorOK = false, kzDecorY = 0, kzDecorH = 0, kzDecorD = 0;
+let kzZoomZ = [], kzZoomY = [], kzZoomNiveau = 0, kzZoomNiveauMax = 0;
+let kzCurZ = null, kzCurY = 0, kzCibZ = null, kzCibY = 0;
+let kzAnimT0 = 0, kzAnimZ0 = 0, kzAnimY0 = 0;
+
+function kzMaintenant() {
+  return (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+}
+function kzSansAnimation() {
+  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+}
+
+function kzEstVerrerie() {
+  try { return !!modele3DCourant().mesh_impression; } catch (e) { return false; }
+}
+
+// Boîte englobante des SEULS meshes qui portent le décor, en coordonnées
+// monde, une fois le groupe cadré. Donne la hauteur du bandeau et son
+// centre : c'est la cible du zoom.
+function kzMesureDecor() {
+  kzDecorOK = false;
+  if (!kzEstVerrerie() || !kzDecorMeshes.length) return;
+  const boite = new THREE.Box3();
+  let vide = true;
+  kzDecorMeshes.forEach(m => {
+    if (!m || !m.isMesh) return;
+    m.updateMatrixWorld(true);
+    const b = new THREE.Box3().setFromObject(m);
+    if (b.isEmpty()) return;
+    if (vide) { boite.copy(b); vide = false; } else { boite.union(b); }
+  });
+  if (vide) return;
+  const taille = boite.getSize(new THREE.Vector3());
+  const centre = boite.getCenter(new THREE.Vector3());
+  kzDecorY = centre.y;
+  kzDecorH = taille.y;
+  kzDecorD = Math.max(taille.x, taille.z);
+  kzDecorOK = kzDecorH > 0.0001 && isFinite(kzDecorY);
+}
+
+// Pré-calcule la distance caméra et la hauteur de visée de chaque niveau.
+function kzZoomInit() {
+  kzZoomZ = [storedCameraZ];
+  kzZoomY = [0];
+  kzZoomNiveau = 0; kzZoomNiveauMax = 0;
+  kzCurZ = storedCameraZ; kzCurY = 0; kzCibZ = storedCameraZ; kzCibY = 0; kzAnimT0 = 0;
+  if (!kzDecorOK || !camera) { kzMajBoutons(); return; }
+  const fov = camera.fov * Math.PI / 180;
+  const asp = camera.aspect || 1;
+  // hauteur de champ nécessaire pour que le bandeau remplisse le cadre,
+  // en tenant compte de sa largeur (le diamètre ne change pas en tournant)
+  const besoin = Math.max(kzDecorH, kzDecorD / asp) / KZ_ZOOM_REMPLISSAGE;
+  let zMin = (besoin / 2) / Math.tan(fov / 2);
+  zMin = Math.max(zMin, storedCameraZ * KZ_ZOOM_PLANCHER);
+  // décor déjà quasi plein cadre : inutile de proposer un zoom
+  if (!isFinite(zMin) || zMin >= storedCameraZ * 0.97) { kzMajBoutons(); return; }
+  for (let i = 1; i < KZ_ZOOM_NIVEAUX; i++) {
+    const t = i / (KZ_ZOOM_NIVEAUX - 1);
+    kzZoomZ[i] = storedCameraZ * Math.pow(zMin / storedCameraZ, t);
+    kzZoomY[i] = kzDecorY * t;
+  }
+  kzZoomNiveauMax = KZ_ZOOM_NIVEAUX - 1;
+  kzMajBoutons();
+}
+
+// Seul endroit qui écrit la position de la caméra. onResize() passe par
+// ici : c'est ce qui empêche un redimensionnement d'annuler le zoom.
+function kzAppliquerCamera() {
+  if (!camera) return;
+  const z = (kzCurZ === null) ? storedCameraZ : kzCurZ;
+  camera.position.set(0, kzCurY, z);
+  camera.lookAt(0, kzCurY, 0);
+  camera.updateProjectionMatrix();
+}
+
+function kzAllerNiveau(n) {
+  if (!kzZoomZ.length) return;
+  n = Math.max(0, Math.min(kzZoomNiveauMax, n));
+  kzZoomNiveau = n;
+  if (kzCurZ === null) { kzCurZ = storedCameraZ; kzCurY = 0; }
+  kzCibZ = kzZoomZ[n]; kzCibY = kzZoomY[n];
+  if (kzSansAnimation()) {
+    kzAnimT0 = 0; kzCurZ = kzCibZ; kzCurY = kzCibY; kzAppliquerCamera();
+  } else {
+    kzAnimZ0 = kzCurZ; kzAnimY0 = kzCurY; kzAnimT0 = kzMaintenant();
+  }
+  lastInteraction = Date.now();
+  kzMajBoutons();
+}
+
+// Interpolation appelée à chaque frame depuis animate().
+function kzAnimerZoom() {
+  if (!kzAnimT0 || kzCibZ === null) return;
+  let t = (kzMaintenant() - kzAnimT0) / KZ_ZOOM_DUREE;
+  if (t >= 1) { t = 1; kzAnimT0 = 0; }
+  const e = 1 - Math.pow(1 - t, 3);        // ease-out cubique
+  kzCurZ = kzAnimZ0 + (kzCibZ - kzAnimZ0) * e;
+  kzCurY = kzAnimY0 + (kzCibY - kzAnimY0) * e;
+  kzAppliquerCamera();
+}
+
+function kzMajBoutons() {
+  const ui = document.getElementById('kz-zoom');
+  if (!ui) return;
+  ui.style.display = (!KZ_MINI && kzEstVerrerie() && kzZoomNiveauMax > 0) ? 'flex' : 'none';
+  const bp = document.getElementById('kz-zoom-plus');
+  const bm = document.getElementById('kz-zoom-moins');
+  if (bp) bp.disabled = kzZoomNiveau >= kzZoomNiveauMax;
+  if (bm) bm.disabled = kzZoomNiveau <= 0;
+}
+
+function kzInitBoutons() {
+  const bp = document.getElementById('kz-zoom-plus');
+  const bm = document.getElementById('kz-zoom-moins');
+  if (bp) bp.addEventListener('click', e => { e.preventDefault(); kzAllerNiveau(kzZoomNiveau + 1); });
+  if (bm) bm.addEventListener('click', e => { e.preventDefault(); kzAllerNiveau(kzZoomNiveau - 1); });
+  kzMajBoutons();
+}
+
+// Toute capture (aperçu commande, partage) doit se faire à la vue
+// d'ensemble, sinon un client qui a zoomé enverrait un gros plan.
+function kzCaptureNeutre(fn) {
+  const sZ = kzCurZ, sY = kzCurY;
+  const neutre = kzZoomZ.length ? kzZoomZ[0] : storedCameraZ;
+  kzCurZ = neutre; kzCurY = 0; kzAppliquerCamera();
+  try { return fn(); }
+  finally { kzCurZ = sZ; kzCurY = sY; kzAppliquerCamera(); }
+}
+
 function initThree() {
   const container = document.getElementById('canvas-container');
   var size = getSize();
@@ -594,6 +796,12 @@ function initThree() {
   gobeletTexture.offset.set(0, 0);
   gobeletTexture.flipY    = false;
   gobeletTexture.encoding = THREE.sRGBEncoding;
+  // KZ_ZOOM v1 — sans anisotropie, le décor devient flou dès qu'on regarde
+  // le cylindre de biais. C'est LA correction qui rend le zoom lisible.
+  try {
+    const maxAniso = renderer.capabilities.getMaxAnisotropy();
+    if (maxAniso > 1) gobeletTexture.anisotropy = maxAniso;
+  } catch (e) { /* capacité absente : on garde le comportement par défaut */ }
   window._gobeletTexture  = gobeletTexture;
   bodyMaterial = new THREE.MeshStandardMaterial({
     map: gobeletTexture, color: new THREE.Color('#ffffff'),
@@ -616,6 +824,7 @@ function initThree() {
   scene.add(gobeletGroup);
   loadGobelet();
   initInteraction();
+  kzInitBoutons();
   window.addEventListener('resize', onResize);
   onResize();
   animate();
@@ -633,7 +842,7 @@ function loadGobelet() {
   loader.load(url, gltf => {
     const meshImpr = modele3DCourant().mesh_impression;
     const fantomes = [];
-    decorMats = []; corpsMats = []; echoObjs = [];
+    decorMats = []; corpsMats = []; echoObjs = []; kzDecorMeshes = [];
     gltf.scene.traverse(child => {
       if (!child.isMesh) return;
       child.castShadow = false;
@@ -666,6 +875,7 @@ function loadGobelet() {
       // par distance, et ici les deux ont le même centre → ordre imprévisible.
       child.renderOrder = 10;
       decorMats.push(mat);
+      kzDecorMeshes.push(child);
       // ── FACE ARRIÈRE FANTÔME ────────────────────────────────────────────
       // Sur un verre givré on devine le décor de l'autre côté. On clone la
       // coque en n'affichant QUE ses faces arrière. Sans test de profondeur,
@@ -698,6 +908,7 @@ function loadGobelet() {
         });
         child.material = mat;
         decorMats.push(mat);
+        kzDecorMeshes.push(child);
       });
     }
     bodyMaterial = decorMats[decorMats.length - 1] || bodyMaterial;
@@ -720,6 +931,10 @@ function loadGobelet() {
     storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.32;
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
+    // KZ_ZOOM v1 — mesure du bandeau imprimé et préparation des niveaux.
+    // Doit venir APRÈS storedCameraZ et updateMatrixWorld, AVANT onResize().
+    kzMesureDecor();
+    kzZoomInit();
     onResize();
     drawTexture();
     requestAnimationFrame(() => { if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true; });
@@ -750,6 +965,7 @@ function animate() {
   if (autoRotate && gobeletGroup && !isDragging && !photoEditMode) {
     if (Date.now() - lastInteraction > 2000) { rotY += autoRotateSpeed; gobeletGroup.rotation.y = rotY; }
   }
+  kzAnimerZoom();
   renderer.render(scene, camera);
 }
 
@@ -782,9 +998,10 @@ function onResize() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
   camera.aspect = w / h;
-  camera.position.set(0, 0, storedCameraZ);
-  camera.lookAt(0, 0, 0);
-  camera.updateProjectionMatrix();
+  // KZ_ZOOM v1 — on ne réécrit plus la position en dur : kzAppliquerCamera()
+  // respecte le niveau de zoom en cours. Sans ça, tourner le téléphone
+  // annulait le zoom.
+  kzAppliquerCamera();
 }
 
 window.addEventListener('message', function(e) {
@@ -811,8 +1028,11 @@ window.addEventListener('message', function(e) {
 
   if (data.type === 'REQUEST_SHARE_IMAGE') {
     try {
-      renderer.render(scene, camera);
-      const dataUrl = renderer.domElement.toDataURL('image/png');
+      // KZ_ZOOM v1 — capture toujours à la vue d'ensemble
+      const dataUrl = kzCaptureNeutre(function() {
+        renderer.render(scene, camera);
+        return renderer.domElement.toDataURL('image/png');
+      });
       window.parent.postMessage({ type: 'SHARE_IMAGE_READY', dataUrl }, '*');
     } catch(e) { window.parent.postMessage({ type: 'SHARE_IMAGE_ERROR' }, '*'); }
     return;
@@ -822,8 +1042,11 @@ window.addEventListener('message', function(e) {
     try {
       const savedRotY = rotY;
       gobeletGroup.rotation.y = 0;
-      renderer.render(scene, camera);
-      const dataUrl = renderer.domElement.toDataURL('image/jpeg', 0.88);
+      // KZ_ZOOM v1 — l'aperçu joint à la commande ne doit jamais être un gros plan
+      const dataUrl = kzCaptureNeutre(function() {
+        renderer.render(scene, camera);
+        return renderer.domElement.toDataURL('image/jpeg', 0.88);
+      });
       gobeletGroup.rotation.y = savedRotY;
       renderer.render(scene, camera);
       window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT', dataUrl }, '*');
