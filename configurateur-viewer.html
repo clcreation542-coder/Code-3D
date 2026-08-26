@@ -437,9 +437,14 @@ function drawTexture() {
   if (isSolid) {
     // Mode opaque : on peint la teinte choisie (variante Blanc = #ffffff, donc
     // rendu inchangé). Auparavant forcé à '#ffffff' → couleur ignorée.
-    ctx2d.globalAlpha = 1;
-    ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
-    ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+    // Même garde-fou que dans la branche transparente : sur une coque dédiée
+    // (verre à vin, flûte) la texture ne couvre que le bandeau imprimé, et
+    // l'aplat y dessinerait un rectangle opaque visible sur le verre.
+    if (!coqueDediee) {
+      ctx2d.globalAlpha = 1;
+      ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
+      ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+    }
     matsDecor().forEach(function (m) {
       m.transparent = false;
       m.opacity     = 1;
