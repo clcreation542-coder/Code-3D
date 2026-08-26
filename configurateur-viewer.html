@@ -610,14 +610,46 @@ let rotY = Math.PI;
 //  paroi. Le discriminant est mesh_impression (null = gobelet).
 // ══════════════════════════════════════════════════════════════════
 const KZ_ZOOM_VERSION     = 1;
-const KZ_ZOOM_NIVEAUX     = 3;      // niveau 0 = vue d'ensemble, donc 2 clics pour aller au plus près
-const KZ_ZOOM_REMPLISSAGE = 0.52;   // part du cadre occupée par le verre au zoom max.
-                                    // Au-delà de ~0,6 la silhouette déborde du cadre :
-                                    // on ne voit plus que du blanc et l'objet se perd.
-const KZ_ZOOM_PLANCHER    = 0.22;   // jamais plus près que 22 % de la distance d'origine
+const KZ_ZOOM_NIVEAUX     = 4;      // niveau 0 = vue d'ensemble, 3 clics pour aller au plus près
+const KZ_ZOOM_REMPLISSAGE = 0.55;   // part de la HAUTEUR du cadre occupée par le bandeau
+                                    // imprimé au zoom max. On ne borne PAS par la largeur :
+                                    // le décor fait le tour du verre, donc refuser que les
+                                    // bords débordent revient à interdire au texte de
+                                    // grossir. Au plus près, on ne voit que le buvant.
+const KZ_ZOOM_PLANCHER    = 0.15;   // jamais plus près que 22 % de la distance d'origine
 const KZ_ZOOM_DUREE       = 420;    // ms — transition calée sur le TEMPS, pas sur les images
                                     // par seconde : sur un téléphone lent la durée
                                     // ressentie reste la même.
+
+// Profils par modèle — table d'exceptions.
+// Le réglage général (4 crans, bandeau à 55 % de la hauteur) vaut pour le
+// verre à vin et pour tout futur modèle.
+// La FLÛTE est la seule exception : son bandeau est très haut sur un verre
+// étroit, donc au zoom le bord sortait du cadre et on ne voyait plus qu'une
+// paroi blanche. Un seul cran, moins rapproché, et la visée monte jusqu'au
+// centre du bandeau pour que le BORD du verre reste visible.
+// Pour traiter un autre modèle à part, ajouter une ligne :
+//   'MonVerre.glb': { niveaux: 3, remplissage: 0.45 },
+// Verre à vin : MÊME cadrage de référence qu'avant (remplissage 0.55,
+// caméra à 1,12) mais atteint en UN SEUL clic au lieu de quatre. Le défaut
+// n'était pas la distance finale, c'était la progression : quatre petits
+// pas donnaient l'impression que ça ne zoomait pas.
+// cransSup : crans supplémentaires au-delà du cadrage de référence, s'il
+// en faut un jour de plus rapprochés.
+const KZ_ZOOM_PROFILS = {
+  'FluteChampagne.glb': { niveaux: 2, remplissage: 0.37 },
+  'VerreAVin.glb':      { niveaux: 2, remplissage: 0.47 },
+};
+function kzProfilZoom() {
+  var u = '';
+  try { u = (modele3DCourant().url || '').split('/').pop(); } catch (e) {}
+  var p = KZ_ZOOM_PROFILS[u] || {};
+  return {
+    niveaux:     p.niveaux     || KZ_ZOOM_NIVEAUX,
+    remplissage: p.remplissage || KZ_ZOOM_REMPLISSAGE,
+    cransSup:    p.cransSup    || 0
+  };
+}
 
 let kzDecorMeshes = [];
 let kzDecorOK = false, kzDecorY = 0, kzDecorH = 0, kzDecorD = 0;
@@ -662,6 +694,7 @@ function kzMesureDecor() {
 
 // Pré-calcule la distance caméra et la hauteur de visée de chaque niveau.
 function kzZoomInit() {
+  const prof = kzProfilZoom();
   kzZoomZ = [storedCameraZ];
   kzZoomY = [0];
   kzZoomNiveau = 0; kzZoomNiveauMax = 0;
@@ -669,19 +702,20 @@ function kzZoomInit() {
   if (!kzDecorOK || !camera) { kzMajBoutons(); return; }
   const fov = camera.fov * Math.PI / 180;
   const asp = camera.aspect || 1;
-  // hauteur de champ nécessaire pour que le bandeau remplisse le cadre,
-  // en tenant compte de sa largeur (le diamètre ne change pas en tournant)
-  const besoin = Math.max(kzDecorH, kzDecorD / asp) / KZ_ZOOM_REMPLISSAGE;
+  // hauteur de champ nécessaire pour que le bandeau remplisse le cadre
+  const besoin = (kzDecorH / prof.remplissage);
   let zMin = (besoin / 2) / Math.tan(fov / 2);
   zMin = Math.max(zMin, storedCameraZ * KZ_ZOOM_PLANCHER);
   // décor déjà quasi plein cadre : inutile de proposer un zoom
   if (!isFinite(zMin) || zMin >= storedCameraZ * 0.97) { kzMajBoutons(); return; }
-  for (let i = 1; i < KZ_ZOOM_NIVEAUX; i++) {
-    const t = i / (KZ_ZOOM_NIVEAUX - 1);
+  const pas = prof.niveaux - 1;                    // crans pour atteindre le cadrage de référence
+  const total = pas + prof.cransSup;               // + les crans supplémentaires éventuels
+  for (let i = 1; i <= total; i++) {
+    const t = i / pas;                             // > 1 sur les crans supplémentaires
     kzZoomZ[i] = storedCameraZ * Math.pow(zMin / storedCameraZ, t);
-    kzZoomY[i] = kzDecorY * t;
+    kzZoomY[i] = kzDecorY * Math.min(1, t);        // la visée ne dépasse pas le centre du bandeau
   }
-  kzZoomNiveauMax = KZ_ZOOM_NIVEAUX - 1;
+  kzZoomNiveauMax = total;
   kzMajBoutons();
 }
 
