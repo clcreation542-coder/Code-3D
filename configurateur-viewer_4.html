@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewer Gobelet — Kuztom</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #a8a5a1; }
+    #viewer { width: 100%; height: 100%; position: relative; }
+    #canvas-container { width: 100%; height: 100%; position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; background: #a8a5a1; }
+    #canvas-container canvas { display: block; position: absolute; top: 0; left: 0; }
+    #loading-indicator { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: #efefed; z-index: 5; transition: opacity 400ms ease; }
+    #loading-indicator.hidden { opacity: 0; pointer-events: none; }
+    .loading-ring { width: 32px; height: 32px; border: 1.5px solid #e0ddd8; border-top-color: #c9a96e; border-radius: 50%; animation: spin 900ms linear infinite; }
+    .loading-text { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; font-family: 'Inter', sans-serif; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #error-msg { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; flex-direction: column; gap: 12px; font-family: 'Inter', sans-serif; font-size: 13px; color: #888; text-align: center; padding: 24px; background: #efefed; z-index: 10; }
+    #error-msg.visible { display: flex; }
+
+    /* ══════════════════════════════════════════════════════════════
+       KZ_ZOOM v1 — loupe + / − (verrerie uniquement)
+       ══════════════════════════════════════════════════════════════ */
+    #kz-zoom {
+      position: absolute; right: 14px; bottom: 14px; z-index: 6;
+      display: none; flex-direction: column; gap: 8px;
+      pointer-events: none;
+    }
+    #kz-zoom button {
+      pointer-events: auto; touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      width: 42px; height: 42px; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(253, 251, 247, 0.94);
+      border: 1px solid #e0d9cc; border-radius: 50%;
+      color: #1a1510; cursor: pointer;
+      box-shadow: 0 3px 10px rgba(26, 21, 16, 0.16);
+      transition: background-color 200ms ease, transform 200ms cubic-bezier(.16,1,.3,1), opacity 200ms ease;
+    }
+    #kz-zoom button:hover:not(:disabled) { background: #fff; transform: translateY(-1px); }
+    #kz-zoom button:active:not(:disabled) { transform: translateY(0); }
+    #kz-zoom button:disabled { opacity: 0.34; cursor: default; }
+    #kz-zoom button:focus-visible { outline: 2px solid #c4a882; outline-offset: 2px; }
+    #kz-zoom svg { display: block; }
+    @media (prefers-reduced-motion: reduce) {
+      #kz-zoom button { transition: none; }
+    }
+  </style>
+</head>
+<body>
+<div id="viewer">
+  <div id="canvas-container">
+    <div id="loading-indicator">
+      <div class="loading-ring"></div>
+      <span class="loading-text">Chargement</span>
+    </div>
+  </div>
+  <div id="error-msg">
+    <span style="font-size:24px">&#9888;</span>
+    <span id="error-text">Design introuvable.</span>
+  </div>
+  <!-- KZ_ZOOM v1 — masqué par défaut, activé seulement pour la verrerie -->
+  <div id="kz-zoom">
+    <button id="kz-zoom-plus" type="button" aria-label="Zoomer sur la personnalisation" title="Zoomer">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="10.5" cy="10.5" r="6.6"></circle>
+        <line x1="15.6" y1="15.6" x2="20.6" y2="20.6"></line>
+        <line x1="10.5" y1="7.7" x2="10.5" y2="13.3"></line>
+        <line x1="7.7" y1="10.5" x2="13.3" y2="10.5"></line>
+      </svg>
+    </button>
+    <button id="kz-zoom-moins" type="button" aria-label="Dézoomer" title="Dézoomer">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="10.5" cy="10.5" r="6.6"></circle>
+        <line x1="15.6" y1="15.6" x2="20.6" y2="20.6"></line>
+        <line x1="7.7" y1="10.5" x2="13.3" y2="10.5"></line>
+      </svg>
+    </button>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+<script>
+const params     = new URLSearchParams(window.location.search);
+const designName = params.get('design') || '';
+const KZ_MINI    = params.get('mini') === '1';   // vignette flottante mobile : pas de commandes
+const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
+const PROXY_URL  = 'https://kuztom-proxy.contact-kuztom.workers.dev';
+const PROXY_KEY  = '';
+// ══════════════════════════════════════════════════════════════════
+//  KZ_MODELES v1 — MODÈLES 3D DISPONIBLES
+//  ⚠️ Bloc MIROIR de celui de kuztomadmin (KZ_STUDIO). Toute modif ici
+//     doit être reportée à l'identique là-bas, et KZ_MODELES_VERSION
+//     incrémentée des deux côtés.
+//
+//  url             : adresse du .glb. Vide = gobelet par défaut.
+//  mesh_impression : nom du mesh qui porte le DÉCOR. Les autres meshes
+//                    (tige, pied…) reçoivent une matière unie à la teinte
+//                    du verre. null = tout le modèle est décoré
+//                    (comportement historique du gobelet).
+//  tex_w / tex_h   : format du canvas ET du PNG imprimeur, calé sur la
+//                    zone imprimable réelle du produit.
+// ══════════════════════════════════════════════════════════════════
+const KZ_MODELES_VERSION = 2;
+const ECHO_ARRIERE = 0.22;   // écho du décor vu par transparence de l'autre côté
+
+const MODELES_3D = [
+  { nom: 'Gobelet 25/33 cl (par défaut)', url: '',
+    mesh_impression: null,         tex_w: 1970, tex_h: 1140 },   // paroi ~194 × 115 mm
+  { nom: 'Verre à vin Events',
+    url: 'https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb',
+    mesh_impression: 'Cylinder_1', tex_w: 1970, tex_h:  420 },   // zone 190 × 40 mm
+  { nom: 'Flûte à champagne Events',
+    url: 'https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb',
+    mesh_impression: 'Cylinder_1', tex_w: 1970, tex_h:  406 },   // format imprimeur fourni
+];
+
+function modele3DCourant() {
+  const u = (typeof CFG !== 'undefined' && CFG && CFG.model_url) || '';
+  return MODELES_3D.find(m => m.url === u)
+      || { nom: 'Personnalisé', url: u, mesh_impression: null, tex_w: 1970, tex_h: 1140 };
+}
+
+// Format de la texture = format du PNG imprimeur. Il DÉPEND du produit.
+// Valeurs par défaut = gobelet 25/33 ; ajustées par appliquerFormatTexture().
+let TEX_W = 1970, TEX_H = 1140;
+
+function getSize() {
+  var w = window.innerWidth || 375;
+  return { w: w, h: w };
+}
+
+let CFG = {
+  id: '', name: '',
+  gobelet_color: '#f5f0eb', gobelet_opacity: 0.88,
+  rotation_y: 0, model_url: null,
+  design_url: null,
+  design: { x: 0, y: 0, width: TEX_W, height: TEX_H },
+  variant_colors: [], text_zones: [], photo_zones: [], arch_zones: []
+};
+
+const state = {
+  texts: {}, photos: {}, photoCrop: {},
+  activeCropZone: null,
+  gobeletColor: '#f5f0eb',
+  designImage: null,
+  fontsReady: false,
+};
+
+const textureCanvas  = document.createElement('canvas');
+textureCanvas.width  = TEX_W;
+textureCanvas.height = TEX_H;
+const ctx2d = textureCanvas.getContext('2d');
+
+// Applique le format de texture du modèle 3D du design courant.
+// Doit être appelée dès que CFG.model_url est connu, AVANT le premier
+// drawTexture() et AVANT la création de la CanvasTexture dans initThree().
+// Renvoie true si le format a changé.
+function appliquerFormatTexture() {
+  const m = modele3DCourant();
+  const w = m.tex_w || 1970, h = m.tex_h || 1140;
+  if (w === TEX_W && h === TEX_H) return false;
+  TEX_W = w; TEX_H = h;
+  textureCanvas.width  = TEX_W;
+  textureCanvas.height = TEX_H;
+  if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
+  return true;
+}
+
+function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
+
+// ══════════════════════════════════════════════════════════════════
+//  KZ_LAYOUT v1 — SOURCE DE VÉRITÉ UNIQUE
+//  ⚠️ Bloc DUPLIQUÉ À L'IDENTIQUE dans :
+//       kuztom-admin.html · configurateur-viewer.html · configurateur-3d.liquid
+//     Toute modif doit être reportée dans les trois + KZ_LAYOUT_VERSION incrémentée.
+//
+//  AVANT : la mesure additionnait les pixels réellement allumés (totalH += b.h)
+//  alors que le dessin empile n × fs × lh. Deux définitions différentes de
+//  « hauteur totale » → le texte sortait de sa boîte sans que rien ne l'arrête.
+//  Ici la mesure reproduit la GÉOMÉTRIE EXACTE du dessin : centre de la 1re
+//  ligne à -totalH/2 + lineH/2, moins l'ascendante réelle, plus la descendante
+//  de la dernière, plus la moitié du contour.
+//  Bonus : plus de getImageData sur 2000×800 (qui coupait les grandes polices
+//  et coûtait des millions de lectures de pixels à chaque frappe).
+// ══════════════════════════════════════════════════════════════════
+const KZ_LAYOUT_VERSION = 4;
+const KZ_FS_MIN = 8;
+const KZ_FS_STEP = 2;
+const _kzMeasureCtx = document.createElement('canvas').getContext('2d');
+
+// ── v4 : mesure sur l'ENCRE + dichotomie ────────────────────────────
+// Le test de hauteur se faisait autour d'un ancrage figé (milieu du
+// cadratin). L'encre n'étant pas symétrique autour de cet ancrage, le
+// texte butait en haut de la boîte alors qu'il restait du vide en bas.
+var KZ_INK_CENTER = true;    // ⚠️ MÊME VALEUR dans l'admin et le liquid
+var KZ_INK_SW     = 3;
+
+function KZ_ink(ctx, zone, text, fs) {
+  var lines = String(text == null ? '' : text).split('\n');
+  var lh    = zone.lineHeight || 1.3;
+  var lineH = fs * lh;
+  ctx.font = fs + "px '" + (zone.font_family || 'Jost') + "'";
+  ctx.textBaseline = 'middle';
+  ctx.textAlign    = 'left';
+  var mF = ctx.measureText(lines[0] || ' ');
+  var mL = ctx.measureText(lines[lines.length - 1] || ' ');
+  var asc  = (mF.actualBoundingBoxAscent  !== undefined) ? mF.actualBoundingBoxAscent  : fs * 0.35;
+  var desc = (mL.actualBoundingBoxDescent !== undefined) ? mL.actualBoundingBoxDescent : fs * 0.35;
+  var w = 0;
+  for (var i = 0; i < lines.length; i++) {
+    var m  = ctx.measureText(lines[i] || ' ');
+    var lw = (m.actualBoundingBoxLeft !== undefined && m.actualBoundingBoxRight !== undefined)
+           ? (Math.abs(m.actualBoundingBoxLeft) + Math.abs(m.actualBoundingBoxRight)) : m.width;
+    if (lw > w) w = lw;
+  }
+  return { w: w, h: asc + (lines.length - 1) * lineH + desc, asc: asc, desc: desc };
+}
+
+function KZ_inkShift(ctx, zone, text, fs) {
+  if (!KZ_INK_CENTER) return 0;
+  var pf = ctx.font, pb = ctx.textBaseline, pa = ctx.textAlign;
+  var k = KZ_ink(ctx, zone, text, fs);
+  ctx.font = pf; ctx.textBaseline = pb; ctx.textAlign = pa;
+  return (k.asc - k.desc) / 2;
+}
+
+function KZ_fontSize(ctx, zone, text, boxW, boxH) {
+  var shape = zone.shape || 'rectangle';
+  var fitW  = (shape === 'oval' || shape === 'circle') ? boxW * 0.707 : boxW;
+  var fitH  = (shape === 'oval' || shape === 'circle') ? boxH * 0.707 : boxH;
+  var cap   = Math.max(KZ_FS_MIN, zone.font_size || 48);
+  var lines = String(text == null ? '' : text).split('\n');
+  if (!lines.some(function (l) { return l.trim(); })) return cap;
+  var pb = ctx.textBaseline, pa = ctx.textAlign, pf = ctx.font;
+  var lo = KZ_FS_MIN, hi = cap, best = KZ_FS_MIN;
+  while (lo <= hi) {
+    var mid = (lo + hi) >> 1;
+    var k = KZ_ink(ctx, zone, text, mid);
+    if (k.w + KZ_INK_SW <= fitW && k.h + KZ_INK_SW <= fitH) { best = mid; lo = mid + 1; }
+    else hi = mid - 1;
+  }
+  ctx.textBaseline = pb; ctx.textAlign = pa; ctx.font = pf;
+  return best;
+}
+
+// 8 formes de zone. AVANT : le viewer clippait TOUJOURS un rectangle, donc un
+// cœur ou une arche créé dans l'admin sortait carré chez le client ET à l'impression.
+function KZ_zonePath(c, zone) {
+  const shape = zone.shape || 'rectangle';
+  const x = zone.x, y = zone.y, w = zone.width, h = zone.height;
+  c.beginPath();
+  switch (shape) {
+    case 'circle':
+    case 'oval':
+      c.ellipse(x + w/2, y + h/2, w/2, h/2, 0, 0, Math.PI*2);
+      break;
+    case 'rounded': {
+      const r = Math.min(w,h) * 0.18;
+      c.moveTo(x+r,y); c.lineTo(x+w-r,y); c.arcTo(x+w,y,x+w,y+r,r);
+      c.lineTo(x+w,y+h-r); c.arcTo(x+w,y+h,x+w-r,y+h,r);
+      c.lineTo(x+r,y+h); c.arcTo(x,y+h,x,y+h-r,r);
+      c.lineTo(x,y+r); c.arcTo(x,y,x+r,y,r);
+      break;
+    }
+    case 'arch': {
+      const r = Math.min(w/2, h);
+      c.moveTo(x, y+h);
+      c.lineTo(x, y+r);
+      c.arc(x+w/2, y+r, w/2, Math.PI, 0);
+      c.lineTo(x+w, y+h);
+      break;
+    }
+    case 'hexagon': {
+      const cx2=x+w/2, cy2=y+h/2, rx=w/2, ry=h/2;
+      for (let i=0;i<6;i++) {
+        const ang=(Math.PI/3)*i-Math.PI/6;
+        const px=cx2+rx*Math.cos(ang), py=cy2+ry*Math.sin(ang);
+        if(i===0) c.moveTo(px,py); else c.lineTo(px,py);
+      }
+      break;
+    }
+    case 'diamond': {
+      const cx2=x+w/2, cy2=y+h/2;
+      c.moveTo(cx2,y); c.lineTo(x+w,cy2); c.lineTo(cx2,y+h); c.lineTo(x,cy2);
+      break;
+    }
+    case 'heart': {
+      const cx2=x+w/2, cy2=y+h/2, sz=Math.min(w,h)*0.45;
+      c.moveTo(cx2,cy2+sz*0.9);
+      c.bezierCurveTo(cx2-sz*1.3,cy2+sz*0.3,cx2-sz*1.4,cy2-sz*0.6,cx2,cy2-sz*0.15);
+      c.bezierCurveTo(cx2+sz*1.4,cy2-sz*0.6,cx2+sz*1.3,cy2+sz*0.3,cx2,cy2+sz*0.9);
+      break;
+    }
+    default:
+      c.rect(x,y,w,h);
+  }
+  c.closePath();
+}
+
+function KZ_zoneBegin(c, zone) {
+  c.save();
+  const rot = zone.rotation || 0;
+  if (rot) {
+    const cx = zone.x + zone.width/2, cy = zone.y + zone.height/2;
+    c.translate(cx, cy); c.rotate(rot * Math.PI / 180); c.translate(-cx, -cy);
+  }
+}
+function KZ_zoneEnd(c) { c.restore(); }
+
+// Compat : l'ancien nom reste appelé par drawTextZone et par le PNG imprimeur.
+function getFontSize(zone, text) {
+  return KZ_fontSize(_kzMeasureCtx, zone, text, zone.width, zone.height);
+}
+
+function drawTextZone(zone, text) {
+  if (!text || !text.trim()) return;
+  const lh     = zone.lineHeight || 1.3;
+  const size   = getFontSize(zone, text);
+  const lines  = text.split('\n');
+  const lineH  = size * lh;
+  const totalH = lines.length * lineH;
+  const cx     = zone.x + zone.width / 2;
+  const cy     = zone.y + zone.height / 2;
+  const angle  = (zone.rotation || 0) * Math.PI / 180;
+  ctx2d.save();
+  if (angle) { ctx2d.translate(cx, cy); ctx2d.rotate(angle); ctx2d.translate(-cx, -cy); }
+  ctx2d.font         = `${size}px "${zone.font_family}"`;
+  ctx2d.fillStyle    = zone._colorOverride || zone.color || '#2c2521';
+  ctx2d.textAlign    = zone.align || 'center';
+  ctx2d.textBaseline = 'middle';
+  const startY = cy - totalH / 2 + lineH / 2 + KZ_inkShift(ctx2d, zone, text, size);
+  const startX = zone.align === 'center' ? cx
+               : zone.align === 'right'  ? zone.x + zone.width
+               : zone.x;
+  // Contour (comme l'admin) : épaisseur par zone, défaut 2.5
+  const strokeW = (zone.stroke_preview !== undefined ? zone.stroke_preview : 2.5);
+  if (strokeW > 0) {
+    ctx2d.strokeStyle = zone._colorOverride || zone.color || '#2c2521';
+    ctx2d.lineWidth = strokeW;
+    ctx2d.lineJoin = 'round';
+    lines.forEach((line, i) => ctx2d.strokeText(line, startX, startY + i * lineH));
+  }
+  lines.forEach((line, i) => ctx2d.fillText(line, startX, startY + i * lineH));
+  ctx2d.restore();
+}
+
+function drawArchZone(zone, text) {
+  if (!text || !text.trim()) return;
+  const isUp = (zone.direction || 'up') === 'up';
+  const startDeg = zone.start_angle !== undefined ? zone.start_angle : -90;
+  const r = zone.radius || 280;
+  const spacing = zone.letter_spacing || 1.0;
+  const fs = zone.font_size || 60;
+  ctx2d.save();
+  ctx2d.font = `${fs}px "${zone.font_family || 'Dancing Script'}"`;
+  ctx2d.fillStyle = zone._colorOverride || zone.color || '#7a5c2e';
+  ctx2d.textAlign = 'center';
+  ctx2d.textBaseline = 'alphabetic';
+  const chars = text.split('');
+  const charWidths = chars.map(ch => ctx2d.measureText(ch).width * spacing);
+  const total = charWidths.reduce((a, b) => a + b, 0);
+  const totalRad = total / r;
+  const startRad = startDeg * Math.PI / 180;
+  if (isUp) {
+    let angle = startRad - totalRad / 2;
+    chars.forEach((ch, i) => {
+      const half = charWidths[i] / (2 * r);
+      angle += half;
+      ctx2d.save();
+      ctx2d.translate(zone.cx + r * Math.cos(angle), zone.cy + r * Math.sin(angle));
+      ctx2d.rotate(angle + Math.PI / 2);
+      ctx2d.fillText(ch, 0, 0);
+      ctx2d.restore();
+      angle += half;
+    });
+  } else {
+    let angle = startRad + totalRad / 2;
+    chars.forEach((ch, i) => {
+      const half = charWidths[i] / (2 * r);
+      angle -= half;
+      ctx2d.save();
+      ctx2d.translate(zone.cx + r * Math.cos(angle), zone.cy + r * Math.sin(angle));
+      ctx2d.rotate(angle - Math.PI / 2);
+      ctx2d.fillText(ch, 0, 0);
+      ctx2d.restore();
+      angle -= half;
+    });
+  }
+  ctx2d.restore();
+}
+
+function drawPhotoPlaceholder(zone) {
+  const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
+  KZ_zoneBegin(ctx2d, zone);
+  ctx2d.fillStyle = 'rgba(255,255,255,0.55)';
+  KZ_zonePath(ctx2d, zone); ctx2d.fill();
+  ctx2d.strokeStyle = 'rgba(180,180,180,0.8)';
+  ctx2d.lineWidth = 3; ctx2d.setLineDash([12, 8]); ctx2d.stroke(); ctx2d.setLineDash([]);
+  const cx = zx + zw/2, cy = zy + zh/2;
+  const iconSize = Math.min(zw, zh) * 0.35;
+  ctx2d.fillStyle = 'rgba(160,160,160,0.7)';
+  ctx2d.font = `${iconSize}px Arial`;
+  ctx2d.textAlign = 'center'; ctx2d.textBaseline = 'middle';
+  ctx2d.fillText('📷', cx, cy - iconSize * 0.15);
+  const fontSize = Math.min(zw, zh) * 0.1;
+  ctx2d.font = `${fontSize}px Jost, sans-serif`;
+  ctx2d.fillStyle = 'rgba(120,120,120,0.9)';
+  ctx2d.fillText('Votre photo', cx, cy + iconSize * 0.6);
+  ctx2d.restore();
+}
+
+function drawPhotoZone(zone, img) {
+  const zx = zone.x, zy = zone.y, zw = zone.width, zh = zone.height;
+  const iw = img.naturalWidth  || img.width  || 1;
+  const ih = img.naturalHeight || img.height || 1;
+  const crop = state.photoCrop[zone.id] || {zoom: 1, offsetX: 0, offsetY: 0};
+  const baseScale = Math.max(zw / iw, zh / ih);
+  const scale = baseScale * crop.zoom;
+  const sw = iw * scale, sh = ih * scale;
+  const ox = zx + (zw - sw) / 2 + crop.offsetX;
+  const oy = zy + (zh - sh) / 2 + crop.offsetY;
+  KZ_zoneBegin(ctx2d, zone);
+  KZ_zonePath(ctx2d, zone); ctx2d.clip();
+  ctx2d.drawImage(img, ox, oy, sw, sh);
+  KZ_zoneEnd(ctx2d);
+}
+
+function drawTexture() {
+  ctx2d.clearRect(0, 0, TEX_W, TEX_H);
+  const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
+  const isSolid = (op === 0);
+  // Coque dédiée : le corps du verre porte déjà sa propre matière, l'encre
+  // de la coque est opaque. Gobelet : comportement historique.
+  // Si le mesh d'impression n'a pas été trouvé dans le GLB (decorMats rempli
+  // mais corpsMats vide), on retombe volontairement sur le rendu gobelet,
+  // sinon le verre entier deviendrait une surface d'encre opaque.
+  const coqueDediee = !!modele3DCourant().mesh_impression
+                      && (!decorMats.length || corpsMats.length > 0);
+  if (isSolid) {
+    // Mode opaque : on peint la teinte choisie (variante Blanc = #ffffff, donc
+    // rendu inchangé). Auparavant forcé à '#ffffff' → couleur ignorée.
+    // Même garde-fou que dans la branche transparente : sur une coque dédiée
+    // (verre à vin, flûte) la texture ne couvre que le bandeau imprimé, et
+    // l'aplat y dessinerait un rectangle opaque visible sur le verre.
+    if (!coqueDediee) {
+      ctx2d.globalAlpha = 1;
+      ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
+      ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+    }
+    matsDecor().forEach(function (m) {
+      m.transparent = false;
+      m.opacity     = 1;
+      m.depthWrite  = true;
+      m.needsUpdate = true;
+    });
+  } else {
+    // Si le modèle a une coque d'impression dédiée, on NE peint PAS le fond :
+    // sinon la zone d'impression devient une bande opaque et la transparence
+    // du PNG est perdue.
+    if (!coqueDediee) {
+      ctx2d.globalAlpha = op;
+      ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
+      ctx2d.fillRect(0, 0, TEX_W, TEX_H);
+    }
+    matsDecor().forEach(function (m) {
+      m.transparent = true;
+      m.opacity     = coqueDediee ? 1 : 0.82;
+      m.depthWrite  = false;
+      m.alphaTest   = 0;
+      m.needsUpdate = true;
+    });
+  }
+  // ── Écho arrière : à masquer dès que le verre devient opaque ────────────
+  // Le clone d'écho est transparent avec depthTest:false. En mode opaque, la
+  // coque part dans la passe « opaque » de three.js, rendue AVANT la passe
+  // transparente : l'écho serait alors peint PAR-DESSUS toute la face avant,
+  // d'où un décor délavé et une image fantôme en miroir.
+  echoObjs.forEach(function (o) { o.visible = !isSolid; });
+  // Corps non imprimé (tige, pied…) : il suit la teinte et l'opacité du verre.
+  // depthWrite reste vrai pour que la tige occulte le pied placé derrière elle.
+  if (corpsMats.length) {
+    const c = parseHexColor(state.gobeletColor);
+    corpsMats.forEach(function (m) {
+      m.color.set(c);
+      if (op >= 0.999 || isSolid) { m.transparent = false; m.opacity = 1; }
+      else                        { m.transparent = true;  m.opacity = op; }
+      m.depthWrite  = true;
+      m.needsUpdate = true;
+    });
+  }
+  ctx2d.globalAlpha = 1.0;
+  ctx2d.globalCompositeOperation = 'source-over';
+  (CFG.photo_zones || []).forEach(zone => {
+    const img = state.photos[zone.id];
+    if (img) drawPhotoZone(zone, img);
+    else drawPhotoPlaceholder(zone);
+  });
+  if (state.designImage) {
+    const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
+    ctx2d.drawImage(state.designImage, d.x||0, d.y||0, TEX_W, TEX_H);
+  }
+  (CFG.text_zones || []).forEach(zone => {
+    const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
+    drawTextZone(zone, txt);
+  });
+  (CFG.arch_zones || []).forEach(zone => {
+    const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
+    if (txt && txt.trim()) drawArchZone(zone, txt);
+  });
+  if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
+  var zoneInfos = (CFG.text_zones || []).map(function(zone) {
+    var txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
+    return {
+      id: zone.id, label: zone.label || zone.id,
+      fontSize: getFontSize(zone, txt || 'A'),
+      lineCount: txt ? txt.split('\n').length : 0
+    };
+  });
+  if (window.parent && zoneInfos.length) {
+    window.parent.postMessage({ type: 'kuztom_zone_info', zones: zoneInfos }, '*');
+  }
+}
+
+async function loadDesignConfig() {
+  if (!designName) return;
+  const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const designs = await res.json();
+    const data = Array.isArray(designs)
+      ? (designs.find(d => d.id === designName) || designs.find(d => d.shopify_handle === designName))
+      : null;
+    if (!data) throw new Error('design non trouvé');
+    CFG = data;
+    appliquerFormatTexture();   // le format du canvas suit le modèle 3D du design
+    if (!CFG.design) CFG.design = { x: 0, y: 0, width: TEX_W, height: TEX_H };
+    state.gobeletColor = CFG.gobelet_color || '#f5f0eb';
+    (CFG.text_zones || []).forEach(z => { state.texts[z.id] = z.placeholder || ''; });
+    (CFG.arch_zones || []).forEach(z => { state.texts[z.id] = ''; });
+  } catch (e) {
+    showError(`Design "${designName}" introuvable (${e.message})`);
+  }
+}
+
+async function loadFonts() {
+  const families = [...new Set([
+    ...(CFG.text_zones || []).map(z => z.font_family),
+    ...(CFG.arch_zones || []).map(z => z.font_family)
+  ].filter(Boolean))];
+  if (!families.length) { state.fontsReady = true; return; }
+  await new Promise(resolve => {
+    const link = document.createElement('link');
+    link.rel   = 'stylesheet';
+    link.href  = 'https://fonts.googleapis.com/css2?display=swap&family=' +
+      families.map(f => f.replace(/ /g, '+')).join('&family=') + '&display=swap';
+    link.onload  = resolve;
+    link.onerror = resolve;
+    document.head.appendChild(link);
+  });
+  try {
+    await Promise.all(families.map(f => {
+      const zone = (CFG.text_zones || []).find(z => z.font_family === f);
+      return document.fonts.load(`${(zone && zone.font_size) || 48}px "${f}"`);
+    }));
+  } catch (_) {}
+  state.fontsReady = true;
+}
+
+function loadDesignImage() {
+  if (!CFG.design_url) return Promise.resolve();
+  return new Promise(resolve => {
+    const img = new Image();
+    const isDataUrl = CFG.design_url.startsWith('data:');
+    if (!isDataUrl) img.crossOrigin = 'anonymous';
+    img.onload  = () => { state.designImage = img; resolve(); };
+    img.onerror = () => {
+      if (!isDataUrl && img.crossOrigin) {
+        const retry = new Image();
+        retry.onload  = () => { state.designImage = retry; resolve(); };
+        retry.onerror = () => resolve();
+        retry.src = CFG.design_url;
+      } else { resolve(); }
+    };
+    if (isDataUrl) {
+      img.src = CFG.design_url;
+    } else {
+      let url = CFG.design_url;
+      if (!url.startsWith('http') && !url.startsWith('//')) url = REPO_BASE + '/' + url.replace(/^\//, '');
+      img.src = url;
+    }
+  });
+}
+
+let renderer, scene, camera, gobeletGroup, bodyMaterial;
+// decorMats : matériaux qui portent le décor (coque d'impression).
+// corpsMats : matériaux du corps non imprimé (tige, pied…) — vide pour le gobelet.
+let decorMats = [], corpsMats = [], echoObjs = [];
+function matsDecor() { return decorMats.length ? decorMats : (bodyMaterial ? [bodyMaterial] : []); }
+let storedCameraZ = 5;
+let isDragging = false, lastPointerX = 0;
+let rotY = Math.PI;
+
+// ══════════════════════════════════════════════════════════════════
+//  KZ_ZOOM v1 — ZOOM RECADRÉ SUR LE BUVANT
+//  ⚠️ Bloc MIROIR de celui de kuztomadmin (KZ_STUDIO). Toute modif ici
+//     doit être reportée à l'identique là-bas, et KZ_ZOOM_VERSION
+//     incrémentée des deux côtés.
+//
+//  Principe : la caméra se rapproche ET monte à la hauteur du bandeau
+//  imprimé, en regardant droit devant (pas de bascule). Le décor reste
+//  donc parfaitement droit, et la rotation au doigt continue de
+//  fonctionner à toutes les distances puisque c'est l'OBJET qui tourne,
+//  jamais la caméra.
+//
+//  Réservé à la verrerie : sur un gobelet le décor occupe déjà toute la
+//  paroi. Le discriminant est mesh_impression (null = gobelet).
+// ══════════════════════════════════════════════════════════════════
+const KZ_ZOOM_VERSION     = 1;
+const KZ_ZOOM_NIVEAUX     = 4;      // niveau 0 = vue d'ensemble, 3 clics pour aller au plus près
+const KZ_ZOOM_REMPLISSAGE = 0.55;   // part de la HAUTEUR du cadre occupée par le bandeau
+                                    // imprimé au zoom max. On ne borne PAS par la largeur :
+                                    // le décor fait le tour du verre, donc refuser que les
+                                    // bords débordent revient à interdire au texte de
+                                    // grossir. Au plus près, on ne voit que le buvant.
+const KZ_ZOOM_PLANCHER    = 0.15;   // jamais plus près que 22 % de la distance d'origine
+const KZ_ZOOM_DUREE       = 420;    // ms — transition calée sur le TEMPS, pas sur les images
+                                    // par seconde : sur un téléphone lent la durée
+                                    // ressentie reste la même.
+
+// Profils par modèle — table d'exceptions.
+// Le réglage général (4 crans, bandeau à 55 % de la hauteur) vaut pour le
+// verre à vin et pour tout futur modèle.
+// La FLÛTE est la seule exception : son bandeau est très haut sur un verre
+// étroit, donc au zoom le bord sortait du cadre et on ne voyait plus qu'une
+// paroi blanche. Un seul cran, moins rapproché, et la visée monte jusqu'au
+// centre du bandeau pour que le BORD du verre reste visible.
+// Pour traiter un autre modèle à part, ajouter une ligne :
+//   'MonVerre.glb': { niveaux: 3, remplissage: 0.45 },
+// Verre à vin : MÊME cadrage de référence qu'avant (remplissage 0.55,
+// caméra à 1,12) mais atteint en UN SEUL clic au lieu de quatre. Le défaut
+// n'était pas la distance finale, c'était la progression : quatre petits
+// pas donnaient l'impression que ça ne zoomait pas.
+// cransSup : crans supplémentaires au-delà du cadrage de référence, s'il
+// en faut un jour de plus rapprochés.
+const KZ_ZOOM_PROFILS = {
+  'FluteChampagne.glb': { niveaux: 2, remplissage: 0.37 },
+  'VerreAVin.glb':      { niveaux: 2, remplissage: 0.47 },
+};
+function kzProfilZoom() {
+  var u = '';
+  try { u = (modele3DCourant().url || '').split('/').pop(); } catch (e) {}
+  var p = KZ_ZOOM_PROFILS[u] || {};
+  return {
+    niveaux:     p.niveaux     || KZ_ZOOM_NIVEAUX,
+    remplissage: p.remplissage || KZ_ZOOM_REMPLISSAGE,
+    cransSup:    p.cransSup    || 0
+  };
+}
+
+let kzDecorMeshes = [];
+let kzDecorOK = false, kzDecorY = 0, kzDecorH = 0, kzDecorD = 0;
+let kzZoomZ = [], kzZoomY = [], kzZoomNiveau = 0, kzZoomNiveauMax = 0;
+let kzCurZ = null, kzCurY = 0, kzCibZ = null, kzCibY = 0;
+let kzAnimT0 = 0, kzAnimZ0 = 0, kzAnimY0 = 0;
+
+function kzMaintenant() {
+  return (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+}
+function kzSansAnimation() {
+  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+}
+
+function kzEstVerrerie() {
+  try { return !!modele3DCourant().mesh_impression; } catch (e) { return false; }
+}
+
+// Boîte englobante des SEULS meshes qui portent le décor, en coordonnées
+// monde, une fois le groupe cadré. Donne la hauteur du bandeau et son
+// centre : c'est la cible du zoom.
+function kzMesureDecor() {
+  kzDecorOK = false;
+  if (!kzEstVerrerie() || !kzDecorMeshes.length) return;
+  const boite = new THREE.Box3();
+  let vide = true;
+  kzDecorMeshes.forEach(m => {
+    if (!m || !m.isMesh) return;
+    m.updateMatrixWorld(true);
+    const b = new THREE.Box3().setFromObject(m);
+    if (b.isEmpty()) return;
+    if (vide) { boite.copy(b); vide = false; } else { boite.union(b); }
+  });
+  if (vide) return;
+  const taille = boite.getSize(new THREE.Vector3());
+  const centre = boite.getCenter(new THREE.Vector3());
+  kzDecorY = centre.y;
+  kzDecorH = taille.y;
+  kzDecorD = Math.max(taille.x, taille.z);
+  kzDecorOK = kzDecorH > 0.0001 && isFinite(kzDecorY);
+}
+
+// Pré-calcule la distance caméra et la hauteur de visée de chaque niveau.
+function kzZoomInit() {
+  const prof = kzProfilZoom();
+  kzZoomZ = [storedCameraZ];
+  kzZoomY = [0];
+  kzZoomNiveau = 0; kzZoomNiveauMax = 0;
+  kzCurZ = storedCameraZ; kzCurY = 0; kzCibZ = storedCameraZ; kzCibY = 0; kzAnimT0 = 0;
+  if (!kzDecorOK || !camera) { kzMajBoutons(); return; }
+  const fov = camera.fov * Math.PI / 180;
+  const asp = camera.aspect || 1;
+  // hauteur de champ nécessaire pour que le bandeau remplisse le cadre
+  const besoin = (kzDecorH / prof.remplissage);
+  let zMin = (besoin / 2) / Math.tan(fov / 2);
+  zMin = Math.max(zMin, storedCameraZ * KZ_ZOOM_PLANCHER);
+  // décor déjà quasi plein cadre : inutile de proposer un zoom
+  if (!isFinite(zMin) || zMin >= storedCameraZ * 0.97) { kzMajBoutons(); return; }
+  const pas = prof.niveaux - 1;                    // crans pour atteindre le cadrage de référence
+  const total = pas + prof.cransSup;               // + les crans supplémentaires éventuels
+  for (let i = 1; i <= total; i++) {
+    const t = i / pas;                             // > 1 sur les crans supplémentaires
+    kzZoomZ[i] = storedCameraZ * Math.pow(zMin / storedCameraZ, t);
+    kzZoomY[i] = kzDecorY * Math.min(1, t);        // la visée ne dépasse pas le centre du bandeau
+  }
+  kzZoomNiveauMax = total;
+  kzMajBoutons();
+}
+
+// Seul endroit qui écrit la position de la caméra. onResize() passe par
+// ici : c'est ce qui empêche un redimensionnement d'annuler le zoom.
+function kzAppliquerCamera() {
+  if (!camera) return;
+  const z = (kzCurZ === null) ? storedCameraZ : kzCurZ;
+  camera.position.set(0, kzCurY, z);
+  camera.lookAt(0, kzCurY, 0);
+  camera.updateProjectionMatrix();
+}
+
+function kzAllerNiveau(n) {
+  if (!kzZoomZ.length) return;
+  n = Math.max(0, Math.min(kzZoomNiveauMax, n));
+  kzZoomNiveau = n;
+  if (kzCurZ === null) { kzCurZ = storedCameraZ; kzCurY = 0; }
+  kzCibZ = kzZoomZ[n]; kzCibY = kzZoomY[n];
+  if (kzSansAnimation()) {
+    kzAnimT0 = 0; kzCurZ = kzCibZ; kzCurY = kzCibY; kzAppliquerCamera();
+  } else {
+    kzAnimZ0 = kzCurZ; kzAnimY0 = kzCurY; kzAnimT0 = kzMaintenant();
+  }
+  lastInteraction = Date.now();
+  kzMajBoutons();
+}
+
+// Interpolation appelée à chaque frame depuis animate().
+function kzAnimerZoom() {
+  if (!kzAnimT0 || kzCibZ === null) return;
+  let t = (kzMaintenant() - kzAnimT0) / KZ_ZOOM_DUREE;
+  if (t >= 1) { t = 1; kzAnimT0 = 0; }
+  const e = 1 - Math.pow(1 - t, 3);        // ease-out cubique
+  kzCurZ = kzAnimZ0 + (kzCibZ - kzAnimZ0) * e;
+  kzCurY = kzAnimY0 + (kzCibY - kzAnimY0) * e;
+  kzAppliquerCamera();
+}
+
+function kzMajBoutons() {
+  const ui = document.getElementById('kz-zoom');
+  if (!ui) return;
+  ui.style.display = (!KZ_MINI && kzEstVerrerie() && kzZoomNiveauMax > 0) ? 'flex' : 'none';
+  const bp = document.getElementById('kz-zoom-plus');
+  const bm = document.getElementById('kz-zoom-moins');
+  if (bp) bp.disabled = kzZoomNiveau >= kzZoomNiveauMax;
+  if (bm) bm.disabled = kzZoomNiveau <= 0;
+}
+
+function kzInitBoutons() {
+  const bp = document.getElementById('kz-zoom-plus');
+  const bm = document.getElementById('kz-zoom-moins');
+  if (bp) bp.addEventListener('click', e => { e.preventDefault(); kzAllerNiveau(kzZoomNiveau + 1); });
+  if (bm) bm.addEventListener('click', e => { e.preventDefault(); kzAllerNiveau(kzZoomNiveau - 1); });
+  kzMajBoutons();
+}
+
+// Toute capture (aperçu commande, partage) doit se faire à la vue
+// d'ensemble, sinon un client qui a zoomé enverrait un gros plan.
+function kzCaptureNeutre(fn) {
+  const sZ = kzCurZ, sY = kzCurY;
+  const neutre = kzZoomZ.length ? kzZoomZ[0] : storedCameraZ;
+  kzCurZ = neutre; kzCurY = 0; kzAppliquerCamera();
+  try { return fn(); }
+  finally { kzCurZ = sZ; kzCurY = sY; kzAppliquerCamera(); }
+}
+
+function initThree() {
+  const container = document.getElementById('canvas-container');
+  var size = getSize();
+  var w = size.w, h = size.h;
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(w, h);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.shadowMap.enabled = true;
+  renderer.domElement.style.display = 'block';
+  container.appendChild(renderer.domElement);
+  scene = new THREE.Scene();
+  const bgCanvas = document.createElement('canvas');
+  bgCanvas.width = bgCanvas.height = 512;
+  const bgCtx    = bgCanvas.getContext('2d');
+  const gradient = bgCtx.createRadialGradient(256, 256, 0, 256, 256, 380);
+  gradient.addColorStop(0, '#dddbd8');
+  gradient.addColorStop(1, '#a8a5a1');
+  bgCtx.fillStyle = gradient;
+  bgCtx.fillRect(0, 0, 512, 512);
+  const shadowGrad = bgCtx.createRadialGradient(256, 450, 0, 256, 450, 115);
+  shadowGrad.addColorStop(0,    'rgba(20, 16, 12, 0.88)');
+  shadowGrad.addColorStop(0.35, 'rgba(20, 16, 12, 0.60)');
+  shadowGrad.addColorStop(0.65, 'rgba(20, 16, 12, 0.25)');
+  shadowGrad.addColorStop(1,    'rgba(20, 16, 12, 0)');
+  bgCtx.save();
+  bgCtx.translate(256, 450); bgCtx.scale(1, 0.32); bgCtx.translate(-256, -450);
+  bgCtx.fillStyle = shadowGrad;
+  bgCtx.beginPath(); bgCtx.arc(256, 450, 115, 0, Math.PI * 2); bgCtx.fill();
+  bgCtx.restore();
+  scene.background = new THREE.CanvasTexture(bgCanvas);
+  camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+  camera.position.set(0, 0, 5);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+  dirLight.position.set(3, 5, 3); dirLight.castShadow = true; scene.add(dirLight);
+  const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  backLight.position.set(-3, 2, -3); scene.add(backLight);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), new THREE.ShadowMaterial({ opacity: 0.15 }));
+  floor.rotation.x = -Math.PI / 2; floor.position.y = -1.5; floor.receiveShadow = true; scene.add(floor);
+  const gobeletTexture    = new THREE.CanvasTexture(textureCanvas);
+  gobeletTexture.wrapS    = THREE.RepeatWrapping;
+  gobeletTexture.wrapT    = THREE.RepeatWrapping;
+  gobeletTexture.repeat.set(1, 1);
+  gobeletTexture.offset.set(0, 0);
+  gobeletTexture.flipY    = false;
+  gobeletTexture.encoding = THREE.sRGBEncoding;
+  // KZ_ZOOM v1 — sans anisotropie, le décor devient flou dès qu'on regarde
+  // le cylindre de biais. C'est LA correction qui rend le zoom lisible.
+  try {
+    const maxAniso = renderer.capabilities.getMaxAnisotropy();
+    if (maxAniso > 1) gobeletTexture.anisotropy = maxAniso;
+  } catch (e) { /* capacité absente : on garde le comportement par défaut */ }
+  window._gobeletTexture  = gobeletTexture;
+  bodyMaterial = new THREE.MeshStandardMaterial({
+    map: gobeletTexture, color: new THREE.Color('#ffffff'),
+    roughness: 0.3, metalness: 0.1,
+    transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
+  });
+  bodyMaterial.needsUpdate = true;
+  rotY = CFG.rotation_y !== undefined ? (Math.PI + CFG.rotation_y) : Math.PI;
+  gobeletGroup = new THREE.Group();
+  gobeletGroup.rotation.x = 0.035;
+  gobeletGroup.rotation.y = rotY;
+  const _targetY = rotY, _startY = rotY + Math.PI, _entryStart = Date.now();
+  gobeletGroup.rotation.y = _startY;
+  (function _animEntry() {
+    const t = Math.min((Date.now() - _entryStart) / 1100, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    gobeletGroup.rotation.y = _startY + (_targetY - _startY) * ease;
+    if (t < 1) requestAnimationFrame(_animEntry);
+  })();
+  scene.add(gobeletGroup);
+  loadGobelet();
+  initInteraction();
+  kzInitBoutons();
+  window.addEventListener('resize', onResize);
+  onResize();
+  animate();
+}
+
+function loadGobelet() {
+  const url = CFG.model_url || `${REPO_BASE}/Gobelet 25 33.glb`;
+  if (typeof THREE.GLTFLoader === 'undefined') { fallbackGeometry(); return; }
+  const loader = new THREE.GLTFLoader();
+  if (typeof THREE.DRACOLoader !== 'undefined') {
+    const draco = new THREE.DRACOLoader();
+    draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
+    loader.setDRACOLoader(draco);
+  }
+  loader.load(url, gltf => {
+    const meshImpr = modele3DCourant().mesh_impression;
+    const fantomes = [];
+    decorMats = []; corpsMats = []; echoObjs = []; kzDecorMeshes = [];
+    gltf.scene.traverse(child => {
+      if (!child.isMesh) return;
+      child.castShadow = false;
+      // ── Corps du verre (tige, pied…) : teinte unie, AUCUN décor.
+      // Sinon le visuel coule sur la tige et le pied. depthWrite:true pour que
+      // la tige occulte le pied derrière elle — sans ça, un matériau
+      // transparent ne s'écrit pas dans le tampon de profondeur et TOUT se voit.
+      if (meshImpr && child.name !== meshImpr) {
+        const mc = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(parseHexColor(state.gobeletColor)),
+          roughness: 0.45, metalness: 0.02,
+          transparent: true, opacity: 0.9, depthWrite: true, side: THREE.FrontSide,
+        });
+        mc.needsUpdate = true;
+        child.material = mc;
+        child.renderOrder = 0;              // le corps est dessiné EN PREMIER
+        corpsMats.push(mc);
+        return;
+      }
+      // ── Coque d'impression (ou tout le gobelet si mesh_impression = null)
+      const mat = new THREE.MeshStandardMaterial({
+        map: window._gobeletTexture, color: new THREE.Color('#ffffff'),
+        roughness: 0.3, metalness: 0.1,
+        transparent: true, opacity: meshImpr ? 1 : 0.82,
+        depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
+      });
+      mat.needsUpdate = true;
+      child.material = mat;
+      // La coque passe APRÈS le corps : three.js trie les objets transparents
+      // par distance, et ici les deux ont le même centre → ordre imprévisible.
+      child.renderOrder = 10;
+      decorMats.push(mat);
+      kzDecorMeshes.push(child);
+      // ── FACE ARRIÈRE FANTÔME ────────────────────────────────────────────
+      // Sur un verre givré on devine le décor de l'autre côté. On clone la
+      // coque en n'affichant QUE ses faces arrière. Sans test de profondeur,
+      // son intensité ne dépend plus de l'opacité du verre.
+      if (meshImpr && ECHO_ARRIERE > 0) {
+        const fant = child.clone();
+        const mf   = mat.clone();
+        mf.side = THREE.BackSide;
+        mf.opacity = ECHO_ARRIERE;
+        mf.depthWrite = false;
+        mf.depthTest  = false;
+        mf.needsUpdate = true;
+        fant.material = mf; fant.renderOrder = 5; fant.castShadow = false;
+        fantomes.push({ parent: child.parent, obj: fant });
+      }
+    });
+    // Ajout hors traverse, pour ne pas la perturber
+    fantomes.forEach(f => { if (f.parent) { f.parent.add(f.obj); echoObjs.push(f.obj); } });
+    // Sécurité : si le nom du mesh d'impression ne correspond à rien, on
+    // retexture tout le modèle plutôt que de livrer un verre vierge.
+    if (meshImpr && !decorMats.length) {
+      console.warn('[kuztom] mesh_impression "' + meshImpr + '" introuvable — décor appliqué à tout le modèle');
+      corpsMats = [];
+      gltf.scene.traverse(child => {
+        if (!child.isMesh) return;
+        const mat = new THREE.MeshStandardMaterial({
+          map: window._gobeletTexture, color: new THREE.Color('#ffffff'),
+          roughness: 0.3, metalness: 0.1,
+          transparent: true, opacity: 0.82, depthWrite: false, alphaTest: 0, side: THREE.FrontSide,
+        });
+        child.material = mat;
+        decorMats.push(mat);
+        kzDecorMeshes.push(child);
+      });
+    }
+    bodyMaterial = decorMats[decorMats.length - 1] || bodyMaterial;
+    gobeletGroup.add(gltf.scene);
+    const box    = new THREE.Box3().setFromObject(gobeletGroup);
+    const size   = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    gobeletGroup.position.sub(center);
+    const scaleFactor = 1.746 / size.y;
+    gobeletGroup.scale.setScalar(scaleFactor);
+    gobeletGroup.rotation.x = 0.21;
+    gobeletGroup.rotation.z = 0;
+    gobeletGroup.scale.setScalar(gobeletGroup.scale.x * 0.805);
+    gobeletGroup.position.y -= 0.02;
+    gobeletGroup.rotation.y = rotY;
+    gobeletGroup.updateMatrixWorld(true);
+    var finalBox  = new THREE.Box3().setFromObject(gobeletGroup);
+    var finalSize = finalBox.getSize(new THREE.Vector3());
+    var finalMax  = Math.max(finalSize.x, finalSize.y, finalSize.z);
+    storedCameraZ = (finalMax / 2) / Math.tan((45 * Math.PI / 180) / 2) * 1.32;
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix();
+    // KZ_ZOOM v1 — mesure du bandeau imprimé et préparation des niveaux.
+    // Doit venir APRÈS storedCameraZ et updateMatrixWorld, AVANT onResize().
+    kzMesureDecor();
+    kzZoomInit();
+    onResize();
+    drawTexture();
+    requestAnimationFrame(() => { if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true; });
+    hideLoading();
+  }, null, () => fallbackGeometry());
+}
+
+function fallbackGeometry() {
+  gobeletGroup.add(new THREE.Mesh(new THREE.CylinderGeometry(1.12, 0.88, 2.9, 64, 1, true), bodyMaterial));
+  const bottom = new THREE.Mesh(new THREE.CircleGeometry(0.88, 64), new THREE.MeshStandardMaterial({
+    color: new THREE.Color(parseHexColor(state.gobeletColor)), roughness: 0.35, metalness: 0.04
+  }));
+  bottom.rotation.x = -Math.PI / 2; bottom.position.y = -1.45;
+  gobeletGroup.add(bottom);
+  drawTexture(); hideLoading();
+}
+
+function hideLoading() {
+  const el = document.getElementById('loading-indicator');
+  if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
+  window.parent.postMessage({ type: 'kuztom_ready' }, '*');
+}
+
+let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (autoRotate && gobeletGroup && !isDragging && !photoEditMode) {
+    if (Date.now() - lastInteraction > 2000) { rotY += autoRotateSpeed; gobeletGroup.rotation.y = rotY; }
+  }
+  kzAnimerZoom();
+  renderer.render(scene, camera);
+}
+
+function initInteraction() {
+  const el = renderer.domElement;
+  el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; lastInteraction = Date.now(); });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    rotY += (e.clientX - lastPointerX) * 0.01; lastPointerX = e.clientX;
+    gobeletGroup.rotation.y = rotY;
+  });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+  el.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    isDragging = true; lastPointerX = e.touches[0].clientX; lastInteraction = Date.now();
+  }, { passive: true });
+  el.addEventListener('touchmove', e => {
+    if (!isDragging || e.touches.length !== 1) return;
+    rotY += (e.touches[0].clientX - lastPointerX) * 0.01; lastPointerX = e.touches[0].clientX;
+    gobeletGroup.rotation.y = rotY; e.preventDefault();
+  }, { passive: false });
+  el.addEventListener('touchend', () => { isDragging = false; });
+}
+
+function onResize() {
+  if (!renderer) return;
+  var size = getSize();
+  var w = size.w, h = size.h;
+  if (w === 0 || h === 0) return;
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  // KZ_ZOOM v1 — on ne réécrit plus la position en dur : kzAppliquerCamera()
+  // respecte le niveau de zoom en cours. Sans ça, tourner le téléphone
+  // annulait le zoom.
+  kzAppliquerCamera();
+}
+
+window.addEventListener('message', function(e) {
+  const data = e.data;
+  if (!data || typeof data !== 'object') return;
+
+  if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
+    const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId)
+              || (CFG.arch_zones  || []).find(z => z.id === data.zoneId);
+    if (zone) { state.texts[zone.id] = data.value; drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true; }
+  }
+
+  if (data.type === 'UPDATE_ZONE_COLOR' && data.zoneId && data.color) {
+    const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId);
+    if (zone) { zone._colorOverride = data.color; drawTexture(); } return;
+  }
+
+  if (data.type === 'UPDATE_ZONE_FONT' && data.zoneId && data.font) {
+    const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId);
+    if (zone) { zone.font_family = data.font; document.fonts.load(`48px "${data.font}"`).then(() => drawTexture()); } return;
+  }
+
+  if (data.type === 'SET_AUTO_ROTATE') { autoRotate = !!data.value; autoRotateSpeed = data.speed || 0.003; return; }
+
+  if (data.type === 'REQUEST_SHARE_IMAGE') {
+    try {
+      // KZ_ZOOM v1 — capture toujours à la vue d'ensemble
+      const dataUrl = kzCaptureNeutre(function() {
+        renderer.render(scene, camera);
+        return renderer.domElement.toDataURL('image/png');
+      });
+      window.parent.postMessage({ type: 'SHARE_IMAGE_READY', dataUrl }, '*');
+    } catch(e) { window.parent.postMessage({ type: 'SHARE_IMAGE_ERROR' }, '*'); }
+    return;
+  }
+
+  if (data.type === 'REQUEST_PREVIEW_SCREENSHOT') {
+    try {
+      const savedRotY = rotY;
+      gobeletGroup.rotation.y = 0;
+      // KZ_ZOOM v1 — l'aperçu joint à la commande ne doit jamais être un gros plan
+      const dataUrl = kzCaptureNeutre(function() {
+        renderer.render(scene, camera);
+        return renderer.domElement.toDataURL('image/jpeg', 0.88);
+      });
+      gobeletGroup.rotation.y = savedRotY;
+      renderer.render(scene, camera);
+      window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT', dataUrl }, '*');
+    } catch(e) { window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT_ERROR' }, '*'); }
+    return;
+  }
+
+  if (data.type === 'SET_DESIGN_IMAGE' && data.dataUrl) {
+    const img = new Image();
+    img.onload = () => {
+      state.designImage = img;
+      drawTexture();
+      if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+    };
+    img.src = data.dataUrl;
+    return;
+  }
+
+  if (data.type === 'REQUEST_PRINT_PNG') {
+    (async function() {
+      try {
+        if (window.__kzPrinting) return;
+        window.__kzPrinting = true;
+        const W = TEX_W, H = TEX_H;
+        const printCanvas = document.createElement('canvas');
+        printCanvas.width = W; printCanvas.height = H;
+        const pctx = printCanvas.getContext('2d', {alpha: true});
+        pctx.clearRect(0, 0, W, H);
+        (CFG.photo_zones || []).forEach(zone => {
+          const img = state.photos[zone.id];
+          if (!img) return;
+          const zx=zone.x, zy=zone.y, zw=zone.width, zh=zone.height;
+          const iw=img.naturalWidth||img.width||1, ih=img.naturalHeight||img.height||1;
+          const crop = state.photoCrop[zone.id] || {zoom:1,offsetX:0,offsetY:0};
+          const baseScale = Math.max(zw/iw, zh/ih);
+          const scale = baseScale * crop.zoom;
+          const sw=iw*scale, sh=ih*scale;
+          const ox=zx+(zw-sw)/2+crop.offsetX, oy=zy+(zh-sh)/2+crop.offsetY;
+          KZ_zoneBegin(pctx, zone);
+          KZ_zonePath(pctx, zone); pctx.clip();
+          pctx.drawImage(img, ox, oy, sw, sh);
+          KZ_zoneEnd(pctx);
+        });
+        if (state.designImage) {
+          const d = CFG.design || {x:0,y:0,width:W,height:H};
+          pctx.drawImage(state.designImage, d.x||0, d.y||0, W, H);
+        }
+        const families = [...new Set([
+          ...(CFG.text_zones||[]).map(z=>z.font_family),
+          ...(CFG.arch_zones||[]).map(z=>z.font_family)
+        ].filter(Boolean))];
+        const fontForcer = document.createElement('div');
+        fontForcer.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;';
+        families.forEach(font => {
+          const span = document.createElement('span');
+          span.style.fontFamily = `'${font}'`;
+          span.textContent = 'AaBbCc';
+          fontForcer.appendChild(span);
+          if (!document.querySelector(`link[href*="${font.replace(/\s+/g,'+')}"]`)) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/\s+/g,'+')}:wght@400;700&display=swap`;
+            document.head.appendChild(link);
+          }
+        });
+        document.body.appendChild(fontForcer);
+        await document.fonts.ready;
+        for (const font of families) {
+          try { await document.fonts.load(`48px '${font}'`); } catch(e) {}
+        }
+        await new Promise(r => setTimeout(r, 600));
+        document.body.removeChild(fontForcer);
+        const STROKE_WIDTH = 2.5;
+        (CFG.text_zones||[]).forEach(zone => {
+          const txt = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'')).trim();
+          if (!txt) return;
+          const lh = zone.lineHeight||1.3;
+          const lines = txt.split('\n');
+          // KZ_LAYOUT v1 : même fonction que l'écran et que l'admin.
+          // (avant : plancher à 6 ici contre 8 à l'écran → l'imprimeur pouvait
+          //  descendre plus bas que ce que le client avait vu)
+          const fs = KZ_fontSize(pctx, zone, txt, zone.width, zone.height);
+          const cx=zone.x+zone.width/2, cy=zone.y+zone.height/2;
+          const angle=(zone.rotation||0)*Math.PI/180;
+          pctx.save();
+          if(angle){pctx.translate(cx,cy);pctx.rotate(angle);pctx.translate(-cx,-cy);}
+          pctx.font=`${fs}px '${zone.font_family||'Jost'}'`;
+          pctx.textAlign=zone.align||'center';
+          pctx.textBaseline='middle';
+          // KZ_LAYOUT v1 : même ancrage horizontal qu'à l'écran (drawTextZone).
+          // Avant, l'imprimeur laissait 8px de marge que l'écran ne laissait pas :
+          // le PNG livré n'était pas exactement ce que le client avait validé.
+          const tx = zone.align === 'center' ? zone.x + zone.width/2
+                   : zone.align === 'right'  ? zone.x + zone.width
+                   : zone.x;
+          const lineH=fs*lh, totalH=lines.length*lineH;
+          const startY=cy-totalH/2+lineH/2;
+          const color=zone._colorOverride||zone.color||'#7a5c2e';
+          const strokeW=(zone.stroke_print!==undefined?zone.stroke_print:STROKE_WIDTH);
+          if(strokeW>0){ pctx.strokeStyle=color; pctx.lineWidth=strokeW; pctx.lineJoin='round';
+            lines.forEach((line,i)=>pctx.strokeText(line,tx,startY+i*lineH)); }
+          pctx.fillStyle=color;
+          lines.forEach((line,i)=>pctx.fillText(line,tx,startY+i*lineH));
+          pctx.restore();
+        });
+        (CFG.arch_zones||[]).forEach(zone => {
+          const txt = (state.texts[zone.id]||'').trim();
+          if (!txt) return;
+          const isUp=(zone.direction||'up')==='up';
+          const startDeg=zone.start_angle!==undefined?zone.start_angle:-90;
+          const r=zone.radius||280, spacing=zone.letter_spacing||1.0, fs=zone.font_size||60;
+          pctx.save();
+          pctx.font=`${fs}px '${zone.font_family||'Dancing Script'}'`;
+          const color=zone._colorOverride||zone.color||'#7a5c2e';
+          pctx.strokeStyle=color; pctx.fillStyle=color;
+          pctx.lineWidth=STROKE_WIDTH; pctx.lineJoin='round';
+          pctx.textAlign='center'; pctx.textBaseline='alphabetic';
+          const chars=txt.split('');
+          const charWidths=chars.map(ch=>pctx.measureText(ch).width*spacing);
+          const total=charWidths.reduce((a,b)=>a+b,0);
+          const totalRad=total/r, startRad=startDeg*Math.PI/180;
+          if(isUp){
+            let angle=startRad-totalRad/2;
+            chars.forEach((ch,i)=>{
+              const half=charWidths[i]/(2*r); angle+=half;
+              pctx.save();
+              pctx.translate(zone.cx+r*Math.cos(angle),zone.cy+r*Math.sin(angle));
+              pctx.rotate(angle+Math.PI/2);
+              pctx.strokeText(ch,0,0); pctx.fillText(ch,0,0);
+              pctx.restore(); angle+=half;
+            });
+          } else {
+            let angle=startRad+totalRad/2;
+            chars.forEach((ch,i)=>{
+              const half=charWidths[i]/(2*r); angle-=half;
+              pctx.save();
+              pctx.translate(zone.cx+r*Math.cos(angle),zone.cy+r*Math.sin(angle));
+              pctx.rotate(angle-Math.PI/2);
+              pctx.strokeText(ch,0,0); pctx.fillText(ch,0,0);
+              pctx.restore(); angle-=half;
+            });
+          }
+          pctx.restore();
+        });
+        // ── PNG en binaire (même qualité, plus léger que le base64) ──
+        const blob = await new Promise(function (res) { printCanvas.toBlob(res, 'image/png'); });
+        if (!blob) throw new Error('Génération du PNG impossible');
+        const FAR_FUTURE = 9999999999;
+        const nowSeconds = Math.floor(Date.now() / 1000);
+        const inverted = String(FAR_FUTURE - nowSeconds).padStart(10, '0');
+        const designSlug = (CFG.shopify_handle || CFG.id || 'design').slice(0, 40);
+        const nameTag = data.origin || designSlug;
+        const rand = Math.random().toString(36).slice(2, 6);
+        const filename = `orders/${inverted}-${rand}-${nameTag}.png`;
+        // Envoi binaire via XHR → permet de connaître la VRAIE progression.
+        function kzUpload() {
+          return new Promise(function (resolve, reject) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', PROXY_URL + '/file?path=' + encodeURIComponent(filename), true);
+            xhr.setRequestHeader('Content-Type', 'image/png');
+            xhr.setRequestHeader('X-Auth-Key', PROXY_KEY);
+            xhr.timeout = 45000;
+            xhr.upload.onprogress = function (ev) {
+              if (ev.lengthComputable) {
+                const pct = Math.round((ev.loaded / ev.total) * 100);
+                window.parent.postMessage({ type: 'PRINT_PNG_PROGRESS', percent: pct }, '*');
+              }
+            };
+            xhr.onload = function () {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                try { resolve(JSON.parse(xhr.responseText)); }
+                catch (e) { reject(new Error('Réponse invalide')); }
+              } else { reject(new Error('Upload échoué: ' + xhr.status)); }
+            };
+            xhr.onerror = function () { reject(new Error('Erreur réseau')); };
+            xhr.ontimeout = function () { reject(new Error('Timeout')); };
+            xhr.send(blob);
+          });
+        }
+        let uploadData = null, lastErr = null;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+          try { uploadData = await kzUpload(); lastErr = null; break; }
+          catch (err) { lastErr = err; if (attempt < 3) await new Promise(r => setTimeout(r, 1500 * attempt)); }
+        }
+        if (lastErr || !uploadData || !uploadData.url) throw (lastErr || new Error('Upload échoué après 3 tentatives'));
+        // Toujours l'URL du Worker (fini le lien github périmé qui tombait en 404).
+        const pngUrl = uploadData.url;
+        window.__kzPrinting = false;
+        window.parent.postMessage({ type: 'PRINT_PNG_READY', url: pngUrl }, '*');
+      } catch(e) {
+        window.__kzPrinting = false;
+        console.error('generatePrintPNG error:', e);
+        window.parent.postMessage({ type: 'PRINT_PNG_ERROR', error: e.message }, '*');
+      }
+    })();
+    return;
+  }
+
+  if (data.type === 'UPDATE_COLOR' && data.value) {
+    state.gobeletColor = data.value;
+    if (data.opacity !== undefined) CFG.gobelet_opacity = data.opacity;
+    if (data.textColorOverride) { (CFG.text_zones || []).forEach(z => { z._colorOverride = data.textColorOverride; }); }
+    else { (CFG.text_zones || []).forEach(z => { delete z._colorOverride; }); }
+    drawTexture();
+    if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+  }
+
+  if (data.type === 'UPDATE_PHOTO' && data.zoneId && data.value) {
+    const img = new Image();
+    img.onload = function() {
+      state.photos[data.zoneId] = img;
+      state.photoCrop[data.zoneId] = {zoom: 1, offsetX: 0, offsetY: 0};
+      state.activeCropZone = data.zoneId;
+      photoEditMode = true;
+      drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+      window.parent.postMessage({type: 'PHOTO_READY', zoneId: data.zoneId}, '*');
+    };
+    img.src = data.value;
+  }
+
+  if (data.type === 'PHOTO_CROP' && data.zoneId) {
+    if (!state.photoCrop[data.zoneId]) state.photoCrop[data.zoneId] = {zoom:1, offsetX:0, offsetY:0};
+    if (data.zoom !== undefined) state.photoCrop[data.zoneId].zoom = Math.max(0.5, Math.min(5, data.zoom));
+    if (data.offsetX !== undefined) state.photoCrop[data.zoneId].offsetX = data.offsetX;
+    if (data.offsetY !== undefined) state.photoCrop[data.zoneId].offsetY = data.offsetY;
+    drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+  }
+
+  if (data.type === 'PHOTO_CROP_RESET' && data.zoneId) {
+    state.photoCrop[data.zoneId] = {zoom:1, offsetX:0, offsetY:0};
+    drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
+  }
+});
+
+function showError(msg) {
+  const el  = document.getElementById('error-msg');
+  const txt = document.getElementById('error-text');
+  if (txt) txt.textContent = msg;
+  if (el)  el.classList.add('visible');
+  hideLoading();
+}
+
+async function init() {
+  await loadDesignConfig();
+  await Promise.all([loadFonts(), loadDesignImage()]);
+  drawTexture();
+  initThree();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+</body>
+</html>
