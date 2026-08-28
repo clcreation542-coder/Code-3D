@@ -185,7 +185,7 @@ function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 //  Bonus : plus de getImageData sur 2000×800 (qui coupait les grandes polices
 //  et coûtait des millions de lectures de pixels à chaque frappe).
 // ══════════════════════════════════════════════════════════════════
-const KZ_LAYOUT_VERSION = 4;
+const KZ_LAYOUT_VERSION = 5;
 const KZ_FS_MIN = 8;
 const KZ_FS_STEP = 2;
 const _kzMeasureCtx = document.createElement('canvas').getContext('2d');
@@ -226,10 +226,19 @@ function KZ_inkShift(ctx, zone, text, fs) {
   return (k.asc - k.desc) / 2;
 }
 
+// v5 : un bloc centre w x h tient dans une ellipse W x H si
+// (w/W)^2 + (h/H)^2 <= 1. L'ancien x 0,707 sur les DEUX cotes supposait un
+// bloc carre ; sur une ligne large et basse il bridait la police de 29 %
+// en largeur pour rien. Bloc carre : identique. Rectangle : identique.
+function KZ_fits(shape, W, H, w, h) {
+  if (W <= 0 || H <= 0) return false;
+  if (shape !== 'oval' && shape !== 'circle') return (w <= W && h <= H);
+  var u = w / W, v = h / H;
+  return (u * u + v * v) <= 1;
+}
+
 function KZ_fontSize(ctx, zone, text, boxW, boxH) {
   var shape = zone.shape || 'rectangle';
-  var fitW  = (shape === 'oval' || shape === 'circle') ? boxW * 0.707 : boxW;
-  var fitH  = (shape === 'oval' || shape === 'circle') ? boxH * 0.707 : boxH;
   var cap   = Math.max(KZ_FS_MIN, zone.font_size || 48);
   var lines = String(text == null ? '' : text).split('\n');
   if (!lines.some(function (l) { return l.trim(); })) return cap;
@@ -238,7 +247,7 @@ function KZ_fontSize(ctx, zone, text, boxW, boxH) {
   while (lo <= hi) {
     var mid = (lo + hi) >> 1;
     var k = KZ_ink(ctx, zone, text, mid);
-    if (k.w + KZ_INK_SW <= fitW && k.h + KZ_INK_SW <= fitH) { best = mid; lo = mid + 1; }
+    if (KZ_fits(shape, boxW, boxH, k.w + KZ_INK_SW, k.h + KZ_INK_SW)) { best = mid; lo = mid + 1; }
     else hi = mid - 1;
   }
   ctx.textBaseline = pb; ctx.textAlign = pa; ctx.font = pf;
