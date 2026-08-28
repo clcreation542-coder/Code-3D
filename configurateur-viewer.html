@@ -102,18 +102,18 @@ const PROXY_KEY  = '';
 //  tex_w / tex_h   : format du canvas ET du PNG imprimeur, calé sur la
 //                    zone imprimable réelle du produit.
 // ══════════════════════════════════════════════════════════════════
-const KZ_MODELES_VERSION = 2;
+const KZ_MODELES_VERSION = 3;
 const ECHO_ARRIERE = 0.22;   // écho du décor vu par transparence de l'autre côté
 
 const MODELES_3D = [
   { nom: 'Gobelet 25/33 cl (par défaut)', url: '',
-    mesh_impression: null,         tex_w: 1970, tex_h: 1140 },   // paroi ~194 × 115 mm
+    mesh_impression: null,         tex_w: 1970, tex_h: 1140 },   // Wobz : zone 197 × 114 mm à 254 dpi
   { nom: 'Verre à vin Events',
     url: 'https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb',
-    mesh_impression: 'Cylinder_1', tex_w: 1970, tex_h:  420 },   // zone 190 × 40 mm
+    mesh_impression: 'Cylinder_1', tex_w: 2221, tex_h:  472 },   // Dalvin : zone 188 × 40 mm à 300 dpi
   { nom: 'Flûte à champagne Events',
     url: 'https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb',
-    mesh_impression: 'Cylinder_1', tex_w: 1970, tex_h:  406 },   // format imprimeur fourni
+    mesh_impression: 'Cylinder_1', tex_w: 2091, tex_h:  413 },   // Wobz : zone 177 × 35 mm à 300 dpi
 ];
 
 function modele3DCourant() {
