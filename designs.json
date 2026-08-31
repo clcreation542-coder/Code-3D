@@ -17958,5 +17958,91 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-4-mthob1318n8j",
+    "name": "Verre à Vin Personnalisé – Guirlande de Citrons",
+    "shopify_handle": "verre-a-vin-guirlande-citrons",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+    "rotation_y": 3.1764992386296798,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-guirlande-citrons.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2221,
+      "height": 472
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 120,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mthob13463g6",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 111,
+        "y": 57,
+        "width": 888,
+        "height": 146,
+        "shape": "rectangle",
+        "placeholder": "Johan et Marine",
+        "font_family": "Italianno",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mthod5gvj5v6",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1392,
+        "y": 67,
+        "width": 555,
+        "height": 106,
+        "shape": "rectangle",
+        "placeholder": "16 novembre 2026",
+        "font_family": "Italianno",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
