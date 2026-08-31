@@ -17786,5 +17786,91 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-5-mthno1i7mrnk",
+    "name": "Verre à Vin Personnalisé – Duo Botanique Ocre",
+    "shopify_handle": "verre-a-vin-duo-botanique-ocre",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+    "rotation_y": 3.2986722862692828,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-duo-botanique-ocre.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2221,
+      "height": 472
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 120,
+        "color": "#916b2e",
+        "multiline": false,
+        "id": "mthno1i9yw35",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 315,
+        "y": 12,
+        "width": 371,
+        "height": 449,
+        "shape": "oval",
+        "placeholder": "Johanna\net\nManu",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 100,
+        "color": "#7a5c2e",
+        "multiline": false,
+        "id": "texte_mthnt7pn0tgk",
+        "label": "Texte",
+        "order": 2,
+        "x": 1396,
+        "y": 136,
+        "width": 549,
+        "height": 151,
+        "shape": "rectangle",
+        "placeholder": "10.08.2026",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
