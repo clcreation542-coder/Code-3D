@@ -17720,5 +17720,71 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-5-mthnaocbd4g4",
+    "name": "Verre à Vin Personnalisé – Plumes & Cœur Beige",
+    "shopify_handle": "verre-a-vin-plumes-coeur-beige",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+    "rotation_y": 1.5184364492350666,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-plumes-coeur-beige.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2221,
+      "height": 472
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 90,
+        "color": "#ba9171",
+        "multiline": false,
+        "id": "mthnaoccsb18",
+        "label": "Zone de texte",
+        "order": 1,
+        "x": 834,
+        "y": 23,
+        "width": 554,
+        "height": 309,
+        "shape": "rectangle",
+        "placeholder": "Charlène\n&\nAllan",
+        "font_family": "Parisienne",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
