@@ -36,15 +36,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
-        "lineHeight": 1.4,
-        "font_size": 81,
+        "lineHeight": 1.3,
+        "font_size": 93,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -64,7 +64,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 66,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -143,9 +143,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f6e8cb"
       }
     ],
     "text_zones": [
@@ -157,9 +157,9 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1371,
+        "x": 1389,
         "y": 280,
-        "width": 468,
+        "width": 433,
         "height": 533,
         "shape": "oval",
         "placeholder": "Mariage de\nTiphanie\net\nGuillaume",
@@ -172,7 +172,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 100,
+        "font_size": 80,
         "color": "#99745f",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -252,7 +252,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -260,16 +260,16 @@
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 82,
+        "font_size": 88,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1390,
-        "y": 363,
+        "x": 1394,
+        "y": 350,
         "width": 428,
-        "height": 414,
+        "height": 416,
         "shape": "circle",
         "placeholder": "Melissandre\net\nThibault",
         "font_family": "Great Vibes",
@@ -280,7 +280,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -359,7 +359,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -367,7 +367,7 @@
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 81,
+        "font_size": 115,
         "color": "#c49c27",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -387,7 +387,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 66,
+        "font_size": 79,
         "color": "#c49c27",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -427,14 +427,14 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 81,
+        "font_size": 115,
         "color": "#c49c27",
         "multiline": false,
         "id": "texte_mpvlei5u8ulj",
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1449,
-        "y": 611,
+        "y": 617,
         "width": 384,
         "height": 90,
         "shape": "rectangle",
@@ -486,15 +486,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e8dac7"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 73,
+        "font_size": 70,
         "color": "#87554a",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -514,14 +514,14 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 56,
+        "font_size": 65,
         "color": "#87554a",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1436,
-        "y": 645,
+        "x": 1437,
+        "y": 640,
         "width": 332,
         "height": 102,
         "shape": "rectangle",
@@ -592,24 +592,24 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 79,
+        "font_size": 80,
         "color": "#c6920b",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1423,
-        "y": 401,
+        "y": 418,
         "width": 318,
-        "height": 79,
+        "height": 59,
         "shape": "rectangle",
         "placeholder": "Mariage de",
         "font_family": "Graduate",
@@ -620,7 +620,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 62,
+        "font_size": 80,
         "color": "#c6920b",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -660,15 +660,15 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 66,
+        "font_size": 80,
         "color": "#c6920b",
         "multiline": false,
         "id": "texte_mppj2siuzf37",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1423,
-        "y": 483,
-        "width": 322,
+        "x": 1458,
+        "y": 497,
+        "width": 248,
         "height": 234,
         "shape": "rectangle",
         "placeholder": "Joac\net\nVicky",
@@ -719,15 +719,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 72,
+        "font_size": 85,
         "color": "#b07a84",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -747,15 +747,15 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 56,
+        "font_size": 79,
         "color": "#b07a84",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1360,
-        "y": 863,
-        "width": 477,
+        "x": 1404,
+        "y": 880,
+        "width": 390,
         "height": 109,
         "shape": "rectangle",
         "placeholder": "14 Juin 2025",
@@ -825,24 +825,24 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f7ed49"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 81,
+        "font_size": 90,
         "color": "#004aad",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1428,
-        "y": 355,
+        "y": 336,
         "width": 338,
-        "height": 373,
+        "height": 393,
         "shape": "circle",
         "placeholder": "Eva\net\nSébastien",
         "font_family": "Parisienne",
@@ -853,7 +853,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 52,
+        "font_size": 70,
         "color": "#004aad",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -932,15 +932,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 81,
+        "font_size": 90,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -960,7 +960,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 48,
+        "font_size": 72,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -1067,7 +1067,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 52,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -1146,15 +1146,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 81,
+        "font_size": 86,
         "color": "#7b5300",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -1233,15 +1233,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 81,
+        "font_size": 86,
         "color": "#5d7360",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -1281,7 +1281,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 44,
+        "font_size": 55,
         "color": "#5d7360",
         "multiline": false,
         "id": "texte_mppu2rkr9j7f",
@@ -1340,8 +1340,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1354,11 +1354,11 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1375,
-        "y": 411,
-        "width": 424,
-        "height": 261,
-        "shape": "rectangle",
+        "x": 1356,
+        "y": 404,
+        "width": 457,
+        "height": 268,
+        "shape": "oval",
         "placeholder": "Kenza & Youness\n18/10/2025",
         "font_family": "Allura",
         "align": "center",
@@ -1426,8 +1426,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1553,15 +1553,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
-        "lineHeight": 1.5,
-        "font_size": 81,
+        "lineHeight": 1.3,
+        "font_size": 85,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -1581,7 +1581,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 50,
+        "font_size": 80,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -1660,22 +1660,22 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 81,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1437,
-        "y": 279,
+        "y": 268,
         "width": 426,
         "height": 553,
         "shape": "circle",
@@ -1688,7 +1688,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -1767,14 +1767,14 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
-        "lineHeight": 1.5,
+        "lineHeight": 1.1,
         "font_size": 88,
         "color": "#000000",
         "multiline": false,
@@ -1782,9 +1782,9 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1348,
-        "y": 345,
+        "y": 373,
         "width": 430,
-        "height": 405,
+        "height": 318,
         "shape": "oval",
         "placeholder": "Angélique\n&\nThomas",
         "font_family": "Great Vibes",
@@ -1794,14 +1794,14 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 57,
+        "font_size": 60,
         "color": "#e07a5f",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1399,
-        "y": 724,
+        "x": 1382,
+        "y": 694,
         "width": 237,
         "height": 61,
         "shape": "rectangle",
@@ -1873,15 +1873,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 66,
+        "font_size": 77,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -1980,7 +1980,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2028,7 +2028,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 63,
+        "font_size": 80,
         "color": "#be9b54",
         "multiline": false,
         "id": "texte_mpqruvs9iajb",
@@ -2048,7 +2048,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 64,
+        "font_size": 84,
         "color": "#be9b54",
         "multiline": false,
         "id": "texte_mpqrxxl9y4ug",
@@ -2107,22 +2107,22 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 81,
+        "font_size": 82,
         "color": "#c2a85b",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1498,
-        "y": 325,
+        "y": 315,
         "width": 314,
         "height": 447,
         "shape": "circle",
@@ -2134,7 +2134,7 @@
       },
       {
         "lineHeight": 1.2,
-        "font_size": 68,
+        "font_size": 81,
         "color": "#c2a85b",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -2213,15 +2213,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f0e7da"
       }
     ],
     "text_zones": [
       {
-        "lineHeight": 1.5,
-        "font_size": 87,
+        "lineHeight": 1.3,
+        "font_size": 90,
         "color": "#804329",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -2241,7 +2241,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 87,
+        "font_size": 108,
         "color": "#804329",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -2281,7 +2281,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 77,
+        "font_size": 85,
         "color": "#804329",
         "multiline": false,
         "id": "texte_mpqsqxaxrnok",
@@ -2340,8 +2340,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -2354,10 +2354,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1472,
-        "y": 350,
-        "width": 277,
-        "height": 372,
+        "x": 1443,
+        "y": 384,
+        "width": 334,
+        "height": 300,
         "shape": "oval",
         "placeholder": "Laetitia\n&\nFrédéric",
         "font_family": "Great Vibes",
@@ -2475,7 +2475,7 @@
       },
       {
         "lineHeight": 1.2,
-        "font_size": 83,
+        "font_size": 100,
         "color": "#a2471b",
         "multiline": false,
         "id": "texte_mpqruvs9iajb",
@@ -2495,7 +2495,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 64,
+        "font_size": 82,
         "color": "#a2471b",
         "multiline": false,
         "id": "texte_mpqrxxl9y4ug",
@@ -2554,15 +2554,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ecdc90"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 81,
+        "font_size": 85,
         "color": "#746c36",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -2582,7 +2582,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 85,
         "color": "#746c36",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -2661,15 +2661,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 90,
+        "font_size": 100,
         "color": "#658774",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -2689,7 +2689,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 74,
+        "font_size": 80,
         "color": "#658774",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -2768,24 +2768,24 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 81,
+        "font_size": 91,
         "color": "#c2a85b",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1456,
-        "y": 361,
+        "y": 350,
         "width": 437,
-        "height": 394,
+        "height": 405,
         "shape": "circle",
         "placeholder": "Jonathan\n&\nJulie",
         "font_family": "Great Vibes",
@@ -2796,14 +2796,14 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 82,
         "color": "#c2a85b",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1431,
-        "y": 930,
+        "y": 932,
         "width": 487,
         "height": 99,
         "shape": "rectangle",
@@ -2875,24 +2875,24 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 81,
+        "font_size": 74,
         "color": "#e20613",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1418,
-        "y": 383,
-        "width": 520,
-        "height": 349,
+        "x": 1446,
+        "y": 400,
+        "width": 481,
+        "height": 321,
         "shape": "oval",
         "placeholder": "Kévin et Melody\n13 juin 2026",
         "font_family": "Allura",
@@ -2961,8 +2961,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -2979,7 +2979,7 @@
         "y": 330,
         "width": 392,
         "height": 446,
-        "shape": "circle",
+        "shape": "oval",
         "placeholder": "Célia\n&\nMaxime",
         "font_family": "Parisienne",
         "align": "center",
@@ -2989,7 +2989,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -3068,15 +3068,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 81,
+        "font_size": 86,
         "color": "#ba9071",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -3096,7 +3096,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 51,
+        "font_size": 68,
         "color": "#ba9071",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -3175,22 +3175,22 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 89,
+        "font_size": 90,
         "color": "#222a45",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1435,
-        "y": 323,
+        "x": 1444,
+        "y": 316,
         "width": 360,
         "height": 455,
         "shape": "circle",
@@ -3203,16 +3203,16 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#222a45",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1337,
-        "y": 950,
-        "width": 541,
-        "height": 122,
+        "x": 1399,
+        "y": 952,
+        "width": 450,
+        "height": 113,
         "shape": "rectangle",
         "placeholder": "29 août 2026",
         "font_family": "Parisienne",
@@ -3282,9 +3282,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fda3df"
       }
     ],
     "text_zones": [
@@ -3299,7 +3299,7 @@
         "x": 1444,
         "y": 345,
         "width": 365,
-        "height": 392,
+        "height": 385,
         "shape": "circle",
         "placeholder": "Tiffany\n&\nValentin",
         "font_family": "Allura",
@@ -3310,7 +3310,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 66,
+        "font_size": 80,
         "color": "#eb0090",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -3389,24 +3389,24 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 84,
+        "font_size": 87,
         "color": "#0d0d0d",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1266,
-        "y": 281,
+        "y": 253,
         "width": 559,
-        "height": 355,
+        "height": 383,
         "shape": "circle",
         "placeholder": "Emeline\n&\nCyril",
         "font_family": "Alegreya",
@@ -3417,7 +3417,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 78,
         "color": "#0d0d0d",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -3496,15 +3496,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 44,
+        "font_size": 52,
         "color": "#17622c",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -3544,7 +3544,7 @@
       },
       {
         "lineHeight": 1.3,
-        "font_size": 78,
+        "font_size": 85,
         "color": "#17622c",
         "multiline": false,
         "id": "texte_mppuo5abk95c",
@@ -3564,14 +3564,14 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 44,
+        "font_size": 50,
         "color": "#17622c",
         "multiline": false,
         "id": "texte_mpqyyoeqwk4b",
         "label": "Zone de texte 3",
         "order": 3,
         "x": 1457,
-        "y": 716,
+        "y": 709,
         "width": 391,
         "height": 78,
         "shape": "rectangle",
@@ -3623,8 +3623,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3651,7 +3651,7 @@
       },
       {
         "lineHeight": 1.2,
-        "font_size": 74,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -3730,22 +3730,22 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 74,
+        "font_size": 80,
         "color": "#5e7359",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1402,
-        "y": 271,
+        "x": 1400,
+        "y": 268,
         "width": 357,
         "height": 423,
         "shape": "oval",
@@ -3758,7 +3758,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 41,
+        "font_size": 57,
         "color": "#5e7359",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -3837,14 +3837,14 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
-        "lineHeight": 1.4,
+        "lineHeight": 1.2,
         "font_size": 81,
         "color": "#000000",
         "multiline": false,
@@ -3854,7 +3854,7 @@
         "x": 1349,
         "y": 318,
         "width": 430,
-        "height": 375,
+        "height": 366,
         "shape": "oval",
         "placeholder": "Maxime\net\nJennifer",
         "font_family": "Parisienne",
@@ -3865,14 +3865,14 @@
       },
       {
         "lineHeight": 1.2,
-        "font_size": 66,
+        "font_size": 76,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1439,
-        "y": 694,
+        "y": 687,
         "width": 250,
         "height": 61,
         "shape": "rectangle",
@@ -3944,8 +3944,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3959,7 +3959,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1387,
-        "y": 331,
+        "y": 313,
         "width": 430,
         "height": 447,
         "shape": "oval",
@@ -3972,7 +3972,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 65,
+        "font_size": 80,
         "color": "#c49c27",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -4051,7 +4051,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -4059,15 +4059,15 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 66,
+        "font_size": 85,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1403,
-        "y": 233,
-        "width": 532,
+        "x": 1374,
+        "y": 235,
+        "width": 591,
         "height": 143,
         "shape": "rectangle",
         "placeholder": "Océane & Jonathan",
@@ -4079,7 +4079,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 51,
+        "font_size": 70,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -4158,9 +4158,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f9ede7"
       }
     ],
     "text_zones": [
@@ -4173,9 +4173,9 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1472,
-        "y": 286,
+        "y": 301,
         "width": 280,
-        "height": 463,
+        "height": 448,
         "shape": "oval",
         "placeholder": "Carole\n& \nLenny",
         "font_family": "Dancing Script",
@@ -4186,7 +4186,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -4265,24 +4265,24 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.1,
-        "font_size": 84,
+        "font_size": 86,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1441,
-        "y": 404,
+        "y": 439,
         "width": 417,
-        "height": 290,
+        "height": 236,
         "shape": "oval",
         "placeholder": "John\net\nLiya ",
         "font_family": "Sacramento",
@@ -4313,7 +4313,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 52,
+        "font_size": 62,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mppuo5abk95c",
@@ -4372,7 +4372,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -4380,17 +4380,17 @@
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 72,
+        "font_size": 90,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1397,
-        "y": 319,
-        "width": 425,
-        "height": 503,
-        "shape": "circle",
+        "x": 1387,
+        "y": 307,
+        "width": 445,
+        "height": 527,
+        "shape": "oval",
         "placeholder": "Mariage de\nElodie\n&\nAllan",
         "font_family": "Parisienne",
         "align": "center",
@@ -4399,7 +4399,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 55,
+        "font_size": 75,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -4544,9 +4544,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e8c56d"
       }
     ],
     "text_zones": [
@@ -4558,10 +4558,10 @@
         "id": "texte_mpqruvs9iajb",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 787,
-        "y": 307,
+        "x": 794,
+        "y": 296,
         "width": 398,
-        "height": 371,
+        "height": 419,
         "shape": "oval",
         "placeholder": "Chloé\n& \nMatthieu",
         "font_family": "Allura",
@@ -4572,7 +4572,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 64,
+        "font_size": 83,
         "color": "#da500a",
         "multiline": false,
         "id": "texte_mpqrxxl9y4ug",
@@ -4631,22 +4631,22 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fad5af"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 78,
+        "font_size": 80,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1390,
-        "y": 325,
+        "y": 317,
         "width": 448,
         "height": 458,
         "shape": "circle",
@@ -4659,7 +4659,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 68,
+        "font_size": 77,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -4746,16 +4746,16 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 94,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpqruvs9iajb",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1378,
-        "y": 287,
-        "width": 507,
-        "height": 485,
+        "x": 1348,
+        "y": 257,
+        "width": 563,
+        "height": 556,
         "shape": "oval",
         "placeholder": "Karen \n& \nBenjamin",
         "font_family": "Parisienne",
@@ -4766,15 +4766,15 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 64,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpqrxxl9y4ug",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1414,
+        "x": 1382,
         "y": 877,
-        "width": 435,
+        "width": 496,
         "height": 100,
         "shape": "rectangle",
         "placeholder": "20 Novembre 2027",
@@ -4825,8 +4825,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -4853,7 +4853,7 @@
       },
       {
         "lineHeight": 1.2,
-        "font_size": 66,
+        "font_size": 80,
         "color": "#619465",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -4900,9 +4900,9 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1438,
-        "y": 417,
+        "y": 377,
         "width": 532,
-        "height": 133,
+        "height": 195,
         "shape": "rectangle",
         "placeholder": "Jules",
         "font_family": "Italianno",
@@ -4952,15 +4952,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.4,
-        "font_size": 110,
+        "font_size": 120,
         "color": "#5e7359",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -5058,9 +5058,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#c2ac8d"
       }
     ],
     "text_zones": [
@@ -5185,8 +5185,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -5291,15 +5291,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#c0bdb7"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 75,
+        "font_size": 90,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -5319,7 +5319,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -5398,7 +5398,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -5505,9 +5505,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#c6a3a5"
       }
     ],
     "text_zones": [
@@ -5519,10 +5519,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1450,
-        "y": 78,
-        "width": 444,
-        "height": 93,
+        "x": 1424,
+        "y": 61,
+        "width": 497,
+        "height": 110,
         "shape": "rectangle",
         "placeholder": "Baptême de Séréna",
         "font_family": "Sacramento",
@@ -5533,7 +5533,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 84,
         "color": "#ed98b4",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -5611,8 +5611,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -5718,15 +5718,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 61,
+        "font_size": 66,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -5746,7 +5746,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 63,
+        "font_size": 71,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -5785,14 +5785,14 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 131,
+        "font_size": 135,
         "color": "#00b8f1",
         "multiline": false,
         "id": "texte_mpyfatknkx7m",
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1410,
-        "y": 494,
+        "y": 483,
         "width": 430,
         "height": 105,
         "shape": "rectangle",
@@ -5844,8 +5844,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -5971,8 +5971,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6077,15 +6077,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 57,
+        "font_size": 64,
         "color": "#70a7c6",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -6125,7 +6125,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 63,
+        "font_size": 72,
         "color": "#70a7c6",
         "multiline": false,
         "id": "texte_mpydjsud8v4j",
@@ -6152,7 +6152,7 @@
         "label": "Zone de texte 3",
         "order": 3,
         "x": 1416,
-        "y": 883,
+        "y": 901,
         "width": 507,
         "height": 90,
         "shape": "rectangle",
@@ -6204,23 +6204,23 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e6e3cb"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 52,
+        "font_size": 56,
         "color": "#619465",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1411,
+        "x": 1515,
         "y": 152,
-        "width": 507,
+        "width": 292,
         "height": 95,
         "shape": "rectangle",
         "placeholder": "MAYEUL",
@@ -6232,7 +6232,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 53,
+        "font_size": 83,
         "color": "#619465",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -6243,7 +6243,7 @@
         "width": 435,
         "height": 106,
         "shape": "rectangle",
-        "placeholder": "Le 12 Juillet 2025",
+        "placeholder": "12 Juillet 2025",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
@@ -6272,7 +6272,7 @@
       },
       {
         "lineHeight": 1.3,
-        "font_size": 86,
+        "font_size": 90,
         "color": "#619465",
         "multiline": false,
         "id": "texte_mpydcbdjcup9",
@@ -6331,8 +6331,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6418,8 +6418,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6434,8 +6434,8 @@
         "order": 1,
         "x": 1427,
         "y": 333,
-        "width": 395,
-        "height": 394,
+        "width": 412,
+        "height": 422,
         "shape": "circle",
         "placeholder": "Baptême de \nTiago",
         "font_family": "Italianno",
@@ -6525,7 +6525,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -6533,7 +6533,7 @@
     "text_zones": [
       {
         "lineHeight": 1.9,
-        "font_size": 47,
+        "font_size": 80,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -6612,15 +6612,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 0.8,
-        "font_size": 65,
+        "font_size": 80,
         "color": "#5e7359",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -6640,7 +6640,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#5e7359",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -6718,7 +6718,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -6825,7 +6825,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -6945,9 +6945,9 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1376,
+        "x": 1404,
         "y": 314,
-        "width": 486,
+        "width": 458,
         "height": 310,
         "shape": "circle",
         "placeholder": "Baptême\nMaëlle\nLe 20 avril 2025",
@@ -7018,8 +7018,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7032,11 +7032,11 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1438,
-        "y": 386,
-        "width": 363,
-        "height": 318,
-        "shape": "circle",
+        "x": 1499,
+        "y": 381,
+        "width": 242,
+        "height": 346,
+        "shape": "oval",
         "placeholder": "Baptême\nde\nAgathe",
         "font_family": "Allura",
         "align": "center",
@@ -7125,8 +7125,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7234,7 +7234,7 @@
         "opacity": 1,
         "visible": false,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "text_color_override": "#eae4dd"
       }
     ],
     "text_zones": [
@@ -7267,7 +7267,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 677,
-        "y": 875,
+        "y": 862,
         "width": 621,
         "height": 122,
         "shape": "rectangle",
@@ -7319,9 +7319,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#c4955f"
       }
     ],
     "text_zones": [
@@ -7333,10 +7333,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1420,
-        "y": 349,
-        "width": 404,
-        "height": 394,
+        "x": 1400,
+        "y": 348,
+        "width": 452,
+        "height": 398,
         "shape": "circle",
         "placeholder": "Emy\n1 an",
         "font_family": "Great Vibes",
@@ -7353,8 +7353,8 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 273,
-        "y": 268,
+        "x": 284,
+        "y": 348,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -7406,8 +7406,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7526,7 +7526,7 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 763,
+        "x": 764,
         "y": 43,
         "width": 442,
         "height": 102,
@@ -7540,16 +7540,16 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 90,
         "color": "#014c97",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 786,
-        "y": 477,
+        "x": 787,
+        "y": 462,
         "width": 396,
-        "height": 69,
+        "height": 86,
         "shape": "rectangle",
         "placeholder": "8 fevrier 1992",
         "font_family": "Great Vibes",
@@ -7566,7 +7566,7 @@
         "id": "texte_mpxvggrgfyji",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 773,
+        "x": 764,
         "y": 145,
         "width": 442,
         "height": 89,
@@ -7619,8 +7619,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7634,7 +7634,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1408,
-        "y": 381,
+        "y": 360,
         "width": 385,
         "height": 371,
         "shape": "circle",
@@ -7647,7 +7647,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 81,
         "color": "#c87382",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -7726,9 +7726,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fce0f0"
       }
     ],
     "text_zones": [
@@ -7740,10 +7740,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 726,
-        "y": 242,
-        "width": 582,
-        "height": 96,
+        "x": 749,
+        "y": 259,
+        "width": 473,
+        "height": 89,
         "shape": "rectangle",
         "placeholder": "1 an Anna",
         "font_family": "Parisienne",
@@ -7754,7 +7754,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 80,
         "color": "#e671e0",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -7815,7 +7815,7 @@
         "opacity": 1,
         "visible": false,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "text_color_override": "#9e3333"
       }
     ],
     "text_zones": [
@@ -7830,7 +7830,7 @@
         "x": 1418,
         "y": 330,
         "width": 340,
-        "height": 240,
+        "height": 229,
         "shape": "oval",
         "placeholder": "Yowen\n1an",
         "font_family": "Dancing Script",
@@ -7920,9 +7920,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f3e6d6"
       }
     ],
     "text_zones": [
@@ -8027,9 +8027,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#d2c5bc"
       }
     ],
     "text_zones": [
@@ -8055,7 +8055,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 77,
         "color": "#488e39",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -8114,7 +8114,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -8128,10 +8128,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1417,
-        "y": 354,
-        "width": 356,
-        "height": 344,
+        "x": 1379,
+        "y": 343,
+        "width": 430,
+        "height": 372,
         "shape": "circle",
         "placeholder": "1 an \nVictor",
         "font_family": "Dancing Script",
@@ -8142,7 +8142,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 68,
+        "font_size": 83,
         "color": "#32635c",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -8221,15 +8221,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f5f2ec"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 81,
+        "font_size": 88,
         "color": "#98694f",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -8249,7 +8249,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 68,
+        "font_size": 81,
         "color": "#98694f",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -8327,8 +8327,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -8361,10 +8361,10 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1415,
-        "y": 567,
-        "width": 426,
-        "height": 126,
+        "x": 1449,
+        "y": 585,
+        "width": 339,
+        "height": 102,
         "shape": "rectangle",
         "placeholder": "Kïara",
         "font_family": "Allura",
@@ -8394,7 +8394,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 72,
+        "font_size": 80,
         "color": "#d48592",
         "multiline": false,
         "id": "texte_mpx0ottwlztn",
@@ -8453,15 +8453,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#c4c4c4"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 75,
+        "font_size": 90,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -8481,7 +8481,7 @@
       },
       {
         "lineHeight": 1.2,
-        "font_size": 75,
+        "font_size": 90,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -8559,8 +8559,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -8573,9 +8573,9 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1377,
+        "x": 1418,
         "y": 320,
-        "width": 456,
+        "width": 371,
         "height": 452,
         "shape": "circle",
         "placeholder": "Baptême de\nGabin\n29/08/2026",
@@ -8646,8 +8646,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -8753,7 +8753,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -8767,10 +8767,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1411,
-        "y": 320,
-        "width": 413,
-        "height": 424,
+        "x": 1380,
+        "y": 313,
+        "width": 476,
+        "height": 467,
         "shape": "circle",
         "placeholder": "Baptême \nde \nLayna",
         "font_family": "Parisienne",
@@ -8860,8 +8860,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -8967,9 +8967,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f8e3b9"
       }
     ],
     "text_zones": [
@@ -9044,7 +9044,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.7,
+    "rotation_y": 5.654866776461628,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ourson-boheme-pampas.webp",
     "design": {
       "x": 0,
@@ -9074,9 +9074,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ded0bd"
       }
     ],
     "text_zones": [
@@ -9181,24 +9181,24 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 89,
+        "font_size": 100,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1393,
-        "y": 383,
+        "y": 346,
         "width": 435,
-        "height": 400,
+        "height": 437,
         "shape": "oval",
         "placeholder": "NOAM\n1 AN",
         "font_family": "Borel",
@@ -9268,7 +9268,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -9303,7 +9303,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1455,
-        "y": 892,
+        "y": 911,
         "width": 496,
         "height": 86,
         "shape": "rectangle",
@@ -9375,8 +9375,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9482,7 +9482,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -9569,8 +9569,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9584,7 +9584,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1338,
-        "y": 336,
+        "y": 317,
         "width": 514,
         "height": 302,
         "shape": "circle",
@@ -9604,7 +9604,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1374,
-        "y": 631,
+        "y": 610,
         "width": 310,
         "height": 89,
         "shape": "rectangle",
@@ -9676,7 +9676,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -9784,8 +9784,8 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "force_text_color": true,
+        "text_color_override": "#c5dced"
       }
     ],
     "text_zones": [
@@ -9901,8 +9901,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -10038,9 +10038,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f8ded2"
       }
     ],
     "text_zones": [
@@ -10156,7 +10156,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -10171,9 +10171,9 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1086,
-        "y": 395,
+        "y": 381,
         "width": 629,
-        "height": 308,
+        "height": 251,
         "shape": "rectangle",
         "placeholder": "30",
         "font_family": "Allura",
@@ -10191,7 +10191,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1169,
-        "y": 661,
+        "y": 632,
         "width": 463,
         "height": 171,
         "shape": "rectangle",
@@ -10263,7 +10263,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -10271,7 +10271,7 @@
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 164,
+        "font_size": 167,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -10445,7 +10445,7 @@
     "text_zones": [
       {
         "lineHeight": 0.8,
-        "font_size": 400,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mppguavyfv0j",
@@ -10534,7 +10534,7 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 89,
+        "font_size": 105,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -10621,7 +10621,7 @@
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 95,
+        "font_size": 100,
         "color": "#1f3f70",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -10641,7 +10641,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 92,
+        "font_size": 100,
         "color": "#1f3f70",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -10721,7 +10721,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": false,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -10855,7 +10855,7 @@
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 81,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -10954,15 +10954,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ccb694"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 0.8,
-        "font_size": 112,
+        "font_size": 122,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -10982,7 +10982,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 73,
+        "font_size": 84,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -11089,7 +11089,7 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 103,
+        "font_size": 124,
         "color": "#e60b5e",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -11168,9 +11168,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#bc9c22"
       }
     ],
     "text_zones": [
@@ -11295,8 +11295,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -11310,10 +11310,10 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1457,
-        "y": 385,
+        "y": 331,
         "width": 430,
-        "height": 342,
-        "shape": "rectangle",
+        "height": 400,
+        "shape": "oval",
         "placeholder": "Patrice\n&\nLaetitia",
         "font_family": "Dancing Script",
         "align": "center",
@@ -11349,8 +11349,8 @@
         "id": "texte_mppguavyfv0j",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 287,
-        "y": 268,
+        "x": 259,
+        "y": 302,
         "width": 780,
         "height": 459,
         "shape": "rectangle",
@@ -11403,8 +11403,8 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "force_text_color": true,
+        "text_color_override": "#dbadc6"
       }
     ],
     "text_zones": [
@@ -11419,7 +11419,7 @@
         "x": 1421,
         "y": 329,
         "width": 415,
-        "height": 389,
+        "height": 406,
         "shape": "oval",
         "placeholder": "30 ans\nJustine",
         "font_family": "Allura",
@@ -11489,8 +11489,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -11503,10 +11503,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1393,
-        "y": 476,
+        "x": 1394,
+        "y": 483,
         "width": 460,
-        "height": 178,
+        "height": 189,
         "shape": "rectangle",
         "placeholder": "40 ans\nGabriel",
         "font_family": "Alegreya",
@@ -11604,7 +11604,7 @@
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 85,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mppguavyfv0j",
@@ -11624,7 +11624,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 85,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpzq6xgxlgy2",
@@ -11644,7 +11644,7 @@
       },
       {
         "lineHeight": 1,
-        "font_size": 85,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpzq6ztgo6s2",
@@ -11703,9 +11703,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ebdd9e"
       }
     ],
     "text_zones": [
@@ -11810,9 +11810,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e8b965"
       }
     ],
     "text_zones": [
@@ -12004,7 +12004,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -12091,15 +12091,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1,
-        "font_size": 579,
+        "font_size": 587,
         "color": "#9f9f9e",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -12265,8 +12265,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -12300,9 +12300,9 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1372,
-        "y": 841,
+        "y": 848,
         "width": 558,
-        "height": 168,
+        "height": 161,
         "shape": "rectangle",
         "placeholder": "JOHAN",
         "font_family": "Alegreya",
@@ -12372,8 +12372,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -12490,9 +12490,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f9e65e"
       }
     ],
     "text_zones": [
@@ -12577,7 +12577,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -12655,7 +12655,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -12683,7 +12683,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 80,
+        "font_size": 94,
         "color": "#c99d7b",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -12762,8 +12762,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -12857,7 +12857,7 @@
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 90,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -12956,23 +12956,23 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffcdd3"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 81,
+        "font_size": 100,
         "color": "#ce7d80",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1431,
+        "x": 1409,
         "y": 836,
-        "width": 427,
+        "width": 468,
         "height": 140,
         "shape": "rectangle",
         "placeholder": "1 an de Léana",
@@ -13062,7 +13062,7 @@
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 250,
+        "font_size": 263,
         "color": "#dab45b",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -13082,7 +13082,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 62,
+        "font_size": 70,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -13172,9 +13172,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f6aa40"
       }
     ],
     "text_zones": [
@@ -13200,7 +13200,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 200,
+        "font_size": 105,
         "color": "#87554a",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -13290,7 +13290,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -13397,9 +13397,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f1cece"
       }
     ],
     "text_zones": [
@@ -13411,9 +13411,9 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1524,
-        "y": 334,
-        "width": 333,
+        "x": 1534,
+        "y": 321,
+        "width": 313,
         "height": 450,
         "shape": "circle",
         "placeholder": "Baptême\n&\n1 an de blue",
@@ -13504,14 +13504,14 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
-        "lineHeight": 1.5,
+        "lineHeight": 1.1,
         "font_size": 85,
         "color": "#fab49c",
         "multiline": false,
@@ -13532,7 +13532,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 80,
         "color": "#fab49c",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -13611,7 +13611,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -13738,7 +13738,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -13746,7 +13746,7 @@
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 70,
+        "font_size": 80,
         "color": "#c3b050",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -13766,7 +13766,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 80,
         "color": "#c3b050",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -13865,8 +13865,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -13893,7 +13893,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -13972,15 +13972,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 85,
+        "font_size": 93,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -14079,8 +14079,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -14107,7 +14107,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -14186,15 +14186,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 85,
+        "font_size": 91,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -14214,7 +14214,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -14254,15 +14254,15 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 149,
+        "font_size": 164,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mrms323mwe9n",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1463,
+        "x": 1506,
         "y": 435,
-        "width": 455,
+        "width": 374,
         "height": 167,
         "shape": "rectangle",
         "placeholder": "Sarah",
@@ -14313,7 +14313,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -14341,7 +14341,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 86,
         "color": "#ecb2c0",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -14567,9 +14567,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f5d1c2"
       }
     ],
     "text_zones": [
@@ -14581,10 +14581,10 @@
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1369,
-        "y": 342,
+        "x": 1367,
+        "y": 350,
         "width": 346,
-        "height": 457,
+        "height": 392,
         "shape": "oval",
         "placeholder": "Mick\n&\nJulie",
         "font_family": "Parisienne",
@@ -14645,23 +14645,23 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 96,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1414,
+        "x": 1450,
         "y": 351,
-        "width": 450,
+        "width": 380,
         "height": 134,
         "shape": "oval",
         "placeholder": "Julien",
@@ -14673,16 +14673,16 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 55,
+        "font_size": 60,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 3",
         "order": 3,
-        "x": 1533,
+        "x": 1534,
         "y": 714,
         "width": 213,
-        "height": 91,
+        "height": 54,
         "shape": "rectangle",
         "placeholder": "12.09.2026",
         "font_family": "Alegreya",
@@ -14713,15 +14713,15 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 96,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mrpnpo6enulo",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1414,
+        "x": 1433,
         "y": 583,
-        "width": 450,
+        "width": 413,
         "height": 131,
         "shape": "oval",
         "placeholder": "Stéphanie",
@@ -14772,15 +14772,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
-        "lineHeight": 1.5,
-        "font_size": 85,
+        "lineHeight": 1.4,
+        "font_size": 100,
         "color": "#c3b050",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -14789,7 +14789,7 @@
         "x": 1392,
         "y": 388,
         "width": 442,
-        "height": 324,
+        "height": 289,
         "shape": "oval",
         "placeholder": "Alain\n&\nMarie-Madelaine",
         "font_family": "Great Vibes",
@@ -14800,7 +14800,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 80,
         "color": "#c3b050",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -14879,21 +14879,21 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 93,
+        "font_size": 95,
         "color": "#73967d",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1474,
+        "x": 1485,
         "y": 395,
         "width": 343,
         "height": 159,
@@ -14907,16 +14907,16 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 60,
         "color": "#73967d",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1492,
+        "x": 1448,
         "y": 783,
-        "width": 307,
-        "height": 86,
+        "width": 418,
+        "height": 106,
         "shape": "rectangle",
         "placeholder": "27 juin 2026",
         "font_family": "Parisienne",
@@ -14986,23 +14986,23 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ecdcc8"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 95,
+        "font_size": 100,
         "color": "#73967d",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte",
         "order": 1,
-        "x": 1434,
+        "x": 1449,
         "y": 283,
-        "width": 397,
+        "width": 362,
         "height": 527,
         "shape": "oval",
         "placeholder": "Amandine\n&\nJulien",
@@ -15064,24 +15064,24 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 107,
+        "font_size": 109,
         "color": "#5d7360",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 690,
-        "y": 392,
+        "y": 418,
         "width": 591,
-        "height": 154,
+        "height": 128,
         "shape": "rectangle",
         "placeholder": "Justine et Yohan",
         "font_family": "Allura",
@@ -15101,7 +15101,7 @@
         "x": 662,
         "y": 546,
         "width": 648,
-        "height": 154,
+        "height": 117,
         "shape": "rectangle",
         "placeholder": "13.06.2026",
         "font_family": "EB Garamond",
@@ -15151,15 +15151,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 200,
+        "font_size": 250,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -15219,7 +15219,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 200,
+        "font_size": 250,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mrpp2i8vw3cu",
@@ -15239,7 +15239,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 200,
+        "font_size": 250,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mrpp2vnjfqc7",
@@ -15298,7 +15298,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -15306,7 +15306,7 @@
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 85,
+        "font_size": 100,
         "color": "#c3b050",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -15326,7 +15326,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 100,
         "color": "#c3b050",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -15385,15 +15385,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffd6d6"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 109,
+        "font_size": 137,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -15452,9 +15452,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f4d2cf"
       }
     ],
     "text_zones": [
@@ -15480,7 +15480,7 @@
       },
       {
         "lineHeight": 1.1,
-        "font_size": 68,
+        "font_size": 84,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -15539,15 +15539,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.1,
-        "font_size": 70,
+        "font_size": 85,
         "color": "#c9835e",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -15637,7 +15637,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -15651,11 +15651,11 @@
         "id": "texte_msyvji3l1q00",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1512,
-        "y": 432,
+        "x": 1511,
+        "y": 347,
         "width": 309,
-        "height": 185,
-        "shape": "rectangle",
+        "height": 287,
+        "shape": "oval",
         "placeholder": "50",
         "font_family": "Allura",
         "align": "center",
@@ -15686,14 +15686,14 @@
       },
       {
         "lineHeight": 1.3,
-        "font_size": 85,
+        "font_size": 100,
         "color": "#c99b4b",
         "multiline": false,
         "id": "texte_msyvugelqqia",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1455,
-        "y": 814,
+        "x": 1462,
+        "y": 821,
         "width": 423,
         "height": 89,
         "shape": "rectangle",
@@ -15745,15 +15745,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.4,
-        "font_size": 600,
+        "font_size": 616,
         "color": "#122c56",
         "multiline": false,
         "id": "mszab46c67ow",
@@ -15822,7 +15822,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
     "model_url": null,
-    "rotation_y": 0,
+    "rotation_y": 1.5009831567151233,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-ourson-rose-or.webp",
     "design": {
       "x": 0,
@@ -15852,7 +15852,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -15860,15 +15860,15 @@
     "text_zones": [
       {
         "lineHeight": 1.4,
-        "font_size": 100,
+        "font_size": 105,
         "color": "#eca19f",
         "multiline": false,
         "id": "mt02ek72xu3g",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 609,
+        "x": 718,
         "y": 166,
-        "width": 752,
+        "width": 560,
         "height": 103,
         "shape": "rectangle",
         "placeholder": "Baptême de ",
@@ -15896,7 +15896,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
@@ -15916,7 +15917,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -16075,7 +16077,7 @@
     "text_zones": [
       {
         "lineHeight": 1.4,
-        "font_size": 85,
+        "font_size": 101,
         "color": "#000000",
         "multiline": false,
         "id": "mt03t9ozptrq",
@@ -16084,7 +16086,7 @@
         "x": 1205,
         "y": 310,
         "width": 520,
-        "height": 558,
+        "height": 525,
         "shape": "oval",
         "placeholder": "Crémaillère \nde \nSarah",
         "font_family": "EB Garamond",
@@ -16241,8 +16243,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -16328,8 +16330,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -16415,9 +16417,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#d5dfd5"
       }
     ],
     "text_zones": [
@@ -16443,16 +16445,16 @@
       },
       {
         "lineHeight": 1.3,
-        "font_size": 48,
+        "font_size": 61,
         "color": "#76937c",
         "multiline": false,
         "id": "texte_mt080s8waoza",
         "label": "Zone de texte 2",
         "order": 2,
         "x": 648,
-        "y": 823,
+        "y": 799,
         "width": 675,
-        "height": 70,
+        "height": 94,
         "shape": "rectangle",
         "placeholder": "18 juillet 2026",
         "font_family": "Cinzel",
@@ -16503,9 +16505,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f4e3bb"
       }
     ],
     "text_zones": [
@@ -16791,9 +16793,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f896ac"
       }
     ],
     "text_zones": [
@@ -16886,7 +16888,7 @@
     "text_zones": [
       {
         "lineHeight": 1.4,
-        "font_size": 150,
+        "font_size": 170,
         "color": "#000000",
         "multiline": false,
         "id": "mt7maaj1g4a2",
@@ -16912,10 +16914,10 @@
         "id": "mt7maaj147z7",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1315,
-        "y": 956,
+        "x": 1316,
+        "y": 901,
         "width": 396,
-        "height": 88,
+        "height": 147,
         "shape": "rectangle",
         "placeholder": "11 juillet 2026",
         "font_family": "Italianno",
@@ -16985,9 +16987,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#cbc8c2"
       }
     ],
     "text_zones": [
@@ -17067,7 +17069,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1179,
-        "y": 162,
+        "y": 195,
         "width": 594,
         "height": 194,
         "shape": "rectangle",
@@ -17086,9 +17088,9 @@
         "id": "mt7mssythylu",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1278,
-        "y": 853,
-        "width": 396,
+        "x": 1190,
+        "y": 851,
+        "width": 572,
         "height": 88,
         "shape": "rectangle",
         "placeholder": "11 juillet 2026",
@@ -17167,16 +17169,16 @@
     "text_zones": [
       {
         "lineHeight": 1.4,
-        "font_size": 100,
+        "font_size": 85,
         "color": "#000000",
         "multiline": false,
         "id": "mt7n1otx82lb",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1291,
-        "y": 80,
-        "width": 376,
-        "height": 203,
+        "x": 1230,
+        "y": 106,
+        "width": 494,
+        "height": 134,
         "shape": "rectangle",
         "placeholder": "EVG ALEX",
         "font_family": "Alegreya",
@@ -17187,15 +17189,15 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 100,
+        "font_size": 80,
         "color": "#000000",
         "multiline": false,
         "id": "mt7n1otx72ma",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1281,
+        "x": 1232,
         "y": 860,
-        "width": 396,
+        "width": 492,
         "height": 88,
         "shape": "rectangle",
         "placeholder": "11 juillet 2026",
@@ -17353,8 +17355,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -17380,64 +17382,24 @@
         "stroke_preview": 1.5
       },
       {
-        "lineHeight": 1.5,
-        "font_size": 100,
-        "color": "#c09136",
-        "multiline": false,
-        "id": "mt7nj24l28um",
-        "label": "Zone de texte 2",
-        "order": 2,
-        "x": 790,
-        "y": 327,
-        "width": 396,
-        "height": 88,
-        "shape": "rectangle",
-        "placeholder": "ans de mariage",
-        "font_family": "Allura",
-        "align": "center",
-        "rotation": 0,
-        "max_chars": 0,
-        "stroke_preview": 1.5
-      },
-      {
-        "lineHeight": 1.2,
-        "font_size": 100,
+        "lineHeight": 1.6,
+        "font_size": 115,
         "color": "#c09136",
         "multiline": false,
         "id": "mt7nj24levq4",
-        "label": "Zone de texte 3",
-        "order": 3,
+        "label": "Zone de texte 2",
+        "order": 2,
         "x": 711,
-        "y": 443,
+        "y": 328,
         "width": 550,
-        "height": 169,
+        "height": 428,
         "shape": "rectangle",
-        "placeholder": "Vanessa & Rémy",
+        "placeholder": "ans de mariage\nVanessa & Rémy\nNoces d'or",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
         "stroke_preview": 1.5
-      },
-      {
-        "lineHeight": 1.3,
-        "font_size": 100,
-        "color": "#c09136",
-        "multiline": false,
-        "id": "texte_mt7nnwrgyr10",
-        "label": "Zone de texte 4",
-        "order": 4,
-        "x": 690,
-        "y": 630,
-        "width": 591,
-        "height": 145,
-        "shape": "rectangle",
-        "placeholder": "Noces d'or",
-        "font_family": "Allura",
-        "align": "center",
-        "rotation": 0,
-        "max_chars": 0,
-        "locked": false
       },
       {
         "lineHeight": 1.3,
@@ -17445,8 +17407,8 @@
         "color": "#c09136",
         "multiline": false,
         "id": "texte_mt7npjtu7g22",
-        "label": "Zone de texte 5",
-        "order": 5,
+        "label": "Zone de texte 3",
+        "order": 3,
         "x": 740,
         "y": 874,
         "width": 496,
@@ -17508,34 +17470,35 @@
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#000000",
         "multiline": false,
         "id": "mthm547tcf78",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 389,
-        "y": 1,
-        "width": 342,
-        "height": 235,
+        "x": 217,
+        "y": 39,
+        "width": 677,
+        "height": 163,
         "shape": "rectangle",
-        "placeholder": "Alex\n&\nSarah",
+        "placeholder": "Alex & Sarah",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mthm9s6fvz5b",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1294,
-        "y": 55,
-        "width": 750,
+        "x": 1247,
+        "y": 56,
+        "width": 839,
         "height": 128,
         "shape": "rectangle",
         "placeholder": "05 septembre 2026",
@@ -17543,7 +17506,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -17594,7 +17558,7 @@
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#744016",
         "multiline": false,
         "id": "mthmipsk5dwa",
@@ -17603,17 +17567,18 @@
         "x": 110,
         "y": 55,
         "width": 903,
-        "height": 231,
+        "height": 171,
         "shape": "rectangle",
         "placeholder": "Tiphanie et Guillaume",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#6a3c16",
         "multiline": false,
         "id": "texte_mthmoxv6eqs8",
@@ -17629,7 +17594,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -17680,26 +17646,27 @@
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 119,
         "color": "#000000",
         "multiline": false,
         "id": "mthmyoo1gp3p",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 185,
-        "y": 17,
+        "y": 54,
         "width": 741,
-        "height": 296,
+        "height": 163,
         "shape": "rectangle",
         "placeholder": "Julie & Mick",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 90,
+        "font_size": 120,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mthn29ysgze3",
@@ -17715,7 +17682,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -17775,7 +17743,7 @@
         "x": 854,
         "y": 23,
         "width": 514,
-        "height": 309,
+        "height": 332,
         "shape": "rectangle",
         "placeholder": "Charlène\n&\nAllan",
         "font_family": "Parisienne",
@@ -17831,7 +17799,7 @@
     ],
     "text_zones": [
       {
-        "lineHeight": 1.3,
+        "lineHeight": 1.2,
         "font_size": 120,
         "color": "#916b2e",
         "multiline": false,
@@ -17842,16 +17810,17 @@
         "y": 12,
         "width": 371,
         "height": 449,
-        "shape": "oval",
+        "shape": "rectangle",
         "placeholder": "Johanna\net\nManu",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#7a5c2e",
         "multiline": false,
         "id": "texte_mthnt7pn0tgk",
@@ -17867,7 +17836,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -17918,7 +17888,7 @@
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#916b2e",
         "multiline": false,
         "id": "mthny36bzr60",
@@ -17933,11 +17903,12 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#916b2e",
         "multiline": false,
         "id": "texte_mtho0ivlwp4t",
@@ -17953,7 +17924,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -18004,7 +17976,7 @@
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 120,
+        "font_size": 140,
         "color": "#000000",
         "multiline": false,
         "id": "mthob13463g6",
@@ -18019,27 +17991,29 @@
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 140,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mthod5gvj5v6",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1392,
-        "y": 67,
-        "width": 555,
-        "height": 106,
+        "x": 1352,
+        "y": 58,
+        "width": 625,
+        "height": 145,
         "shape": "rectangle",
         "placeholder": "16 novembre 2026",
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -18109,7 +18083,7 @@
       },
       {
         "lineHeight": 1.3,
-        "font_size": 80,
+        "font_size": 100,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mthoi5x60ogz",
@@ -18176,22 +18150,23 @@
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 110,
         "color": "#000000",
         "multiline": false,
         "id": "mtholyigob1u",
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1319,
-        "y": 57,
+        "y": 0,
         "width": 703,
-        "height": 358,
+        "height": 470,
         "shape": "rectangle",
         "placeholder": "Marine \net \nGrégory",
         "font_family": "Pacifico",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -18242,7 +18217,7 @@
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 90,
+        "font_size": 110,
         "color": "#000000",
         "multiline": false,
         "id": "mthorq4dnpxw",
@@ -18257,18 +18232,19 @@
         "font_family": "Jost",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 106,
         "color": "#000000",
         "multiline": false,
         "id": "texte_mthoto1e3ndn",
         "label": "Zone de texte 2",
         "order": 2,
         "x": 279,
-        "y": 89,
+        "y": 111,
         "width": 557,
         "height": 100,
         "shape": "rectangle",
@@ -18277,7 +18253,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
