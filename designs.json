@@ -18905,6 +18905,73 @@
     "arch_zones": []
   },
   {
+    "id": "brouillon-3-mtk3ujl6el25",
+    "name": "Flûte à Champagne Personnalisée – Petit Ourson Bleu",
+    "shopify_handle": "flute-champagne-petit-ourson-bleu",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+    "rotation_y": 6.283185307179586,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-petit-ourson-bleu.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2091,
+      "height": 413
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 140,
+        "color": "#70a7c6",
+        "multiline": false,
+        "id": "mtk3ujl74r4e",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1298,
+        "y": 80,
+        "width": 532,
+        "height": 254,
+        "shape": "rectangle",
+        "placeholder": "Baptême de Giulia\n12 juillet 2025",
+        "font_family": "Parisienne",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
     "id": "brouillon-4-mtk42zs28uej",
     "name": "Flûte à Champagne Personnalisée – Couronne Fleurie Mauve",
     "shopify_handle": "flute-champagne-couronne-fleurie-mauve",
@@ -18986,6 +19053,73 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "brouillon-4-mtk4dca9fnbo",
+    "name": "Flûte à Champagne Personnalisée – Petit Renard",
+    "shopify_handle": "flute-champagne-petit-renard",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+    "rotation_y": 0,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-petit-renard.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2091,
+      "height": 413
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 140,
+        "color": "#f17a2a",
+        "multiline": false,
+        "id": "mtk4dca9lclj",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1336,
+        "y": 4,
+        "width": 461,
+        "height": 406,
+        "shape": "rectangle",
+        "placeholder": "BAPTÊME \nD'ÉLIO\n12 JUIN 2026",
+        "font_family": "EB Garamond",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
         "stroke_preview": 1.5
       }
     ],
