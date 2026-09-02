@@ -458,10 +458,17 @@ function drawTexture() {
       ctx2d.fillStyle   = parseHexColor(state.gobeletColor);
       ctx2d.fillRect(0, 0, TEX_W, TEX_H);
     }
+    /* CORRECTIF (aligné sur l'admin) : sur une coque dédiée — verre à vin,
+       flûte — la texture n'est PAS la paroi entière, c'est un bandeau au
+       PNG transparent. La passer en transparent:false fait ignorer le canal
+       alpha : le décor du client devient un rectangle plein posé sur le
+       verre. Seul le gobelet, dont la texture couvre toute la paroi, peut
+       basculer en opaque. depthWrite suit : false sur une coque dédiée,
+       sinon la bande occulterait le verre derrière elle. */
     matsDecor().forEach(function (m) {
-      m.transparent = false;
+      m.transparent = coqueDediee;
       m.opacity     = 1;
-      m.depthWrite  = true;
+      m.depthWrite  = !coqueDediee;
       m.needsUpdate = true;
     });
   } else {
