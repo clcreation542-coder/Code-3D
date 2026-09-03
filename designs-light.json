@@ -19125,5 +19125,72 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-4-mtk4o6hyvvr4",
+    "name": "Flûte à Champagne Personnalisée – Plumes & Cœur",
+    "shopify_handle": "flute-champagne-plumes-coeur",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+    "rotation_y": 1.5882496193148399,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-plumes-coeur.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2091,
+      "height": 413
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "font_size": 140,
+        "color": "#7a5c2e",
+        "multiline": false,
+        "id": "mtk4o6hz20ah",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 821,
+        "y": 0,
+        "width": 450,
+        "height": 334,
+        "shape": "rectangle",
+        "placeholder": "Maëva \net \nBenjamin\n",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
