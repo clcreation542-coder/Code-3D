@@ -16557,7 +16557,7 @@
   },
   {
     "id": "brouillon-6-mt77xrb57s0e",
-    "name": "flute-champagne-minimaliste-chic",
+    "name": "Flûte à Champagne Personnalisée - Minimaliste - chic",
     "shopify_handle": "flute-champagne-minimaliste-chic",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 0.88,
@@ -16584,7 +16584,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -16600,16 +16600,16 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#000000",
         "multiline": false,
         "id": "mt77xrb5aym3",
         "label": "Zone de texte",
         "order": 1,
-        "x": 338,
-        "y": 41,
+        "x": 460,
+        "y": 0,
         "width": 780,
-        "height": 166,
+        "height": 207,
         "shape": "rectangle",
         "placeholder": "Justine et Chris",
         "font_family": "Alex Brush",
@@ -17387,7 +17387,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -18468,7 +18468,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -18556,7 +18556,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -18644,7 +18644,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -18711,7 +18711,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -18778,7 +18778,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -18866,7 +18866,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -18933,7 +18933,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -19000,7 +19000,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -19088,7 +19088,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
@@ -19155,7 +19155,7 @@
         "name": "Blanc",
         "hex": "#f0ede6",
         "opacity": 0,
-        "visible": true,
+        "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       },
