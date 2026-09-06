@@ -1202,7 +1202,7 @@ window.addEventListener('message', function(e) {
                    : zone.align === 'right'  ? zone.x + zone.width
                    : zone.x;
           const lineH=fs*lh, totalH=lines.length*lineH;
-          const startY=cy-totalH/2+lineH/2;
+          const startY=cy-totalH/2+lineH/2+KZ_inkShift(pctx,zone,txt,fs);
           const color=zone._colorOverride||zone.color||'#7a5c2e';
           const strokeW=(zone.stroke_print!==undefined?zone.stroke_print:STROKE_WIDTH);
           if(strokeW>0){ pctx.strokeStyle=color; pctx.lineWidth=strokeW; pctx.lineJoin='round';
