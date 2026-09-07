@@ -19699,5 +19699,93 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-5-mtrm54b9uff3",
+    "name": "Gobelet Anniversaire Personnalisé – Trentenaire Humour",
+    "shopify_handle": "gobelet-anniversaire-trentenaire-humour",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 0,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-trentenaire-humour.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 90,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mtrm54bagsql",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 272,
+        "y": 532,
+        "width": 524,
+        "height": 84,
+        "shape": "rectangle",
+        "placeholder": "TRENTENAIRE",
+        "font_family": "Jost",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 150,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mtrm6wz9jfvx",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1142,
+        "y": 121,
+        "width": 668,
+        "height": 822,
+        "shape": "rectangle",
+        "placeholder": "40 ANS \nDE \nMYRIAM",
+        "font_family": "Jost",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
