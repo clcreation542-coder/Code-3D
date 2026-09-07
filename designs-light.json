@@ -260,14 +260,14 @@
     "text_zones": [
       {
         "lineHeight": 1.5,
-        "font_size": 208,
+        "font_size": 249,
         "color": "#bc9c22",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1394,
-        "y": 350,
+        "x": 1390,
+        "y": 338,
         "width": 428,
         "height": 416,
         "shape": "circle",
