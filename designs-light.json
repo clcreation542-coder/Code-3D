@@ -19475,5 +19475,72 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-4-mtrlnvmr375o",
+    "name": "Gobelet Anniversaire Personnalisé – Baromètre de l'Effort",
+    "shopify_handle": "gobelet-anniversaire-barometre-effort",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 5.951572749300663,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-barometre-effort.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 120,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mtrlnvmscuns",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1167,
+        "y": 284,
+        "width": 788,
+        "height": 573,
+        "shape": "rectangle",
+        "placeholder": "30 ans\nde \nJulien",
+        "font_family": "EB Garamond",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
