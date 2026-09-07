@@ -19963,5 +19963,94 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-4-mtrn5hdwlhll",
+    "name": "Gobelet Anniversaire Personnalisé – Supporter OM",
+    "shopify_handle": "gobelet-anniversaire-supporter-om",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.3788101090755203,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-supporter-om.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 120,
+        "color": "#7a5c2e",
+        "multiline": false,
+        "id": "mtrn5hdz2bjj",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 591,
+        "y": 337,
+        "width": 788,
+        "height": 221,
+        "shape": "rectangle",
+        "placeholder": "40 ANS",
+        "font_family": "Graduate",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 120,
+        "color": "#7a5c2e",
+        "multiline": false,
+        "id": "texte_mtrn6i55ir6x",
+        "label": "Zone de texte 1",
+        "order": 2,
+        "x": 804,
+        "y": 655,
+        "width": 426,
+        "height": 104,
+        "shape": "rectangle",
+        "placeholder": "timothe",
+        "font_family": "Graduate",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5,
+        "curve": 0
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
