@@ -19787,5 +19787,114 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-5-mtrmhztmul6m",
+    "name": "Gobelet Anniversaire Personnalisé – Mon Âge Humour",
+    "shopify_handle": "gobelet-anniversaire-mon-age-humour",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 6.003932626860493,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-mon-age-humour.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 250,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mtrmhztn9msf",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1152,
+        "y": 425,
+        "width": 323,
+        "height": 293,
+        "shape": "rectangle",
+        "placeholder": "49",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 150,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mtrmlbof4ktw",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 139,
+        "y": 345,
+        "width": 709,
+        "height": 226,
+        "shape": "rectangle",
+        "placeholder": "50 ANS DE JULES",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 150,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mtrmtge39uzt",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 291,
+        "y": 592,
+        "width": 406,
+        "height": 155,
+        "shape": "rectangle",
+        "placeholder": "20.12.2026",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
