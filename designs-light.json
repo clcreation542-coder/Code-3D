@@ -19280,5 +19280,200 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-3-mtrl66i75p4k",
+    "name": "Gobelet Anniversaire Personnalisé – Cœurs Dorés & Confettis",
+    "shopify_handle": "gobelet-anniversaire-coeurs-dores-confettis",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.4835298641951802,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-coeurs-dores-confettis.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 200,
+        "color": "#a27628",
+        "multiline": false,
+        "id": "mtrl66i8pgc6",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 568,
+        "y": 336,
+        "width": 834,
+        "height": 258,
+        "shape": "rectangle",
+        "placeholder": "20 ans",
+        "font_family": "Libre Baskerville",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 120,
+        "color": "#a27628",
+        "multiline": false,
+        "id": "texte_mtrla0hch88k",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 665,
+        "y": 759,
+        "width": 672,
+        "height": 98,
+        "shape": "rectangle",
+        "placeholder": "Priscilia",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "brouillon-4-mtrlc9zdjrft",
+    "name": "Gobelet Anniversaire Personnalisé – Étoiles & Cœurs Roses",
+    "shopify_handle": "gobelet-anniversaire-etoiles-coeurs-roses",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.4835298641951802,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-etoiles-coeurs-roses.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 250,
+        "color": "#f45576",
+        "multiline": false,
+        "id": "mtrlc9zjg8j9",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 622,
+        "y": 269,
+        "width": 727,
+        "height": 301,
+        "shape": "rectangle",
+        "placeholder": "25 ans ",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 2.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 250,
+        "color": "#f45576",
+        "multiline": false,
+        "id": "texte_mtrlfucm44os",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 569,
+        "y": 570,
+        "width": 509,
+        "height": 228,
+        "shape": "rectangle",
+        "placeholder": "Julia",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 120,
+        "color": "#f45576",
+        "multiline": false,
+        "id": "texte_mtrlgo65dkar",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 569,
+        "y": 817,
+        "width": 882,
+        "height": 137,
+        "shape": "rectangle",
+        "placeholder": "10 octobre 2026",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
