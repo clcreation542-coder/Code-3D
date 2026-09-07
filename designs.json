@@ -19192,5 +19192,93 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-2-mtrkxidgiklo",
+    "name": "Gobelet Anniversaire Personnalisé – Vache à Lunettes",
+    "shopify_handle": "gobelet-anniversaire-vache-lunettes",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.4486232791552935,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-vache-lunettes.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 2091,
+      "height": 413
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 0.9,
+        "font_size": 250,
+        "color": "#633d1e",
+        "multiline": false,
+        "id": "mtrkxidi08we",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 795,
+        "y": 448,
+        "width": 380,
+        "height": 245,
+        "shape": "rectangle",
+        "placeholder": "40",
+        "font_family": "Cinzel",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 2.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 200,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mtrl0wj7ntmc",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 663,
+        "y": 837,
+        "width": 657,
+        "height": 163,
+        "shape": "rectangle",
+        "placeholder": "ALEXIA",
+        "font_family": "Cinzel",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 2.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
