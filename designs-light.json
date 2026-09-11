@@ -20382,5 +20382,92 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-2-mtx05kmm6qly",
+    "name": "Gobelet Anniversaire Personnalisé – Animaux de la Ferme",
+    "shopify_handle": "obelet-anniversaire-animaux-ferme",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.43116998663535,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/obelet-anniversaire-animaux-ferme.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 150,
+        "color": "#7c5722",
+        "multiline": false,
+        "id": "mtx05kmowqud",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 664,
+        "y": 151,
+        "width": 708,
+        "height": 174,
+        "shape": "rectangle",
+        "placeholder": "1 an de Léo",
+        "font_family": "Sacramento",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 150,
+        "color": "#7c5722",
+        "multiline": false,
+        "id": "texte_mtx081jvtrey",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 690,
+        "y": 1012,
+        "width": 656,
+        "height": 102,
+        "shape": "rectangle",
+        "placeholder": "10 novembre 2026",
+        "font_family": "Sacramento",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
