@@ -20271,5 +20271,116 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-2-mtwxas6vl50b",
+    "name": "Gobelet Anniversaire Personnalisé – Western Cowboy",
+    "shopify_handle": "gobelet-anniversaire-western-cowboy",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.5009831567151233,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-western-cowboy.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#4b280b"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 500,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mtwxas6w7gpy",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 800,
+        "y": 295,
+        "width": 378,
+        "height": 222,
+        "shape": "rectangle",
+        "placeholder": "30",
+        "font_family": "Montserrat",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 400,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mtwxngnbmeq6",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 425,
+        "y": 592,
+        "width": 1134,
+        "height": 258,
+        "shape": "rectangle",
+        "placeholder": "MURIEL",
+        "font_family": "Montserrat",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5,
+        "curve": 45
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 120,
+        "color": "#000000",
+        "multiline": false,
+        "id": "texte_mtwxowh1nxnl",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 735,
+        "y": 953,
+        "width": 514,
+        "height": 125,
+        "shape": "rectangle",
+        "placeholder": "20/12/2026",
+        "font_family": "Montserrat",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5,
+        "curve": 45
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
