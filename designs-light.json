@@ -20507,7 +20507,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
