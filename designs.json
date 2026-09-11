@@ -20469,5 +20469,93 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-3-mtx0bxqzvxj4",
+    "name": "Gobelet Anniversaire Personnalisé – Dauphin & Océan Pastel",
+    "shopify_handle": "gobelet-anniversaire-dauphin-ocean-pastel",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 6.19591884457987,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-dauphin-ocean-pastel.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 150,
+        "color": "#f48db0",
+        "multiline": false,
+        "id": "mtx0bxr1uzdl",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1084,
+        "y": 355,
+        "width": 788,
+        "height": 365,
+        "shape": "rectangle",
+        "placeholder": "1 an \nAlizée",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 100,
+        "color": "#f48db0",
+        "multiline": false,
+        "id": "texte_mtx0f2ypof6g",
+        "label": "Zone de texte 1",
+        "order": 2,
+        "x": 102,
+        "y": 355,
+        "width": 783,
+        "height": 239,
+        "shape": "rectangle",
+        "placeholder": "10 janvier 2027",
+        "font_family": "Dancing Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
