@@ -19671,9 +19671,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ba8d12"
       }
     ],
     "text_zones": [
