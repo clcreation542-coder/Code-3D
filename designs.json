@@ -20557,5 +20557,93 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-3-mtx0isz1v9s1",
+    "name": "Gobelet Anniversaire Personnalisé – Vague & Océan Bleu",
+    "shopify_handle": "gobelet-anniversaire-vague-ocean-bleu",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 2.286381320112572,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-vague-ocean-bleu.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 0.9,
+        "font_size": 250,
+        "color": "#41a0f9",
+        "multiline": false,
+        "id": "mtx0isz3cj31",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 347,
+        "y": 282,
+        "width": 777,
+        "height": 259,
+        "shape": "rectangle",
+        "placeholder": "1 an \nLucien",
+        "font_family": "Alex Brush",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 100,
+        "color": "#41a0f9",
+        "multiline": false,
+        "id": "texte_mtx0nxd8na0q",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1368,
+        "y": 427,
+        "width": 565,
+        "height": 249,
+        "shape": "rectangle",
+        "placeholder": "20 mars 2027",
+        "font_family": "Alex Brush",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
