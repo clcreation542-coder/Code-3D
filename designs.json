@@ -20514,8 +20514,8 @@
     ],
     "text_zones": [
       {
-        "lineHeight": 1.3,
-        "font_size": 150,
+        "lineHeight": 1,
+        "font_size": 200,
         "color": "#f48db0",
         "multiline": false,
         "id": "mtx0bxr1uzdl",
@@ -20524,7 +20524,7 @@
         "x": 1084,
         "y": 355,
         "width": 788,
-        "height": 365,
+        "height": 330,
         "shape": "rectangle",
         "placeholder": "1 an \nAlizée",
         "font_family": "Allura",
