@@ -22290,5 +22290,93 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "brouillon-1-mubock3uwmgf",
+    "name": "Gobelet Anniversaire Personnalisé – Confettis Or & Noir",
+    "shopify_handle": "gobelet-anniversaire-confettis-or-noir",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.3962634015954636,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-confettis-or-noir.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 580,
+        "color": "#b68a2b",
+        "multiline": false,
+        "id": "mubock3vgqsc",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 637,
+        "y": 283,
+        "width": 697,
+        "height": 365,
+        "shape": "rectangle",
+        "placeholder": "60",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_print": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 175,
+        "color": "#b68a2b",
+        "multiline": false,
+        "id": "texte_muboff14rjnn",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 635,
+        "y": 670,
+        "width": 696,
+        "height": 111,
+        "shape": "rectangle",
+        "placeholder": "Philippe",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_print": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
