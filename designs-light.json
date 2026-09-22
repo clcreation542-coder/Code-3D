@@ -36,8 +36,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -60,7 +60,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -80,7 +81,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -100,7 +102,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -143,9 +146,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0d0b7"
       }
     ],
     "text_zones": [
@@ -209,7 +212,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -252,7 +256,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -276,7 +280,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -296,7 +301,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -316,7 +322,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -359,7 +366,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -383,7 +390,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -403,7 +411,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -423,7 +432,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -443,7 +453,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -486,9 +497,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ecddcf"
       }
     ],
     "text_zones": [
@@ -510,7 +521,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -530,7 +542,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -549,7 +562,9 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -592,7 +607,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -616,7 +631,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -636,7 +652,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -656,7 +673,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -676,7 +694,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -719,8 +738,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -743,7 +762,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -763,7 +783,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -782,7 +803,9 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -825,9 +848,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fbdc06"
       }
     ],
     "text_zones": [
@@ -849,7 +872,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -869,7 +893,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -889,7 +914,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -932,8 +958,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -956,7 +982,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -976,7 +1003,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 2.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -996,7 +1024,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1063,7 +1092,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 6,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -1083,7 +1113,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 32,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -1103,7 +1134,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1146,8 +1178,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1170,7 +1202,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -1190,7 +1223,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1233,8 +1267,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1257,7 +1291,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -1277,7 +1312,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -1297,7 +1333,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1340,8 +1377,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1363,7 +1400,9 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -1383,7 +1422,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1426,8 +1466,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1450,7 +1490,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -1470,7 +1511,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -1490,7 +1532,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -1510,7 +1553,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1553,7 +1597,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -1577,7 +1621,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -1597,7 +1642,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -1617,7 +1663,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1660,8 +1707,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1684,7 +1731,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -1704,7 +1752,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -1724,7 +1773,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1767,8 +1817,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1790,7 +1840,9 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -1810,7 +1862,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -1830,7 +1883,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1873,8 +1927,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -1897,7 +1951,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -1917,7 +1972,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -1937,7 +1993,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -1980,7 +2037,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2004,7 +2061,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -2024,7 +2082,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -2044,7 +2103,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -2064,7 +2124,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 30,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2107,7 +2168,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2130,7 +2191,9 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -2150,7 +2213,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -2170,7 +2234,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2213,8 +2278,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -2237,7 +2302,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -2257,7 +2323,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -2277,7 +2344,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -2297,7 +2365,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2340,8 +2409,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -2364,7 +2433,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -2384,7 +2454,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -2404,7 +2475,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2447,7 +2519,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2471,7 +2543,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -2491,7 +2564,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -2511,7 +2585,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 30,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2554,9 +2629,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f2eaad"
       }
     ],
     "text_zones": [
@@ -2578,7 +2653,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -2598,7 +2674,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -2618,7 +2695,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2661,8 +2739,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -2685,7 +2763,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -2705,7 +2784,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -2725,7 +2805,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2768,7 +2849,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2792,7 +2873,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -2812,7 +2894,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -2832,7 +2915,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2875,7 +2959,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -2898,7 +2982,9 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -2918,7 +3004,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -2961,8 +3048,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -2985,7 +3072,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -3005,7 +3093,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3025,7 +3114,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3068,9 +3158,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f2e4d4"
       }
     ],
     "text_zones": [
@@ -3092,7 +3182,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -3112,7 +3203,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3132,7 +3224,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3175,8 +3268,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3199,7 +3292,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -3219,7 +3313,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3239,7 +3334,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3282,9 +3378,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fc9ed7"
       }
     ],
     "text_zones": [
@@ -3306,7 +3402,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -3326,7 +3423,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3346,7 +3444,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3389,8 +3488,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3413,7 +3512,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -3433,7 +3533,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3453,7 +3554,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3496,8 +3598,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3520,7 +3622,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -3540,7 +3643,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -3560,7 +3664,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -3580,7 +3685,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3623,9 +3729,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f2e5e3"
       }
     ],
     "text_zones": [
@@ -3647,7 +3753,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3667,7 +3774,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3687,7 +3795,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3730,8 +3839,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3754,7 +3863,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -3774,7 +3884,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3794,7 +3905,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3837,8 +3949,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3861,7 +3973,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3881,7 +3994,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -3901,7 +4015,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -3944,9 +4059,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e8e7c8"
       }
     ],
     "text_zones": [
@@ -3968,7 +4083,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -3988,7 +4104,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -4008,7 +4125,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4051,7 +4169,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -4075,7 +4193,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -4095,7 +4214,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -4115,7 +4235,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4158,8 +4279,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -4182,7 +4303,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -4202,7 +4324,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -4222,7 +4345,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4265,8 +4389,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -4289,7 +4413,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -4309,7 +4434,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 5,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -4329,7 +4455,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4372,7 +4499,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -4395,7 +4522,9 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -4415,7 +4544,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -4434,7 +4564,9 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4501,7 +4633,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4544,9 +4677,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f4e798"
       }
     ],
     "text_zones": [
@@ -4568,7 +4701,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -4588,7 +4722,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 30,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4631,9 +4766,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fbd4b0"
       }
     ],
     "text_zones": [
@@ -4655,7 +4790,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -4675,7 +4811,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -4695,7 +4832,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4762,7 +4900,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -4782,7 +4921,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4849,7 +4989,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -4869,7 +5010,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -4889,7 +5031,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -4909,7 +5052,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -4952,8 +5096,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -4976,7 +5120,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -4991,12 +5136,13 @@
         "width": 625,
         "height": 122,
         "shape": "rectangle",
-        "placeholder": "Le 12 Juillet 2025",
+        "placeholder": "Le 12 Juillet 2027",
         "font_family": "Tangerine",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5015,7 +5161,9 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5058,9 +5206,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f9e4c2"
       }
     ],
     "text_zones": [
@@ -5082,7 +5230,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5097,12 +5246,13 @@
         "width": 396,
         "height": 91,
         "shape": "rectangle",
-        "placeholder": "30/08/2025",
+        "placeholder": "30/08/2027",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5122,7 +5272,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5142,7 +5293,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5185,9 +5337,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#eda7ba"
       }
     ],
     "text_zones": [
@@ -5209,7 +5361,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5228,7 +5381,9 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5248,7 +5403,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5291,8 +5447,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -5315,7 +5471,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -5335,7 +5492,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5355,7 +5513,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5398,7 +5557,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -5422,7 +5581,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -5437,12 +5597,13 @@
         "width": 550,
         "height": 95,
         "shape": "rectangle",
-        "placeholder": "Le 12 Juillet 2025",
+        "placeholder": "Le 12 Juillet 2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5462,7 +5623,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5505,9 +5667,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffdede"
       }
     ],
     "text_zones": [
@@ -5529,7 +5691,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -5539,17 +5702,18 @@
         "id": "texte_mpbbehsjclpa",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1415,
+        "x": 1416,
         "y": 919,
         "width": 514,
         "height": 93,
         "shape": "rectangle",
-        "placeholder": "09/08/2025",
+        "placeholder": "09/08/2027",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -5568,7 +5732,9 @@
         "font_family": "Sacramento",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5611,8 +5777,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -5635,7 +5801,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -5650,12 +5817,13 @@
         "width": 458,
         "height": 94,
         "shape": "rectangle",
-        "placeholder": "06 juin 2026",
+        "placeholder": "06 juin 2027",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5675,7 +5843,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5742,7 +5911,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -5762,7 +5932,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5781,7 +5952,9 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -5801,7 +5974,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5844,7 +6018,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -5868,7 +6042,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5888,7 +6063,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -5908,7 +6084,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -5928,7 +6105,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -5971,8 +6149,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -5994,7 +6172,9 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -6014,7 +6194,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6034,7 +6215,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6077,7 +6259,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -6101,7 +6283,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6121,7 +6304,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -6141,7 +6325,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -6156,12 +6341,13 @@
         "width": 507,
         "height": 90,
         "shape": "rectangle",
-        "placeholder": "06.09.2025",
+        "placeholder": "06.09.2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6204,9 +6390,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#b2b584"
       }
     ],
     "text_zones": [
@@ -6228,7 +6414,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -6243,12 +6430,13 @@
         "width": 435,
         "height": 106,
         "shape": "rectangle",
-        "placeholder": "12 Juillet 2025",
+        "placeholder": "12 Juillet 2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6268,7 +6456,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -6288,7 +6477,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6331,8 +6521,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6355,7 +6545,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -6375,7 +6566,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6418,8 +6610,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6442,7 +6634,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -6462,7 +6655,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6482,7 +6676,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6525,7 +6720,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -6549,7 +6744,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6569,7 +6765,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6612,8 +6809,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -6636,7 +6833,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -6656,7 +6854,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6675,7 +6874,9 @@
         "font_family": "Advent Pro",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6718,7 +6919,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -6742,7 +6943,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -6757,12 +6959,13 @@
         "width": 521,
         "height": 122,
         "shape": "rectangle",
-        "placeholder": "14 Juin 2025",
+        "placeholder": "14 Juin 2027",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6782,7 +6985,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6825,7 +7029,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -6849,7 +7053,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -6869,7 +7074,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6888,7 +7094,9 @@
         "font_family": "EB Garamond",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -6950,12 +7158,13 @@
         "width": 458,
         "height": 310,
         "shape": "circle",
-        "placeholder": "Baptême\nMaëlle\nLe 20 avril 2025",
+        "placeholder": "Baptême\nMaëlle\nLe 20 avril 2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -6975,7 +7184,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7018,8 +7228,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7042,7 +7252,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -7057,12 +7268,13 @@
         "width": 607,
         "height": 84,
         "shape": "rectangle",
-        "placeholder": "Le 12 Juillet 2025",
+        "placeholder": "Le 12 Juillet 2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -7082,7 +7294,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7125,8 +7338,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7149,7 +7362,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -7164,12 +7378,13 @@
         "width": 460,
         "height": 158,
         "shape": "rectangle",
-        "placeholder": "08/11/2025",
+        "placeholder": "08/11/2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -7189,7 +7404,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7256,7 +7472,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -7271,12 +7488,13 @@
         "width": 621,
         "height": 122,
         "shape": "rectangle",
-        "placeholder": "07 mars 2026",
+        "placeholder": "07 mars 2027",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7319,15 +7537,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffc97d"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 103,
+        "font_size": 123,
         "color": "#a2471b",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -7336,14 +7554,15 @@
         "x": 1400,
         "y": 348,
         "width": 452,
-        "height": 398,
+        "height": 376,
         "shape": "circle",
         "placeholder": "Emy\n1 an",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -7363,7 +7582,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7406,7 +7626,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -7430,7 +7650,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -7450,7 +7671,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -7469,7 +7691,9 @@
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7536,7 +7760,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -7556,7 +7781,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -7576,7 +7802,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7619,7 +7846,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -7643,7 +7870,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -7663,7 +7891,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -7683,7 +7912,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7726,7 +7956,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -7750,7 +7980,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -7770,7 +8001,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7783,7 +8015,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8468529941810035,
+    "rotation_y": 5.811946409141117,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-animaux-de-la-foret.webp",
     "design": {
       "x": 0,
@@ -7815,7 +8047,7 @@
         "opacity": 1,
         "visible": false,
         "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "text_color_override": "#c9a793"
       }
     ],
     "text_zones": [
@@ -7837,7 +8069,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -7852,12 +8085,13 @@
         "width": 392,
         "height": 127,
         "shape": "rectangle",
-        "placeholder": "10 mai 2025",
+        "placeholder": "10 mai 2027",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -7877,7 +8111,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -7920,9 +8155,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f3efe3"
       }
     ],
     "text_zones": [
@@ -7944,7 +8179,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -7959,12 +8195,13 @@
         "width": 578,
         "height": 88,
         "shape": "rectangle",
-        "placeholder": "Le 12 Juillet 2025",
+        "placeholder": "Le 12 Juillet 2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -7984,7 +8221,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8027,9 +8265,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f2ceb8"
       }
     ],
     "text_zones": [
@@ -8051,7 +8289,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -8066,12 +8305,13 @@
         "width": 591,
         "height": 88,
         "shape": "rectangle",
-        "placeholder": "Le 12 Juillet 2025",
+        "placeholder": "Le 12 Juillet 2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8138,7 +8378,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -8153,12 +8394,13 @@
         "width": 546,
         "height": 104,
         "shape": "rectangle",
-        "placeholder": "10 mai 2025",
+        "placeholder": "10 mai 2027",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -8178,7 +8420,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8221,9 +8464,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ede3d7"
       }
     ],
     "text_zones": [
@@ -8245,7 +8488,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -8260,12 +8504,13 @@
         "width": 546,
         "height": 86,
         "shape": "rectangle",
-        "placeholder": "1 Juin 2025",
+        "placeholder": "1 Juin 2027",
         "font_family": "Sacramento",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -8284,7 +8529,9 @@
         "font_family": "Sacramento",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8327,8 +8574,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -8351,7 +8598,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -8371,7 +8619,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -8390,7 +8639,9 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -8405,12 +8656,13 @@
         "width": 554,
         "height": 114,
         "shape": "rectangle",
-        "placeholder": "9 mai 2026",
+        "placeholder": "9 mai 2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8453,8 +8705,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -8477,7 +8729,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -8497,7 +8750,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -8516,7 +8770,9 @@
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8559,8 +8815,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -8583,7 +8839,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -8603,7 +8860,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8646,7 +8904,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -8670,7 +8928,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -8685,12 +8944,13 @@
         "width": 478,
         "height": 115,
         "shape": "rectangle",
-        "placeholder": "Le 31 mai 2025",
+        "placeholder": "Le 31 mai 2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -8710,7 +8970,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8753,7 +9014,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -8777,7 +9038,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -8797,7 +9059,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -8817,7 +9080,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8860,9 +9124,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fdefe9"
       }
     ],
     "text_zones": [
@@ -8884,7 +9148,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -8904,7 +9169,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -8924,7 +9190,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -8967,9 +9234,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f9e9cb"
       }
     ],
     "text_zones": [
@@ -8991,7 +9258,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -9006,12 +9274,13 @@
         "width": 466,
         "height": 122,
         "shape": "rectangle",
-        "placeholder": "15 août 2025",
+        "placeholder": "15 août 2027",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -9031,7 +9300,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -9074,9 +9344,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e4ccaa"
       }
     ],
     "text_zones": [
@@ -9098,7 +9368,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -9118,7 +9389,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -9138,7 +9410,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -9181,8 +9454,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9205,7 +9478,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -9225,7 +9499,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -9268,7 +9543,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -9292,7 +9567,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -9307,12 +9583,13 @@
         "width": 496,
         "height": 86,
         "shape": "rectangle",
-        "placeholder": "Le 12 Juillet 2025",
+        "placeholder": "Le 12 Juillet 2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -9332,7 +9609,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -9375,8 +9653,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9390,20 +9668,21 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1405,
-        "y": 73,
+        "y": 51,
         "width": 565,
-        "height": 128,
+        "height": 150,
         "shape": "rectangle",
         "placeholder": "Joyeux anniversaire\nLyna",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
-        "font_size": 78,
+        "font_size": 97,
         "color": "#030303",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -9419,7 +9698,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -9439,7 +9719,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -9482,7 +9763,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -9506,7 +9787,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -9526,7 +9808,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -9569,8 +9852,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9593,7 +9876,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -9608,12 +9892,13 @@
         "width": 310,
         "height": 89,
         "shape": "rectangle",
-        "placeholder": "20.12.2025",
+        "placeholder": "20.12.2027",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -9633,7 +9918,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -9646,7 +9932,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.8,
+    "rotation_y": 5.829399701661061,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-eucalyptus-hexagone.webp",
     "design": {
       "x": 0,
@@ -9676,7 +9962,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -9700,7 +9986,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -9720,7 +10007,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -9735,12 +10023,13 @@
         "width": 544,
         "height": 105,
         "shape": "rectangle",
-        "placeholder": "14/06/2025",
+        "placeholder": "14/06/2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -9783,7 +10072,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -9807,7 +10096,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -9827,7 +10117,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -9842,12 +10133,13 @@
         "width": 252,
         "height": 61,
         "shape": "rectangle",
-        "placeholder": "11.03.2021",
+        "placeholder": "11.03.2027",
         "font_family": "Advent Pro",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -9901,8 +10193,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9924,7 +10216,9 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -9944,7 +10238,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -9964,7 +10259,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -9984,7 +10280,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -10038,7 +10335,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -10062,7 +10359,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10082,7 +10380,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -10102,7 +10401,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -10156,7 +10456,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -10171,7 +10471,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1086,
-        "y": 381,
+        "y": 403,
         "width": 629,
         "height": 251,
         "shape": "rectangle",
@@ -10180,7 +10480,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10191,7 +10492,7 @@
         "label": "Zone de texte 2",
         "order": 2,
         "x": 1169,
-        "y": 632,
+        "y": 654,
         "width": 463,
         "height": 171,
         "shape": "rectangle",
@@ -10200,7 +10501,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -10220,7 +10522,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -10263,7 +10566,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -10287,7 +10590,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -10307,7 +10611,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -10374,7 +10679,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10394,7 +10700,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -10461,7 +10768,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -10482,8 +10790,9 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1,
-        "curve": -26
+        "stroke_preview": 1.5,
+        "curve": -26,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -10550,7 +10859,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10570,7 +10880,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -10637,7 +10948,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10657,7 +10969,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10677,7 +10990,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -10744,7 +11058,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10764,7 +11079,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10784,7 +11100,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10804,7 +11121,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -10871,7 +11189,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10891,7 +11210,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -10911,7 +11231,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -10954,9 +11275,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#c4af96"
       }
     ],
     "text_zones": [
@@ -10978,7 +11299,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -10993,12 +11315,13 @@
         "width": 562,
         "height": 95,
         "shape": "rectangle",
-        "placeholder": "22/11/2025",
+        "placeholder": "22/11/2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -11018,11 +11341,12 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
-        "font_size": 97,
+        "font_size": 100,
         "color": "#704b3d",
         "multiline": false,
         "id": "texte_mpzplc0xeikt",
@@ -11038,7 +11362,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11105,7 +11430,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -11125,7 +11451,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11183,16 +11510,17 @@
         "label": "Zone de texte 3",
         "order": 3,
         "x": 1389,
-        "y": 769,
+        "y": 771,
         "width": 507,
         "height": 122,
         "shape": "rectangle",
-        "placeholder": "15 juin 2025",
+        "placeholder": "15 juin 2027",
         "font_family": "EB Garamond",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11212,7 +11540,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11232,7 +11561,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11252,7 +11582,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11265,7 +11596,7 @@
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
-    "rotation_y": 5.6,
+    "rotation_y": 5.567600313861911,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-hexagone-eucalyptus.webp",
     "design": {
       "x": 0,
@@ -11295,8 +11626,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -11319,7 +11650,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -11334,12 +11666,13 @@
         "width": 584,
         "height": 122,
         "shape": "rectangle",
-        "placeholder": "27 juillet 2025",
+        "placeholder": "27 juillet 2027",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -11359,7 +11692,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11402,8 +11736,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -11426,7 +11760,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11446,7 +11781,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11489,8 +11825,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -11513,7 +11849,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -11533,7 +11870,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -11553,7 +11891,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11620,7 +11959,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11640,7 +11980,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11660,7 +12001,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11704,8 +12046,8 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
       }
     ],
     "text_zones": [
@@ -11727,7 +12069,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11740,14 +12083,15 @@
         "x": 1322,
         "y": 878,
         "width": 550,
-        "height": 79,
+        "height": 96,
         "shape": "rectangle",
         "placeholder": "Jean-Louis",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11767,7 +12111,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11810,7 +12155,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -11834,7 +12179,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -11854,7 +12200,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11874,7 +12221,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -11941,7 +12289,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -11961,7 +12310,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12004,7 +12354,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -12028,7 +12378,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -12048,7 +12399,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12091,7 +12443,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -12115,8 +12467,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 2.5,
-        "stroke_print": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -12136,7 +12488,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12203,7 +12556,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -12223,7 +12577,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12266,9 +12621,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fabd43"
       }
     ],
     "text_zones": [
@@ -12290,7 +12645,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -12310,7 +12666,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.2,
@@ -12330,7 +12687,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12373,7 +12731,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -12397,7 +12755,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -12417,7 +12776,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1,
@@ -12432,12 +12792,13 @@
         "width": 234,
         "height": 55,
         "shape": "rectangle",
-        "placeholder": "25.09.2024",
+        "placeholder": "25.09.2027",
         "font_family": "Montserrat",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -12491,9 +12852,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fde65d"
       }
     ],
     "text_zones": [
@@ -12515,7 +12876,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -12535,7 +12897,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12578,7 +12941,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -12602,7 +12965,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -12656,8 +13020,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -12680,7 +13044,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -12695,12 +13060,13 @@
         "width": 645,
         "height": 99,
         "shape": "rectangle",
-        "placeholder": "07 Juin 2025",
+        "placeholder": "07 Juin 2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -12720,7 +13086,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12763,8 +13130,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -12787,7 +13154,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -12802,12 +13170,13 @@
         "width": 411,
         "height": 99,
         "shape": "rectangle",
-        "placeholder": "02 août 2025",
+        "placeholder": "02 août 2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12874,7 +13243,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -12894,7 +13264,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -12914,7 +13285,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -12957,7 +13329,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -12981,7 +13353,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13001,7 +13374,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -13079,7 +13453,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -13099,7 +13474,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13119,7 +13495,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -13173,9 +13550,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fcdc89"
       }
     ],
     "text_zones": [
@@ -13197,7 +13574,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -13217,7 +13595,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13237,7 +13616,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -13291,7 +13671,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -13315,7 +13695,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -13335,7 +13716,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13355,7 +13737,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -13398,9 +13781,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffc9d8"
       }
     ],
     "text_zones": [
@@ -13422,7 +13805,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -13442,7 +13826,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13462,7 +13847,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -13529,7 +13915,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -13549,7 +13936,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13569,7 +13957,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -13612,9 +14001,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#f2c781"
       }
     ],
     "text_zones": [
@@ -13636,7 +14025,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -13656,7 +14046,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13676,7 +14067,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -13696,7 +14088,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -13763,7 +14156,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -13783,7 +14177,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13803,7 +14198,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -13823,7 +14219,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -13866,8 +14263,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -13890,7 +14287,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -13910,7 +14308,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -13930,7 +14329,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -13973,8 +14373,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -13997,7 +14397,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -14017,7 +14418,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14037,7 +14439,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -14080,8 +14483,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -14104,7 +14507,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -14124,7 +14528,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14144,7 +14549,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -14187,8 +14593,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -14211,7 +14617,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -14231,7 +14638,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14251,7 +14659,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -14271,7 +14680,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -14314,7 +14724,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -14338,7 +14748,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -14358,7 +14769,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14378,7 +14790,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -14398,7 +14811,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -14465,7 +14879,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14485,7 +14900,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -14505,7 +14921,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14525,7 +14942,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -14568,7 +14986,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -14592,7 +15010,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -14646,8 +15065,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -14670,7 +15089,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -14690,7 +15110,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14710,7 +15131,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -14730,7 +15152,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -14773,8 +15196,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -14797,7 +15220,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -14817,7 +15241,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14837,7 +15262,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -14880,8 +15306,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -14904,7 +15330,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -14924,7 +15351,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -14944,7 +15372,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -14988,7 +15417,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": false,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -15011,7 +15440,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -15065,8 +15495,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -15089,7 +15519,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -15109,7 +15540,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -15152,8 +15584,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -15176,7 +15608,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -15196,7 +15629,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -15216,7 +15650,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -15236,7 +15671,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -15256,7 +15692,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -15323,7 +15760,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -15343,7 +15781,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -15386,8 +15825,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -15410,7 +15849,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -15453,8 +15893,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -15477,7 +15917,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.1,
@@ -15497,7 +15938,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -15564,7 +16006,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -15584,7 +16027,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 50,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [
@@ -15638,7 +16082,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -15663,7 +16107,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -15683,7 +16128,9 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -15703,7 +16150,9 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -15746,8 +16195,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -15770,7 +16219,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -15790,7 +16240,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -15810,7 +16261,9 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -15853,7 +16306,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -15877,7 +16330,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 30,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -15898,7 +16352,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -15919,7 +16374,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -15986,7 +16442,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -16006,7 +16463,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -16027,7 +16485,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16094,7 +16553,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16161,7 +16621,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -16181,7 +16642,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -16201,7 +16663,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16268,7 +16731,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -16288,7 +16752,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16331,8 +16796,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -16355,7 +16820,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -16375,7 +16841,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16418,8 +16885,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -16442,7 +16909,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -16463,7 +16931,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16506,9 +16975,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#edd3bf"
       }
     ],
     "text_zones": [
@@ -16530,7 +16999,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -16550,7 +17020,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16617,7 +17088,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16684,7 +17156,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16727,7 +17200,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -16751,7 +17224,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -16771,7 +17245,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16838,7 +17313,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -16858,7 +17334,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -16878,7 +17355,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16945,7 +17423,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -16988,7 +17467,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -17012,7 +17491,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -17032,7 +17512,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -17052,7 +17533,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17119,7 +17601,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -17139,7 +17622,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.2,
@@ -17159,7 +17643,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17226,7 +17711,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.5,
@@ -17246,7 +17732,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17289,8 +17776,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -17313,7 +17800,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 15,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.6,
@@ -17333,7 +17821,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -17353,7 +17842,9 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17421,7 +17912,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -17436,13 +17928,14 @@
         "width": 520,
         "height": 194,
         "shape": "rectangle",
-        "placeholder": "17 novembre 2026",
+        "placeholder": "17 novembre 2027",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17509,7 +18002,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -17530,7 +18024,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17597,7 +18092,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -17618,7 +18114,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17685,7 +18182,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -17706,7 +18204,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17772,7 +18271,9 @@
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
-        "max_chars": 0
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17839,7 +18340,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -17860,7 +18362,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -17927,7 +18430,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -17948,7 +18452,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18015,7 +18520,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -18036,7 +18542,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18103,7 +18610,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18170,7 +18678,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18237,7 +18746,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -18258,7 +18768,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18325,7 +18836,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -18346,7 +18858,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18413,7 +18926,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -18434,7 +18948,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18501,7 +19016,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -18522,7 +19038,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18589,7 +19106,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -18604,13 +19122,14 @@
         "width": 513,
         "height": 153,
         "shape": "rectangle",
-        "placeholder": "16 mai 2026",
+        "placeholder": "16 mai 2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18677,7 +19196,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18739,12 +19259,13 @@
         "width": 750,
         "height": 204,
         "shape": "rectangle",
-        "placeholder": "40 ans de Louis\n10 novembre 2026",
+        "placeholder": "40 ans de Louis\n10 novembre 2027",
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18811,7 +19332,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -18832,7 +19354,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18894,12 +19417,13 @@
         "width": 524,
         "height": 411,
         "shape": "rectangle",
-        "placeholder": "Baptême de Emilio\n18.10.2026",
+        "placeholder": "Baptême de Emilio\n18.10.2027",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -18961,12 +19485,13 @@
         "width": 532,
         "height": 254,
         "shape": "rectangle",
-        "placeholder": "Baptême de Giulia\n12 juillet 2025",
+        "placeholder": "Baptême de Giulia\n12 juillet 2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19033,7 +19558,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19048,13 +19574,14 @@
         "width": 502,
         "height": 413,
         "shape": "rectangle",
-        "placeholder": "15 avril 2025",
+        "placeholder": "15 avril 2027",
         "font_family": "Great Vibes",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19111,17 +19638,18 @@
         "id": "mtk4dca9lclj",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1336,
+        "x": 1334,
         "y": 4,
         "width": 461,
         "height": 406,
         "shape": "rectangle",
-        "placeholder": "BAPTÊME \nD'ÉLIO\n12 JUIN 2026",
+        "placeholder": "BAPTÊME \nD'ÉLIO\n12 JUIN 2027",
         "font_family": "EB Garamond",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19188,7 +19716,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19255,7 +19784,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19276,7 +19806,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19319,9 +19850,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e6dfdb"
       }
     ],
     "text_zones": [
@@ -19343,8 +19874,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 0,
-        "stroke_print": 0
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19365,7 +19896,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19408,7 +19940,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -19432,7 +19964,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19453,7 +19986,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19474,7 +20008,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19517,15 +20052,15 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 120,
+        "font_size": 170,
         "color": "#000000",
         "multiline": false,
         "id": "mtrlnvmscuns",
@@ -19541,7 +20076,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19608,7 +20144,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19629,7 +20166,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19696,7 +20234,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19763,7 +20302,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19784,7 +20324,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19851,7 +20392,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19872,7 +20414,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19893,7 +20436,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -19936,7 +20480,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -19960,7 +20504,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19981,7 +20526,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -19996,13 +20542,14 @@
         "width": 548,
         "height": 189,
         "shape": "rectangle",
-        "placeholder": "7/11/2026",
+        "placeholder": "7/11/2027",
         "font_family": "Coming Soon",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20069,7 +20616,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20091,7 +20639,8 @@
         "max_chars": 0,
         "locked": false,
         "stroke_preview": 1.5,
-        "curve": 0
+        "curve": 0,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20134,7 +20683,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -20158,7 +20707,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20179,7 +20729,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20246,7 +20797,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20267,7 +20819,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20334,7 +20887,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20356,7 +20910,8 @@
         "max_chars": 0,
         "locked": false,
         "stroke_preview": 1.5,
-        "curve": 45
+        "curve": 45,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20378,7 +20933,8 @@
         "max_chars": 0,
         "locked": false,
         "stroke_preview": 1.5,
-        "curve": 45
+        "curve": 45,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20421,9 +20977,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#eed29e"
       }
     ],
     "text_zones": [
@@ -20445,7 +21001,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20460,12 +21017,14 @@
         "width": 656,
         "height": 102,
         "shape": "rectangle",
-        "placeholder": "10 novembre 2026",
+        "placeholder": "10 novembre 2027",
         "font_family": "Sacramento",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "locked": false
+        "locked": false,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20508,7 +21067,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -20532,7 +21091,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20553,7 +21113,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20596,7 +21157,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -20620,7 +21181,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20641,7 +21203,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20708,7 +21271,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20775,7 +21339,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20796,7 +21361,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20817,7 +21383,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20860,9 +21427,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ec8ebf"
       }
     ],
     "text_zones": [
@@ -20884,7 +21451,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20905,7 +21473,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -20948,9 +21517,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#fad5eb"
       }
     ],
     "text_zones": [
@@ -20972,7 +21541,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -20993,7 +21563,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21014,7 +21585,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21057,8 +21629,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -21081,7 +21653,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21102,7 +21675,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21170,7 +21744,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21191,7 +21766,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21212,7 +21788,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21255,8 +21832,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -21269,7 +21846,7 @@
         "id": "mu1lxyimxqfp",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 794,
+        "x": 793,
         "y": 437,
         "width": 382,
         "height": 320,
@@ -21279,7 +21856,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21300,7 +21878,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21367,7 +21946,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21410,8 +21990,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -21434,7 +22014,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21455,7 +22036,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21522,7 +22104,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21543,7 +22126,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21586,9 +22170,9 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
-        "text_color_override": "#ffffff"
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#d9bc97"
       }
     ],
     "text_zones": [
@@ -21610,7 +22194,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21631,7 +22216,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21682,7 +22268,7 @@
     "text_zones": [
       {
         "lineHeight": 1.3,
-        "font_size": 450,
+        "font_size": 409,
         "color": "#d8001c",
         "multiline": false,
         "id": "mu1my5h0ne3x",
@@ -21698,7 +22284,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21719,7 +22306,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21730,7 +22318,7 @@
         "label": "Zone de texte 2",
         "order": 3,
         "x": 105,
-        "y": 667,
+        "y": 646,
         "width": 778,
         "height": 236,
         "shape": "rectangle",
@@ -21740,7 +22328,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21783,7 +22372,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -21798,7 +22387,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1371,
-        "y": 401,
+        "y": 391,
         "width": 403,
         "height": 387,
         "shape": "oval",
@@ -21807,7 +22396,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21820,7 +22410,7 @@
         "x": 1292,
         "y": 878,
         "width": 561,
-        "height": 100,
+        "height": 122,
         "shape": "rectangle",
         "placeholder": "10 juillet 2027",
         "font_family": "Parisienne",
@@ -21828,7 +22418,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       },
       {
         "lineHeight": 1.3,
@@ -21849,7 +22440,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_preview": 1.5
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
       }
     ],
     "photo_zones": [],
@@ -21892,7 +22484,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -21907,7 +22499,7 @@
         "label": "Zone de texte 1",
         "order": 1,
         "x": 1393,
-        "y": 424,
+        "y": 419,
         "width": 375,
         "height": 322,
         "shape": "oval",
@@ -21916,7 +22508,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
@@ -21926,8 +22519,8 @@
         "id": "texte_mubmljq5lhrl",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1329,
-        "y": 863,
+        "x": 1305,
+        "y": 870,
         "width": 552,
         "height": 113,
         "shape": "rectangle",
@@ -21937,7 +22530,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
@@ -21958,7 +22552,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -22001,7 +22596,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -22015,9 +22610,9 @@
         "id": "mubn8u54mour",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1402,
-        "y": 399,
-        "width": 359,
+        "x": 1375,
+        "y": 401,
+        "width": 401,
         "height": 343,
         "shape": "oval",
         "placeholder": "20",
@@ -22025,28 +22620,30 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 129,
         "color": "#cf4446",
         "multiline": false,
         "id": "texte_mubnak5ttnus",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1324,
-        "y": 859,
+        "x": 1318,
+        "y": 855,
         "width": 515,
         "height": 144,
         "shape": "rectangle",
-        "placeholder": "20 mai 2027",
+        "placeholder": "David",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
@@ -22067,7 +22664,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -22110,8 +22708,8 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
-        "force_text_color": false,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -22124,9 +22722,9 @@
         "id": "mubndnnj9yk2",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1390,
-        "y": 409,
-        "width": 389,
+        "x": 1403,
+        "y": 401,
+        "width": 367,
         "height": 365,
         "shape": "oval",
         "placeholder": "35",
@@ -22134,7 +22732,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
@@ -22144,18 +22743,19 @@
         "id": "texte_mubnfh2fspqs",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1355,
-        "y": 882,
+        "x": 1338,
+        "y": 867,
         "width": 498,
         "height": 123,
         "shape": "rectangle",
-        "placeholder": "10 octobre 2026",
+        "placeholder": "10 octobre 2027",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
@@ -22176,7 +22776,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -22187,7 +22788,7 @@
     "name": "Gobelet Anniversaire Personnalisé – Ballons Rose",
     "shopify_handle": "gobelet-anniversaire-ballons-rose",
     "gobelet_color": "#f5f0eb",
-    "gobelet_opacity": 0.88,
+    "gobelet_opacity": 1,
     "model_url": null,
     "rotation_y": 5.88175957922089,
     "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ballons-rose.webp",
@@ -22219,7 +22820,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -22233,38 +22834,40 @@
         "id": "mubnots71g6z",
         "label": "Zone de texte 1",
         "order": 1,
-        "x": 1397,
-        "y": 416,
-        "width": 371,
-        "height": 341,
+        "x": 1388,
+        "y": 376,
+        "width": 387,
+        "height": 389,
         "shape": "oval",
         "placeholder": "50",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
-        "font_size": 100,
+        "font_size": 128,
         "color": "#a2406a",
         "multiline": false,
         "id": "texte_mubnqczsib4c",
         "label": "Zone de texte 2",
         "order": 2,
-        "x": 1363,
-        "y": 865,
-        "width": 470,
-        "height": 96,
+        "x": 1317,
+        "y": 849,
+        "width": 529,
+        "height": 142,
         "shape": "rectangle",
-        "placeholder": "24 octobre 2026",
+        "placeholder": "Amélie",
         "font_family": "Parisienne",
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
@@ -22285,7 +22888,8 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
@@ -22328,7 +22932,7 @@
         "name": "Noir",
         "hex": "#121212",
         "opacity": 1,
-        "visible": false,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -22352,7 +22956,8 @@
         "align": "center",
         "rotation": 0,
         "max_chars": 0,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       },
       {
         "lineHeight": 1.3,
@@ -22365,7 +22970,7 @@
         "x": 635,
         "y": 670,
         "width": 696,
-        "height": 111,
+        "height": 144,
         "shape": "rectangle",
         "placeholder": "Philippe",
         "font_family": "Allura",
@@ -22373,7 +22978,98 @@
         "rotation": 0,
         "max_chars": 0,
         "locked": false,
-        "stroke_print": 1.5
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "brouillon-2-mubojp9k30wr",
+    "name": "Gobelet Anniversaire Personnalisé – Confettis Rose & Gris",
+    "shopify_handle": "gobelet-anniversaire-confettis-rose-gris",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 0.88,
+    "model_url": null,
+    "rotation_y": 1.3962634015954636,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-confettis-rose-gris.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.3,
+        "font_size": 590,
+        "color": "#d93aa7",
+        "multiline": false,
+        "id": "mubojp9lh7cq",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 627,
+        "y": 239,
+        "width": 716,
+        "height": 365,
+        "shape": "rectangle",
+        "placeholder": "30",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
+      },
+      {
+        "lineHeight": 1.3,
+        "font_size": 175,
+        "color": "#f904ab",
+        "multiline": false,
+        "id": "texte_mubolok8mypj",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 676,
+        "y": 635,
+        "width": 618,
+        "height": 139,
+        "shape": "rectangle",
+        "placeholder": "Charline",
+        "font_family": "Allura",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "locked": false,
+        "stroke_print": 2.5,
+        "stroke_preview": 1.5
       }
     ],
     "photo_zones": [],
