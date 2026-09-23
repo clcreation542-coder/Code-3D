@@ -824,7 +824,11 @@
   //  KZ_PHOTO_ATTENTE_MAX ms après le délai habituel : sans réponse, elle
   //  part sans la propriété (rien n'est bloqué).
   var KZ_PHOTO_ATTENTE_MAX = 8000;
+  // Décision d'Allan (23/09) : le PNG imprimeur suffit, on n'envoie PAS la photo
+  // originale (ça rallongeait l'ajout au panier). Remettre true pour la réactiver.
+  var KZ_PHOTOS_ORIGINALES = false;
   function kzDemandePhotosSources() {
+    if (!KZ_PHOTOS_ORIGINALES) return;
     if (window._kzPhotoSrcDemandee) return;
     var zones = Object.keys(window._kuztomPhotoDataUrls || {});
     if (!zones.length || !iframe || !iframe.contentWindow) return;
