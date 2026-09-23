@@ -674,7 +674,7 @@
         fetch(PROXY_URL+'/file',{
         method:'POST',headers:{'Content-Type':'application/json','X-Auth-Key':PROXY_KEY},
         body:JSON.stringify({path:filename,content:b64,message:'source: '+filename})
-      }).then(function(r){resolve(r.ok?{url:'https://dev.code-3d.pages.dev/'+filename,label:label}:null);}).catch(function(){resolve(null);});
+      }).then(function(r){if(!r.ok){resolve(null);return;} r.json().then(function(j){resolve(j&&j.url?{url:j.url,label:label}:null);}).catch(function(){resolve(null);});})   /* lien réel renvoyé par le proxy */.catch(function(){resolve(null);});
       } catch(e){resolve(null);}
     });
   }

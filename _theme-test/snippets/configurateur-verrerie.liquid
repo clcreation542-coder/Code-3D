@@ -743,7 +743,7 @@
         headers: { 'Content-Type': 'application/json', 'X-Auth-Key': PROXY_KEY },
         body: JSON.stringify({ path: filename, content: b64, message: 'photo source: ' + filename })
       }).then(function(res) {
-        if (res.ok) { resolve({ url: 'https://dev.code-3d.pages.dev/' + filename, label: label }); }
+        if (res.ok) { res.json().then(function (j) { resolve(j && j.url ? { url: j.url, label: label } : null); }).catch(function () { resolve(null); }); }   // lien réel renvoyé par le proxy (/view?key=…)
         else { resolve(null); }
         }).catch(function() { resolve(null); });
       } catch (e) { resolve(null); }
