@@ -86,8 +86,64 @@ const params     = new URLSearchParams(window.location.search);
 const designName = params.get('design') || '';
 const KZ_MINI    = params.get('mini') === '1';   // vignette flottante mobile : pas de commandes
 const REPO_BASE  = 'https://clcreation542-coder.github.io/Code-3D';
-const PROXY_URL  = 'https://kuztom-proxy.contact-kuztom.workers.dev';
-const PROXY_KEY  = '';
+
+// ══════════════════════════════════════════════════════════════════
+//  KZ_VIEWER_UNIFIE v1 (23/09/2026)
+//  configurateur-viewer.html et configurateur-viewer-360.html sont
+//  désormais STRICTEMENT IDENTIQUES (le thème en ligne pointe encore
+//  sur le -360). Toute modification se fait dans l'un puis se recopie.
+//
+//  Proxy des commandes : par défaut le proxy de production, comme
+//  avant. Deux façons d'en viser un autre (ex. kuztom-proxy-test) :
+//    · paramètre d'URL  ?proxy=https://kuztom-proxy-test.contact-kuztom.workers.dev
+//    · message SET_ORDERS_TOKEN { proxyUrl, proxyKey } envoyé par le thème
+//  Priorité : paramètre d'URL > SET_ORDERS_TOKEN > défaut. Seuls les
+//  Workers kuztom-proxy*.contact-kuztom.workers.dev sont acceptés.
+// ══════════════════════════════════════════════════════════════════
+const KZ_PROXY_DEFAUT = 'https://kuztom-proxy.contact-kuztom.workers.dev';
+function kzProxyValide(u) {
+  return typeof u === 'string'
+      && /^https:\/\/kuztom-proxy[a-z0-9-]*\.contact-kuztom\.workers\.dev\/?$/.test(u);
+}
+const KZ_PROXY_PARAM = kzProxyValide(params.get('proxy')) ? params.get('proxy').replace(/\/+$/, '') : '';
+let PROXY_URL = KZ_PROXY_PARAM || KZ_PROXY_DEFAUT;
+let PROXY_KEY = '';
+
+// ══════════════════════════════════════════════════════════════════
+//  KZ_ORIGINES v1 — P2-08
+//  Les messages entrants ne sont traités que s'ils viennent d'une page
+//  autorisée : la boutique (kuztom.fr, *.myshopify.com, aperçus
+//  *.shopifypreview.com), le site du viewer lui-même, et l'admin de test.
+//  Les réponses partent vers l'origine du parent (document.referrer, puis
+//  l'origine du premier message valide reçu du parent) au lieu de '*'.
+//  Tant qu'aucune origine n'est connue (referrer absent), les annonces
+//  sans donnée sensible (kuztom_ready…) partent encore vers '*' : sinon la
+//  fiche ne saurait jamais que le viewer est prêt.
+// ══════════════════════════════════════════════════════════════════
+const KZ_ORIGINES = [
+  'https://kuztom.fr',
+  'https://www.kuztom.fr',
+  'https://code-3d.pages.dev',
+  'https://dev.code-3d.pages.dev',
+  'https://kuztom-admin-test.contact-kuztom.workers.dev'
+];
+function kzOrigineAutorisee(o) {
+  if (!o || typeof o !== 'string' || o === 'null') return false;
+  if (KZ_ORIGINES.indexOf(o) !== -1) return true;
+  if (o === window.location.origin) return true;
+  return /^https:\/\/[a-z0-9-]+\.myshopify\.com$/.test(o)
+      || /^https:\/\/[a-z0-9-]+\.shopifypreview\.com$/.test(o);
+}
+let KZ_PARENT_ORIGIN = null;
+try {
+  if (document.referrer) {
+    const kzRef = new URL(document.referrer).origin;
+    if (kzOrigineAutorisee(kzRef)) KZ_PARENT_ORIGIN = kzRef;
+  }
+} catch (e) {}
+function kzPost(msg) {
+  try { window.parent.postMessage(msg, KZ_PARENT_ORIGIN || '*'); } catch (e) {}
+}
 // ══════════════════════════════════════════════════════════════════
 //  KZ_MODELES v1 — MODÈLES 3D DISPONIBLES
 //  ⚠️ Bloc MIROIR de celui de kuztomadmin (KZ_STUDIO). Toute modif ici
@@ -142,6 +198,7 @@ let CFG = {
 
 const state = {
   texts: {}, photos: {}, photoCrop: {},
+  photoSrc: {}, photoSrcEnvoyee: {},   // P6-10 : photo d'origine par zone + dernier dépôt
   activeCropZone: null,
   gobeletColor: '#f5f0eb',
   designImage: null,
@@ -535,21 +592,65 @@ function drawTexture() {
     };
   });
   if (window.parent && zoneInfos.length) {
-    window.parent.postMessage({ type: 'kuztom_zone_info', zones: zoneInfos }, '*');
+    kzPost({ type: 'kuztom_zone_info', zones: zoneInfos });
   }
+}
+
+// ══════════════════════════════════════════════════════════════════
+//  KZ_CHARGEMENT v2 — P6-01 / P6-03
+//  1. designs/<id-ou-handle>.json sur la MÊME origine que le viewer
+//     (un seul design, quelques Ko au lieu de ~600 Ko) ;
+//  2. repli : designs.json sur la même origine ;
+//  3. repli final : raw.githubusercontent (comportement d'avant).
+//  Une réponse qui n'est pas du JSON (page 404 ou index.html renvoyés
+//  en 200 par l'hébergeur) est traitée comme une absence.
+// ══════════════════════════════════════════════════════════════════
+const KZ_DESIGNS_RAW = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
+
+async function kzLitJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return await res.json();
+}
+
+function kzTrouveDesign(designs) {
+  return Array.isArray(designs)
+    ? (designs.find(d => d && d.id === designName) || designs.find(d => d && d.shopify_handle === designName))
+    : null;
+}
+
+async function kzChargeDesign() {
+  let reseauKO = 0, essais = 0;
+  // 1. Fichier individuel (nom de fichier sûr uniquement)
+  if (/^[A-Za-z0-9._-]+$/.test(designName) && designName.indexOf('..') === -1) {
+    essais++;
+    try {
+      const d = await kzLitJSON(new URL('designs/' + designName + '.json', window.location.href).href);
+      if (d && !Array.isArray(d) && typeof d === 'object'
+          && (d.id === designName || d.shopify_handle === designName)) return d;
+    } catch (e) { if (e instanceof TypeError) reseauKO++; }
+  }
+  // 2. Liste complète, même origine
+  essais++;
+  try {
+    const d = kzTrouveDesign(await kzLitJSON(new URL('designs.json', window.location.href).href));
+    if (d) return d;
+  } catch (e) { if (e instanceof TypeError) reseauKO++; }
+  // 3. Repli historique
+  essais++;
+  try {
+    const d = kzTrouveDesign(await kzLitJSON(KZ_DESIGNS_RAW));
+    if (d) return d;
+  } catch (e) { if (e instanceof TypeError) reseauKO++; }
+  const err = new Error('design non trouvé');
+  err.kzReseau = (reseauKO === essais);   // tout a échoué côté réseau
+  throw err;
 }
 
 async function loadDesignConfig() {
   if (!designName) return;
-  const url = 'https://raw.githubusercontent.com/clcreation542-coder/Code-3D/main/designs.json';
   try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const designs = await res.json();
-    const data = Array.isArray(designs)
-      ? (designs.find(d => d.id === designName) || designs.find(d => d.shopify_handle === designName))
-      : null;
-    if (!data) throw new Error('design non trouvé');
+    const data = await kzChargeDesign();
     CFG = data;
     appliquerFormatTexture();   // le format du canvas suit le modèle 3D du design
     if (!CFG.design) CFG.design = { x: 0, y: 0, width: TEX_W, height: TEX_H };
@@ -557,7 +658,11 @@ async function loadDesignConfig() {
     (CFG.text_zones || []).forEach(z => { state.texts[z.id] = z.placeholder || ''; });
     (CFG.arch_zones || []).forEach(z => { state.texts[z.id] = ''; });
   } catch (e) {
-    showError(`Design "${designName}" introuvable (${e.message})`);
+    // P6-03 : message sobre pour le client, détail technique en console.
+    try { console.warn('[kuztom] design "' + designName + '" introuvable :', e && e.message); } catch (_) {}
+    showError((e && e.kzReseau)
+      ? 'Impossible de charger ce modèle pour le moment. Vérifiez votre connexion puis rechargez la page.'
+      : 'Ce modèle n’est pas disponible pour le moment.');
   }
 }
 
@@ -1014,7 +1119,7 @@ function fallbackGeometry() {
 function hideLoading() {
   const el = document.getElementById('loading-indicator');
   if (el) { el.classList.add('hidden'); setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 500); }
-  window.parent.postMessage({ type: 'kuztom_ready' }, '*');
+  kzPost({ type: 'kuztom_ready' });
 }
 
 let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInteraction = 0;
@@ -1064,8 +1169,34 @@ function onResize() {
 }
 
 window.addEventListener('message', function(e) {
+  // KZ_ORIGINES v1 — P2-08 : tout message d'une origine non autorisée est ignoré.
+  if (!kzOrigineAutorisee(e.origin)) return;
   const data = e.data;
   if (!data || typeof data !== 'object') return;
+  if (e.source === window.parent || !KZ_PARENT_ORIGIN) KZ_PARENT_ORIGIN = e.origin;
+
+  // Mémorise le proxy des commandes (et sa clé) transmis par le thème.
+  if (data.type === 'SET_ORDERS_TOKEN') {
+    if (!KZ_PROXY_PARAM && kzProxyValide(data.proxyUrl)) PROXY_URL = data.proxyUrl.replace(/\/+$/, '');
+    if (typeof data.proxyKey === 'string') PROXY_KEY = data.proxyKey;
+    return;
+  }
+
+  // P6-09 : aperçu « maquette » demandé par kz-express-guard. Même capture
+  // que REQUEST_PREVIEW_SCREENSHOT ; réponse { type:'MOCKUP_PNG_READY', dataUrl }.
+  if (data.type === 'REQUEST_MOCKUP_PNG') {
+    try {
+      kzPost({ type: 'MOCKUP_PNG_READY', dataUrl: kzCaptureApercu() });
+    } catch (err) { kzPost({ type: 'MOCKUP_PNG_ERROR' }); }
+    return;
+  }
+
+  // P6-10 : photo(s) ORIGINALE(S) du client, déposées sur le proxy à la
+  // demande du thème. Réponse { type:'PHOTO_SOURCES_READY', urls:{zoneId:url} }.
+  if (data.type === 'REQUEST_PHOTO_SOURCES') {
+    kzEnvoiePhotosSources(data);
+    return;
+  }
 
   if (data.type === 'UPDATE_TEXT' && data.zoneId !== undefined && data.value !== undefined) {
     const zone = (CFG.text_zones || []).find(z => z.id === data.zoneId)
@@ -1092,24 +1223,74 @@ window.addEventListener('message', function(e) {
         renderer.render(scene, camera);
         return renderer.domElement.toDataURL('image/png');
       });
-      window.parent.postMessage({ type: 'SHARE_IMAGE_READY', dataUrl }, '*');
-    } catch(e) { window.parent.postMessage({ type: 'SHARE_IMAGE_ERROR' }, '*'); }
+      kzPost({ type: 'SHARE_IMAGE_READY', dataUrl });
+    } catch(e) { kzPost({ type: 'SHARE_IMAGE_ERROR' }); }
+    return;
+  }
+
+  // ================================================================
+  //  KZ_VUES_360 v1 (18/09/2026)
+  //  ----------------------------------------------------------------
+  //  (23/09/2026 : les deux viewers sont fusionnés — voir
+  //  KZ_VIEWER_UNIFIE en tête de fichier. Ce bloc est désormais
+  //  présent dans configurateur-viewer.html comme dans le -360.)
+  //
+  //  REQUEST_PREVIEW_SCREENSHOT, juste en dessous, remet toujours
+  //  l'angle a 0 : il ne sait rendre qu'une seule vue. Ici on accepte
+  //  une liste d'angles et on renvoie une capture par angle.
+  //
+  //  Angle 0 = la vue d'ouverture, celle que le client voit en
+  //  arrivant : rotY vaut (Math.PI + CFG.rotation_y) a l'init.
+  //
+  //  RIEN N'EST VISIBLE A L'ECRAN. Tout se fait dans un seul bloc
+  //  synchrone : le navigateur ne peint aucune image entre la
+  //  premiere rotation et la remise en place, et la boucle
+  //  d'animation rend de nouveau juste apres. Meme technique que la
+  //  capture d'origine, simplement repetee.
+  //
+  //  Reponse : { type: 'VUES_360_PRETES', views: [{ angle, dataUrl }] }
+  // ================================================================
+  if (data.type === 'REQUEST_VUES_360') {
+    try {
+      var kzAngles = (data.angles && data.angles.length) ? data.angles : [0, 120, 240];
+      var kzQual   = (typeof data.quality === 'number') ? data.quality : 0.88;
+      var kzSrcW   = renderer.domElement.width;
+      var kzSrcH   = renderer.domElement.height;
+      var kzMax    = Math.max(kzSrcW, kzSrcH) || 512;
+      var kzSize   = Math.min((typeof data.size === 'number' ? data.size : 560), kzMax);
+      var kzBase   = (CFG.rotation_y !== undefined) ? (Math.PI + CFG.rotation_y) : Math.PI;
+      var kzSaved  = gobeletGroup.rotation.y;
+      var kzViews  = kzCaptureNeutre(function () {
+        var tmp  = document.createElement('canvas');
+        tmp.width = kzSize; tmp.height = kzSize;
+        var tctx = tmp.getContext('2d');
+        var scale = kzSize / kzMax;
+        var dw = kzSrcW * scale, dh = kzSrcH * scale;
+        var dx = (kzSize - dw) / 2, dy = (kzSize - dh) / 2;
+        var res = [];
+        for (var k = 0; k < kzAngles.length; k++) {
+          gobeletGroup.rotation.y = kzBase + (kzAngles[k] * Math.PI / 180);
+          renderer.render(scene, camera);
+          tctx.clearRect(0, 0, kzSize, kzSize);
+          tctx.drawImage(renderer.domElement, dx, dy, dw, dh);
+          res.push({ angle: kzAngles[k], dataUrl: tmp.toDataURL('image/jpeg', kzQual) });
+        }
+        return res;
+      });
+      gobeletGroup.rotation.y = kzSaved;
+      renderer.render(scene, camera);
+      kzPost({ type: 'VUES_360_PRETES', views: kzViews });
+    } catch (e) {
+      kzPost({ type: 'VUES_360_ERREUR', message: String((e && e.message) || e) });
+    }
     return;
   }
 
   if (data.type === 'REQUEST_PREVIEW_SCREENSHOT') {
     try {
-      const savedRotY = rotY;
-      gobeletGroup.rotation.y = 0;
-      // KZ_ZOOM v1 — l'aperçu joint à la commande ne doit jamais être un gros plan
-      const dataUrl = kzCaptureNeutre(function() {
-        renderer.render(scene, camera);
-        return renderer.domElement.toDataURL('image/jpeg', 0.88);
-      });
-      gobeletGroup.rotation.y = savedRotY;
-      renderer.render(scene, camera);
-      window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT', dataUrl }, '*');
-    } catch(e) { window.parent.postMessage({ type: 'PREVIEW_SCREENSHOT_ERROR' }, '*'); }
+      const dataUrl = kzCaptureApercu();
+      kzPost({ type: 'PREVIEW_SCREENSHOT', dataUrl });
+    } catch(e) { kzPost({ type: 'PREVIEW_SCREENSHOT_ERROR' }); }
     return;
   }
 
@@ -1126,9 +1307,15 @@ window.addEventListener('message', function(e) {
 
   if (data.type === 'REQUEST_PRINT_PNG') {
     (async function() {
+      // P6-06 : pre=1 → PNG pré-généré par kz-express-guard (durée de vie
+      // courte côté proxy tant qu'il n'est pas confirmé). Si une vraie
+      // demande (sans pre) arrive pendant une génération pré-générée, le
+      // PNG produit sera confirmé avant d'être renvoyé.
+      const kzPre = !!data.pre;
+      if (window.__kzPrinting) { if (!kzPre) window.__kzPrintConfirmer = true; return; }
       try {
-        if (window.__kzPrinting) return;
         window.__kzPrinting = true;
+        window.__kzPrintConfirmer = false;
         const W = TEX_W, H = TEX_H;
         const printCanvas = document.createElement('canvas');
         printCanvas.width = W; printCanvas.height = H;
@@ -1264,14 +1451,14 @@ window.addEventListener('message', function(e) {
         function kzUpload() {
           return new Promise(function (resolve, reject) {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', PROXY_URL + '/file?path=' + encodeURIComponent(filename), true);
+            xhr.open('POST', PROXY_URL + '/file?path=' + encodeURIComponent(filename) + (kzPre ? '&pre=1' : ''), true);
             xhr.setRequestHeader('Content-Type', 'image/png');
             xhr.setRequestHeader('X-Auth-Key', PROXY_KEY);
             xhr.timeout = 45000;
             xhr.upload.onprogress = function (ev) {
               if (ev.lengthComputable) {
                 const pct = Math.round((ev.loaded / ev.total) * 100);
-                window.parent.postMessage({ type: 'PRINT_PNG_PROGRESS', percent: pct }, '*');
+                kzPost({ type: 'PRINT_PNG_PROGRESS', percent: pct });
               }
             };
             xhr.onload = function () {
@@ -1293,12 +1480,20 @@ window.addEventListener('message', function(e) {
         if (lastErr || !uploadData || !uploadData.url) throw (lastErr || new Error('Upload échoué après 3 tentatives'));
         // Toujours l'URL du Worker (fini le lien github périmé qui tombait en 404).
         const pngUrl = uploadData.url;
+        let kzResteePre = kzPre;
+        if (kzPre && window.__kzPrintConfirmer) {
+          // Une commande attend ce PNG : on le rend permanent tout de suite.
+          if (await kzConfirmeFichier(filename)) kzResteePre = false;
+        }
         window.__kzPrinting = false;
-        window.parent.postMessage({ type: 'PRINT_PNG_READY', url: pngUrl }, '*');
+        window.__kzPrintConfirmer = false;
+        kzPost(kzResteePre ? { type: 'PRINT_PNG_READY', url: pngUrl, pre: true }
+                           : { type: 'PRINT_PNG_READY', url: pngUrl });
       } catch(e) {
         window.__kzPrinting = false;
+        window.__kzPrintConfirmer = false;
         console.error('generatePrintPNG error:', e);
-        window.parent.postMessage({ type: 'PRINT_PNG_ERROR', error: e.message }, '*');
+        kzPost({ type: 'PRINT_PNG_ERROR', error: e.message });
       }
     })();
     return;
@@ -1315,13 +1510,17 @@ window.addEventListener('message', function(e) {
 
   if (data.type === 'UPDATE_PHOTO' && data.zoneId && data.value) {
     const img = new Image();
+    // P6-10 : on garde la photo telle que reçue (fichier d'origine du client)
+    // pour pouvoir la déposer sur le proxy si le thème la demande.
+    const kzSource = (typeof data.value === 'string') ? data.value : null;
     img.onload = function() {
       state.photos[data.zoneId] = img;
+      state.photoSrc[data.zoneId] = kzSource;
       state.photoCrop[data.zoneId] = {zoom: 1, offsetX: 0, offsetY: 0};
       state.activeCropZone = data.zoneId;
       photoEditMode = true;
       drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
-      window.parent.postMessage({type: 'PHOTO_READY', zoneId: data.zoneId}, '*');
+      kzPost({type: 'PHOTO_READY', zoneId: data.zoneId});
     };
     img.src = data.value;
   }
@@ -1339,6 +1538,147 @@ window.addEventListener('message', function(e) {
     drawTexture(); if (bodyMaterial && bodyMaterial.map) bodyMaterial.map.needsUpdate = true;
   }
 });
+
+// ══════════════════════════════════════════════════════════════════
+//  Capture « aperçu » (REQUEST_PREVIEW_SCREENSHOT et REQUEST_MOCKUP_PNG).
+//  Code d'origine de REQUEST_PREVIEW_SCREENSHOT, inchangé, mis en commun.
+// ══════════════════════════════════════════════════════════════════
+function kzCaptureApercu() {
+  const savedRotY = rotY;
+  gobeletGroup.rotation.y = 0;
+  // KZ_ZOOM v1 — l'aperçu joint à la commande ne doit jamais être un gros plan
+  const dataUrl = kzCaptureNeutre(function() {
+    renderer.render(scene, camera);
+    return renderer.domElement.toDataURL('image/jpeg', 0.88);
+  });
+  gobeletGroup.rotation.y = savedRotY;
+  renderer.render(scene, camera);
+  return dataUrl;
+}
+
+// P6-06 : rend permanent un fichier déposé avec pre=1 (POST /confirmer?key=…).
+// Au pire (proxy ancien, réseau), renvoie false : rien n'est bloqué.
+function kzConfirmeFichier(cle) {
+  return new Promise(function (resolve) {
+    let fini = false;
+    const t = setTimeout(function () { if (!fini) { fini = true; resolve(false); } }, 8000);
+    try {
+      fetch(PROXY_URL + '/confirmer?key=' + encodeURIComponent(cle), { method: 'POST', keepalive: true })
+        .then(function (r) { if (!fini) { fini = true; clearTimeout(t); resolve(!!(r && r.ok)); } })
+        .catch(function () { if (!fini) { fini = true; clearTimeout(t); resolve(false); } });
+    } catch (e) { if (!fini) { fini = true; clearTimeout(t); resolve(false); } }
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════
+//  KZ_PHOTO_SOURCE v1 — P6-10
+//  Dépose sur le proxy la photo ORIGINALE envoyée par le client (celle
+//  reçue par UPDATE_PHOTO, avant tout recadrage), pour que l'atelier
+//  puisse la retravailler. Ne touche pas au PNG imprimeur : l'envoi
+//  attend même la fin d'une génération de PNG en cours pour ne pas lui
+//  prendre de bande passante.
+//  Fichier : orders/<inversé>-<rand>-photo-source-<zone>.<jpg|png|webp>
+//  (l'extension suit le vrai format ; un format que le proxy n'accepte
+//  pas — HEIC, GIF… — est réencodé en JPEG). Plafond 8 Mo (limite du
+//  proxy) : au-delà, réencodage JPEG, puis réduction si nécessaire.
+// ══════════════════════════════════════════════════════════════════
+const KZ_PHOTO_MAX = 8 * 1024 * 1024;
+
+function kzBlobDepuisDataUrl(dataUrl) {
+  return fetch(dataUrl).then(function (r) { return r.blob(); });
+}
+
+function kzReencodeJpeg(img, echelle) {
+  return new Promise(function (resolve) {
+    try {
+      const w = Math.max(1, Math.round((img.naturalWidth || img.width) * echelle));
+      const h = Math.max(1, Math.round((img.naturalHeight || img.height) * echelle));
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      const x = c.getContext('2d');
+      x.fillStyle = '#ffffff'; x.fillRect(0, 0, w, h);   // JPEG : pas de transparence
+      x.drawImage(img, 0, 0, w, h);
+      c.toBlob(function (b) { resolve(b); }, 'image/jpeg', 0.92);
+    } catch (e) { resolve(null); }
+  });
+}
+
+async function kzPreparePhoto(zoneId) {
+  const src = state.photoSrc[zoneId];
+  const img = state.photos[zoneId];
+  if (!src || !img) return null;
+  let blob = await kzBlobDepuisDataUrl(src);
+  const EXT = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
+  let ext = EXT[blob.type];
+  if (!ext || blob.size > KZ_PHOTO_MAX) {
+    let echelle = 1;
+    blob = await kzReencodeJpeg(img, echelle);
+    while (blob && blob.size > KZ_PHOTO_MAX && echelle > 0.2) {
+      echelle *= Math.sqrt(KZ_PHOTO_MAX / blob.size) * 0.95;
+      blob = await kzReencodeJpeg(img, echelle);
+    }
+    if (!blob || blob.size > KZ_PHOTO_MAX) return null;
+    ext = 'jpg';
+  }
+  return { blob: blob, ext: ext };
+}
+
+function kzDeposeBinaire(chemin, blob) {
+  return new Promise(function (resolve, reject) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', PROXY_URL + '/file?path=' + encodeURIComponent(chemin), true);
+    xhr.setRequestHeader('Content-Type', blob.type || 'application/octet-stream');
+    xhr.setRequestHeader('X-Auth-Key', PROXY_KEY);
+    xhr.timeout = 60000;
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try { const j = JSON.parse(xhr.responseText); if (j && j.url) { resolve(j.url); return; } } catch (e) {}
+        reject(new Error('Réponse invalide'));
+      } else { reject(new Error('Envoi échoué : ' + xhr.status)); }
+    };
+    xhr.onerror = function () { reject(new Error('Erreur réseau')); };
+    xhr.ontimeout = function () { reject(new Error('Délai dépassé')); };
+    xhr.send(blob);
+  });
+}
+
+async function kzEnvoiePhotosSources(data) {
+  const urls = {};
+  try {
+    // Laisse d'abord finir le PNG imprimeur (au plus 90 s d'attente).
+    const t0 = Date.now();
+    while (window.__kzPrinting && Date.now() - t0 < 90000) {
+      await new Promise(function (r) { setTimeout(r, 250); });
+    }
+    const zones = (Array.isArray(data.zoneIds) && data.zoneIds.length)
+      ? data.zoneIds : Object.keys(state.photoSrc);
+    for (const zoneId of zones) {
+      const src = state.photoSrc[zoneId];
+      if (!src) continue;
+      // Même photo déjà déposée (nouvel essai du thème) : on réutilise l'adresse.
+      const deja = state.photoSrcEnvoyee[zoneId];
+      if (deja && deja.src === src) { urls[zoneId] = deja.url; continue; }
+      try {
+        const p = await kzPreparePhoto(zoneId);
+        if (!p) continue;
+        const inverted = String(9999999999 - Math.floor(Date.now() / 1000)).padStart(10, '0');
+        const rand = Math.random().toString(36).slice(2, 6);
+        const zoneSlug = String(zoneId).replace(/[^A-Za-z0-9_-]+/g, '-').slice(0, 40) || 'zone';
+        const chemin = `orders/${inverted}-${rand}-photo-source-${zoneSlug}.${p.ext}`;
+        let url = null;
+        for (let essai = 1; essai <= 2 && !url; essai++) {
+          try { url = await kzDeposeBinaire(chemin, p.blob); }
+          catch (err) { if (essai < 2) await new Promise(function (r) { setTimeout(r, 1500); }); }
+        }
+        if (url) {
+          urls[zoneId] = url;
+          state.photoSrcEnvoyee[zoneId] = { src: src, url: url };
+        }
+      } catch (err) { console.warn('[kuztom] photo source ' + zoneId + ' :', err && err.message); }
+    }
+  } catch (err) { console.warn('[kuztom] photos sources :', err && err.message); }
+  kzPost({ type: 'PHOTO_SOURCES_READY', urls: urls });
+}
 
 function showError(msg) {
   const el  = document.getElementById('error-msg');
