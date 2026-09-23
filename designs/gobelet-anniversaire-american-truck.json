@@ -1,0 +1,107 @@
+{
+  "id": "copie-de-gobelet-anniversaire-black-beer-panoramique-mpzqibtfsktf",
+  "name": "Gobelet Anniversaire - American Truck",
+  "shopify_handle": "gobelet-anniversaire-american-truck",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.672320068981571,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-american-truck.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#fabd43"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 111,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1350,
+      "y": 134,
+      "width": 602,
+      "height": 114,
+      "shape": "rectangle",
+      "placeholder": "20 ANS",
+      "font_family": "Alegreya",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 107,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1372,
+      "y": 850,
+      "width": 558,
+      "height": 161,
+      "shape": "rectangle",
+      "placeholder": "JOHAN",
+      "font_family": "Alegreya",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_print": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpzqm2zs6baj",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 270,
+      "y": 366,
+      "width": 769,
+      "height": 409,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Alegreya",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

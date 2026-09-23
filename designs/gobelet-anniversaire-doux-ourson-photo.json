@@ -1,0 +1,118 @@
+{
+  "id": "copie-de-gobelet-anniversaire-couronne-azur-photo-mpzfxqjhqi5q",
+  "name": "Gobelet Anniversaire - Doux Ourson Photo",
+  "shopify_handle": "gobelet-anniversaire-doux-ourson-photo",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.6,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-doux-ourson-photo.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 100,
+      "color": "#ba9071",
+      "multiline": false,
+      "id": "texte_mpzauz28ez1k",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 292,
+      "y": 238,
+      "width": 804,
+      "height": 496,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Italianno",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 99,
+      "color": "#ba9071",
+      "multiline": false,
+      "id": "texte_mpzbw0t8ajnj",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1385,
+      "y": 71,
+      "width": 525,
+      "height": 83,
+      "shape": "rectangle",
+      "placeholder": "1 an Eden",
+      "font_family": "Italianno",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 85,
+      "color": "#ba9071",
+      "multiline": false,
+      "id": "texte_mpzbz81jdair",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1491,
+      "y": 814,
+      "width": 256,
+      "height": 81,
+      "shape": "rectangle",
+      "placeholder": "11.03.2027",
+      "font_family": "Italianno",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "photo_mq17b8396p93",
+      "label": "Photo",
+      "order": 1,
+      "x": 1452,
+      "y": 346,
+      "width": 391,
+      "height": 468,
+      "shape": "rectangle"
+    }
+  ],
+  "arch_zones": []
+}

@@ -1,0 +1,107 @@
+{
+  "id": "copie-de-gobelet-mariage-couronne-d-eucalyptus-mprgcfije7ys",
+  "name": "Gobelet Mariage - Couronne d'Or & Fleurs Champêtres",
+  "shopify_handle": "gobelet-mariage-couronne-dor-fleurs-champetres",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.8,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-couronne-dor-fleurs-champetres.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e8e7c8"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.4,
+      "font_size": 81,
+      "color": "#c49c27",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1387,
+      "y": 313,
+      "width": 430,
+      "height": 447,
+      "shape": "oval",
+      "placeholder": "Dolorès\net\nFrançois",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 80,
+      "color": "#c49c27",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1348,
+      "y": 903,
+      "width": 508,
+      "height": 95,
+      "shape": "rectangle",
+      "placeholder": "3 octobre 2027",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#bc9c22",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 234,
+      "y": 265,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

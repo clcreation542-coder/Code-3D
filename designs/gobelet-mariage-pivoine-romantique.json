@@ -1,0 +1,87 @@
+{
+  "id": "gobelet-mariage-personnalise-pivoine-romantique-mrmsu6q9y3tr",
+  "name": "Gobelet Mariage Personnalisé – Pivoine Romantique",
+  "shopify_handle": "gobelet-mariage-pivoine-romantique",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 1.2217304763960306,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-pivoine-romantique.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 119,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 766,
+      "y": 389,
+      "width": 638,
+      "height": 152,
+      "shape": "rectangle",
+      "placeholder": "Jade & Théo",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 84,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 877,
+      "y": 541,
+      "width": 416,
+      "height": 104,
+      "shape": "rectangle",
+      "placeholder": "15 mai 2027",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

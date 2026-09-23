@@ -1,0 +1,107 @@
+{
+  "id": "copie-de-gobelet-bapteme-eucalyptus-dore-mpwlb5i5v1uf",
+  "name": "Gobelet Baptême - Petit Ours Montgolfière",
+  "shopify_handle": "gobelet-bapteme-petit-ours-montgolfiere",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.4,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-petit-ours-montgolfiere.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 90,
+      "color": "#704b3d",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1459,
+      "y": 96,
+      "width": 511,
+      "height": 105,
+      "shape": "rectangle",
+      "placeholder": "Baptême de Gabin",
+      "font_family": "Sacramento",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.5,
+      "font_size": 80,
+      "color": "#704b3d",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1491,
+      "y": 908,
+      "width": 446,
+      "height": 122,
+      "shape": "rectangle",
+      "placeholder": "05 avril 2027",
+      "font_family": "Sacramento",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#704b3d",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 325,
+      "y": 268,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

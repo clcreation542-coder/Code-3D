@@ -1,0 +1,87 @@
+{
+  "id": "copie-de-gobelet-anniversaire-l-envol-de-l-ourson-mpwo2zthda1m",
+  "name": "Gobelet Baptême - Petit Dinosaure & Jungle",
+  "shopify_handle": "gobelet-bapteme-petit-dinosaure-jungle",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 1.4,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-petit-dinosaure-jungle.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#f2ceb8"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 81,
+      "color": "#488e39",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 753,
+      "y": 126,
+      "width": 520,
+      "height": 101,
+      "shape": "rectangle",
+      "placeholder": "Baptême de Owen",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.5,
+      "font_size": 77,
+      "color": "#488e39",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 717,
+      "y": 908,
+      "width": 591,
+      "height": 88,
+      "shape": "rectangle",
+      "placeholder": "Le 12 Juillet 2027",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

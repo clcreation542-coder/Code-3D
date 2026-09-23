@@ -1,0 +1,87 @@
+{
+  "id": "copie-de-gobelet-anniversaire-animaux-de-la-foret-mpwo6svvwb38",
+  "name": "Gobelet Baptême - Citron Bleu",
+  "shopify_handle": "gobelet-bapteme-citron-bleu",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.759586531581287,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-citron-bleu-dolce-vita.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 94,
+      "color": "#030303",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1418,
+      "y": 320,
+      "width": 371,
+      "height": 452,
+      "shape": "circle",
+      "placeholder": "Baptême de\nGabin\n29/08/2027",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#030303",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 242,
+      "y": 268,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

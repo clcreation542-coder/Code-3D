@@ -1,0 +1,87 @@
+{
+  "id": "copie-de-gobelet-anniversaire-panda-bambou-mpwn5hpxzq9n",
+  "name": "Gobelet Baptême - Couronne de Paix",
+  "shopify_handle": "gobelet-bapteme-couronne-de-paix",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.7,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-couronne-de-paix.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 100,
+      "color": "#030303",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1404,
+      "y": 314,
+      "width": 458,
+      "height": 310,
+      "shape": "circle",
+      "placeholder": "Baptême\nMaëlle\nLe 20 avril 2027",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#030303",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 253,
+      "y": 268,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

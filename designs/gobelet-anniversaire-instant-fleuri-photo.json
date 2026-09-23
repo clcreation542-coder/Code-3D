@@ -1,0 +1,118 @@
+{
+  "id": "copie-de-gobelet-anniversaire-doux-ourson-photo-mq152xiaibky",
+  "name": "Gobelet Anniversaire - Instant Fleuri Photo",
+  "shopify_handle": "gobelet-anniversaire-instant-fleuri-photo",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.8468529941810035,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-instant-fleuri-photo.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 100,
+      "color": "#eca194",
+      "multiline": false,
+      "id": "texte_mpzauz28ez1k",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 200,
+      "y": 238,
+      "width": 804,
+      "height": 496,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Italianno",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 71,
+      "color": "#eca194",
+      "multiline": false,
+      "id": "texte_mpzbw0t8ajnj",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1297,
+      "y": 77,
+      "width": 564,
+      "height": 127,
+      "shape": "rectangle",
+      "placeholder": "1 an de Malya",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 86,
+      "color": "#eca194",
+      "multiline": false,
+      "id": "texte_mpzbz81jdair",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1464,
+      "y": 751,
+      "width": 234,
+      "height": 55,
+      "shape": "rectangle",
+      "placeholder": "25.09.2027",
+      "font_family": "Montserrat",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "photo_mq188rwv70p2",
+      "label": "Photo",
+      "order": 1,
+      "x": 1434,
+      "y": 358,
+      "width": 295,
+      "height": 387,
+      "shape": "rectangle"
+    }
+  ],
+  "arch_zones": []
+}

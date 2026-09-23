@@ -1,0 +1,107 @@
+{
+  "id": "copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-gobelet-anniversaire-animaux-de-la-foret-mpzkdrbwmzi1",
+  "name": "Gobelet Anniversaire - Nœuds & Étoiles Scintillantes",
+  "shopify_handle": "gobelet-anniversaire-noeuds-etoiles-scintillantes",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 1.43116998663535,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-noeuds-etoiles-scintillantes.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 610,
+      "y": 183,
+      "width": 780,
+      "height": 162,
+      "shape": "rectangle",
+      "placeholder": "18 ans",
+      "font_family": "Dancing Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 50,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpzq6xgxlgy2",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 610,
+      "y": 348,
+      "width": 780,
+      "height": 162,
+      "shape": "rectangle",
+      "placeholder": "ALIZA",
+      "font_family": "Borel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 50,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpzq6ztgo6s2",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 610,
+      "y": 510,
+      "width": 780,
+      "height": 162,
+      "shape": "rectangle",
+      "placeholder": "22.11.2027",
+      "font_family": "Dancing Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 50,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

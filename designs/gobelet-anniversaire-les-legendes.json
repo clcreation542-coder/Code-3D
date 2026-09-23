@@ -1,0 +1,89 @@
+{
+  "id": "copie-de-copie-de-copie-de-copie-de-gobelet-anniversaire-animaux-de-la-foret-mpzkdpc26l6n",
+  "name": "Gobelet Anniversaire - Les Légendes",
+  "shopify_handle": "gobelet-anniversaire-les-legendes",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.672320068981571,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-les-legendes.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 0.8,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 257,
+      "y": 341,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Italianno",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 200,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mt01k1da987u",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1432,
+      "y": 792,
+      "width": 428,
+      "height": 90,
+      "shape": "rectangle",
+      "placeholder": "1 9 8 5",
+      "font_family": "EB Garamond",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1,
+      "curve": -26
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

@@ -1,0 +1,86 @@
+{
+  "id": "copie-de-gobelet-mariage-couronne-citrons-amalfis-mppuh02zun3a",
+  "name": "Gobelet Mariage - Cœur Géométrique & Roses",
+  "shopify_handle": "gobelet-mariage-coeur-geometrique-roses",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.8468529941810035,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-coeur-geometrique-roses.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 76,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1356,
+      "y": 404,
+      "width": 457,
+      "height": 268,
+      "shape": "oval",
+      "placeholder": "Kenza & Youness\n18/10/2027",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0
+    },
+    {
+      "lineHeight": 1.5,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mppgu4277c7u",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 202,
+      "y": 265,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

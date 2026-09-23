@@ -1,0 +1,118 @@
+{
+  "id": "gobelet-anniversaire-personnalise-safari-photo-jungle-mrmq6rf6fw44",
+  "name": "Gobelet Anniversaire Personnalisé – Safari Photo & Jungle",
+  "shopify_handle": "gobelet-anniversaire-safari-photo-jungle",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.515240436302081,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-safari-photo-jungle.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#fcdc89"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 81,
+      "color": "#87554a",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1465,
+      "y": 158,
+      "width": 415,
+      "height": 111,
+      "shape": "rectangle",
+      "placeholder": "1 an de Mylan",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 105,
+      "color": "#87554a",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1443,
+      "y": 874,
+      "width": 459,
+      "height": 105,
+      "shape": "rectangle",
+      "placeholder": "10 août 2027",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#87554a",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 305,
+      "y": 341,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "photo_mrpmjrhgmiky",
+      "label": "Photo",
+      "order": 1,
+      "x": 1469,
+      "y": 272,
+      "width": 407,
+      "height": 546,
+      "shape": "rectangle"
+    }
+  ],
+  "arch_zones": []
+}

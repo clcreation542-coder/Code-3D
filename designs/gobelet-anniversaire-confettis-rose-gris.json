@@ -1,0 +1,84 @@
+{
+  "id": "brouillon-2-mubojp9k30wr",
+  "name": "Gobelet Anniversaire Personnalisé – Confettis Rose & Gris",
+  "shopify_handle": "gobelet-anniversaire-confettis-rose-gris",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 0.88,
+  "model_url": null,
+  "rotation_y": 1.3962634015954636,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-confettis-rose-gris.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "id": "mubojp9lh7cq",
+      "label": "Zone de texte 1",
+      "x": 627,
+      "y": 239,
+      "width": 716,
+      "height": 365,
+      "font_size": 590,
+      "font_family": "Allura",
+      "color": "#d93aa7",
+      "lineHeight": 1.3,
+      "align": "center",
+      "shape": "rectangle",
+      "placeholder": "30",
+      "order": 1,
+      "rotation": 0,
+      "stroke_print": 1.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 175,
+      "color": "#f904ab",
+      "multiline": false,
+      "id": "texte_mubolok8mypj",
+      "label": "Zone de texte 2",
+      "placeholder": "Charline",
+      "order": 2,
+      "x": 676,
+      "y": 635,
+      "width": 618,
+      "height": 139,
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "locked": false,
+      "stroke_print": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

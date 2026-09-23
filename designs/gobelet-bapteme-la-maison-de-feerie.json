@@ -1,0 +1,107 @@
+{
+  "id": "copie-de-gobelet-bapteme-ourson-nuage-rose-mpwlfau63nau",
+  "name": "Gobelet Baptême - La Maison de Féerie",
+  "shopify_handle": "gobelet-bapteme-la-maison-de-feerie",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.3,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-la-maison-de-feerie.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 80,
+      "color": "#ed98b4",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1503,
+      "y": 226,
+      "width": 467,
+      "height": 167,
+      "shape": "rectangle",
+      "placeholder": "Baptême de Maelÿs",
+      "font_family": "Dancing Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 68,
+      "color": "#ed98b4",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1508,
+      "y": 958,
+      "width": 458,
+      "height": 94,
+      "shape": "rectangle",
+      "placeholder": "06 juin 2027",
+      "font_family": "Dancing Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 101,
+      "color": "#ed98b4",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 328,
+      "y": 271,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Dancing Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

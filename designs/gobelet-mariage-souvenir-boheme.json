@@ -1,0 +1,98 @@
+{
+  "id": "gobelet-mariage-personnalise-souvenir-boheme-mrmt0evzqsk9",
+  "name": "Gobelet Mariage Personnalisé – Souvenir Bohème",
+  "shopify_handle": "gobelet-mariage-souvenir-boheme",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.672320068981571,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-souvenir-boheme.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 85,
+      "color": "#c9835e",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1408,
+      "y": 897,
+      "width": 459,
+      "height": 91,
+      "shape": "rectangle",
+      "placeholder": "13 septembre 2027",
+      "font_family": "Dancing Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#c9835e",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 291,
+      "y": 249,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Dancing Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 50,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "photo_mrppobn0wzyx",
+      "label": "Photo",
+      "order": 1,
+      "x": 1443,
+      "y": 306,
+      "width": 394,
+      "height": 534,
+      "shape": "rectangle"
+    }
+  ],
+  "arch_zones": []
+}

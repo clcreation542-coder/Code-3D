@@ -1,0 +1,67 @@
+{
+  "id": "gobelet-mariage-personnalise-panneaux-directionnel-mrmsu6q9v0ah",
+  "name": "Gobelet Mariage Personnalisé – Panneaux Directionnel",
+  "shopify_handle": "gobelet-mariage-panneaux-directionnel",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 3.106686068549907,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-panneaux-directionnel.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 137,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1199,
+      "y": 269,
+      "width": 507,
+      "height": 603,
+      "shape": "circle",
+      "placeholder": "Emma\net\nBen",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

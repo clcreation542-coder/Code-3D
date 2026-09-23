@@ -1,0 +1,105 @@
+{
+  "id": "brouillon-1-mubnots6ahvd",
+  "name": "Gobelet Anniversaire Personnalisé – Ballons Rose",
+  "shopify_handle": "gobelet-anniversaire-ballons-rose",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.88175957922089,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ballons-rose.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "id": "mubnots71g6z",
+      "label": "Zone de texte 1",
+      "x": 1388,
+      "y": 376,
+      "width": 387,
+      "height": 389,
+      "font_size": 250,
+      "font_family": "Parisienne",
+      "color": "#a2406a",
+      "lineHeight": 1.3,
+      "align": "center",
+      "shape": "oval",
+      "placeholder": "50",
+      "order": 1,
+      "rotation": 0,
+      "stroke_print": 2.5,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 128,
+      "color": "#a2406a",
+      "multiline": false,
+      "id": "texte_mubnqczsib4c",
+      "label": "Zone de texte 2",
+      "placeholder": "Amélie",
+      "order": 2,
+      "x": 1317,
+      "y": 849,
+      "width": 529,
+      "height": 142,
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "locked": false,
+      "stroke_print": 2.5,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 100,
+      "color": "#a2406a",
+      "multiline": false,
+      "id": "texte_mubnrapm5km2",
+      "label": "Zone de texte 3",
+      "placeholder": "",
+      "order": 3,
+      "x": 246,
+      "y": 350,
+      "width": 765,
+      "height": 439,
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "locked": false,
+      "stroke_print": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

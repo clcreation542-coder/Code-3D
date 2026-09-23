@@ -1,1 +1,118 @@
-{"id":"copie-de-gobelet-anniversaire-couronne-azur-photo-mpypu8fgh19e","name":"Gobelet Anniversaire - Couronne Azur Photo","shopify_handle":"gobelet-anniversaire-couronne-azur-photo","gobelet_color":"#f5f0eb","gobelet_opacity":1,"model_url":null,"rotation_y":5.7,"design_url":"https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-couronne-azur-photo.webp","design":{"x":0,"y":0,"width":2000,"height":1024},"active":true,"variant_colors":[{"name":"Translucide","hex":"#f5f0eb","opacity":1,"visible":true,"force_text_color":false,"text_color_override":"#ffffff"},{"name":"Blanc","hex":"#f0ede6","opacity":0,"visible":true,"force_text_color":false,"text_color_override":"#ffffff"},{"name":"Noir","hex":"#121212","opacity":1,"visible":true,"force_text_color":false,"text_color_override":"#ffffff"}],"text_zones":[{"lineHeight":1.5,"font_size":100,"color":"#1f3f70","multiline":false,"id":"texte_mpzauz28ez1k","label":"Zone de texte 3","order":3,"x":342,"y":239,"width":635,"height":472,"shape":"rectangle","placeholder":"","font_family":"Parisienne","align":"center","rotation":0,"max_chars":0,"stroke_preview":1.5,"stroke_print":2.5},{"lineHeight":1,"font_size":65,"color":"#1f3f70","multiline":false,"id":"texte_mpzbw0t8ajnj","label":"Zone de texte 1","order":1,"x":1373,"y":91,"width":525,"height":82,"shape":"rectangle","placeholder":"1 an Jules","font_family":"Parisienne","align":"center","rotation":0,"max_chars":0,"stroke_preview":1.5,"stroke_print":2.5},{"lineHeight":1.1,"font_size":57,"color":"#000000","multiline":false,"id":"texte_mpzbz81jdair","label":"Zone de texte 2","order":2,"x":1485,"y":737,"width":252,"height":61,"shape":"rectangle","placeholder":"11.03.2027","font_family":"Advent Pro","align":"center","rotation":0,"max_chars":0,"stroke_preview":1.5,"stroke_print":2.5}],"photo_zones":[{"id":"photo_mpypuln3byb0","label":"Photo","order":1,"x":1477,"y":319,"width":317,"height":418,"shape":"rectangle"}],"arch_zones":[]}
+{
+  "id": "copie-de-gobelet-anniversaire-couronne-azur-photo-mpypu8fgh19e",
+  "name": "Gobelet Anniversaire - Couronne Azur Photo",
+  "shopify_handle": "gobelet-anniversaire-couronne-azur-photo",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.7,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-couronne-azur-photo.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 100,
+      "color": "#1f3f70",
+      "multiline": false,
+      "id": "texte_mpzauz28ez1k",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 342,
+      "y": 239,
+      "width": 635,
+      "height": 472,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 65,
+      "color": "#1f3f70",
+      "multiline": false,
+      "id": "texte_mpzbw0t8ajnj",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1373,
+      "y": 91,
+      "width": 525,
+      "height": 82,
+      "shape": "rectangle",
+      "placeholder": "1 an Jules",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 57,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpzbz81jdair",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1485,
+      "y": 737,
+      "width": 252,
+      "height": 61,
+      "shape": "rectangle",
+      "placeholder": "11.03.2027",
+      "font_family": "Advent Pro",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "photo_mpypuln3byb0",
+      "label": "Photo",
+      "order": 1,
+      "x": 1477,
+      "y": 319,
+      "width": 317,
+      "height": 418,
+      "shape": "rectangle"
+    }
+  ],
+  "arch_zones": []
+}

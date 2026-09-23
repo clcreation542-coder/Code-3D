@@ -1,0 +1,88 @@
+{
+  "id": "brouillon-3-mu1lxyilzqx5",
+  "name": "Gobelet Anniversaire Personnalisé – Ballons & Eucalyptus",
+  "shopify_handle": "gobelet-anniversaire-ballons-eucalyptus",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 0.88,
+  "model_url": null,
+  "rotation_y": 1.2566370614359172,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ballons-eucalyptus.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 401,
+      "color": "#bea164",
+      "multiline": false,
+      "id": "mu1lxyimxqfp",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 793,
+      "y": 437,
+      "width": 382,
+      "height": 320,
+      "shape": "rectangle",
+      "placeholder": "20",
+      "font_family": "Alex Brush",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 200,
+      "color": "#bea164",
+      "multiline": false,
+      "id": "texte_mu1m16q820ck",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 712,
+      "y": 757,
+      "width": 546,
+      "height": 217,
+      "shape": "rectangle",
+      "placeholder": "Cindy",
+      "font_family": "Alex Brush",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
