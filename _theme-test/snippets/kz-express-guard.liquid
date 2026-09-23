@@ -1,0 +1,151 @@
+{%- comment -%} KZ — Verrou du bouton d'achat rapide : grisé tant que le PNG imprimeur n'est pas reçu ; barre + texte pendant la préparation ; génération en arrière-plan UNE fois (après viewer prêt). {%- endcomment -%}
+<style>
+  .kz-prep{width:100%;margin:8px 0 0;}
+  .kz-prep-track{height:4px;border-radius:4px;background:#eee6da;overflow:hidden;position:relative;}
+  .kz-prep-track::before{content:'';position:absolute;left:-40%;top:0;height:100%;width:40%;background:linear-gradient(90deg,transparent,#c9a96e,transparent);animation:kzprep 1.1s ease-in-out infinite;}
+  @keyframes kzprep{0%{left:-40%}100%{left:100%}}
+  .kz-prep-txt{margin-top:6px;font-size:12.5px;color:#c9a96e;font-weight:600;text-align:center;animation:kzblink 1.2s ease-in-out infinite;}
+  @keyframes kzblink{0%,100%{opacity:1}50%{opacity:.4}}
+  .kz-ready-flash{width:100%;margin:8px 0 0;text-align:center;font-size:13px;font-weight:800;color:#2d7a2d;}
+</style>
+<script>
+(function(){
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  ready(function(){
+    // ENVIRONNEMENT DE TEST : proxy de commandes de test.
+    var PROXY_URL='https://kuztom-proxy-test.contact-kuztom.workers.dev';
+    var PROXY_KEY='';
+    function viewer(){ return document.getElementById('kzc-iframe') || document.getElementById('kuztom-iframe'); }
+    if(!viewer()) return;
+    var started=false, vReady=false, wasReady=false;
+    window._kzPngReady=false;
+    var guardUrl='';          // URL du PNG pré-généré posé par ce fichier (vide = aucun)
+    var confirmes={};         // P6-06 : clés déjà confirmées auprès du proxy
+
+    // P2-08 : seuls les messages du viewer (Cloudflare Pages code-3d ou GitHub Pages) comptent.
+    function origineViewer(o){ return typeof o==='string' && (/^https:\/\/([a-z0-9-]+\.)?code-3d\.pages\.dev$/.test(o) || o==='https://clcreation542-coder.github.io'); }
+
+    function detectOrigin(){
+      // P6-08 : le configurateur 3D / verrerie annonce lui-même son origine
+      // ('3d', 'flute', 'verre-a-vin') — avant, flûte et verre sortaient en '3d'.
+      if(window.__kzSource) return String(window.__kzSource);
+      if(document.getElementById('kuztom-iframe')) return '3d';
+      if(document.querySelector('.kzc-canva-box')) return 'canva';
+      var h=((location.pathname||'').split('/products/')[1]||'').toLowerCase().split(/[?#\/]/)[0];
+      // Fiches connues, même valeur que celle posée par leur configurateur.
+      if(h==='gobelet-personnalise-creer-avec-canva') return 'canva';
+      if(h==='gobelet-personnalise-creer-avec-ia') return 'ia';
+      if(h==='gobelet-personnalise-professionnels') return 'pro';
+      if(h==='gobelet-personnalise-creer-mon-design') return 'texte';
+      if(h.indexOf('canva')>=0) return 'canva';
+      if(h.indexOf('avec-ia')>=0) return 'ia';
+      if(h.indexOf('mon-design')>=0) return 'pro';
+      if(h.indexOf('texte')>=0) return 'texte';
+      return 'client';
+    }
+    var origin=detectOrigin();
+
+    function form(){ return document.querySelector('form[action*="/cart/add"]'); }
+    // P6-06 : rend permanent (90 j) un PNG pré-généré qui va servir à une commande.
+    function cleDe(url){ try{ return new URL(url).searchParams.get('key')||''; }catch(e){ return ''; } }
+    function confirmer(url){
+      var k=cleDe(url); if(!k || confirmes[k]) return; confirmes[k]=1;
+      try{ fetch(PROXY_URL+'/confirmer?key='+encodeURIComponent(k),{method:'POST',keepalive:true}).catch(function(){ confirmes[k]=0; }); }catch(e){ confirmes[k]=0; }
+    }
+    // Le PNG pré-généré est-il encore celui du formulaire ?
+    function pngDuGuard(){ var f=form(); if(!f||!guardUrl) return null; var el=f.querySelector('input[name="properties[_PNG imprimeur]"][data-kzc="1"]'); return (el&&el.value===guardUrl)?el:null; }
+    // P6-08 : un autre émetteur (le configurateur) vient de poser son PNG → on retire le nôtre.
+    function retirerGuard(){
+      var el=pngDuGuard(); if(!el) return;
+      var f=form(); el.remove();
+      var s=f&&f.querySelector('input[name="properties[_source]"][data-kzc="1"]'); if(s) s.remove();
+      guardUrl='';
+    }
+    function inj(k,v){ var f=form(); if(!f) return; var el=f.querySelector('input[name="properties['+k+']"][data-kzc="1"]'); if(!el){ el=document.createElement('input'); el.type='hidden'; el.name='properties['+k+']'; el.setAttribute('data-kzc','1'); f.appendChild(el);} el.value=v; }
+    function hasPng(){ var f=form(); if(!f) return false; var el=f.querySelector('input[name="properties[_PNG imprimeur]"]'); return !!(el&&el.value); }
+    function expressEls(){ return Array.prototype.slice.call(document.querySelectorAll('.shopify-payment-button')); }
+
+    function ensurePrep(host){ var p=host.parentNode; if(!p) return; if(p.querySelector('.kz-prep')) return; var d=document.createElement('div'); d.className='kz-prep'; d.innerHTML='<div class="kz-prep-track"></div><div class="kz-prep-txt">Enregistrement de votre fichier d’impression…</div>'; p.insertBefore(d, host.nextSibling); }
+    function removePrep(host){ var p=host.parentNode; if(!p) return; var d=p.querySelector('.kz-prep'); if(d) d.remove(); }
+    function flashReady(host){ var p=host.parentNode; if(!p||p.querySelector('.kz-ready-flash')) return; var fl=document.createElement('div'); fl.className='kz-ready-flash'; fl.textContent='⚡ Paiement express prêt !'; p.insertBefore(fl, host.nextSibling); setTimeout(function(){ if(fl) fl.remove(); },1500); }
+
+    function sync(){
+      var ok = window._kzPngReady || hasPng();
+      expressEls().forEach(function(e){
+        var host = e.closest('buy-buttons') || e.parentNode;
+        if(ok){ e.style.opacity=''; e.style.pointerEvents=''; e.style.filter=''; removePrep(host); if(!wasReady) flashReady(host); }
+        else { e.style.opacity='0.45'; e.style.pointerEvents='none'; e.style.filter='grayscale(1)'; if(started) ensurePrep(host); else removePrep(host); }
+      });
+      wasReady = ok;
+    }
+    setInterval(sync,400); sync();
+
+    var lastFP=null, lastGen=0;
+    function fp(){ var f=form(); if(!f) return ''; var s=''; f.querySelectorAll('input,select,textarea').forEach(function(i){ if(i.name && i.name.indexOf('properties')===0 && i.name.indexOf('_PNG')<0 && i.name.indexOf('_Apercu')<0){ s+=i.name+'='+(i.value||'')+';'; } }); return s; }
+    function gen(force){
+      if(window._kzPngReady) return;
+      var f=fp(); if(!force && f===lastFP && (Date.now()-lastGen)<30000) return;
+      lastFP=f; lastGen=Date.now();
+      var tries=0; clearInterval(window._kzGenInt);
+      function send(){
+        if(window._kzPngReady){ clearInterval(window._kzGenInt); return; }   // <-- s'arrete des qu'on a le PNG (fini le clignotement)
+        var v=viewer(); if(!v||!v.contentWindow) return;
+        if(!vReady) return;                                                   // attend que le viewer soit pret
+        if(tries++ > 6){ clearInterval(window._kzGenInt); return; }
+        window._kzGuardGen=true;
+        // P6-06 : pre:1 → le viewer envoie avec &pre=1 (durée de vie courte tant que non confirmé).
+        v.contentWindow.postMessage({type:'REQUEST_PRINT_PNG',proxyUrl:PROXY_URL,proxyKey:PROXY_KEY,origin:origin,pre:1},'*');
+        // REQUEST_MOCKUP_PNG n'est plus envoyé : aucun viewer n'y répondait avec
+        // des URL (le viewer unifié renvoie un dataUrl, trop lourd pour une
+        // propriété de ligne) — « _Apercu gobelet » n'a jamais été posé.
+      }
+      setTimeout(send,1800);
+      window._kzGenInt=setInterval(send,6000);
+      setTimeout(function(){ clearInterval(window._kzGenInt); },30000);
+    }
+    function schedule(force){ started=true; window._kzPngReady=false; sync(); if(window._kzGenTimer) clearTimeout(window._kzGenTimer); window._kzGenTimer=setTimeout(function(){ gen(force); },2500); }
+
+    document.addEventListener('change', function(e){ var t=e.target; if(!t) return; if(t.type==='file') schedule(true); else if(t.closest && t.closest('.product-info')) schedule(false); }, true);
+    document.addEventListener('input', function(e){ var t=e.target; if(t && t.closest && t.closest('.product-info')) schedule(false); }, true);
+
+    window.addEventListener('message', function(e){
+      if(!origineViewer(e.origin)) return;   // P2-08
+      if(!e.data) return;
+      if(e.data.type==='kuztom_ready'){ vReady=true; }
+      var inCheckout = window._kzcPending || window._kuztomPendingSubmit;
+      if(e.data.type==='PRINT_PNG_READY'){
+        // P6-08 : UN SEUL ÉMETTEUR. Ce fichier ne pose que SES PNG pré-générés
+        // (réponse marquée pre:true). Un PNG sans « pre » est la réponse à une
+        // demande du configurateur, qui le pose lui-même : avant, ce fichier
+        // le reposait aussi, avec son propre « _source » (d'où « 3d » sur les
+        // flûtes et verres, ou « pro » sur la fiche texte).
+        if(e.data.pre===true && window._kzGuardGen && !inCheckout){
+          clearInterval(window._kzGenInt);
+          if(e.data.url){ inj('_PNG imprimeur', e.data.url); inj('_source', origin); guardUrl=e.data.url; }
+          window._kzPngReady=true; sync();
+        } else if(e.data.pre===true && inCheckout && e.data.url){
+          confirmer(e.data.url);   // cas limite : ce PNG va servir à la commande
+        } else if(e.data.pre!==true){
+          retirerGuard();
+        }
+      }
+      if(e.data.type==='MOCKUP_PNG_READY' && !inCheckout && e.data.urls && e.data.urls.length){
+        inj('_Apercu gobelet', e.data.urls[0]);
+      }
+    });
+
+    // P6-06 : au clic sur un bouton d'achat (paiement express, ajout au
+    // panier, confirmation du récapitulatif), le PNG pré-généré encore
+    // présent dans le formulaire est confirmé auprès du proxy (90 jours).
+    // Les PNG jamais utilisés expirent seuls (1 jour côté proxy de test).
+    function surAchat(ev){
+      var t=ev.target; if(!t||!t.closest) return;
+      var b=t.closest('.shopify-payment-button, #kzp-confirm-btn, #kzp-confirm, form[action*="/cart/add"] button[type="submit"], form[action*="/cart/add"] [name="add"]');
+      if(!b) return;
+      if(pngDuGuard()) confirmer(guardUrl);
+    }
+    document.addEventListener('pointerdown', surAchat, true);
+    document.addEventListener('click', surAchat, true);
+  });
+})();
+</script>

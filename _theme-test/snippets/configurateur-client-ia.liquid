@@ -1,0 +1,1642 @@
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── SKELETON & VIEWER ── */
+#kzc-iframe-wrap {
+  width:100%;position:relative;overflow:hidden;border-radius:16px;
+  background:#faf8f5;
+}
+/* Sur ordinateur, le gobelet reste visible pendant que le formulaire défile. */
+@media (min-width:1000px) {
+  #kzc-iframe-wrap { position:sticky; top:90px; z-index:1; }
+}
+#kzc-iframe-wrap iframe {
+  width:100%;height:100%;border:none;display:block;
+  opacity:0;transition:opacity .6s ease;position:absolute;inset:0;
+}
+#kzc-iframe-wrap iframe.kzc-ready { opacity:1; }
+#kzc-skeleton {
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:20px;
+  background:#faf8f5;
+  transition:opacity .4s ease;z-index:2;
+}
+#kzc-skeleton.kzc-hidden { opacity:0;pointer-events:none; }
+.kzc-skel-gobelet {
+  animation:kzc-pulse 2s ease-in-out infinite;
+  width:62%;max-width:320px;height:auto;display:block;
+}
+#kzc-skel-text {
+  margin-top:18px;font-size:13px;color:#c9a96e;
+  letter-spacing:.08em;font-family:inherit;
+  animation:kzc-pulse 2s ease-in-out infinite;
+}
+@keyframes kzc-pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+
+/* ── MINI VIEWER ── */
+#kzc-mini-viewer {
+  display:none;
+  position:fixed;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:144px;
+  height:144px;
+  border-radius:50%;
+  border:2.5px solid #c9a96e;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-shadow:0 4px 20px rgba(201,169,110,0.25), 0 2px 8px rgba(0,0,0,0.1);
+  overflow:hidden;
+  cursor:pointer;
+  z-index:9999;
+}
+@media(min-width:768px){#kzc-mini-viewer{display:none !important;}}
+/* Le mini-aperçu flottant passait par-dessus le récapitulatif : on le masque tant que la modale est ouverte. */
+body:has(.kzp-overlay.kzp-open) #kzc-mini-viewer { display:none !important; }
+#kzc-mini-viewer iframe {
+  position:absolute;
+  top:0;
+  left:-1px;
+  width:686px !important;
+  height:686px !important;
+  transform:scale(0.21);
+  transform-origin:top left;
+  pointer-events:none;
+  border:none;
+}
+
+/* ── CONTAINER GÉNÉRAL ── */
+#kzc-fields { display:flex;flex-direction:column;gap:0;margin-bottom:10px; }
+
+/* ── PHRASE PRIX ── */
+.kzc-from-price {
+  font-size:13px;color:#8a8078;margin-bottom:14px;line-height:1.5;
+}
+
+/* ── HEADER SECTION IA ── */
+.kzc-ia-header { margin-bottom:20px; }
+.kzc-ia-header-title {
+  font-size:18px;font-weight:700;color:#1c1c1c;margin-bottom:4px;
+  display:flex;align-items:center;gap:8px;
+}
+.kzc-ia-header-sub { font-size:12px;color:#8a8078;line-height:1.5; }
+.kzc-ia-header-steps {
+  display:flex;align-items:center;gap:6px;margin-top:10px;
+  font-size:11px;color:#8a8078;
+}
+.kzc-ia-header-step {
+  display:flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:20px;
+  background:#f0ede8;color:#5a4a30;font-weight:600;font-size:11px;
+  transition:all .3s;
+}
+.kzc-ia-header-step.active {
+  background:rgba(201,169,110,0.15);color:#c9a96e;
+  border:1px solid rgba(201,169,110,0.3);
+}
+.kzc-ia-header-step.done { background:rgba(60,160,80,0.1);color:#2d7a2d; }
+.kzc-step-sep { color:#e0dbd4;font-size:12px; }
+
+/* ── ÉTAPES ── */
+.kzc-step-card {
+  border:1.5px solid #e0dbd4;border-radius:16px;
+  background:#fdfcfb;overflow:hidden;
+  transition:all .3s;margin-bottom:12px;
+}
+.kzc-step-card.active {
+  border-color:rgba(201,169,110,0.5);
+  box-shadow:0 4px 20px rgba(201,169,110,0.12);
+}
+.kzc-step-card.done {
+  border-color:rgba(60,160,80,0.3);background:#fafffe;
+}
+.kzc-step-head {
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;cursor:pointer;
+}
+.kzc-step-num {
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:800;flex-shrink:0;
+  background:rgba(201,169,110,0.1);color:#c9a96e;
+  border:1.5px solid rgba(201,169,110,0.25);transition:all .3s;
+}
+.kzc-step-card.done .kzc-step-num {
+  background:rgba(60,160,80,0.1);color:#2d7a2d;
+  border-color:rgba(60,160,80,0.3);font-size:18px;
+}
+.kzc-step-card.active .kzc-step-num {
+  background:#c9a96e;color:#fff;border-color:#c9a96e;
+}
+.kzc-step-info { flex:1; }
+.kzc-step-title { font-size:14px;font-weight:700;color:#1c1c1c;margin-bottom:2px; }
+.kzc-step-subtitle { font-size:12px;color:#8a8078; }
+.kzc-step-body { padding:0 18px 18px;display:none; }
+.kzc-step-card.active .kzc-step-body { display:block; }
+
+/* ── FORMULAIRE ── */
+.kzc-field { margin-bottom:14px; }
+.kzc-label {
+  font-size:10px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:#1c1c1c;display:block;margin-bottom:5px;
+}
+.kzc-sublabel { font-weight:400;text-transform:none;letter-spacing:0;color:#8a8078;font-style:italic; }
+.kzc-req { color:#c9a96e; }
+.kzc-input {
+  width:100%;padding:10px 13px;border:1.5px solid #e0dbd4;
+  border-radius:10px;font-size:16px;font-family:inherit;outline:none;
+  transition:border-color .15s,box-shadow .15s;background:#fff;
+}
+.kzc-input:focus {
+  border-color:#c9a96e;box-shadow:0 0 0 3px rgba(201,169,110,0.1);
+}
+.kzc-select {
+  width:100%;padding:10px 13px;border:1.5px solid #e0dbd4;
+  border-radius:10px;font-size:16px;font-family:inherit;outline:none;
+  background:#fff;cursor:pointer;transition:border-color .15s;
+}
+.kzc-select:focus { border-color:#c9a96e; }
+
+/* ── PUCES (thème / style) ── */
+.kzc-chips { display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px; }
+.kzc-chip {
+  border:1.5px solid #e0dbd4;background:#fff;font-size:13px;
+  padding:6px 13px;border-radius:20px;color:#5a5249;cursor:pointer;
+  font-family:inherit;transition:all .15s;
+}
+.kzc-chip:hover { border-color:#c9a96e; }
+.kzc-chip.sel { border-color:#c9a96e;background:rgba(201,169,110,0.14);color:#8a6d3b;font-weight:600; }
+.kzc-chip.kzc-chip-surprise { border-style:dashed;color:#8a6d3b; }
+
+/* ── BOUTONS IA ── */
+/* ── BOUTON COPIER POUR MON IA ── */
+.kzc-copy-btn-wrap { margin-top:16px; }
+.kzc-copy-main-btn {
+  width:100%;padding:16px 20px;
+  background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);
+  color:#fff;border:none;border-radius:14px;
+  font-size:17px;font-weight:800;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 4px 24px rgba(15,52,96,0.45),0 1px 4px rgba(0,0,0,0.2);
+  transition:transform .15s,box-shadow .15s;
+  letter-spacing:0.02em;position:relative;overflow:hidden;
+}
+.kzc-copy-main-btn::before {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent);
+  border-radius:14px;
+}
+.kzc-copy-main-btn:hover { transform:translateY(-2px);box-shadow:0 8px 32px rgba(15,52,96,0.55),0 2px 8px rgba(0,0,0,0.2); }
+.kzc-copy-main-btn:active { transform:translateY(0); }
+.kzc-copy-main-btn.copied {
+  background:linear-gradient(135deg,#1a5c1a,#2d7a2d) !important;
+  box-shadow:0 4px 24px rgba(45,122,45,0.5) !important;
+  animation:kzc-btn-pulse .4s ease;
+}
+@keyframes kzc-btn-pulse {
+  0%{transform:scale(1)} 40%{transform:scale(1.04)} 100%{transform:scale(1)}
+}
+.kzc-copy-main-btn .kzc-btn-icon { font-size:20px;transition:transform .3s; }
+.kzc-copy-main-btn.copied .kzc-btn-icon { transform:scale(1.3); }
+.kzc-copy-main-btn.invalid {
+  background:linear-gradient(135deg,#b45a00,#d4730a) !important;
+  box-shadow:0 4px 24px rgba(180,90,0,0.4) !important;
+  animation:kzc-btn-pulse .4s ease;
+}
+.kzc-copy-success-msg {
+  display:none;margin-top:12px;padding:12px 16px;
+  background:linear-gradient(135deg,rgba(45,122,45,0.1),rgba(45,122,45,0.05));
+  border:1.5px solid rgba(45,122,45,0.3);border-radius:10px;
+  font-size:13px;color:#2d7a2d;line-height:1.6;text-align:center;
+}
+.kzc-copy-success-msg.visible { display:block; }
+.kzc-copy-hint {
+  font-size:12px;color:#8a8078;text-align:center;
+  margin-top:10px;line-height:1.6;
+}
+@keyframes kzc-shimmer { 0%{transform:translateX(-100%)} 60%,100%{transform:translateX(100%)} }
+
+.kzc-ai-note {
+  font-size:11px;color:#8a8078;text-align:center;margin-top:8px;line-height:1.6;
+}
+.kzc-ai-err {
+  font-size:12px;color:#c0392b;text-align:center;
+  display:none;margin-top:8px;padding:8px 12px;
+  background:#fff0f0;border-radius:8px;border:1px solid #f5c6c6;
+}
+
+/* ── ZONE UPLOAD ── */
+.kzc-upzone {
+  border:2px dashed #c9a96e;border-radius:14px;
+  padding:30px 20px;text-align:center;cursor:pointer;
+  transition:all .25s;background:#fff;position:relative;
+}
+.kzc-upzone:hover,.kzc-upzone.has {
+  border-color:#c9a96e;background:rgba(201,169,110,0.04);
+}
+.kzc-upzone.has { border-style:solid; }
+.kzc-upzone input { position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%; }
+.kzc-upzone-inner { pointer-events:none; }
+.kzc-upico { font-size:36px;margin-bottom:8px; }
+.kzc-uptit { font-size:14px;font-weight:700;color:#1c1c1c;margin-bottom:4px; }
+.kzc-upsub { font-size:12px;color:#8a8078; }
+.kzc-upfn { font-size:13px;color:#2d7a2d;margin-top:8px;display:none;font-weight:600; }
+.kzc-upmsg { font-size:12px;margin-top:8px;display:none;padding:8px 12px;border-radius:8px; }
+.kzc-upmsg.err { background:#fff0f0;border:1.5px solid #c0392b;color:#c0392b; }
+
+/* ── ENCARTS ── */
+.kzc-ibox {
+  padding:12px 14px;background:rgba(201,169,110,0.06);
+  border:1px solid rgba(201,169,110,0.25);border-radius:10px;
+  font-size:13px;color:#5a4a30;line-height:1.6;margin-bottom:10px;
+}
+.kzc-eco-box {
+  padding:12px 14px;background:rgba(122,158,126,0.09);
+  border:1px solid rgba(122,158,126,0.3);border-radius:10px;
+  font-size:13px;color:#3a5c42;line-height:1.6;margin-bottom:10px;
+}
+.kzc-date-wrap {
+  padding:12px 14px;background:#faf8f5;
+  border:1.5px solid #e8e2db;border-radius:10px;margin-bottom:10px;
+}
+.kzc-date-title { font-size:12px;font-weight:700;color:#c9a96e;margin-bottom:6px; }
+
+/* ── LOADING ── */
+.kzc-loading-overlay {
+  display:none;position:fixed;inset:0;
+  background:rgba(253,252,251,0.94);z-index:9999;
+  flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  backdrop-filter:blur(4px);
+}
+.kzc-loading-overlay.kzc-active { display:flex; }
+.kzc-loading-bar-wrap {
+  width:220px;height:4px;background:#e0dbd4;border-radius:4px;overflow:hidden;
+}
+.kzc-loading-bar {
+  height:100%;width:0;background:linear-gradient(90deg,#c9a96e,#e8c87a);
+  border-radius:4px;transition:width .3s;
+}
+.kzc-loading-txt { font-size:13px;color:#8a8078;font-family:inherit; }
+.kzc-loading-pulse { animation:kzc-loading-blink 1.2s ease-in-out infinite; }
+@keyframes kzc-loading-blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ── ERREUR TIMEOUT ── */
+#kzc-timeout-error {
+  display:none;position:fixed;inset:0;z-index:10001;
+  background:rgba(253,252,251,0.97);
+  flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  backdrop-filter:blur(6px);padding:30px;
+}
+#kzc-timeout-error.kzc-visible { display:flex; }
+.kzc-error-circle {
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,#c0392b,#e74c3c);
+  display:flex;align-items:center;justify-content:center;
+  animation:kzc-success-ping 0.6s ease-out forwards;
+}
+.kzc-error-icon { font-size:38px;color:#fff; }
+.kzc-error-title { font-size:20px;font-weight:800;color:#1c1c1c;text-align:center; }
+.kzc-error-sub { font-size:14px;color:#5a4a30;text-align:center;line-height:1.7;max-width:300px; }
+.kzc-error-btn {
+  padding:13px 28px;background:#1c1c1c;color:#fff;border:none;
+  border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;
+  font-family:inherit;margin-top:6px;
+}
+.kzc-error-btn:hover { opacity:.88; }
+
+/* ── CONFIRMATION VERTE ── */
+#kzc-confirm-success {
+  display:none;position:fixed;inset:0;z-index:10000;
+  background:rgba(253,252,251,0.97);
+  flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  backdrop-filter:blur(6px);
+}
+#kzc-confirm-success.kzc-visible { display:flex; }
+.kzc-success-circle {
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,#2d7a2d,#3aa03a);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 0 rgba(45,122,45,0.4);
+  animation:kzc-success-ping 1s ease-out forwards;
+}
+@keyframes kzc-success-ping {
+  0%  { transform:scale(0.6); opacity:0; box-shadow:0 0 0 0 rgba(45,122,45,0.5); }
+  60% { transform:scale(1.1); opacity:1; box-shadow:0 0 0 18px rgba(45,122,45,0); }
+  100%{ transform:scale(1);   opacity:1; box-shadow:0 0 0 0 rgba(45,122,45,0); }
+}
+.kzc-success-check { font-size:38px;color:#fff; }
+.kzc-success-title { font-size:20px;font-weight:800;color:#1c1c1c;text-align:center; }
+.kzc-success-sub { font-size:14px;color:#5a4a30;text-align:center;line-height:1.6;max-width:280px; }
+
+/* ── POPUP RÉCAPITULATIF ── */
+.kzp-overlay {
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.6);z-index:9998;
+  align-items:center;justify-content:center;padding:20px;
+  backdrop-filter:blur(3px);
+}
+.kzp-overlay.kzp-open { display:flex; }
+.kzp-modal {
+  background:#fff;border-radius:20px;padding:26px;
+  max-width:480px;width:100%;max-height:90vh;overflow-y:auto;
+  box-shadow:0 12px 60px rgba(0,0,0,0.2);animation:kzp-in .25s ease;
+}
+@keyframes kzp-in { from{transform:scale(.95);opacity:0} to{transform:scale(1);opacity:1} }
+.kzp-title { font-size:18px;font-weight:700;color:#1c1c1c;margin-bottom:18px; }
+.kzp-section { margin-bottom:14px; }
+.kzp-section-title {
+  font-size:10px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:#c9a96e;margin-bottom:8px;
+}
+.kzp-row {
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:12px;padding:6px 0;border-bottom:1px solid #f0ece7;font-size:13px;
+}
+.kzp-label { color:#8a8078;flex-shrink:0; }
+.kzp-val { color:#1c1c1c;font-weight:500;text-align:right; }
+.kzp-btns { display:flex;gap:10px;margin-top:20px; }
+.kzp-btn-cancel {
+  flex:1;padding:13px;border:1.5px solid #e0dbd4;border-radius:12px;
+  background:#fff;font-size:14px;font-weight:600;cursor:pointer;
+  font-family:inherit;color:#5a5249;transition:background .15s;
+}
+.kzp-btn-cancel:hover { background:#f8f6f2; }
+.kzp-btn-confirm {
+  flex:2;padding:13px;border:none;border-radius:12px;
+  background:linear-gradient(135deg,#1c1c1c,#2d2d2d);color:#fff;
+  font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:opacity .15s;
+}
+@media (max-width:480px) {
+  .kzp-btn-cancel, .kzp-btn-confirm { font-size:12px; padding:12px 6px; white-space:nowrap; }
+}
+.kzp-btn-confirm:hover { opacity:.88; }
+.kzp-img-preview {
+  display:block;max-width:100%;max-height:160px;
+  border-radius:10px;margin:0 auto 12px;
+  object-fit:contain;border:1px solid #e0dbd4;
+  background:#f0ede8;
+}
+
+/* ── BANDEAU « COMMENT ÇA MARCHE » (3 cartes, non numéroté) ── */
+.kzc-how-heading {
+  font-size:13.5px;font-weight:700;color:#1c1c1c;margin-top:6px;margin-bottom:10px;
+}
+.kzc-how {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+}
+.kzc-how-card {
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:9px;padding:16px 10px;
+  background:linear-gradient(160deg,#fffdf9,#f8f2e6);
+  border:1px solid rgba(201,169,110,0.4);border-radius:16px;
+  box-shadow:0 2px 10px rgba(201,169,110,0.10);
+}
+.kzc-how-card:not(:last-child)::after {
+  content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+  color:#c9a96e;font-weight:800;font-size:18px;z-index:2;
+}
+.kzc-how-badge {
+  width:50px;height:50px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:24px;
+  background:linear-gradient(135deg,#e8c87a,#c9a96e);
+  box-shadow:0 4px 14px rgba(201,169,110,0.4);
+}
+.kzc-how-label { font-size:15px;font-weight:800;color:#1c1c1c;line-height:1.15; }
+.kzc-how-desc { font-size:11.5px;color:#8a8078;line-height:1.35; }
+@media (max-width:560px) {
+  .kzc-how { grid-template-columns:1fr;gap:9px; }
+  .kzc-how-card {
+    flex-direction:row;align-items:center;text-align:left;gap:14px;padding:13px 16px;
+  }
+  .kzc-how-badge { flex-shrink:0;width:44px;height:44px;font-size:21px; }
+  .kzc-how-label { font-size:15px; }
+  .kzc-how-desc { font-size:12px; }
+  .kzc-how-card:not(:last-child)::after {
+    content:'↓';right:auto;left:35px;top:auto;bottom:-9px;transform:translateX(-50%);
+  }
+}
+
+/* ── MENU DÉROULANT « OPTIONS AVANCÉES » ── */
+.kzc-adv { margin:8px 0 14px; }
+.kzc-adv-summary {
+  cursor:pointer;font-size:12px;font-weight:700;color:#7a9e7e;
+  letter-spacing:0.4px;list-style:none;user-select:none;padding:2px 0;
+}
+.kzc-adv-summary::-webkit-details-marker { display:none; }
+.kzc-adv-summary::before { content:'▸ ';color:#c9a96e; }
+.kzc-adv[open] .kzc-adv-summary::before { content:'▾ '; }
+.kzc-adv-hint { font-weight:400;color:#8a8078;font-style:italic;letter-spacing:0; }
+.kzc-adv > .kzc-field { margin-top:12px; }
+</style>
+
+<!-- Loading overlay -->
+<div id="kzc-loading-overlay" class="kzc-loading-overlay">
+  <div style="display:flex;align-items:center;gap:10px;width:220px;">
+    <div class="kzc-loading-bar-wrap" style="flex:1;"><div id="kzc-loading-bar" class="kzc-loading-bar"></div></div>
+    <span id="kzc-loading-pct" style="font-size:12px;color:#c9a96e;font-weight:700;min-width:36px;text-align:right;">0%</span>
+  </div>
+  <span id="kzc-loading-txt" class="kzc-loading-txt kzc-loading-pulse">Préparation de votre commande…</span>
+</div>
+
+<!-- Popup récapitulatif -->
+<div id="kzp-overlay" class="kzp-overlay">
+  <div class="kzp-modal">
+    <div class="kzp-title">✅ Récapitulatif de votre commande</div>
+    <div id="kzp-body"></div>
+    <div class="kzp-btns">
+      <button class="kzp-btn-cancel" id="kzp-cancel">← Modifier</button>
+      <button class="kzp-btn-confirm" id="kzp-confirm">Confirmer ma commande →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Erreur timeout -->
+<div id="kzc-timeout-error">
+  <div class="kzc-error-circle"><span class="kzc-error-icon">⚠️</span></div>
+  <div class="kzc-error-title">Connexion trop lente</div>
+  <div class="kzc-error-sub">Votre design n'a pas pu être transmis à l'imprimeur. Cela arrive parfois avec une connexion lente ou instable.<br><br>Votre commande n'a pas été passée. Reconnectez-vous à un meilleur réseau (Wi-Fi de préférence) et réessayez.</div>
+  <button class="kzc-error-btn" id="kzc-error-retry">Réessayer</button>
+</div>
+
+<!-- Confirmation verte -->
+<div id="kzc-confirm-success">
+  <div class="kzc-success-circle"><span class="kzc-success-check">✓</span></div>
+  <div class="kzc-success-title">✅ Votre design est enregistré et prêt pour l'impression.</div>
+  <div class="kzc-success-sub">Dernière étape : validez votre commande pour lancer la production.</div>
+</div>
+
+<!-- Mini viewer mobile -->
+<div id="kzc-mini-viewer" class="kzc-mini-viewer">
+  <iframe id="kzc-mini-iframe"
+    data-src="https://dev.code-3d.pages.dev/configurateur-viewer.html"
+    scrolling="no" loading="lazy"></iframe>
+</div>
+
+<!-- Viewer 3D -->
+<div id="kzc-iframe-wrap">
+  <div id="kzc-skeleton">
+    <svg class="kzc-skel-gobelet" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="kzg-body" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#d0cdc8"/><stop offset="18%" stop-color="#e8e5e0"/>
+          <stop offset="42%" stop-color="#f5f3ef"/><stop offset="58%" stop-color="#f5f3ef"/>
+          <stop offset="82%" stop-color="#e2dfd9"/><stop offset="100%" stop-color="#c8c5c0"/>
+        </linearGradient>
+        <linearGradient id="kzg-shine" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+          <stop offset="40%" stop-color="#ffffff" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="kzg-shadow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#b0aca8" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#b0aca8" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="kzg-clip">
+          <path d="M72 42 L228 42 L206 372 Q204 382 188 384 L112 384 Q96 382 94 372 Z"/>
+        </clipPath>
+      </defs>
+      <ellipse cx="150" cy="392" rx="72" ry="11" fill="url(#kzg-shadow)"/>
+      <path d="M72 42 L228 42 L206 372 Q204 382 188 384 L112 384 Q96 382 94 372 Z" fill="url(#kzg-body)"/>
+      <rect x="72" y="42" width="60" height="342" fill="url(#kzg-shine)" clip-path="url(#kzg-clip)"/>
+      <ellipse cx="150" cy="42" rx="78" ry="7" fill="#e8e5e0" stroke="#c0bcb8" stroke-width="1"/>
+      <ellipse cx="150" cy="42" rx="68" ry="5" fill="#ccc9c4"/>
+    </svg>
+    <div id="kzc-skel-text">Votre gobelet personnalisé arrive en 3D...</div>
+  </div>
+  <iframe id="kzc-iframe"
+    src="https://dev.code-3d.pages.dev/configurateur-viewer.html"
+    scrolling="no"
+    title="Aperçu 3D gobelet personnalisé"></iframe>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+var PROXY_URL = 'https://kuztom-proxy-test.contact-kuztom.workers.dev';
+  var PROXY_KEY = '';
+  var CONTACT_EMAIL = 'contact@kuztom.fr';
+  var isMobile = window.innerWidth < 768;
+
+  function genId() {
+    var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', id='kzt-';
+    for(var i=0;i<6;i++) id+=c[Math.floor(Math.random()*c.length)];
+    return id;
+  }
+  var SESSION_ID = genId();
+
+  var S = { cImg:null, cName:null, vReady:false, eventDate:null, iaFields:{} };
+
+  var iframe     = document.getElementById('kzc-iframe');
+  var miniIframe = document.getElementById('kzc-mini-iframe');
+  var miniViewer = document.getElementById('kzc-mini-viewer');
+  var iframeWrap = document.getElementById('kzc-iframe-wrap');
+
+  // Size viewer
+  function sizeViewer() {
+    if (!iframeWrap) return;
+    var w = iframeWrap.offsetWidth || Math.round(window.innerWidth*0.5);
+    iframeWrap.style.height = w + 'px';
+  }
+  sizeViewer();
+  window.addEventListener('resize', sizeViewer);
+
+  // ── SCROLL MOBILE FIX ──
+  // Sur mobile, on détecte si le geste est vertical → on laisse scroller la page
+  // Si horizontal → on laisse le viewer tourner le gobelet
+  if (iframe) {
+    var _touchStartX = 0, _touchStartY = 0, _scrollLocked = false;
+    iframe.addEventListener('touchstart', function(e) {
+      if (e.touches.length !== 1) return;
+      _touchStartX = e.touches[0].clientX;
+      _touchStartY = e.touches[0].clientY;
+      _scrollLocked = false;
+    }, { passive: true });
+    iframe.addEventListener('touchmove', function(e) {
+      if (e.touches.length !== 1) return;
+      var dx = Math.abs(e.touches[0].clientX - _touchStartX);
+      var dy = Math.abs(e.touches[0].clientY - _touchStartY);
+      if (!_scrollLocked) {
+        if (dy > dx + 5) {
+          // Geste vertical → laisser scroller la page
+          _scrollLocked = true;
+          return;
+        }
+      }
+      if (_scrollLocked) return;
+    }, { passive: true });
+  }
+
+  // ── Le mini viewer ne se charge QUE s'il devient réellement visible (mobile).
+  //    Avant : le 3D était téléchargé deux fois, même sur ordinateur où il est masqué.
+  var _kzMiniLoaded = false;
+  function kzLoadMini() {
+    if (_kzMiniLoaded || !miniIframe) return;
+    var src = miniIframe.getAttribute('data-src');
+    if (!src) return;
+    _kzMiniLoaded = true;
+    miniIframe.src = src;
+  }
+
+  if (isMobile && iframeWrap && miniViewer) {
+    window.addEventListener('scroll', function() {
+      var r = iframeWrap.getBoundingClientRect();
+      var visible = (r.bottom>0&&r.top<window.innerHeight);
+      miniViewer.style.display = visible ? 'none' : 'block';
+      if (!visible) kzLoadMini();
+    }, {passive:true});
+    miniViewer.addEventListener('click', function() {
+      iframeWrap.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+
+  function postV(data) {
+    if (iframe&&iframe.contentWindow) iframe.contentWindow.postMessage(data,'*');
+    if (_kzMiniLoaded && miniIframe && miniIframe.contentWindow) miniIframe.contentWindow.postMessage(data,'*');
+  }
+
+  function injectProp(key, val) {
+    var form = document.querySelector('form[action*="/cart/add"]'); if (!form) return;
+    var el = form.querySelector('input[name="properties['+key+']"][data-kzc="1"]');
+    if (!el) {
+      el = document.createElement('input');
+      el.type='hidden'; el.name='properties['+key+']'; el.setAttribute('data-kzc','1');
+      form.appendChild(el);
+    }
+    el.value = val;
+  }
+
+  function updateProps() {
+    injectProp('_Référence design', SESSION_ID);
+    if (S.iaFields.prenom) injectProp('Prénom(s)', S.iaFields.prenom);
+    if (S.iaFields.evenement) injectProp('Événement', S.iaFields.evenement);
+    if (S.iaFields.theme) injectProp('Thème visuel', S.iaFields.theme);
+    if (S.iaFields.style) injectProp('Style du dessin', S.iaFields.style);
+    if (S.iaFields.dateGobelet) injectProp('Date sur le gobelet', S.iaFields.dateGobelet);
+    if (S.iaFields.couleurs) injectProp('Couleurs souhaitées', S.iaFields.couleurs);
+    if (S.iaFields.ecriture) injectProp('Style d’écriture', S.iaFields.ecriture);
+    if (S.iaFields.phrase) injectProp('Phrase en plus', S.iaFields.phrase);
+    if (S.iaFields.eviter) injectProp('À éviter', S.iaFields.eviter);
+    if (S.eventDate) injectProp('Date événement', S.eventDate);
+  }
+
+  // ── Messages loading ──
+  var LOADING_MESSAGES = [
+    'Préparation de votre commande…',
+    'Envoi du design à l\'imprimeur…',
+    'Vérification des couleurs…',
+    'Finalisation en cours…'
+  ];
+
+  function startLoadingAnimation(lb, ltxt) {
+    var pct = 0;
+    var msgIdx = 0;
+    var tick = 0;
+    if (ltxt) ltxt.textContent = LOADING_MESSAGES[0];
+    var pctEl = document.getElementById('kzc-loading-pct');
+    if (lb) lb.style.width = '0%';
+    if (pctEl) pctEl.textContent = '0%';
+    // Avance vite au début puis ralentit, mais bouge toujours (min 0,5/pas) : jamais de blocage.
+    var interval = setInterval(function() {
+      if (pct < 99) pct = Math.min(pct + Math.max((99 - pct) * 0.05, 0.5), 99);
+      var shown = Math.round(pct);
+      if (lb) lb.style.width = shown + '%';
+      if (pctEl) pctEl.textContent = shown + '%';
+      // Messages en boucle infinie toutes les ~3 s (15 ticks × 200ms), indépendants du %.
+      tick++;
+      if (tick % 15 === 0) {
+        msgIdx = (msgIdx + 1) % LOADING_MESSAGES.length;
+        if (ltxt) ltxt.textContent = LOADING_MESSAGES[msgIdx];
+      }
+    }, 200);
+    return interval;
+  }
+
+  window.addEventListener('message', function(e) {
+    if (!/^https:\/\/([a-z0-9-]+\.)?code-3d\.pages\.dev$/.test(e.origin || '') && e.origin !== 'https://clcreation542-coder.github.io') return;   // P2-08 : messages du viewer uniquement
+    if (!e.data) return;
+    if (e.data.type === 'kuztom_ready') {
+      // Le mini viewer arrive plus tard : on lui renvoie l'état actuel, puis on s'arrête.
+      if (_kzMiniLoaded && miniIframe && e.source === miniIframe.contentWindow) {
+        miniIframe.classList.add('kzc-ready');
+        var mw = miniIframe.contentWindow;
+        mw.postMessage({type:'SET_AUTO_ROTATE', value:false},'*');
+        mw.postMessage({type:'UPDATE_COLOR', value:'#f5f0eb', opacity:0.88},'*');
+        if (S.cImg) mw.postMessage({type:'SET_DESIGN_IMAGE', dataUrl:S.cImg},'*');
+        return;
+      }
+      S.vReady = true;
+      var skel = document.getElementById('kzc-skeleton');
+      if (skel) skel.classList.add('kzc-hidden');
+      if (iframe) iframe.classList.add('kzc-ready');
+      postV({type:'SET_AUTO_ROTATE', value:false});
+      postV({type:'SET_ORDERS_TOKEN', proxyUrl:PROXY_URL,proxyKey:PROXY_KEY});
+      postV({type:'UPDATE_COLOR', value:'#f5f0eb', opacity:0.88});
+      if (S.cImg) postV({type:'SET_DESIGN_IMAGE', dataUrl:S.cImg});
+    }
+    if (e.data.type === 'PRINT_PNG_READY') {
+      if (!window._kzcPending) return;
+      window._kzcPending = false;
+      clearInterval(window._kzcLoadInterval);
+      clearInterval(window._kzcRetryInterval);
+      clearTimeout(window._kzcTimeout);
+      injectProp('_PNG imprimeur', e.data.url);
+      injectProp('_source', 'ia');
+      injectProp('_confirmation', '✅ Votre design est bien pris en compte');
+      var lb = document.getElementById('kzc-loading-bar');
+      var lo = document.getElementById('kzc-loading-overlay');
+      var ltxt = document.getElementById('kzc-loading-txt');
+      if (lb) lb.style.width = '100%';
+      var pctElF = document.getElementById('kzc-loading-pct'); if (pctElF) pctElF.textContent = '100%';
+      if (lo) lo.classList.remove('kzc-active');
+      var successEl = document.getElementById('kzc-confirm-success');
+      if (successEl) successEl.classList.add('kzc-visible');
+      setTimeout(function(){
+        window._kzcOrderDone = true;
+        var form = document.querySelector('form[action*="/cart/add"]');
+        if (form) form.submit();
+      }, 1800);
+      return;
+    }
+    if (e.data.type === 'PRINT_PNG_ERROR') {
+      // Un échec ponctuel ne bloque plus la commande : la boucle de réessai
+      // va redemander le PNG. Seul le timeout de 60 s bloque la commande.
+      return;
+    }
+  });
+
+  function uploadPhotoSource(dataUrl, label) {
+    return new Promise(function(resolve) {
+      try {
+        var b64 = dataUrl.split(',')[1]; if (!b64) { resolve(null); return; }
+        // ── Nom triable : compte à rebours depuis une date lointaine dans le futur,
+        // + mot d'origine "ia" pour identifier ce configurateur.
+        var FAR_FUTURE = 9999999999; // borne au-delà de l'année 2286, largement suffisant
+        var nowSeconds = Math.floor(Date.now() / 1000);
+        var inverted = String(FAR_FUTURE - nowSeconds).padStart(10, '0');
+        var filename = 'orders/'+inverted+'-ia-'+SESSION_ID+'-'+label.slice(0,15)+'.png';
+      fetch(PROXY_URL+'/file', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Auth-Key':PROXY_KEY},
+        body:JSON.stringify({path:filename, content:b64, message:'source: '+filename})
+      }).then(function(r){
+        resolve(r.ok ? {url:'https://dev.code-3d.pages.dev/'+filename} : null);
+      }).catch(function(){ resolve(null); });
+      } catch(e){ resolve(null); }
+    });
+  }
+
+  // ── BUILD FORM ──
+  function buildForm() {
+    var container = document.createElement('div');
+    container.id = 'kzc-fields';
+
+    // Badge Judge.me
+    var jdgm = document.createElement('div');
+    jdgm.style.cssText = 'margin-bottom:6px;';
+    var jdgmDiv = document.createElement('div');
+    jdgmDiv.className = 'jdgm-widget jdgm-preview-badge';
+    jdgmDiv.setAttribute('data-id','{{ product.id }}');
+    jdgmDiv.setAttribute('data-auto-install','false');
+    jdgm.appendChild(jdgmDiv);
+    container.appendChild(jdgm);
+
+    // Phrase prix
+    var fp = document.createElement('p');
+    fp.className = 'kzc-from-price';
+    fp.innerHTML = '<span style="color:#c9a96e;font-weight:600;">Dès 3,90€ le gobelet</span> <span style="color:#8a8078;">(soit 39€ les 10)</span> — plus vous en commandez, moins vous payez par gobelet';
+    container.appendChild(fp);
+
+    // Header IA
+    var header = document.createElement('div');
+    header.className = 'kzc-ia-header';
+    // Bandeau « Comment ça marche » NON numéroté (purement explicatif),
+    // en 3 grosses cartes claires. La numérotation reste sur le formulaire (1 · 2).
+    header.innerHTML = '<div class="kzc-ia-header-title">🤖 KuZcup AI — créez votre gobelet unique</div>'
+      +'<div class="kzc-how-heading">Comment ça marche ? En 3 étapes simples&nbsp;:</div>'
+      +'<div class="kzc-how">'
+      +'<div class="kzc-how-card"><div class="kzc-how-badge">✍️</div><div class="kzc-how-body"><div class="kzc-how-label">Décrivez</div><div class="kzc-how-desc">votre événement</div></div></div>'
+      +'<div class="kzc-how-card"><div class="kzc-how-badge">🎨</div><div class="kzc-how-body"><div class="kzc-how-label">L’IA crée</div><div class="kzc-how-desc">votre image en 30&nbsp;s</div></div></div>'
+      +'<div class="kzc-how-card"><div class="kzc-how-badge">⬆️</div><div class="kzc-how-body"><div class="kzc-how-label">Importez</div><div class="kzc-how-desc">et commandez</div></div></div>'
+      +'</div>';
+    container.appendChild(header);
+
+    function setStepIndicator(n) {
+      for (var i=1;i<=2;i++) {
+        var el = document.getElementById('kzc-step-ind-'+i);
+        if (!el) continue;
+        el.classList.remove('active','done');
+        if (i < n) el.classList.add('done');
+        else if (i === n) el.classList.add('active');
+      }
+    }
+
+    function openCard(id) {
+      var target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      setStepIndicator(parseInt(id.slice(-1)));
+      return;
+    }
+
+    // ── ÉTAPE 1 — Formulaire ──
+    var card1 = document.createElement('div');
+    card1.className = 'kzc-step-card active';
+    card1.id = 'kzc-card-1';
+
+    var OCCASIONS = [
+      'Mariage','Anniversaire enfant','Anniversaire adulte','Baptême',
+      'Anniversaire de mariage','Naissance','Baby shower','Communion',
+      'EVJF','EVG','Fiançailles','Demande en mariage',
+      'Retraite','Diplôme / Réussite','Autre'
+    ];
+
+    var head1 = document.createElement('div');
+    head1.className = 'kzc-step-head';
+    head1.innerHTML = '<div class="kzc-step-num">1</div>'
+      +'<div class="kzc-step-info"><div class="kzc-step-title">Décrivez votre événement</div>'
+      +'<div class="kzc-step-subtitle">Prénom, occasion, thème et couleurs</div></div>';
+    head1.addEventListener('click', function(){ openCard('kzc-card-1'); });
+
+    var body1 = document.createElement('div');
+    body1.className = 'kzc-step-body';
+
+    function mkField(lbl, inp) {
+      var w=document.createElement('div'); w.className='kzc-field';
+      var l=document.createElement('label'); l.className='kzc-label'; l.innerHTML=lbl;
+      w.appendChild(l); w.appendChild(inp);
+      body1.appendChild(w);
+      return inp;
+    }
+
+    var PRENOM_MAP = {
+      'Mariage':['PRÉNOMS DES MARIÉS','ex : Léa & Thomas'],
+      'Anniversaire enfant':['PRÉNOM DE L’ENFANT','ex : Eden'],
+      'Anniversaire adulte':['PRÉNOM','ex : Allan'],
+      'Baptême':['PRÉNOM DE L’ENFANT','ex : Mylann'],
+      'Anniversaire de mariage':['PRÉNOMS DES MARIÉS','ex : Léa & Thomas'],
+      'Naissance':['PRÉNOM DU BÉBÉ','ex : Eden'],
+      'Baby shower':['PRÉNOM DE LA FUTURE MAMAN','ex : Léa'],
+      'Communion':['PRÉNOM DE L’ENFANT','ex : Mylann'],
+      'EVJF':['PRÉNOM DE LA FUTURE MARIÉE','ex : Léa'],
+      'EVG':['PRÉNOM DU FUTUR MARIÉ','ex : Thomas'],
+      'Fiançailles':['PRÉNOMS DES FIANCÉS','ex : Léa & Thomas'],
+      'Demande en mariage':['PRÉNOMS','ex : Léa & Thomas'],
+      'Retraite':['PRÉNOM','ex : Martine'],
+      'Diplôme / Réussite':['PRÉNOM','ex : Lucas'],
+      'Autre':['PRÉNOM(S)','ex : Léa & Thomas']
+    };
+    var prenomWrap=document.createElement('div'); prenomWrap.className='kzc-field';
+    var prenomLbl=document.createElement('label'); prenomLbl.className='kzc-label';
+    prenomLbl.innerHTML='PRÉNOM(S) <span class="kzc-req">*</span>';
+    var inpPrenom=document.createElement('input'); inpPrenom.type='text'; inpPrenom.className='kzc-input';
+    inpPrenom.placeholder='ex : Léa & Thomas';
+    prenomWrap.appendChild(prenomLbl); prenomWrap.appendChild(inpPrenom);
+    body1.appendChild(prenomWrap);
+    var inpDate=mkField('DATE SUR LE GOBELET <span class="kzc-sublabel">(optionnel)</span>', Object.assign(document.createElement('input'),{type:'text',className:'kzc-input',placeholder:'ex : 14 juin 2026'}));
+    var selEv=document.createElement('select'); selEv.className='kzc-select';
+    selEv.innerHTML='<option value="">Sélectionnez un événement</option>'+OCCASIONS.map(function(o){return '<option value="'+o+'">'+o+'</option>';}).join('');
+    mkField('ÉVÉNEMENT <span class="kzc-req">*</span>', selEv);
+
+    var autreWrap=document.createElement('div'); autreWrap.className='kzc-field'; autreWrap.style.display='none';
+    var autreInp=document.createElement('input'); autreInp.type='text'; autreInp.className='kzc-input';
+    autreInp.placeholder='Précisez votre événement';
+    var autreLabel=document.createElement('label'); autreLabel.className='kzc-label';
+    autreLabel.innerHTML='PRÉCISEZ <span class="kzc-req">*</span>';
+    autreWrap.appendChild(autreLabel); autreWrap.appendChild(autreInp);
+    body1.appendChild(autreWrap);
+    // ── THÈMES par événement (8 max) — le champ libre couvre le reste ──
+    var THEME_MAP = {
+      'Mariage':['Champêtre','Bohème','Floral','Méditerranéen','Nature / Végétal','Provence / Lavande','Étoiles / Céleste','Art déco'],
+      'Anniversaire enfant':['Licornes / Magie','Princesses / Château','Fées / Papillons','Dinosaures','Super-héros','Sport','Animaux mignons','Jungle / Safari'],
+      'Anniversaire adulte':['Festif','Tropical','Musique / Fête','Voyage','Art déco','Géométrique','Sport','Nature / Végétal'],
+      'Baptême':['Floral','Fées / Papillons','Bohème','Marin / Petit bateau','Nature / Végétal','Champêtre','Croix / Religieux','Étoiles / Céleste'],
+      'Anniversaire de mariage':['Floral','Champêtre','Art déco','Méditerranéen','Étoiles / Céleste','Nature / Végétal'],
+      'Naissance':['Floral','Fées / Papillons','Licornes / Magie','Marin / Petit bateau','Espace / Étoiles','Petits dinosaures','Animaux mignons','Nature / Végétal'],
+      'Baby shower':['Floral','Fées / Papillons','Licornes / Magie','Marin / Petit bateau','Espace / Étoiles','Petits dinosaures','Animaux mignons','Nature / Végétal'],
+      'Communion':['Floral','Couronne de fleurs','Colombe','Épis de blé','Vitrail','Nature / Végétal','Croix / Religieux','Étoiles / Céleste'],
+      'EVJF':['Tropical','Bohème','Floral','Festif','Méditerranéen','Musique / Fête'],
+      'EVG':['Festif','Marin','Tropical','Sport','Musique / Fête','Montagne / Chalet'],
+      'Fiançailles':['Floral','Bohème','Champêtre','Étoiles / Céleste','Méditerranéen','Art déco'],
+      'Demande en mariage':['Floral','Étoiles / Céleste','Bohème','Champêtre','Méditerranéen'],
+      'Retraite':['Voyage','Nature / Végétal','Marin','Montagne / Chalet','Festif','Gourmandise'],
+      'Diplôme / Réussite':['Festif','Géométrique','Étoiles / Céleste','Musique / Fête','Voyage'],
+      'Autre':['Champêtre','Bohème','Tropical','Floral','Festif','Nature / Végétal','Étoiles / Céleste']
+    };
+    var THEME_DEFAUT = ['Champêtre','Bohème','Tropical','Floral','Festif','Nature / Végétal','Étoiles / Céleste'];
+
+    // ── 6 STYLES ARTISTIQUES VALIDÉS (le rendu, distinct du thème) ──
+    // Base = 5 styles disponibles partout. Cartoon RÉSERVÉ aux enfants :
+    // uniquement « Anniversaire enfant » et « Baptême » — jamais un mariage.
+    var STYLE_BASE   = ['Aquarelle','Ligne fine','Peinture-gouache','Pop art'];
+    var STYLE_ENFANT = STYLE_BASE.concat(['Cartoon']);
+    var STYLE_MAP = {
+      'Mariage':STYLE_BASE,
+      'Fiançailles':STYLE_BASE,
+      'Demande en mariage':STYLE_BASE,
+      'Communion':STYLE_BASE,
+      'Anniversaire enfant':STYLE_ENFANT,
+      'Anniversaire adulte':STYLE_BASE,
+      'Baptême':STYLE_ENFANT,
+      'Naissance':STYLE_BASE,
+      'Baby shower':STYLE_BASE,
+      'Anniversaire de mariage':STYLE_BASE,
+      'Retraite':STYLE_BASE,
+      'EVJF':STYLE_BASE,
+      'EVG':STYLE_BASE,
+      'Diplôme / Réussite':STYLE_BASE,
+      'Autre':STYLE_BASE
+    };
+    var STYLE_DEFAUT = STYLE_BASE;
+
+    // Reconstruit les puces d'un conteneur à partir d'une liste.
+    function kzBuildChips(chipsEl, liste, opts) {
+      opts = opts || {};
+      var avant = chipsEl.querySelector('.kzc-chip.sel');
+      var avantVal = avant ? avant.getAttribute('data-v') : null;
+      chipsEl.innerHTML = '';
+      liste.forEach(function(t) {
+        var b = document.createElement('button'); b.type = 'button';
+        b.className = 'kzc-chip' + (t === 'Surprise' ? ' kzc-chip-surprise' : '');
+        b.textContent = (t === 'Surprise' ? '✨ Surprenez-moi' : t);
+        b.setAttribute('data-v', t);
+        b.addEventListener('click', function() {
+          var was = b.classList.contains('sel');
+          Array.prototype.forEach.call(chipsEl.children, function(x){ x.classList.remove('sel'); });
+          if (!was || opts.toujours) { b.classList.add('sel'); if (opts.viderChamp) opts.viderChamp(); }
+        });
+        chipsEl.appendChild(b);
+      });
+      // On garde la sélection si elle existe encore dans la nouvelle liste.
+      var garde = avantVal ? chipsEl.querySelector('.kzc-chip[data-v="'+avantVal+'"]') : null;
+      if (garde) garde.classList.add('sel');
+      else if (opts.defaut) {
+        var d = chipsEl.querySelector('.kzc-chip[data-v="'+opts.defaut+'"]');
+        (d || chipsEl.firstChild).classList.add('sel');
+      }
+    }
+    selEv.addEventListener('change', function() {
+      autreWrap.style.display = selEv.value === 'Autre' ? 'block' : 'none';
+      if (selEv.value !== 'Autre') autreInp.value = '';
+      var ev = selEv.value;
+      var isAge = (ev === 'Anniversaire enfant' || ev === 'Anniversaire adulte');
+      // Prénom adaptatif
+      var pm = PRENOM_MAP[ev];
+      if (pm) {
+        prenomLbl.innerHTML = pm[0] + ' <span class="kzc-req">*</span>';
+        inpPrenom.placeholder = pm[1];
+      }
+      // Champ détail : Âge / Métier / masqué
+      if (isAge) {
+        detailWrap.style.display = 'block';
+        detailLbl.innerHTML = 'ÂGE <span class="kzc-sublabel">(optionnel — écrivez juste le chiffre)</span>';
+        inpDetail.placeholder = (ev === 'Anniversaire enfant') ? 'ex : 7' : 'ex : 50';
+      } else if (ev === 'Retraite') {
+        detailWrap.style.display = 'block';
+        detailLbl.innerHTML = 'MÉTIER <span class="kzc-sublabel">(optionnel)</span>';
+        inpDetail.placeholder = 'ex : Infirmière';
+      } else {
+        detailWrap.style.display = 'none';
+        inpDetail.value = '';
+      }
+      // Noces
+      if (ev === 'Anniversaire de mariage') { nocesWrap.style.display = 'block'; }
+      else { nocesWrap.style.display = 'none'; selNoces.value = ''; }
+      // Diplôme
+      if (ev === 'Diplôme / Réussite') { dipWrap.style.display = 'block'; }
+      else { dipWrap.style.display = 'none'; selDip.value = ''; }
+      // Genre
+      if (ev === 'Naissance' || ev === 'Baby shower') { genreWrap.style.display = 'block'; }
+      else {
+        genreWrap.style.display = 'none';
+        Array.prototype.forEach.call(genreChips.children, function(x){ x.classList.remove('sel'); });
+      }
+      // Puces filtrées selon l'événement
+      kzBuildChips(themeChips, THEME_MAP[ev] || THEME_DEFAUT, { viderChamp: function(){ inpTheme.value=''; } });
+      kzBuildChips(styleChips, (STYLE_MAP[ev] || STYLE_DEFAUT), { toujours:true, defaut:'Aquarelle' });
+    });
+    // ── ÂGE / DÉTAIL (libellé adaptatif) ──
+    var detailWrap=document.createElement('div'); detailWrap.className='kzc-field';
+    var detailLbl=document.createElement('label'); detailLbl.className='kzc-label';
+    detailLbl.innerHTML='ÂGE / DÉTAIL <span class="kzc-sublabel">(optionnel)</span>';
+    var inpDetail=document.createElement('input'); inpDetail.type='text'; inpDetail.className='kzc-input';
+    inpDetail.placeholder='ex : 50 ans, 10 ans de mariage';
+    detailWrap.appendChild(detailLbl); detailWrap.appendChild(inpDetail);
+    body1.appendChild(detailWrap);
+
+    // ── NOCES (Anniversaire de mariage) ──
+    var NOCES=[['Noces de coton','1 an'],['Noces de cuir','3 ans'],['Noces de bois','5 ans'],
+      ['Noces d’étain','10 ans'],['Noces de cristal','15 ans'],['Noces de porcelaine','20 ans'],
+      ['Noces d’argent','25 ans'],['Noces de perle','30 ans'],['Noces de rubis','35 ans'],
+      ['Noces d’émeraude','40 ans'],['Noces d’or','50 ans'],['Noces de diamant','60 ans']];
+    var nocesWrap=document.createElement('div'); nocesWrap.className='kzc-field'; nocesWrap.style.display='none';
+    var nocesLbl=document.createElement('label'); nocesLbl.className='kzc-label';
+    nocesLbl.innerHTML='NOCES <span class="kzc-sublabel">(optionnel)</span>';
+    var selNoces=document.createElement('select'); selNoces.className='kzc-select';
+    selNoces.innerHTML='<option value="">Choisissez vos noces</option>'+NOCES.map(function(n){
+      return '<option value="'+n[0]+'">'+n[0]+' — '+n[1]+'</option>';
+    }).join('');
+    nocesWrap.appendChild(nocesLbl); nocesWrap.appendChild(selNoces);
+    body1.appendChild(nocesWrap);
+
+    // ── DIPLÔME ──
+    var DIPLOMES=['Bac','CAP / BEP','BTS','Licence','Master','Doctorat','Concours','Permis'];
+    var dipWrap=document.createElement('div'); dipWrap.className='kzc-field'; dipWrap.style.display='none';
+    var dipLbl=document.createElement('label'); dipLbl.className='kzc-label';
+    dipLbl.innerHTML='DIPLÔME <span class="kzc-sublabel">(optionnel)</span>';
+    var selDip=document.createElement('select'); selDip.className='kzc-select';
+    selDip.innerHTML='<option value="">Choisissez</option>'+DIPLOMES.map(function(d){
+      return '<option value="'+d+'">'+d+'</option>';
+    }).join('');
+    dipWrap.appendChild(dipLbl); dipWrap.appendChild(selDip);
+    body1.appendChild(dipWrap);
+
+    // ── GENRE (Naissance / Baby shower) ──
+    var genreWrap=document.createElement('div'); genreWrap.className='kzc-field'; genreWrap.style.display='none';
+    var genreLbl=document.createElement('label'); genreLbl.className='kzc-label';
+    genreLbl.innerHTML='C’EST <span class="kzc-sublabel">(optionnel)</span>';
+    var genreChips=document.createElement('div'); genreChips.className='kzc-chips';
+    genreChips.style.marginBottom='0';
+    ['Fille','Garçon','Surprise'].forEach(function(g){
+      var b=document.createElement('button'); b.type='button'; b.className='kzc-chip';
+      b.textContent=g; b.setAttribute('data-v',g);
+      b.addEventListener('click',function(){
+        var was=b.classList.contains('sel');
+        Array.prototype.forEach.call(genreChips.children,function(x){x.classList.remove('sel');});
+        if(!was) b.classList.add('sel');
+      });
+      genreChips.appendChild(b);
+    });
+    genreWrap.appendChild(genreLbl); genreWrap.appendChild(genreChips);
+    body1.appendChild(genreWrap);
+    function getGenre(){
+      var sel=genreChips.querySelector('.kzc-chip.sel');
+      return sel ? sel.getAttribute('data-v') : '';
+    }
+
+    // ── THÈME VISUEL (puces + champ libre) ──
+    var themeWrap=document.createElement('div'); themeWrap.className='kzc-field';
+    var themeLbl=document.createElement('label'); themeLbl.className='kzc-label';
+    themeLbl.innerHTML='THÈME VISUEL <span class="kzc-sublabel">(le sujet)</span> <span class="kzc-req">*</span>';
+    var themeChips=document.createElement('div'); themeChips.className='kzc-chips';
+    var inpTheme=document.createElement('input'); inpTheme.type='text'; inpTheme.className='kzc-input';
+    inpTheme.placeholder='ou écrivez le vôtre : PSG, Harry Potter…';
+    kzBuildChips(themeChips, THEME_DEFAUT, { viderChamp: function(){ inpTheme.value=''; } });
+    inpTheme.addEventListener('input',function(){
+      if(inpTheme.value.trim()) Array.prototype.forEach.call(themeChips.children,function(x){x.classList.remove('sel');});
+    });
+    themeWrap.appendChild(themeLbl); themeWrap.appendChild(themeChips); themeWrap.appendChild(inpTheme);
+    body1.appendChild(themeWrap);
+    function getTheme(){
+      var sel=themeChips.querySelector('.kzc-chip.sel');
+      return inpTheme.value.trim() || (sel ? sel.getAttribute('data-v') : '');
+    }
+
+    // ── STYLE DU DESSIN (puces) ──
+    var STYLES=['Aquarelle','Ligne fine','Peinture-gouache','Pop art','Cartoon'];
+    var STYLE_PROMPT={
+      'Aquarelle':'style aquarelle, dégradés doux peints à l\'eau',
+      'Ligne fine':'style ligne fine, trait épuré et minimaliste',
+      'Peinture-gouache':'style peinture à la gouache, matière et coups de pinceau visibles',
+      'Pop art':'style pop art, couleurs vives et contrastées',
+      'Cartoon':'style cartoon arrondi et ludique',
+      'Surprise':'dans le style artistique le plus adapté au thème'
+    };
+    var styleWrap=document.createElement('div'); styleWrap.className='kzc-field';
+    var styleLbl=document.createElement('label'); styleLbl.className='kzc-label';
+    styleLbl.innerHTML='STYLE DU DESSIN <span class="kzc-sublabel">(le rendu)</span> <span class="kzc-req">*</span>';
+    var styleChips=document.createElement('div'); styleChips.className='kzc-chips';
+    styleChips.style.marginBottom='0';
+    kzBuildChips(styleChips, STYLE_DEFAUT, { toujours:true, defaut:'Aquarelle' });
+    styleWrap.appendChild(styleLbl); styleWrap.appendChild(styleChips);
+    // Correction KUZTOM : sélecteur de style RÉACTIVÉ — le client choisit le rendu,
+    // filtré par événement (cartoon réservé enfants / baptême). Défaut = Aquarelle.
+    function getStyle(){
+      var sel = styleChips.querySelector('.kzc-chip.sel');
+      return sel ? sel.getAttribute('data-v') : 'Aquarelle';
+    }
+    var inpCouleurs=mkField('COULEURS SOUHAITÉES <span class="kzc-sublabel">(optionnel)</span>', Object.assign(document.createElement('input'),{type:'text',className:'kzc-input',placeholder:'ex : Rose poudré et or'}));
+    var selEcriture=document.createElement('select'); selEcriture.className='kzc-select';
+    selEcriture.innerHTML='<option value="">Peu importe</option><option value="Manuscrit">Manuscrit</option><option value="Script élégant">Script élégant</option><option value="Bâton">Bâton</option>';
+    mkField('STYLE D’ÉCRITURE <span class="kzc-sublabel">(optionnel)</span>', selEcriture);
+    var inpPhrase=mkField('PHRASE OU MOT EN PLUS <span class="kzc-sublabel">(optionnel)</span>', Object.assign(document.createElement('input'),{type:'text',className:'kzc-input',placeholder:'ex : Bienvenue !'}));
+    var inpEviter=mkField('ÉLÉMENTS À ÉVITER <span class="kzc-sublabel">(optionnel)</span>', Object.assign(document.createElement('input'),{type:'text',className:'kzc-input',placeholder:'ex : pas de rose, sans texte anglais'}));
+
+    /* ── LE DÉCOR : UN SEUL TOUR, OU DEUX FACES ──────────────────────
+       L'impression fait le TOUR COMPLET du gobelet à partir d'une seule
+       image 16:9 : le bord gauche de l'image rejoint le bord droit.
+       On ne découpe donc AUCUN fichier — ce serait inutile et risqué.
+       Pour obtenir une face avant et une face arrière, il suffit de
+       demander à l'IA de composer l'image en DEUX MOITIÉS : la moitié
+       gauche devient la face avant, la moitié droite la face arrière.
+       Rien ne change ni à l'import, ni à l'aperçu 3D, ni à l'impression.
+       ⚠ Les deux bords extrêmes doivent se raccorder : c'est là que se
+       trouve la couture, une fois le gobelet imprimé. */
+    var selFaces=document.createElement('select'); selFaces.className='kzc-select';
+    /* ⚠ LIBELLÉS COURTS OBLIGATOIRES. Un <select> ne va pas à la ligne :
+       sur téléphone, « Un seul décor, tout autour du gobelet » était coupé
+       au milieu d'un mot. Tout ce qui dépasse ~28 caractères se tronque. */
+    selFaces.innerHTML='<option value="tour">Un seul décor tout autour</option>'
+      +'<option value="deux">Deux faces (avant / arrière)</option>';
+    mkField('LE DÉCOR <span class="kzc-sublabel">(sur le gobelet)</span>', selFaces);
+
+    /* ── LE TEXTE DE LA FACE ARRIÈRE ────────────────────────────────
+       C'est tout l'intérêt des deux faces (demande du marchand, 14/09) :
+       des informations devant, d'autres derrière. Sans ce champ, la face
+       arrière ne serait que décorative et l'option ne servirait à rien.
+       Le champ n'apparaît que si « Deux faces » est choisi. */
+    var inpVerso=mkField('TEXTE DE LA FACE ARRIÈRE <span class="kzc-sublabel">(optionnel)</span>',
+      Object.assign(document.createElement('input'),{type:'text',className:'kzc-input',
+        placeholder:'ex : Merci d’être là ! · 23.09.2026'}));
+    var versoWrap = inpVerso.parentNode;
+    versoWrap.style.display = 'none';
+    selFaces.addEventListener('change', function(){
+      versoWrap.style.display = (selFaces.value === 'deux') ? '' : 'none';
+      if (selFaces.value !== 'deux') inpVerso.value = '';
+    });
+
+    var errMsg=document.createElement('p'); errMsg.className='kzc-ai-err';
+    errMsg.textContent='Merci de remplir : prénom(s), événement et thème visuel.';
+    body1.appendChild(errMsg);
+
+    // ── PROMPT — anglais, textes client protégés, plein-largeur aéré, sécurité impression ──
+function buildPrompt() {
+      var pr=inpPrenom.value.trim(), ev=selEv.value, th=getTheme();
+      if (!pr||!ev||!th) return null;
+      var stKey=getStyle();
+      S.iaFields={prenom:pr, evenement:ev, theme:th, style:stKey, faces:(selFaces.value==='deux'?'Deux faces (avant / arrière)':'Un seul décor tout autour'), verso:(selFaces.value==='deux'?inpVerso.value.trim():''), couleurs:inpCouleurs.value.trim(), dateGobelet:inpDate.value.trim(), ecriture:selEcriture.value, phrase:inpPhrase.value.trim(), eviter:inpEviter.value.trim()};
+      var evFinal = ev === 'Autre' ? (autreInp.value.trim() || 'Autre') : ev;
+      var detailTxt = inpDetail.value.trim();
+      S.iaFields.detail = detailTxt;
+      var estAnnivAge = (ev === 'Anniversaire enfant' || ev === 'Anniversaire adulte');
+      var ligneEv;
+      if (estAnnivAge) {
+        // Anniversaire : jamais le mot « Anniversaire ». Chiffre seul -> « 1 an » / « 50 ans ».
+        if (!detailTxt) ligneEv = '';
+        else if (/^\d+$/.test(detailTxt)) ligneEv = detailTxt + (parseInt(detailTxt,10) === 1 ? ' an' : ' ans');
+        else ligneEv = detailTxt;
+      } else if (ev === 'Anniversaire de mariage') {
+        ligneEv = selNoces.value || 'Anniversaire de mariage';
+      } else if (ev === 'Retraite') {
+        ligneEv = 'Retraite';   // le métier sert d'inspiration, il n'est pas imprimé
+      } else if (ev === 'Diplôme / Réussite') {
+        ligneEv = selDip.value || 'Diplôme';
+      } else {
+        // Autres événements : on évite toute répétition entre l'événement et le détail.
+        var evNom = evFinal.split('/')[0].trim();
+        if (!detailTxt) {
+          ligneEv = evNom;
+        } else {
+          var kzNorm = function(t){
+            return t.toLowerCase()
+              .normalize('NFD').replace(/[̀-ͯ]/g,'')
+              .replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+          };
+          var stop = [' de ',' du ',' des ',' la ',' le ',' les ',' et ',' d ',' l ',' un ',' une ',' pour ',' ans ',' an '];
+          var evMots = (' '+kzNorm(evNom)+' ').split(' ').filter(function(m){
+            return m && stop.indexOf(' '+m+' ') === -1;
+          });
+          var detNorm = ' '+kzNorm(detailTxt)+' ';
+          var chevauche = evMots.some(function(m){ return detNorm.indexOf(' '+m+' ') !== -1; });
+          // Si le détail reprend déjà un mot de l'événement, on n'imprime que le détail.
+          ligneEv = chevauche ? detailTxt : (evNom + ' ' + detailTxt);
+        }
+      }
+
+      // « de » / « d’ » selon le prénom (Baptême d’Allan, Mariage de Léa & Thomas)
+      function kzDe(nom){
+        var c = nom.trim().charAt(0).toLowerCase()
+          .normalize('NFD').replace(/[̀-ͯ]/g,'');
+        return ('aeiouyh'.indexOf(c) !== -1) ? 'd’' : 'de ';
+      }
+      var texteEv;
+      if (estAnnivAge) {
+        // Anniversaire : prénom et âge restent deux textes séparés.
+        texteEv = '"'+pr+'"' + (ligneEv ? ' et "'+ligneEv+'"' : '');
+      } else if (ev === 'Demande en mariage' || !ligneEv) {
+        texteEv = '"'+pr+'"';
+      } else {
+        // Une seule phrase naturelle : « Baptême d’Allan », « Retraite de Martine »…
+        texteEv = '"'+ligneEv+' '+kzDe(pr)+pr+'"';
+      }
+      var textes = texteEv
+        + (inpDate.value.trim() ? ' et "'+inpDate.value.trim()+'"' : '')
+        + (inpPhrase.value.trim() ? ' et "'+inpPhrase.value.trim()+'"' : '');
+
+      /* ════════════════════════════════════════════════════════════
+         LE TEXTE ENVOYÉ À L'IA — VERSION COURTE (14/09/2026)
+         ------------------------------------------------------------
+         POURQUOI IL A ÉTÉ RACCOURCI. La version précédente faisait sept
+         consignes et plus de mille mots, accumulées correctif après
+         correctif. Trois défauts, tous mesurés sur Gemini :
+           · les modèles d'image retiennent surtout le DÉBUT et la FIN ;
+             tout ce qu'on empile au milieu pèse peu ;
+           · les phrases négatives (« aucun cadre », « pas de marge »)
+             sont mal gérées par les modèles d'image et attirent parfois
+             ce qu'elles interdisent ;
+           · plus c'est long, plus les consignes se diluent et se
+             contredisent.
+         La version ci-dessous dit la même chose en ~350 mots, avec des
+         formulations POSITIVES et une seule image mentale par idée.
+         ⚠ AVANT D'AJOUTER UNE PHRASE ICI : en retirer une autre.
+            Chaque correctif empilé nous a coûté de la précision.
+         ════════════════════════════════════════════════════════════ */
+      var lines=[];
+
+      // 1 · LE SUJET — c'est ce que l'image EST, il passe en premier.
+      lines.push('Crée une illustration 100 % originale, '+(STYLE_PROMPT[stKey]||STYLE_PROMPT['Aquarelle'])+', sur le thème : '+th+(inpCouleurs.value.trim() ? ' (couleurs : '+inpCouleurs.value.trim()+')' : '')+'. Rien de protégé par des droits : pas de personnage, logo, blason, mascotte, visage réel ni marque existants.');
+
+      // 2 · LA COMPOSITION — fond, cadrage et débordement en une seule idée.
+      lines.push('Image plate au format paysage 16:9, motif vu de face, sur fond blanc uni (ce blanc sera rendu transparent avant impression, il reste donc derrière et entre les éléments). Le décor occupe toute l’image : les feuilles, branches, formes et motifs sont tranchés par les quatre bords, comme si le dessin continuait au-delà.');
+
+      // 3 · LES DEUX FACES, si le client les a demandées.
+      if (selFaces.value === 'deux') {
+        lines.push('Compose l’image en deux moitiés : la gauche est la face avant du gobelet, la droite la face arrière, dans le même style et la même palette. Au centre, la transition est dessinée avec les éléments du décor eux-mêmes — feuillage, guirlande, ruban, dégradé. Le décor se poursuit aussi du bord extrême gauche au bord extrême droit : ces deux bords se rejoignent une fois l’image enroulée autour du gobelet.');
+      }
+
+      // 4 · LES TEXTES — recopiés à l'identique, c'est le point sensible.
+      if (selFaces.value === 'deux') {
+        var verso = inpVerso.value.trim();
+        lines.push('Sur la moitié gauche, écris en grand et bien lisible, exactement ainsi : '+textes+'.'
+          + (verso ? ' Sur la moitié droite, écris de même : "'+verso+'", et rien d’autre.' : ' La moitié droite ne porte aucun texte.'));
+      } else {
+        lines.push('Écris en grand et bien lisible, exactement ainsi, sans rien modifier : '+textes+'.');
+      }
+
+      // 5 · LES PRÉCISIONS DU CLIENT — une seule ligne, seulement si elles existent.
+      var extras=[];
+      if (selEcriture.value) extras.push('écriture '+selEcriture.value.toLowerCase());
+      var genreSel = getGenre();
+      if (ev === 'Naissance' || ev === 'Baby shower') {
+        if (genreSel === 'Fille') extras.push('couleurs douces pour une petite fille');
+        else if (genreSel === 'Garçon') extras.push('couleurs douces pour un petit garçon');
+        else if (genreSel === 'Surprise') extras.push('couleurs neutres et douces, le sexe du bébé est une surprise');
+      }
+      if (ev === 'Retraite' && detailTxt) extras.push('inspire-toi discrètement du métier de '+detailTxt+', sans écrire ce mot');
+      if (inpEviter.value.trim()) extras.push('à éviter absolument : '+inpEviter.value.trim());
+      if (extras.length) lines.push('Précisions : '+extras.join(' ; ')+'.');
+
+      // 6 · LE RAPPEL FINAL — la fin porte autant que le début.
+      lines.push('Rappel : illustration entièrement originale, sans aucun élément protégé, et décor tranché par les quatre bords. Génère directement l’image.');
+
+      return lines.join('\n');
+    }
+
+    function handleAI(url) {
+      var p=buildPrompt();
+      if (!p) { errMsg.style.display='block'; return; }
+      errMsg.style.display='none';
+      try { navigator.clipboard.writeText(p).catch(function(){}); } catch(e){}
+      window.open(url,'_blank');
+      setTimeout(function(){ openCard('kzc-card-2'); }, 800);
+    }
+
+    // ── BOUTON COPIER ──
+    var copyWrap=document.createElement('div'); copyWrap.className='kzc-copy-btn-wrap';
+    var bCopyOnly=document.createElement('button'); bCopyOnly.type='button';
+    bCopyOnly.className='kzc-copy-main-btn';
+    bCopyOnly.innerHTML='📋 Copier mon texte pour l\'IA';
+    var successMsg=document.createElement('div'); successMsg.className='kzc-copy-success-msg';
+    successMsg.innerHTML='✓ Texte copié ! Collez-le dans votre IA (ChatGPT, Google Gemini…), récupérez l’image, puis importez-la ici.';
+    var hintMsg=document.createElement('p'); hintMsg.className='kzc-copy-hint';
+    hintMsg.textContent='KuZcup AI fonctionne avec Gemini, ChatGPT, Mistral, et toutes les IA.';
+    bCopyOnly.addEventListener('click',function(){
+      var txt=buildPrompt();
+      if(!txt){
+        bCopyOnly.classList.add('invalid');
+        var origHtml=bCopyOnly.innerHTML;
+        bCopyOnly.innerHTML='⚠️ Remplissez les champs requis';
+        setTimeout(function(){bCopyOnly.classList.remove('invalid');bCopyOnly.innerHTML=origHtml;},3000);
+        return;
+      }
+      function afterCopy(){
+        bCopyOnly.classList.add('copied');
+        bCopyOnly.innerHTML='✓ Copié !';
+        successMsg.classList.add('visible');
+        setTimeout(function(){
+          bCopyOnly.classList.remove('copied');
+          bCopyOnly.innerHTML='📋 Copier mon texte pour l\'IA';
+          successMsg.classList.remove('visible');
+        },3500);
+      }
+      if(navigator.clipboard){navigator.clipboard.writeText(txt).then(afterCopy).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);afterCopy();});}
+      else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);afterCopy();}
+    });
+    var reassure=document.createElement('p'); reassure.className='kzc-copy-hint';
+    reassure.style.cssText='color:#7a9e7e;font-weight:600;margin-top:8px;';
+    reassure.textContent='✓ Pas besoin de savoir dessiner · Aperçu 3D avant commande · Vérifié avant impression';
+    copyWrap.appendChild(bCopyOnly); copyWrap.appendChild(successMsg); copyWrap.appendChild(hintMsg); copyWrap.appendChild(reassure);
+    body1.appendChild(copyWrap);
+
+    // ── ORDRE FINAL : l'événement d'abord, il commande tout le reste ──
+    (function kzOrdre(){
+      var evWrap = selEv.parentNode;
+      var dateWrap = inpDate.parentNode;
+      var couleursWrap = inpCouleurs.parentNode;
+      var ecritureWrap = selEcriture.parentNode;
+      var phraseWrap = inpPhrase.parentNode;
+      var eviterWrap = inpEviter.parentNode;
+
+      // Menu déroulant « Options avancées » : on n'y montre que les réglages de rendu (la date en a été sortie)
+      // pour ne garder que l'essentiel visible (événement, prénom, thème, style).
+      var adv = document.createElement('details'); adv.className = 'kzc-adv';
+      var advSum = document.createElement('summary'); advSum.className = 'kzc-adv-summary';
+      advSum.innerHTML = '⚙️ Options avancées <span class="kzc-adv-hint">(couleurs, écriture, mot en plus — facultatif)</span>';
+      adv.appendChild(advSum);
+      adv.appendChild(couleursWrap);
+      adv.appendChild(ecritureWrap);
+      adv.appendChild(phraseWrap);
+      adv.appendChild(eviterWrap);
+
+      // Essentiel visible d'abord, puis le repliable, puis le bouton.
+      var facesWrap = selFaces.parentNode;
+      [evWrap, autreWrap, prenomWrap, detailWrap, nocesWrap, dipWrap, genreWrap,
+       dateWrap, themeWrap, styleWrap, facesWrap, versoWrap, adv, errMsg, copyWrap]
+        .forEach(function(el){ if (el) body1.appendChild(el); });
+      // Au départ, aucun événement choisi : on masque les champs spécifiques.
+      detailWrap.style.display = 'none';
+    })();
+
+    card1.appendChild(head1); card1.appendChild(body1);
+    container.appendChild(card1);
+
+    // ── ÉTAPE 2 — Importer ──
+    var card2=document.createElement('div'); card2.className='kzc-step-card active'; card2.id='kzc-card-2';
+    var head2=document.createElement('div'); head2.className='kzc-step-head';
+    head2.innerHTML='<div class="kzc-step-num">2</div>'
+      +'<div class="kzc-step-info"><div class="kzc-step-title">Importer mon design</div>'
+      +'<div class="kzc-step-subtitle">Déposez votre PNG ici pour l’apercevoir sur le gobelet</div></div>';
+    head2.addEventListener('click',function(){openCard('kzc-card-2');});
+    var body2=document.createElement('div'); body2.className='kzc-step-body';
+
+    var upzone=document.createElement('div'); upzone.className='kzc-upzone'; upzone.id='kzc-upz';
+    var upInner=document.createElement('div'); upInner.className='kzc-upzone-inner';
+    upInner.innerHTML='<div class="kzc-upico">📁</div>'
+      +'<div class="kzc-uptit">Déposez votre design ici</div>'
+      +'<div class="kzc-upsub">Déposez ici le visuel généré par l’IA</div>';
+    var upInp=document.createElement('input'); upInp.type='file'; upInp.accept='image/*';
+    var upFn=document.createElement('div'); upFn.className='kzc-upfn'; upFn.id='kzc-upfn';
+    var upMsg=document.createElement('div'); upMsg.className='kzc-upmsg'; upMsg.id='kzc-upmsg';
+
+    upzone.appendChild(upInner); upzone.appendChild(upInp);
+    body2.appendChild(upzone); body2.appendChild(upFn); body2.appendChild(upMsg);
+
+    upInp.addEventListener('change',function(){
+      var file=upInp.files[0]; if(!file) return;
+      var reader=new FileReader();
+      reader.onload=function(ev){
+        var img=new Image();
+        img.onload=function(){
+          var ratio=img.naturalWidth/(img.naturalHeight||1);
+          if (ratio<1.0||ratio>2.5) {
+            upMsg.textContent='⚠️ Ce fichier n’est pas au bon format. Il faut un rectangle large, au format 16:9 — pas un carré, pas une image verticale.';
+            upMsg.className='kzc-upmsg err'; upMsg.style.display='block';
+            upMsg.style.cssText=''; upInp.value=''; return;
+          }
+          /* KZ 13/09 — AVERTISSEMENT DE PROPORTIONS, NON BLOQUANT.
+             Le test ci-dessus ne refuse que le portrait et l'ultra-panoramique.
+             Une image CARRÉE vaut exactement 1.0 : elle passait donc sans un mot,
+             alors que c'est la sortie par défaut de ChatGPT et de Gemini.
+             On ne bloque pas — décision d'Allan, la commande doit passer — mais
+             le client est prévenu que son visuel sera rogné.
+             Tolérance 5 % : le 16/9 (2,9 % d'écart) passe sans alerte, le carré
+             (42 %) et le 4/3 (23 %) la déclenchent.
+             Pour désactiver : supprimer ce bloc, rien d'autre n'en dépend. */
+          var kzEcart = Math.abs(ratio - (1970/1140)) / (1970/1140);
+          if (kzEcart > 0.05) {
+            upMsg.className = 'kzc-upmsg';
+            upMsg.style.cssText = 'display:block;margin-top:10px;padding:12px 14px;'
+              + 'border:1.5px solid #C9821E;border-radius:10px;background:#FFF6E8;'
+              + 'color:#7A4E0B;font-size:13px;font-weight:600;line-height:1.5;text-align:left;';
+            upMsg.innerHTML = '⚠️ <b>Votre image n’a pas la forme du gobelet.</b><br>'
+              + 'Le gobelet est panoramique : le haut et le bas de votre visuel seront rognés '
+              + 'à l’impression. Regardez l’aperçu 3D ci-contre pour juger du résultat.<br>'
+              + 'Pour un rendu fidèle, redemandez à votre IA la même image '
+              + '<b>au format 16:9</b>. Vous pouvez aussi commander ainsi : nous vérifions '
+              + 'avant impression.';
+          } else {
+            upMsg.style.cssText = '';
+            upMsg.className = 'kzc-upmsg';
+            upMsg.style.display = 'none';
+          }
+          S.cImg=ev.target.result; S.cName=file.name;
+          upzone.classList.add('has');
+          upFn.textContent='✅ '+file.name; upFn.style.display='block';
+          card2.classList.add('done');
+          var n2=card2.querySelector('.kzc-step-num'); if(n2) n2.textContent='✓';
+          setStepIndicator(3);
+          if (S.vReady) postV({type:'SET_DESIGN_IMAGE', dataUrl:S.cImg});
+        };
+        img.src=ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    card2.appendChild(head2); card2.appendChild(body2);
+    container.appendChild(card2);
+
+    // ── PANNEAU INFOS UNIFIÉ ──
+    var infoPanel = document.createElement('div');
+    infoPanel.style.cssText = 'background:#fff;border:1px solid rgba(201,169,110,0.3);border-radius:12px;overflow:hidden;margin-bottom:12px;';
+
+    var KZ_ICON_BULB  = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M8.5 15a5 5 0 1 1 7 0c-.7.6-1 1.2-1 2H9.5c0-.8-.3-1.4-1-2z"/></svg>';
+    var KZ_ICON_BRUSH = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 4-2 4-4a2 2 0 0 0-2-2c-2 0-3 2-2 6z"/><path d="M7 15l9-9a2.1 2.1 0 0 1 3 3l-9 9"/></svg>';
+    var KZ_ICON_INFO  = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>';
+    var KZ_ICON_LEAF  = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c0-9 5-14 15-14 0 8-5 13-13 13"/><path d="M5 21c1-4 3-6 6-7"/></svg>';
+
+    function kzInfoRow(iconSvg, iconColor, title, text, withDivider) {
+      return (withDivider ? '<div style="height:1px;background:#f0ece5;margin:0 16px;"></div>' : '')
+        + '<div style="display:flex;align-items:flex-start;gap:12px;padding:15px 16px;">'
+        +   '<span style="color:' + iconColor + ';flex-shrink:0;line-height:1.2;display:flex;">' + iconSvg + '</span>'
+        +   '<div>'
+        +     '<div style="font-size:13px;font-weight:700;color:#1c1c1c;margin-bottom:2px;">' + title + '</div>'
+        +     '<div style="font-size:12.5px;color:#5a4a30;line-height:1.55;">' + text + '</div>'
+        +   '</div>'
+        + '</div>';
+    }
+
+    infoPanel.innerHTML =
+        kzInfoRow(KZ_ICON_BULB, '#c9a96e', 'Toutes vos idées sont permises',
+          'Écrivez librement votre thème — « PSG », « Harry Potter »… L’IA s’en inspire sans copier de logo ni de personnage protégé : vous obtenez un design original, dans le même esprit.', false)
+      + kzInfoRow(KZ_ICON_INFO, '#c9a96e', 'Format standard 25/33cl',
+          'Ce configurateur est prévu pour le gobelet standard. Pour une autre contenance, <a href="mailto:' + CONTACT_EMAIL + '" style="color:#c9a96e;text-decoration:none;">contactez notre équipe</a>.', true);
+
+    container.appendChild(infoPanel);
+
+    // Date événement
+    var dw=document.createElement('div'); dw.className='kzc-date-wrap';
+    dw.innerHTML='<div class="kzc-date-title">📅 Date de votre événement <span style="font-weight:400;font-size:11px;color:#8a8078;">(optionnel)</span></div>';
+    var dateInp=document.createElement('input'); dateInp.type='date'; dateInp.className='kzc-input'; dateInp.id='kuztom-event-date';
+    dateInp.style.cssText='width:100%;max-width:154px;margin-bottom:4px;';
+    var dateTxt=document.createElement('p'); dateTxt.style.cssText='font-size:11px;color:#8a8078;margin:4px 0 0;';
+    dateTxt.textContent='Optionnel — nous aide à tout organiser pour une livraison sereine avant le jour J.';
+    dateInp.addEventListener('change',function(){S.eventDate=dateInp.value; updateProps();});
+    dw.appendChild(dateInp); dw.appendChild(dateTxt);
+    container.appendChild(dw);
+    // Livraison : ligne retirée — doublon du bloc « Réception estimée » de kz-fiche.
+    // Prix degressif (info)
+    var dg=document.createElement('div');
+    dg.style.cssText='margin-top:6px;font-size:13px;color:#5c554e;line-height:1.4;';
+    dg.textContent='Plus vous en commandez, moins c’est cher par gobelet.';
+    container.appendChild(dg);
+
+    // Injection dans .product-info
+    function doInject(t) {
+      if (document.contains(container)) return;
+      var pb=t.querySelector('[data-block-type="price"]');
+      if (pb&&pb.parentNode===t) t.insertBefore(container,pb);
+      else t.prepend(container);
+      // Retire le trait + l'espace juste au-dessus de « Dès 39€ »
+      // (bordure/marge du bloc note-avis « 5.0 ★ » du thème, placé juste avant).
+      container.style.marginTop='0';
+      var prev=container.previousElementSibling;
+      if (prev) {
+        prev.style.borderBottom='none';
+        prev.style.marginBottom='0';
+        prev.style.paddingBottom='0';
+      }
+    }
+    var tgt=document.querySelector('.product-info');
+    if (tgt) { doInject(tgt); return; }
+    var obs=new MutationObserver(function(ml,o){
+      var t=document.querySelector('.product-info');
+      if(t){o.disconnect();doInject(t);}
+    });
+    obs.observe(document.body,{childList:true,subtree:true});
+    setTimeout(function(){
+      var t=document.querySelector('.product-info')||document.querySelector('safe-sticky');
+      if(t){obs.disconnect();doInject(t);}
+    },1200);
+  }
+
+  // Récapitulatif
+  function kzcEsc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function kzcFmtEuro(cents) {
+    return (cents / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  }
+
+  function kzcFmtDate(v) {
+    var d = String(v).split('-');
+    var mois = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    if (d.length === 3 && mois[parseInt(d[1], 10) - 1]) {
+      return parseInt(d[2], 10) + ' ' + mois[parseInt(d[1], 10) - 1] + ' ' + d[0];
+    }
+    return v;
+  }
+
+  function kzcGetPrice(variants) {
+    var cents = null;
+    try {
+      var sc = document.querySelector('variant-picker script[data-variant]');
+      if (sc && sc.textContent.trim()) {
+        var vd = JSON.parse(sc.textContent);
+        if (vd && typeof vd.price === 'number') cents = vd.price;
+      }
+    } catch (e) {}
+    try {
+      if (window.KZ_PRODUCT && window.KZ_PRODUCT.prices && variants && variants.length >= 2) {
+        var k = variants[0].value + '||' + variants[1].value;
+        var p = window.KZ_PRODUCT.prices[k];
+        if (typeof p === 'number') cents = p;
+      }
+    } catch (e) {}
+    return cents;
+  }
+
+  function getVariants() {
+    var results = [];
+    document.querySelectorAll('fieldset.variant-picker__option').forEach(function(fs) {
+      var leg = fs.querySelector('legend');
+      var optName = leg ? leg.textContent.replace(/\s*:.*/,'').trim() : '';
+      var checked = fs.querySelector('input[type="radio"]:checked');
+      if (checked) {
+        var lbl = checked.closest('label');
+        if (!lbl && checked.id) lbl = document.querySelector('label[for="'+checked.id+'"]');
+        if (lbl) {
+          var clone = lbl.cloneNode(true);
+          clone.querySelectorAll('.sr-only,.visually-hidden').forEach(function(el){el.remove();});
+          var val = clone.textContent.trim();
+          if (val && optName) results.push({label:optName, value:val});
+        }
+      }
+    });
+    return results;
+  }
+
+  function showRecap() {
+    var overlay=document.getElementById('kzp-overlay');
+    var body=document.getElementById('kzp-body');
+    if (!overlay||!body) return false;
+    var html='';
+    if (S.cImg) html+='<img src="'+S.cImg+'" class="kzp-img-preview" alt="Aperçu">';
+
+    var variants = getVariants();
+    var qteVariant = null;
+    variants.forEach(function(v){ if(/quant/i.test(v.label)) qteVariant = v; });
+    html+='<div class="kzp-section"><div class="kzp-section-title">Votre commande</div>';
+    html+='<div class="kzp-row"><span class="kzp-label">Produit</span><span class="kzp-val">'+kzcEsc({{ product.title | json }})+'</span></div>';
+    if (qteVariant) {
+      html+='<div class="kzp-row"><span class="kzp-label">'+qteVariant.label+'</span><span class="kzp-val">'+qteVariant.value+'</span></div>';
+    }
+    var kzCents = kzcGetPrice(variants);
+    if (kzCents !== null) {
+      var kzQty = qteVariant ? (parseInt(qteVariant.value, 10) || 0) : 0;
+      var kzTxt = kzcFmtEuro(kzCents);
+      if (kzQty > 0) kzTxt += ' (' + kzcFmtEuro(kzCents / kzQty) + ' / gobelet)';
+      html+='<div class="kzp-row"><span class="kzp-label">Prix</span><span class="kzp-val">'+kzTxt+'</span></div>';
+    }
+    var kzDateEl = document.getElementById('kuztom-event-date');
+    if (kzDateEl && kzDateEl.value) {
+      html+='<div class="kzp-row"><span class="kzp-label">Date de l’événement</span><span class="kzp-val">'+kzcFmtDate(kzDateEl.value)+'</span></div>';
+    }
+    html+='</div>';
+html+='<div class="kzp-section"><div class="kzp-section-title">Caractéristiques du gobelet</div>';
+    html+='<div class="kzp-row"><span class="kzp-label">Contenance</span><span class="kzp-val">25/33cl</span></div>';
+    html+='<div class="kzp-row"><span class="kzp-label">Couleur</span><span class="kzp-val">Translucide</span></div>';
+    html+='</div>';
+
+    body.innerHTML=html;
+    overlay.classList.add('kzp-open');
+    return true;
+  }
+
+  // Interception panier — via clic direct sur le bouton (résiste au remplacement du formulaire par Shopify)
+  window._kuztomHandlePrintSubmitIA = function(clickEvent) {
+    var btn = clickEvent.target.closest('button[type="submit"], input[type="submit"], [name="add"]');
+    if (!btn) return;
+    var form = btn.closest('form[action*="/cart/add"]') || document.querySelector('form[action*="/cart/add"]');
+    if (!form) return;
+
+    if (window._kzcPending) { clickEvent.preventDefault(); clickEvent.stopPropagation(); return; }
+    if (window._kzcOrderDone) return;
+
+    clickEvent.preventDefault();
+    clickEvent.stopPropagation();
+    if (window._kzcPngRequested) return;   // un essai est déjà lancé ; « Réessayer » réarme ce verrou
+    updateProps();
+    var shown = showRecap();
+    if (!shown) { confirmOrder(form); return; }
+    var kzpOv = document.getElementById('kzp-overlay');
+    // Clic sur le fond (hors modale) ou touche Échap : on referme.
+    kzpOv.onclick = function(e){ if (e.target === kzpOv) kzpOv.classList.remove('kzp-open'); };
+    if (!window._kzpEscBound) {
+      window._kzpEscBound = true;
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') kzpOv.classList.remove('kzp-open'); });
+    }
+    document.getElementById('kzp-cancel').onclick = function(){
+      kzpOv.classList.remove('kzp-open');
+    };
+    document.getElementById('kzp-confirm').onclick = function(){
+      document.getElementById('kzp-overlay').classList.remove('kzp-open');
+      confirmOrder(form);
+    };
+  };
+
+  function initCart() {
+    // Écouteur unique sur document, en phase de capture : peu importe que Shopify
+    // remplace le formulaire (ex: changement de quantité), le bon formulaire est
+    // retrouvé au moment même du clic, jamais à l'avance.
+    document.addEventListener('click', window._kuztomHandlePrintSubmitIA, true);
+  }
+
+  function confirmOrder(form) {
+    var lo=document.getElementById('kzc-loading-overlay');
+    var lb=document.getElementById('kzc-loading-bar');
+    var ltxt=document.getElementById('kzc-loading-txt');
+    if (lo) lo.classList.add('kzc-active');
+    window._kzcPending=true;
+    window._kzcPngRequested=true;
+
+    // Barre de progression avec messages
+    window._kzcLoadInterval = startLoadingAnimation(lb, ltxt);
+
+    // ── Boucle de réessai : redemande le PNG au GRAND iframe uniquement,
+    //    toutes les 8 s, tant que le viewer n'est pas prêt / que le PNG
+    //    n'est pas revenu. S'arrête dès réception de PRINT_PNG_READY.
+    function requestPng() {
+      if (!window._kzcPending) return;   // déjà résolu → on n'envoie plus rien
+      if (!S.vReady) return;             // viewer pas encore prêt → on retentera au prochain tick
+      if (iframe&&iframe.contentWindow) iframe.contentWindow.postMessage({type:'REQUEST_PRINT_PNG', proxyUrl:PROXY_URL,proxyKey:PROXY_KEY, origin:'ia'},'*');
+    }
+    requestPng();                        // tentative immédiate
+    window._kzcRetryInterval = setInterval(requestPng, 8000);
+
+    // Timeout 60s — si pas de PNG → erreur, la commande ne part PAS
+    window._kzcTimeout = setTimeout(function(){
+      if (window._kzcPending) {
+        window._kzcPending=false;
+        clearInterval(window._kzcLoadInterval);
+        clearInterval(window._kzcRetryInterval);
+        if (lo) lo.classList.remove('kzc-active');
+        var errEl = document.getElementById('kzc-timeout-error');
+        if (errEl) errEl.classList.add('kzc-visible');
+        var retryBtn = document.getElementById('kzc-error-retry');
+        if (retryBtn) retryBtn.addEventListener('click', function() {
+          if (errEl) errEl.classList.remove('kzc-visible');
+          window._kzcPngRequested=false;
+          window._kzcPending=false;
+        });
+      }
+    },60000);
+  }
+
+  // maskContenance
+  function maskContenance() {
+    document.querySelectorAll('fieldset, .product-form__option').forEach(function(el){
+      var txt=(el.getAttribute('data-option-name')||'')+(el.textContent||'');
+      if (/contenance/i.test(txt)) el.style.display='none';
+    });
+  }
+  setTimeout(maskContenance,200);
+  setTimeout(maskContenance,600);
+  setTimeout(maskContenance,1200);
+  var _mc=new MutationObserver(function(){maskContenance();});
+  _mc.observe(document.body,{childList:true,subtree:true});
+
+  buildForm();
+  initCart();
+});
+</script>

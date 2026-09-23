@@ -1,0 +1,1129 @@
+{%- comment -%}
+  ══════════════════════════════════════════════════════════════════
+  KZ · GOBELET 360 — v2 (20/09/2026)
+  ------------------------------------------------------------------
+  CE QUE ÇA FAIT
+  Affiche le gobelet DU CLIENT — pas la photo du catalogue — sous ses
+  quatre faces (devant, côté gauche, derrière, côté droit), dans le
+  récapitulatif avant commande et dans le panier (page + tiroir).
+
+  D'OÙ VIENNENT LES IMAGES
+  Du moteur 3D lui-même. Ce sont de vraies captures du viewer, avec
+  sa matière, sa lumière et son fond studio — pas une reconstitution.
+
+  COMMENT
+  1. On redirige l'iframe du viewer vers configurateur-viewer-360.html,
+     une COPIE du viewer qui sait se photographier à un angle donné
+     (message REQUEST_VUES_360). Le viewer de production,
+     configurateur-viewer.html, n'est pas touché : la boutique en
+     ligne continue de le charger.
+  2. À l'ouverture du récapitulatif, on demande les quatre vues.
+     Mesuré : 39 ms pour trois, l'ordre de grandeur est le même pour
+     quatre. Rien ne bouge à l'écran — le
+     viewer tourne le modèle, rend, capture et remet l'angle dans un
+     seul bloc synchrone, donc le navigateur ne peint rien entre les
+     deux.
+  3. Les quatre images sont gardées dans le navigateur du client
+     (localStorage), indexées sur l'URL du PNG imprimeur — qui est
+     unique à cet ajout au panier et qu'on retrouve sur la ligne de
+     panier. Le panier les relit de là.
+
+  POURQUOI localStorage ET PAS UN DÉPÔT SUR LE PROXY
+  Un panier Shopify vit déjà dans UN navigateur : il est porté par un
+  cookie, il ne suit pas le client d'un appareil à l'autre. Le
+  stockage local a exactement la même portée — ni plus, ni moins. On
+  évite donc de déposer trois fichiers de plus par commande, et le
+  panier reste juste.
+  LIMITE À CONNAÎTRE : ça ne sort pas du navigateur. Le jour où on
+  voudra ces vues dans le mail de confirmation ou dans le back-office,
+  il faudra les envoyer sur le proxy au moment de la commande et
+  stocker les URL dans des propriétés de ligne. Rien d'autre ne
+  changera : le reste de ce fichier est déjà prêt pour ça.
+
+  REPLI — à chaque étape, si quelque chose manque (viewer indisponible,
+  stockage plein ou vidé, ligne de panier ancienne), on ne casse rien :
+  le panier reprend simplement la photo du produit, comme avant.
+
+  POUR DÉSACTIVER : retirer {% render 'kz-gobelet-360' %} de
+  snippets/kz-atc.liquid.
+  ══════════════════════════════════════════════════════════════════
+{%- endcomment -%}
+<style>
+  .kz360{ display:flex; flex-direction:column; gap:8px; }
+  .kz360__grid{ display:flex; gap:8px; align-items:stretch; }
+  .kz360__cell{
+    flex:1 1 0; min-width:0; display:flex; flex-direction:column;
+    align-items:center; gap:4px;
+    background:#fff; border:1px solid #E9E3D8; border-radius:10px;
+    padding:8px 4px 6px;
+  }
+  .kz360__img{ display:block; width:100%; height:auto; border-radius:6px; }
+  .kz360__note{
+    font-size:11px; color:#8A8078; line-height:1.45; margin:0;
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  /* Une seule ligne sous chaque vignette : où on se trouve sur le
+     gobelet, et le cas échéant que cette face est nue. Des mots, pas
+     des degrés — « 120° » ne dit rien à personne. */
+  .kz360__lab{
+    font-size:10.5px; line-height:1.3; color:#8A8078; text-align:center;
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    padding:0 2px;
+  }
+  .kz360__skel{
+    width:100%; aspect-ratio:2/3; border-radius:6px;
+    background:linear-gradient(100deg,#F4F0E9 30%,#FBF8F3 50%,#F4F0E9 70%);
+    background-size:220% 100%; animation:kz360sweep 1.3s linear infinite;
+  }
+  @keyframes kz360sweep{ from{background-position:120% 0} to{background-position:-20% 0} }
+  /* Chaque vignette est un vrai bouton : le client peut l'agrandir.
+     Un <button> et pas un <div> cliquable, pour que le clavier et les
+     lecteurs d'écran le trouvent comme n'importe quel autre bouton. */
+  .kz360__btn{
+    display:block; width:100%; padding:0; border:0; background:none;
+    cursor:zoom-in; border-radius:6px; font:inherit; color:inherit;
+  }
+  .kz360__btn:focus-visible{ outline:2px solid #A88B4F; outline-offset:2px; }
+
+  /* ── La visionneuse ─────────────────────────────────────────────
+     Posée sur <body>, au-dessus de la modale du récapitulatif
+     (z-index 10000) comme du tiroir panier. */
+  .kz360-vue{
+    position:fixed; inset:0; z-index:100000; display:flex;
+    flex-direction:column; align-items:center; justify-content:center; gap:16px;
+    /* Fond PLEIN, et pas un noir transparent : mesuré sur la boutique,
+       un fond transparent se compose beaucoup plus faiblement que la
+       valeur demandée et la page reste lisible derrière — la
+       visionneuse avait l'air délavée. Un fond plein se peint juste
+       (vérifié), et c'est de toute façon ce qu'on attend d'une
+       visionneuse photo : plus rien d'autre que le gobelet. */
+    background:#141310; padding:24px 16px;
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  .kz360-vue__img{
+    max-width:min(560px,86vw); max-height:64vh; width:auto; height:auto;
+    border-radius:14px; background:#fff; display:block;
+  }
+  .kz360-vue__barre{ display:flex; gap:8px; align-items:center; }
+  /* Des pastilles, pas des chiffres. 44 px de zone tactile, avec la
+     pastille visible au centre : on reste confortable au doigt sans
+     afficher un gros bouton. */
+  .kz360-vue__pas{
+    width:44px; height:44px; padding:0; border:0; background:none;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .kz360-vue__pas::before{
+    content:''; width:9px; height:9px; border-radius:50%;
+    background:rgba(255,255,255,.42); transition:background .15s, transform .15s;
+  }
+  .kz360-vue__pas[aria-pressed="true"]::before{ background:#fff; transform:scale(1.25); }
+  .kz360-vue__pas:focus-visible{ outline:2px solid #fff; outline-offset:-6px; border-radius:50%; }
+  /* Flèches de défilement. 48 px : au-dessus des 44 px recommandés
+     pour une cible tactile, et posées sur les bords de l'écran, donc
+     à portée de pouce sur téléphone. */
+  .kz360-vue__fleche{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:48px; height:48px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.10);
+    color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-family:inherit; padding:0;
+  }
+  .kz360-vue__fleche:hover{ background:rgba(255,255,255,.20); }
+  .kz360-vue__fleche:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+  .kz360-vue__fleche--g{ left:10px; }
+  .kz360-vue__fleche--d{ right:10px; }
+  @media (max-width:420px){
+    .kz360-vue__fleche{ width:44px; height:44px; }
+    .kz360-vue__fleche--g{ left:6px; }
+    .kz360-vue__fleche--d{ right:6px; }
+  }
+
+  .kz360-vue__fermer{
+    position:absolute; top:14px; right:14px;
+    width:44px; height:44px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.08);
+    color:#fff; font-size:22px; line-height:1; cursor:pointer; font-family:inherit;
+  }
+  .kz360-vue__aide{ color:rgba(255,255,255,.72); font-size:12px; margin:0; }
+
+  @media (max-width:420px){
+    .kz360__grid{ gap:5px; }
+    .kz360__cell{ padding:5px 2px 4px; border-radius:8px; }
+    .kz360__lab{ font-size:9.5px; }
+  }
+
+  /* ── Ligne de panier ──────────────────────────────────────────────
+     La ligne de panier du thème est une rangée « vignette | infos »
+     calibrée pour un carré de 96 px. Les trois vues prennent toute la
+     largeur : la ligne passe donc en colonne. La classe est posée par
+     le script sur l'élément de ligne, ce qui évite de dépendre de
+     :has() et marche aussi dans le tiroir. */
+  .kz360-host{ display:block !important; }
+  .kz360-host .line-item__media-wrapper.kz360-media{
+    width:100% !important; max-width:none !important;
+    height:auto !important; aspect-ratio:auto !important;
+    /* 30 px en haut : la croix de suppression du panier est posée en
+       absolu dans le coin haut-droit de la carte (top 15 px, 32 px de
+       côté) ; sans cette marge elle tombe sur la troisième vignette. */
+    margin:30px 0 12px !important; background:none !important;
+    border-radius:0 !important; overflow:visible !important;
+  }
+  .kz360-host .kz360-media .pill-loader{ display:none !important; }
+  .kz360-media .kz360__cell{ padding:7px 3px 5px; }
+
+  /* ── Récapitulatif avant commande ─────────────────────────────────
+     Le bloc « Votre gobelet » ajoute environ 200 px à une modale qui
+     n'avait pas de hauteur maximale : sur un portable 13 pouces, le
+     bouton « Ajouter au panier » passait sous le bord de l'écran.
+     On plafonne la hauteur, on laisse la modale défiler, et on colle
+     le bouton en bas pour qu'il reste sous la main.
+     Ces règles arrivent après celles des configurateurs dans la page :
+     à sélecteur égal, ce sont elles qui l'emportent. */
+  #kzp-modal{ max-height:92vh; overflow-y:auto; overscroll-behavior:contain; }
+  @media (max-width:767px){ #kzp-modal{ max-height:88vh; } }
+  #kzp-actions{
+    position:sticky; bottom:0; background:#fff;
+    padding-top:12px !important;
+    box-shadow:0 -10px 14px -10px rgba(0,0,0,.18);
+  }
+  /* La vignette de l'en-tête montrait elle aussi la photo du
+     catalogue : on y met le gobelet du client, vu de face. */
+  #kzp-img-col .kz360__img{ width:100%; height:100%; object-fit:contain; }
+
+  /* Les parcours IA et Canva ont une modale bâtie autrement : pas de
+     #kzp-sections, juste un titre, un corps et deux boutons. On y
+     insère le même bloc, habillé comme les encadrés des trois autres
+     parcours (mêmes valeurs que .kzp-section : filet #ede9e3, rayon
+     10 px, titre Georgia doré en petites capitales). */
+  .kz360-recapB{
+    border:1.5px solid #ede9e3; border-radius:10px;
+    padding:10px 13px; margin:0 0 14px;
+  }
+  /* Le motif à plat des parcours IA et Canva (.kzp-img-preview) fait
+     doublon avec les trois vues : on le masque. Mais UNIQUEMENT quand
+     nos vues sont réellement affichées — la classe kz360-vues n'est
+     posée qu'à ce moment-là. Si la capture échoue, le motif à plat
+     reste : mieux vaut cette image que rien du tout. */
+  .kz360-vues .kzp-img-preview{ display:none !important; }
+
+  .kz360-recapB__titre{
+    font-family:Georgia,serif; font-size:12px; font-weight:700;
+    color:#c9a96e; margin-bottom:8px; letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+</style>
+<script>
+(function () {
+  if (window.KZ360) return;
+
+  var CONF = {
+    /* QUATRE quarts de tour, et pas trois tiers.
+       Un gobelet est un cylindre : 3 vues à 120° couvrent bien tout le
+       tour, mais ne tombent sur aucune position que le client sait
+       nommer — et dire « devant, côté gauche, côté droit » fait
+       forcément attendre un quatrième volet, le dos. À 90°, chaque vue
+       a un nom évident et le dos est montré au lieu d'être sous-
+       entendu. C'est aussi ce que font les concurrents.
+       Une seule ligne à changer si l'on veut en revenir à trois. */
+    angles:  [0, 90, 180, 270],
+    taille:  560,      // côté de la capture, en pixels
+    qualite: 0.88,     // JPEG
+    viewerDe:  'configurateur-viewer.html',
+    viewerVers:'configurateur-viewer-360.html',
+    /* P6-05 (23/09/2026) : le viewer est désormais UNIFIÉ —
+       configurateur-viewer.html sait répondre à REQUEST_VUES_360. On ne
+       réécrit donc plus l'adresse de l'iframe : la réécriture faisait
+       recharger le viewer une seconde fois quand l'iframe était déjà
+       partie (fiches IA et Canva, dont le src est écrit dans le HTML).
+       Remettre true uniquement pour revenir à un viewer non unifié. */
+    redirection: false,
+    maxLignes: 12,     // nombre d'apercus gardés dans le navigateur (4 images chacun)
+    /* Dépôt des quatre vues pour le mail de confirmation.
+       false = rien n'est déposé, le mail garde la photo du catalogue. */
+    depot:   true,
+    proxy:   'https://kuztom-proxy-test.contact-kuztom.workers.dev',   // ENVIRONNEMENT DE TEST
+    proxyKey:'',
+    /* MESURÉ, pas supposé : le proxy n'accepte que des images (.png,
+       .jpg) et uniquement dans orders/. Tout le reste répond
+       « Chemin non autorisé » (400) — testé avec apercus/, designs/,
+       la racine, un sous-dossier, et une extension .txt.
+       Attention au faux ami : ce orders/-là est celui du proxy
+       Cloudflare, PAS le dossier orders/ du dépôt GitHub. Voir la
+       note « DURÉE DE VIE » plus bas. */
+    dossier: 'orders'
+  };
+
+  /* ══════════════════════════════════════════════════════════════
+     1. REDIRECTION DE L'IFRAME VERS LA COPIE DU VIEWER
+     --------------------------------------------------------------
+     Les cinq configurateurs n'utilisent pas le même identifiant
+     (#kuztom-iframe pour le 3D, #kzc-iframe pour Texte…) : on vise
+     donc l'adresse, pas l'identifiant. Un seul sélecteur les couvre
+     tous les cinq.
+     La réécriture a lieu à l'instant où le src est posé, avant la fin
+     du chargement : l'iframe part directement sur la bonne adresse.
+     Pas de boucle possible — une fois réécrite, l'adresse ne contient
+     plus 'configurateur-viewer.html'.
+     ══════════════════════════════════════════════════════════════ */
+  function redirigeIframes(racine) {
+    if (!CONF.redirection) return;   // P6-05 : viewer unifié, plus de réécriture
+    var l;
+    try { l = (racine || document).querySelectorAll('iframe[src*="' + CONF.viewerDe + '"]'); }
+    catch (e) { return; }
+    for (var i = 0; i < l.length; i++) {
+      var s = l[i].getAttribute('src') || '';
+      if (s.indexOf(CONF.viewerDe) === -1) continue;
+      l[i].setAttribute('src', s.split(CONF.viewerDe).join(CONF.viewerVers));
+    }
+  }
+  redirigeIframes();
+  if (CONF.redirection) {   // P6-05 : pas d'observateur inutile sur toute la page
+    try {
+      new MutationObserver(function () { redirigeIframes(); })
+        .observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+    } catch (e) {}
+  }
+
+  function viewerPrincipal() {
+    var l = document.querySelectorAll('iframe[src*="configurateur-viewer"]');
+    var best = null, bestA = -1;
+    for (var i = 0; i < l.length; i++) {
+      if (l[i].id === 'kuztom-mini-iframe') continue;   // la vignette flottante du mobile
+      var a = l[i].offsetWidth * l[i].offsetHeight;
+      if (a > bestA) { bestA = a; best = l[i]; }
+    }
+    return best;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     2. MÉMOIRE DES VUES, DANS LE NAVIGATEUR
+     --------------------------------------------------------------
+     Indexées sur l'URL du PNG imprimeur : elle est unique à cet ajout
+     au panier, et la ligne de panier la porte (_PNG imprimeur).
+     ══════════════════════════════════════════════════════════════ */
+  var PREFIXE = 'kz360:';
+
+  function cle(url) { return PREFIXE + url; }
+
+  function litVues(url) {
+    try {
+      var b = localStorage.getItem(cle(url));
+      if (!b) return null;
+      var o = JSON.parse(b);
+      return (o && o.v && o.v.length) ? o.v : null;
+    } catch (e) { return null; }
+  }
+
+  function ecritVues(url, vues) {
+    if (!url || !vues || !vues.length) return;
+    try {
+      localStorage.setItem(cle(url), JSON.stringify({ t: Date.now(), v: vues }));
+      elague();
+    } catch (e) {
+      // Stockage plein : on fait de la place et on retente une fois.
+      try { elague(true); localStorage.setItem(cle(url), JSON.stringify({ t: Date.now(), v: vues })); }
+      catch (e2) {}
+    }
+  }
+
+  function elague(agressif) {
+    try {
+      var l = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf(PREFIXE) === 0) {
+          var t = 0;
+          try { t = (JSON.parse(localStorage.getItem(k)) || {}).t || 0; } catch (e) {}
+          l.push({ k: k, t: t });
+        }
+      }
+      var garde = agressif ? Math.max(3, Math.floor(CONF.maxLignes / 4)) : CONF.maxLignes;
+      if (l.length <= garde) return;
+      l.sort(function (a, b) { return b.t - a.t; });
+      for (var j = garde; j < l.length; j++) localStorage.removeItem(l[j].k);
+    } catch (e) {}
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     3. RECADRAGE
+     --------------------------------------------------------------
+     Le viewer rend un carré : le gobelet n'y occupe que 44 % de la
+     largeur (mesuré : il va de 28 % à 72 %), le reste est du fond
+     studio. Dans une vignette de 100 px, ça donne un gobelet minuscule.
+     On recadre donc chaque capture autour du gobelet, avec une marge.
+
+     La découpe n'est pas figée : on repère le gobelet à chaque fois.
+     Un modèle plus étroit (flûte à champagne) ou plus large sera donc
+     cadré juste lui aussi. Détection par la clarté — le gobelet est
+     nettement plus clair que le fond — et si elle échoue, on renvoie
+     l'image telle quelle plutôt que de risquer de couper le sujet.
+     ══════════════════════════════════════════════════════════════ */
+  var MARGE = 0.14;   // marge autour du gobelet, en fraction de sa largeur
+
+  /* Repérage du gobelet dans la capture.
+
+     20/09/2026 — CE POINT A DÉJÀ ÉTÉ FAUX UNE FOIS, voici pourquoi.
+     La première version ne cherchait que les pixels CLAIRS. Sur un
+     gobelet noir, elle ne trouvait donc pas le gobelet : elle trouvait
+     les dorures du motif, qui ne sont pas au même endroit selon
+     l'angle. Résultat : trois cadrages différents pour un même
+     gobelet (mesuré : 284x313, 289x326, 284x224).
+
+     Deux corrections, et il faut les deux :
+       1. on repère le gobelet par son ÉCART au fond, clair OU sombre.
+          Le fond studio est un gris moyen (clarté ~211) ; un gobelet
+          blanc le dépasse, un gobelet noir passe en dessous. Les deux
+          cas sont donc couverts.
+       2. on calcule UNE SEULE boîte pour les trois vues, en prenant
+          leur réunion, et on applique le même recadrage aux trois.
+          Même si le repérage se trompait un peu sur une vue, les trois
+          vignettes resteraient cadrées pareil — ce qui est ce que le
+          client voit.
+
+     La mesure se fait sur une version réduite : le corps du gobelet est
+     une grande masse, il survit à la réduction, alors que les détails
+     fins du motif disparaissent. C'est exactement ce qu'on veut ici —
+     on cherche le gobelet, pas son dessin. */
+  var CLAIR = 236, SOMBRE = 70, ECH = 200;
+
+  function analyse(img) {
+    try {
+      var c = document.createElement('canvas');
+      c.width = ECH; c.height = ECH;
+      var x = c.getContext('2d', { willReadFrequently: true });
+      x.drawImage(img, 0, 0, ECH, ECH);
+      var p = x.getImageData(0, 0, ECH, ECH).data;
+      var a = ECH, b = -1, h = ECH, d = -1;
+      for (var j = 0; j < ECH; j++) {
+        for (var i = 0; i < ECH; i++) {
+          var o = (j * ECH + i) * 4;
+          var l = 0.299 * p[o] + 0.587 * p[o + 1] + 0.114 * p[o + 2];
+          if (l > CLAIR || l < SOMBRE) {
+            if (i < a) a = i; if (i > b) b = i;
+            if (j < h) h = j; if (j > d) d = j;
+          }
+        }
+      }
+      if (b < a || d < h) return null;
+      return { x: a / ECH, y: h / ECH, w: (b - a) / ECH, h: (d - h) / ECH };
+    } catch (e) { return null; }
+  }
+
+  function charge(dataUrl) {
+    return new Promise(function (resolve) {
+      var im = new Image();
+      im.onload = function () { resolve(im); };
+      im.onerror = function () { resolve(null); };
+      im.src = dataUrl;
+    });
+  }
+
+  function recadreVues(vues) {
+    return Promise.all(vues.map(function (v) { return charge(v.dataUrl); })).then(function (imgs) {
+      var u = null;
+      for (var i = 0; i < imgs.length; i++) {
+        if (!imgs[i]) continue;
+        var b = analyse(imgs[i]);
+        if (!b) continue;
+        if (!u) { u = { x1: b.x, y1: b.y, x2: b.x + b.w, y2: b.y + b.h }; }
+        else {
+          u.x1 = Math.min(u.x1, b.x); u.y1 = Math.min(u.y1, b.y);
+          u.x2 = Math.max(u.x2, b.x + b.w); u.y2 = Math.max(u.y2, b.y + b.h);
+        }
+      }
+      // Rien de repérable, ou une boîte invraisemblable : on renvoie les
+      // captures telles quelles plutôt que de risquer de couper le
+      // gobelet. Mieux vaut un cadrage large qu'un gobelet décapité.
+      if (!u || (u.x2 - u.x1) < 0.12 || (u.y2 - u.y1) < 0.12 || (u.x2 - u.x1) > 0.96) return vues;
+
+      var m = (u.x2 - u.x1) * MARGE;
+      var fx = Math.max(0, u.x1 - m), fy = Math.max(0, u.y1 - m);
+      var fw = Math.min(1 - fx, (u.x2 - u.x1) + 2 * m);
+      var fh = Math.min(1 - fy, (u.y2 - u.y1) + 2 * m);
+
+      return vues.map(function (v, k) {
+        var im = imgs[k];
+        if (!im) return v;
+        try {
+          var W = im.naturalWidth, H = im.naturalHeight;
+          var sx = Math.round(fx * W), sy = Math.round(fy * H);
+          var sw = Math.round(fw * W), sh = Math.round(fh * H);
+          var out = document.createElement('canvas');
+          out.width = sw; out.height = sh;
+          out.getContext('2d').drawImage(im, sx, sy, sw, sh, 0, 0, sw, sh);
+          return { angle: v.angle, dataUrl: out.toDataURL('image/jpeg', 0.9) };
+        } catch (e) { return v; }
+      });
+    }).catch(function () { return vues; });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     4. AFFICHAGE
+     ══════════════════════════════════════════════════════════════ */
+  /* Le nom de la face, déduit de l'angle.
+     Le sens a été vérifié sur le viewer, pas supposé : à +35° le motif
+     se décale vers la DROITE de l'écran, donc la surface qui arrive de
+     face vient de la GAUCHE du gobelet. 120° montre donc le côté
+     gauche, 240° le côté droit. Si un jour les angles changent, les
+     noms suivent tout seuls. */
+  /* Pourquoi pas de mention « face sans motif », automatique :
+     mesuré sur deux designs, la densité de motif par face donne
+     0,266 / 0,007 / 0,018 (gobelet noir) et 0,196 / 0,001 / 0,005
+     (eucalyptus). Aucune frontière nette entre « nu » et « presque
+     nu » — ces gobelets sont translucides, on devine toujours quelque
+     chose par transparence. Un seuil finirait par écrire « sans
+     motif » sous une face qui en a un, et se tromper là-dessus est
+     pire que de se taire. Les noms de faces suffisent : une face peu
+     chargée se lit comme un côté du gobelet, pas comme un bug. */
+  /* Le thème vend aussi des flûtes à champagne et des verres à vin :
+     écrire « Votre gobelet » au-dessus d'une flûte fait négligé. On
+     prend le mot dans le titre du produit.
+
+     Catalogue relevé le 21/09/2026 — trois familles seulement :
+       « Gobelet … Personnalisé – … »              -> gobelet
+       « Flûte à Champagne Personnalisée – … »     -> flûte
+       « Verre à Vin Personnalisé – … »            -> verre à vin
+     « Verre » tout court est vague : on teste donc « verre à vin »
+     AVANT « verre ». Le repli « verre » reste là pour un futur
+     produit (verre à eau, verre à pied…) qui n'existe pas encore. */
+  function nomObjet() {
+    var t = '';
+    try {
+      var h = document.querySelector('h1');
+      t = ((h && h.textContent) || document.title || '').toLowerCase();
+    } catch (e) {}
+    if (t.indexOf('verre à vin') >= 0 || t.indexOf('verre a vin') >= 0) return 'verre à vin';
+    if (t.indexOf('flûte') >= 0 || t.indexOf('flute') >= 0) return 'flûte';
+    if (t.indexOf('verre') >= 0) return 'verre';
+    return 'gobelet';
+  }
+
+  function nomFace(a) {
+    var x = ((a % 360) + 360) % 360;
+    if (x < 30 || x > 330) return 'Devant';
+    if (x > 150 && x < 210) return 'Derrière';
+    return (x <= 180) ? 'Côté gauche' : 'Côté droit';
+  }
+
+  function construit(hote, opt) {
+    opt = opt || {};
+    hote.innerHTML = '';
+    var w = document.createElement('div'); w.className = 'kz360';
+    var g = document.createElement('div'); g.className = 'kz360__grid';
+    var cellules = [];
+    (opt.angles || CONF.angles).forEach(function (a) {
+      var c = document.createElement('div'); c.className = 'kz360__cell';
+      var s = document.createElement('div'); s.className = 'kz360__skel';
+      var im = document.createElement('img');
+      im.className = 'kz360__img'; im.alt = 'Votre ' + nomObjet() + ' — ' + nomFace(a).toLowerCase();
+      im.style.display = 'none';
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'kz360__btn';
+      b.setAttribute('aria-label', 'Agrandir : ' + nomFace(a).toLowerCase());
+      b.style.display = 'none';
+      b.appendChild(im);
+      b.addEventListener('click', function () { visionneuse(hote.__kzVues || [], a); });
+      var l = document.createElement('span');
+      l.className = 'kz360__lab';
+      l.textContent = nomFace(a);
+      c.appendChild(s); c.appendChild(b); c.appendChild(l);
+      g.appendChild(c);
+      cellules.push({ cellule: c, skel: s, img: im, bouton: b, lab: l, angle: a });
+    });
+    w.appendChild(g);
+    if (opt.note) {
+      var p = document.createElement('p'); p.className = 'kz360__note'; p.textContent = opt.note;
+      w.appendChild(p);
+    }
+    hote.appendChild(w);
+    return cellules;
+  }
+
+  function remplit(hote, cellules, vues) {
+    hote.__kzVues = vues;                 // lues par la visionneuse au clic
+    var par = {};
+    vues.forEach(function (v) { par[v.angle] = v; });
+    cellules.forEach(function (c) {
+      var v = par[c.angle];
+      if (!v || !v.dataUrl) return;
+      c.img.src = v.dataUrl;
+      c.img.style.display = '';
+      if (c.bouton) c.bouton.style.display = '';
+      if (c.skel && c.skel.parentNode) c.skel.remove();
+      if (c.lab) c.lab.textContent = nomFace(c.angle);
+    });
+  }
+
+  /* ── La visionneuse ────────────────────────────────────────────
+     Ouvre la vue cliquée en grand, avec les trois angles en bas pour
+     passer de l'un à l'autre sans refermer. Se ferme au clic sur le
+     fond, sur la croix, ou avec Échap. */
+  function visionneuse(vues, angle) {
+    if (!vues || !vues.length) return;
+    var precedent = document.activeElement;
+    var fond = document.createElement('div');
+    fond.className = 'kz360-vue';
+    fond.setAttribute('role', 'dialog');
+    fond.setAttribute('aria-modal', 'true');
+    fond.setAttribute('aria-label', 'Votre ' + nomObjet() + ' en grand');
+
+    var img = document.createElement('img');
+    img.className = 'kz360-vue__img';
+
+    var barre = document.createElement('div');
+    barre.className = 'kz360-vue__barre';
+    var boutons = [];
+
+    var courant = 0;
+
+    function montre(a) {
+      var v = null;
+      for (var i = 0; i < vues.length; i++) if (vues[i].angle === a) { v = vues[i]; courant = i; }
+      if (!v) { v = vues[0]; courant = 0; }
+      img.src = v.dataUrl;
+      img.alt = 'Votre ' + nomObjet() + ' — ' + nomFace(v.angle).toLowerCase();
+      aide.textContent = nomFace(v.angle);
+      boutons.forEach(function (b) {
+        b.setAttribute('aria-pressed', String(Number(b.dataset.angle) === v.angle));
+      });
+    }
+
+    /* Défilement circulaire : après la dernière face on revient à la
+       première. C'est un gobelet — on tourne autour, il n'y a pas de
+       fin. */
+    function decale(pas) {
+      var i = (courant + pas) % vues.length;
+      if (i < 0) i += vues.length;
+      montre(vues[i].angle);
+    }
+
+    vues.forEach(function (v, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'kz360-vue__pas';
+      b.dataset.angle = String(v.angle);
+      /* Une pastille, pas un chiffre : le client se repère à l'image. */
+      b.setAttribute('aria-label', nomFace(v.angle));
+      b.addEventListener('click', function (ev) { ev.stopPropagation(); montre(v.angle); });
+      barre.appendChild(b); boutons.push(b);
+    });
+
+    var aide = document.createElement('p');
+    aide.className = 'kz360-vue__aide';
+
+    var fermer = document.createElement('button');
+    fermer.type = 'button'; fermer.className = 'kz360-vue__fermer';
+    fermer.setAttribute('aria-label', 'Fermer');
+    fermer.textContent = '×';
+
+    function ferme() {
+      document.removeEventListener('keydown', touche, true);
+      if (fond.parentNode) fond.parentNode.removeChild(fond);
+      if (precedent && precedent.focus) { try { precedent.focus(); } catch (e) {} }
+    }
+    function touche(e) {
+      if (e.key === 'Escape') { e.stopPropagation(); ferme(); return; }
+      if (e.key === 'ArrowLeft')  { e.stopPropagation(); e.preventDefault(); decale(-1); return; }
+      if (e.key === 'ArrowRight') { e.stopPropagation(); e.preventDefault(); decale(1); }
+    }
+
+    fermer.addEventListener('click', ferme);
+    fond.addEventListener('click', function (e) {
+      if (e.target !== fond) return;
+      if (fond.__kzFinGeste && Date.now() - fond.__kzFinGeste() < 400) return;   // fin de glissement
+      ferme();
+    });
+    document.addEventListener('keydown', touche, true);
+
+    function fleche(sens) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'kz360-vue__fleche kz360-vue__fleche--' + (sens < 0 ? 'g' : 'd');
+      b.setAttribute('aria-label', sens < 0 ? 'Face précédente' : 'Face suivante');
+      b.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+        + '<path d="' + (sens < 0 ? 'M15 5 L8 12 L15 19' : 'M9 5 L16 12 L9 19')
+        + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      b.addEventListener('click', function (ev) { ev.stopPropagation(); decale(sens); });
+      return b;
+    }
+
+    /* ── Glissement au pouce ───────────────────────────────────────
+       On écoute sur tout le fond, pas seulement sur l'image : sur
+       téléphone le pouce part souvent d'à côté. Un geste n'est retenu
+       que s'il est franchement horizontal (plus de 30 px, et plus
+       horizontal que vertical), pour ne pas déclencher un changement
+       de face quand le client fait défiler la page.
+       Après un glissement on neutralise le clic pendant un court
+       instant : sinon le « clic » que le navigateur émet en fin de
+       geste retomberait sur le fond et refermerait la visionneuse. */
+    var dx0 = 0, dy0 = 0, glisse = false, finGeste = 0;
+    fond.addEventListener('touchstart', function (e) {
+      if (!e.touches || e.touches.length !== 1) return;
+      dx0 = e.touches[0].clientX; dy0 = e.touches[0].clientY; glisse = false;
+    }, { passive: true });
+    fond.addEventListener('touchmove', function (e) {
+      if (!e.touches || e.touches.length !== 1) return;
+      var dx = e.touches[0].clientX - dx0, dy = e.touches[0].clientY - dy0;
+      if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) glisse = true;
+    }, { passive: true });
+    fond.addEventListener('touchend', function (e) {
+      if (!glisse || !e.changedTouches || !e.changedTouches.length) return;
+      var dx = e.changedTouches[0].clientX - dx0;
+      finGeste = Date.now();
+      decale(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    fond.appendChild(fermer);
+    fond.appendChild(fleche(-1));
+    fond.appendChild(img);
+    fond.appendChild(fleche(1));
+    fond.appendChild(barre); fond.appendChild(aide);
+    fond.__kzFinGeste = function () { return finGeste; };
+    document.body.appendChild(fond);
+    montre(angle);
+    fermer.focus();
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     5. LE PANIER — page, tiroir et pages de commande
+     ══════════════════════════════════════════════════════════════ */
+  function monte(hote) {
+    if (!hote || hote.dataset.kz360Done) return;
+    var url = hote.getAttribute('data-kz360-png') || '';
+    if (!url) return;
+    hote.dataset.kz360Done = '1';
+
+    var vues = litVues(url);
+    var ligne = hote.closest ? hote.closest('line-item, .cart-item, .cart-drawer__item') : null;
+    var enveloppe = hote.parentNode;
+
+    if (!vues) {
+      // Aucune vue pour cette ligne (panier d'avant la mise en place,
+      // autre navigateur, stockage vidé) : on rend la main à la photo
+      // du produit, restée juste à côté, et on retire nos classes pour
+      // qu'elle retrouve sa taille de vignette.
+      hote.style.display = 'none';
+      if (enveloppe) enveloppe.classList.remove('kz360-media');
+      if (ligne) ligne.classList.remove('kz360-host');
+      var repli = enveloppe && enveloppe.querySelector('[data-kz360-fallback]');
+      if (repli) repli.style.display = '';
+      return;
+    }
+
+    if (ligne) ligne.classList.add('kz360-host');
+    remplit(hote, construit(hote, {}), vues);
+    var fb = enveloppe && enveloppe.querySelector('[data-kz360-fallback]');
+    if (fb) fb.remove();
+  }
+
+  function balaye(racine) {
+    racine = racine || document;
+    var l;
+    try { l = racine.querySelectorAll('[data-kz360-png]:not([data-kz360-done])'); } catch (e) { return; }
+    for (var i = 0; i < l.length; i++) monte(l[i]);
+    // Le tiroir panier peut vivre dans un shadow DOM : on regarde aussi
+    // à l'intérieur des lignes de panier.
+    var h;
+    try { h = racine.querySelectorAll('line-item, .cart-item, .cart-drawer__item'); } catch (e) { h = []; }
+    for (var j = 0; j < h.length; j++) if (h[j].shadowRoot) balaye(h[j].shadowRoot);
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     6. LE RÉCAPITULATIF AVANT COMMANDE
+     --------------------------------------------------------------
+     Le bloc « Votre gobelet » est inséré dans la modale existante
+     (#kzp-modal), en haut de #kzp-sections, avec les classes de la
+     modale : il a donc exactement la même allure que « Votre produit »
+     et « Votre personnalisation ».
+
+     CE FICHIER NE TOUCHE PAS AU PARCOURS DE COMMANDE. Il écoute, il
+     n'intercepte rien. Si les vues n'arrivent pas, le récapitulatif
+     reste utilisable et la commande suit son chemin habituel.
+     ══════════════════════════════════════════════════════════════ */
+  var R = { hote: null, ov: null, cellules: null, vues: null, attente: false, minuteur: null, relance: null };
+
+  function demandeVues() {
+    var ifr = viewerPrincipal();
+    if (!ifr || !ifr.contentWindow) return false;
+    try {
+      ifr.contentWindow.postMessage({
+        type: 'REQUEST_VUES_360',
+        angles: CONF.angles, size: CONF.taille, quality: CONF.qualite
+      }, '*');
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function vignetteEntete(vues) {
+    var col = document.getElementById('kzp-img-col');
+    if (!col || !vues || !vues.length) return;
+    var face = vues[0];
+    for (var i = 0; i < vues.length; i++) if (vues[i].angle === 0) face = vues[i];
+    var im = col.querySelector('img.kz360__img');
+    if (!im) {
+      var ancienne = col.querySelector('img');
+      if (ancienne) ancienne.style.display = 'none';
+      im = document.createElement('img');
+      im.className = 'kz360__img';
+      im.alt = 'Votre ' + nomObjet() + ', vu de face';
+      col.appendChild(im);
+    }
+    im.src = face.dataUrl;
+  }
+
+  function affiche(vues) {
+    if (!R.hote) return;
+    R.vues = vues;
+    R.cellules = construit(R.hote, {
+      note: 'Votre ' + nomObjet() + ' sur ses quatre faces — c’est exactement ce qui sera imprimé.'
+    });
+    remplit(R.hote, R.cellules, vues);
+    vignetteEntete(vues);
+    try { document.documentElement.classList.add('kz360-vues'); } catch (e) {}
+    R.attente = false;
+    clearTimeout(R.minuteur); clearInterval(R.relance);
+  }
+
+  function echec() {
+    if (!R.hote) return;
+    R.hote.innerHTML = '';
+    var p = document.createElement('p');
+    p.className = 'kz360__note';
+    p.textContent = 'Aperçu momentanément indisponible — votre personnalisation, elle, est bien enregistrée (détail ci-dessous).';
+    try { document.documentElement.classList.remove('kz360-vues'); } catch (e) {}
+    R.hote.appendChild(p);
+    R.attente = false;
+    clearTimeout(R.minuteur); clearInterval(R.relance);
+  }
+
+  function ouverture() {
+    if (!R.hote) return;
+    R.attente = true;
+    R.cellules = construit(R.hote, { note: 'Préparation de votre aperçu…' });
+    clearInterval(R.relance); clearTimeout(R.minuteur);
+    demandeVues();
+    // Le viewer peut ne pas être prêt : on redemande, sans insister.
+    R.relance  = setInterval(function () { if (R.attente) demandeVues(); else clearInterval(R.relance); }, 2500);
+    R.minuteur = setTimeout(function () { if (R.attente) echec(); }, 20000);
+  }
+
+  /* Les cinq parcours n'ont pas la même modale.
+       · 3D, Texte, Pro et Verrerie : #kzp-sections, une suite
+         d'encadrés « Votre produit » / « Votre personnalisation ».
+         On glisse le nôtre en tête. Ouverture signalée par la classe
+         kzp-visible.
+       · IA et Canva : un titre, un #kzp-body rempli en innerHTML à
+         chaque ouverture, deux boutons. On se pose AVANT #kzp-body —
+         sinon le innerHTML effacerait notre bloc à chaque fois.
+         Ouverture signalée par le style display.
+     Plutôt que de deviner la famille, on regarde ce qui existe ; et
+     pour savoir si c'est ouvert, on lit le display calculé, qui est
+     vrai dans les deux cas. */
+  function estOuvert(ov) {
+    try { return getComputedStyle(ov).display !== 'none'; } catch (e) { return false; }
+  }
+
+  function recapInit() {
+    var ov = document.getElementById('kzp-overlay');
+    if (!ov || ov.getAttribute('data-kz360-recap')) return;
+    if (!viewerPrincipal()) return;                 // pas de viewer ici : rien à montrer
+
+    var hote = null;
+    var sections = ov.querySelector('#kzp-sections');
+
+    if (sections) {
+      var boite = document.createElement('div');
+      boite.className = 'kzp-section kz360-recap';
+      var t = document.createElement('div');
+      t.className = 'kzp-section-title';
+      t.textContent = 'Votre ' + nomObjet();
+      boite.appendChild(t);
+      hote = document.createElement('div');
+      boite.appendChild(hote);
+      sections.insertBefore(boite, sections.firstChild);
+    } else {
+      var corps = ov.querySelector('#kzp-body');
+      var modale = ov.querySelector('#kzp-modal, .kzp-modal');
+      if (!corps || !modale || corps.parentNode !== modale) return;
+      var boiteB = document.createElement('div');
+      boiteB.className = 'kz360-recapB kz360-recap';
+      var tb = document.createElement('div');
+      tb.className = 'kz360-recapB__titre';
+      tb.textContent = 'Votre ' + nomObjet();
+      boiteB.appendChild(tb);
+      hote = document.createElement('div');
+      boiteB.appendChild(hote);
+      modale.insertBefore(boiteB, corps);
+    }
+
+    ov.setAttribute('data-kz360-recap', '1');
+    R.hote = hote;
+    R.ov = ov;
+
+    var visible = estOuvert(ov);
+    if (visible) ouverture();
+    try {
+      new MutationObserver(function () {
+        var m = estOuvert(ov);
+        if (m && !visible) ouverture();
+        visible = m;
+      }).observe(ov, { attributes: true, attributeFilter: ['class', 'style'] });
+    } catch (e) {}
+    R.etaitOuvert = function () { var m = estOuvert(ov); var r = (m && !visible); visible = m; return r; };
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     7. LE LIEN ENTRE LES DEUX
+     --------------------------------------------------------------
+     VUES_360_PRETES : les captures arrivent → on les affiche.
+     PRINT_PNG_READY : le configurateur vient d'obtenir l'URL du PNG
+       imprimeur, celle-là même qui se retrouvera sur la ligne de
+       panier. C'est le moment, et le seul, où l'on sait sous quelle
+       clé ranger les vues.
+     ══════════════════════════════════════════════════════════════ */
+  /* P2-08 : on n'écoute que le viewer (Cloudflare Pages code-3d, production
+     ou branche, ou GitHub Pages). */
+  function origineViewer(o) {
+    return typeof o === 'string'
+        && (/^https:\/\/([a-z0-9-]+\.)?code-3d\.pages\.dev$/.test(o) || o === 'https://clcreation542-coder.github.io');
+  }
+
+  window.addEventListener('message', function (e) {
+    if (!e || !e.data) return;
+    if (!origineViewer(e.origin)) return;
+
+    if (e.data.type === 'VUES_360_PRETES' && e.data.views && e.data.views.length) {
+      recadreVues(e.data.views).then(function (vues) {
+        R.vues = vues;
+        if (R.attente) affiche(vues);
+      });
+      return;
+    }
+
+    if (e.data.type === 'VUES_360_ERREUR') {
+      if (R.attente) echec();
+      return;
+    }
+
+    if (e.data.type === 'kuztom_ready') {
+      if (R.attente) demandeVues();
+      return;
+    }
+
+    if (e.data.type === 'PRINT_PNG_READY' && e.data.url) {
+      if (R.vues && R.vues.length) ecritVues(e.data.url, R.vues);
+      return;
+    }
+  });
+
+  /* Filet de sécurité : les cinq parcours ne nomment pas forcément
+     leurs messages de la même façon, et je n'ai pu vérifier que
+     certains d'entre eux. Ce qu'ils font TOUS, en revanche, c'est
+     poser la propriété « _PNG imprimeur » dans le formulaire avant de
+     l'envoyer — c'est elle qu'on retrouve sur la ligne de panier.
+     On la surveille donc directement : quoi qu'il arrive en amont, les
+     vues sont rangées sous la bonne clé. */
+  function rangeDepuisFormulaire() {
+    if (!R.vues || !R.vues.length) return;
+    var i = document.querySelector('form[action*="/cart/add"] input[name="properties[_PNG imprimeur]"]');
+    if (i && i.value) ecritVues(i.value, R.vues);
+  }
+
+  window.KZ360 = {
+    CONF: CONF,
+    recap: R,
+    balaye: balaye,
+    litVues: litVues,
+    demandeVues: demandeVues,
+    viewerPrincipal: viewerPrincipal
+  };
+
+  /* ══════════════════════════════════════════════════════════════
+     8. « VALIDER MA COMMANDE » NE DOIT PAS OUVRIR LE RÉCAPITULATIF
+     --------------------------------------------------------------
+     DÉFAUT PRÉEXISTANT, indépendant des trois vues. Les configurateurs
+     ouvrent leur récapitulatif sur ce clic :
+
+       document.addEventListener('click', function (e) {
+         var btn = e.target.closest('button[type="submit"][is="custom-button"]');
+         if (!btn) return;
+         e.preventDefault(); e.stopImmediatePropagation(); kzpOpen();
+       }, true);
+
+     Le sélecteur ne dit pas DE QUEL bouton il s'agit. Or le thème rend
+     avec ces mêmes attributs le bouton « Valider ma commande » du
+     tiroir panier (snippets/button.liquid, name="checkout") et celui de
+     l'infolettre. Sur une fiche produit, cliquer « Valider ma
+     commande » dans le tiroir ouvrait donc le récapitulatif du gobelet
+     en cours au lieu d'aller au paiement. Le client ne pouvait pas
+     payer depuis le tiroir.
+
+     LE CORRECTIF, sans toucher aux gros fichiers. On écoute le clic sur
+     `window` en phase de capture : cette phase passe par window AVANT
+     document, donc avant le gestionnaire ci-dessus. Si le bouton
+     cliqué n'est pas dans le formulaire d'ajout au panier, on lui
+     retire l'attribut `is` le temps du clic : `closest()` ne le
+     reconnaît plus, le configurateur passe son tour, et le clic suit
+     son cours normal. L'attribut est remis au tick suivant.
+
+     Pourquoi ce détour plutôt qu'un stopPropagation : en capture sur
+     window, arrêter la propagation empêcherait l'évènement d'atteindre
+     le bouton lui-même — le bouton ne ferait plus rien du tout. Il faut
+     laisser passer le clic et seulement rendre le bouton invisible au
+     sélecteur du configurateur.
+
+     Retirer l'attribut ne « dé-transforme » pas le bouton : l'élément
+     personnalisé est déjà en place, seul le sélecteur d'attribut cesse
+     de correspondre.
+     ══════════════════════════════════════════════════════════════ */
+  window.addEventListener('click', function (e) {
+    var b;
+    try { b = e.target && e.target.closest && e.target.closest('button[type="submit"][is="custom-button"]'); }
+    catch (err) { return; }
+    if (!b) return;
+    if (b.closest('form[action*="/cart/add"]')) return;   // le vrai bouton du configurateur : on le laisse
+    var val = b.getAttribute('is');
+    b.removeAttribute('is');
+    setTimeout(function () { if (val !== null && !b.hasAttribute('is')) b.setAttribute('is', val); }, 0);
+  }, true);
+
+  /* ══════════════════════════════════════════════════════════════
+     9. LES QUATRE VUES DANS LE MAIL DE CONFIRMATION
+     --------------------------------------------------------------
+     Le panier lit les images dans le navigateur du client. Un mail,
+     lui, ne peut pas : il faut que les images existent à une adresse
+     publique. Au moment où le client confirme, on dépose donc les
+     quatre JPEG sur le proxy et on range leurs adresses dans une
+     propriété de ligne cachée, « _Vues 360 », que le modèle de mail
+     saura relire.
+
+     UNE SEULE PROPRIÉTÉ, quatre adresses séparées par « | », dans
+     l'ordre des faces : devant, côté gauche, derrière, côté droit.
+     Une seule propriété plutôt que quatre parce que le modèle de mail
+     s'écrit alors en trois lignes de Liquid.
+
+     LE DÉPÔT NE PEUT PAS RETARDER NI CASSER UNE COMMANDE. On ne
+     l'attend pas : on lance les quatre envois et on laisse le parcours
+     suivre son cours. Chaque adresse est écrite dans le formulaire dès
+     qu'elle revient. Si un envoi échoue, ou si le formulaire part
+     avant, la propriété est simplement absente et le mail retombe sur
+     la photo du catalogue — comme aujourd'hui.
+
+     QUAND : au clic sur le bouton de confirmation, pas à l'ouverture
+     du récapitulatif. Un récapitulatif ouvert puis abandonné ne dépose
+     donc rien. Les configurateurs mettent ensuite plusieurs secondes à
+     produire le PNG imprimeur : les quatre envois, ~20 Ko chacun, ont
+     le temps d'arriver.
+
+     DURÉE DE VIE — VÉRIFIÉ LE 21/09/2026, rien à faire.
+     Une note précédente annonçait ici une purge à 5 jours. Elle était
+     FAUSSE, et voici ce qui a été mesuré :
+
+       · Le dossier orders/ du dépôt GitHub ne contient plus qu'un
+         fichier, _rebuild-trigger.txt. Plus aucun fichier de commande
+         n'y est écrit depuis la migration vers le proxy Cloudflare
+         (mi-juillet 2026). L'action .github/workflows/cleanup-orders.yml
+         existe toujours mais ne trouve plus rien à supprimer : c'est un
+         reste de l'ancien système, qui servait les fichiers depuis
+         GitHub Pages.
+       · Les vraies commandes le confirment : sur #1314 (20/06) le
+         _PNG imprimeur pointait sur clcreation542-coder.github.io et
+         renvoie aujourd'hui une 404 ; à partir de #1548 (20/07) il
+         pointe sur le proxy.
+       · Longévité constatée sur le proxy : les PNG imprimeur des
+         commandes #1548 et #1550 (20/07/2026, soit 63 jours) sont
+         toujours servis, en 1970x1140. Idem #1760 (20/08) et #1948
+         (10/09). Aucune purge à 5 jours n'existe de ce côté.
+
+     Autrement dit les quatre vues vivent exactement aussi longtemps
+     que le PNG imprimeur de la même commande — le fichier dont
+     l'imprimeur a besoin. Le jour où l'un disparaîtrait, l'autre aussi,
+     et ce serait un problème de production bien avant d'être un
+     problème de mail.
+
+     RESTE À VÉRIFIER : la configuration du Worker Cloudflare (bucket,
+     règle de cycle de vie) n'a pas pu être lue — elle demande l'accès
+     au tableau de bord Cloudflare. 63 jours sont constatés, pas
+     garantis par écrit.
+     ══════════════════════════════════════════════════════════════ */
+  var depotFait = null;   // empreinte du dernier dépôt, pour ne pas le refaire
+
+  function chemin(i) {
+    var inv = String(9999999999 - Math.floor(Date.now() / 1000));
+    while (inv.length < 10) inv = '0' + inv;
+    var rnd = Math.random().toString(36).slice(2, 6);
+    /* « -vue » dans le nom : c'est à ça que la règle de nettoyage
+       pourra reconnaître ces fichiers pour les épargner. */
+    return CONF.dossier + '/' + inv + '-' + rnd + '-vue' + i + '.jpg';
+  }
+
+  function depose(dataUrl, i) {
+    return new Promise(function (resolve) {
+      var b64 = (dataUrl || '').split(',')[1];
+      if (!b64) { resolve(null); return; }
+      var path = chemin(i);
+      fetch(CONF.proxy + '/file', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Auth-Key': CONF.proxyKey },
+        body: JSON.stringify({ path: path, content: b64, message: 'apercu 360 : ' + path })
+      }).then(function (r) {
+        if (!r.ok) { resolve(null); return; }
+        /* On prend l'adresse que le proxy renvoie, on ne la devine pas :
+           il sert ses fichiers par /view?key=… et pas depuis pages.dev. */
+        return r.json().then(function (j) {
+          resolve((j && j.url) ? j.url : null);
+        }).catch(function () { resolve(null); });
+      }).catch(function () { resolve(null); });
+    });
+  }
+
+  function posePropriete(valeur) {
+    var form = document.querySelector('form[action*="/cart/add"]');
+    if (!form) return;
+    var i = form.querySelector('input[name="properties[_Vues 360]"]');
+    if (!i) {
+      i = document.createElement('input');
+      i.type = 'hidden';
+      i.name = 'properties[_Vues 360]';
+      form.appendChild(i);
+    }
+    i.value = valeur;
+  }
+
+  function deposeVues() {
+    if (!CONF.depot) return;
+    var v = R.vues;
+    if (!v || v.length < 2) return;
+    var empreinte = v.map(function (x) { return x.dataUrl.length; }).join('-');
+    if (depotFait === empreinte) return;     // déjà déposé pour ces images
+    depotFait = empreinte;
+    Promise.all(v.map(function (x, i) { return depose(x.dataUrl, i + 1); }))
+      .then(function (urls) {
+        if (urls.every(function (u) { return !!u; })) posePropriete(urls.join('|'));
+      })
+      .catch(function () {});
+  }
+
+  /* Les cinq parcours n'ont pas le même bouton de confirmation :
+     #kzp-confirm-btn pour 3D, Texte, Pro et Verrerie, #kzp-confirm
+     pour IA et Canva. On écoute les deux, en phase de bulle — on
+     n'intercepte rien, on se contente de partir en parallèle. */
+  document.addEventListener('click', function (e) {
+    var b;
+    try { b = e.target && e.target.closest && e.target.closest('#kzp-confirm-btn, #kzp-confirm'); }
+    catch (err) { return; }
+    if (b) deposeVues();
+  }, false);
+
+  function tour() { balaye(); recapInit(); rangeDepuisFormulaire(); }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tour);
+  else tour();
+  window.addEventListener('load', tour);
+  document.addEventListener('shopify:section:load', tour);
+
+  // Le panier se recharge en Ajax sans évènement fiable : une veille
+  // légère, sur le même principe que kMagic, suffit et coûte peu
+  // (balaye() ne fait rien tant qu'il n'y a pas de nouveau bloc).
+  setInterval(tour, 1000);
+})();
+</script>

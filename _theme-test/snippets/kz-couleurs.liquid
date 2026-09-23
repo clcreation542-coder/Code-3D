@@ -1,0 +1,166 @@
+{%- comment -%}
+  ══════════════════════════════════════════════════════════════════
+  KZ_COULEURS — la case « Site » de KZ_STUDIO est enfin respectée (03/09/2026)
+  ------------------------------------------------------------------
+  LE DÉFAUT, constaté par Allan et vérifié à la source.
+  Dans KZ_STUDIO, chaque couleur d'un design a un interrupteur « Site ».
+  Sur « Gobelet Anniversaire - Pleine Lucarne », le Noir est ÉTEINT :
+  designs-light.json publie bien
+      { "name": "Noir", "hex": "#121212", "visible": false }
+  et pourtant la pastille noire s'affichait sur la fiche. Le
+  configurateur construit ses pastilles à partir de variant_colors sans
+  jamais regarder le champ « visible ». Le client pouvait donc commander
+  une couleur qu'Allan avait volontairement retirée.
+
+  LE CORRECTIF, ET POURQUOI IL EST ICI.
+  Le bon endroit serait snippets/configurateur-3d.liquid, à la ligne qui
+  fabrique les pastilles. Ce fichier fait 77 Ko : le réécrire en entier
+  pour un test manquant, c'est prendre un vrai risque sur les 190 fiches
+  pour corriger un oubli d'une ligne. On corrige donc PAR-DESSUS, dans un
+  fichier de 3 Ko qu'on peut retirer d'un trait.
+  À FAIRE UN JOUR : ajouter le test dans le configurateur lui-même, et
+  supprimer ce fichier.
+
+  CE QU'IL FAIT, exactement :
+   1. il lit les couleurs du design — d'abord dans l'objet que le
+      configurateur a déjà en mémoire, sinon dans designs-light.json ;
+   2. il masque les pastilles dont visible vaut false ;
+   3. si la couleur masquée était celle sélectionnée, il clique sur la
+      première couleur restée visible — sinon le client commanderait la
+      couleur interdite sans la voir ;
+   4. si une seule couleur reste, il masque tout le sélecteur : un choix
+      unique n'est pas un choix.
+
+  IL NE FAIT RIEN si le fichier de designs est injoignable ou si aucune
+  couleur n'est éteinte : dans ce cas la fiche reste exactement comme
+  avant. Aucun blocage d'achat n'est possible depuis ce fichier.
+
+  Chargé par snippets/kz-atc.liquid.
+  ══════════════════════════════════════════════════════════════════
+{%- endcomment -%}
+{%- if product -%}
+<script>
+(function () {
+  if (window.__kzCouleurs) return;
+  window.__kzCouleurs = true;
+
+  var HANDLE = {{ product.handle | json }};
+  // ENVIRONNEMENT DE TEST. P6-12 : le fichier du design seul, liste complète en repli.
+  var SRC_UN = 'https://dev.code-3d.pages.dev/designs/' + encodeURIComponent(HANDLE) + '.json';
+  var SRC    = 'https://dev.code-3d.pages.dev/designs-light.json';
+
+  var eteintes = null;      // { "Noir": 1 }  — null tant qu'on ne sait pas
+
+  function depuisListe(liste) {
+    var s = {}, n = 0;
+    for (var i = 0; i < liste.length; i++) {
+      var c = liste[i];
+      if (c && c.visible === false && c.name) { s[c.name] = 1; n++; }
+    }
+    return s;
+  }
+
+  // 1. L'objet que le configurateur a déjà chargé, s'il est accessible.
+  function depuisLaPage() {
+    try {
+      var d = window.d;
+      if (d && d.shopify_handle === HANDLE && d.variant_colors && d.variant_colors.length) {
+        return depuisListe(d.variant_colors);
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  // 2. P6-12 : le configurateur a déjà chargé le design → on réutilise son
+  //    résultat (window.kzDesignPret), sans second téléchargement.
+  function depuisLeConfigurateur() {
+    var p = window.kzDesignPret;
+    if (!p || typeof p.then !== 'function' || p.kzHandle !== HANDLE) return false;
+    p.then(function (d) {
+      if (d && d.variant_colors) { eteintes = depuisListe(d.variant_colors); appliquer(); }
+    }, function () {});
+    return true;
+  }
+
+  // 3. Sinon le fichier publié : d'abord celui du design seul, puis la liste.
+  function depuisLeFichier() {
+    fetch(SRC_UN, { credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (d && !Array.isArray(d) && d.shopify_handle === HANDLE && d.variant_colors) {
+          eteintes = depuisListe(d.variant_colors);
+          appliquer();
+          return;
+        }
+        depuisLaListe();
+      })
+      .catch(function () { depuisLaListe(); });
+  }
+
+  function depuisLaListe() {
+    fetch(SRC, { credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j || !j.length) return;
+        for (var i = 0; i < j.length; i++) {
+          if (j[i] && j[i].shopify_handle === HANDLE && j[i].variant_colors) {
+            eteintes = depuisListe(j[i].variant_colors);
+            appliquer();
+            return;
+          }
+        }
+      })
+      .catch(function () {});
+  }
+
+  function appliquer() {
+    if (!eteintes) { eteintes = depuisLaPage(); }
+    if (!eteintes) return false;
+
+    var b = document.querySelectorAll('button.kuztom-swatch');
+    if (!b.length) return false;
+
+    var premiereVisible = null, selectionEteinte = false, restantes = 0;
+
+    for (var i = 0; i < b.length; i++) {
+      var nom = b[i].getAttribute('data-color-name') || '';
+      if (eteintes[nom]) {
+        if (b[i].style.display !== 'none') b[i].style.display = 'none';
+        b[i].setAttribute('data-kz-eteinte', '1');
+        if (b[i].classList.contains('active')) selectionEteinte = true;
+      } else {
+        restantes++;
+        if (!premiereVisible) premiereVisible = b[i];
+      }
+    }
+
+    // La couleur choisie vient d'être retirée : on bascule sur la première
+    // couleur encore proposée, sinon le client commande sans le savoir une
+    // couleur qu'on n'affiche plus.
+    if (selectionEteinte && premiereVisible && !premiereVisible.classList.contains('active')) {
+      try { premiereVisible.click(); } catch (e) {}
+    }
+
+    // Une seule couleur restante : le sélecteur ne sert plus à rien.
+    var bloc = b[0].parentElement;
+    if (bloc) {
+      if (restantes <= 1) { bloc.setAttribute('data-kz-unique', '1'); bloc.style.display = 'none'; }
+      else if (bloc.getAttribute('data-kz-unique')) { bloc.removeAttribute('data-kz-unique'); bloc.style.display = ''; }
+    }
+    return true;
+  }
+
+  function demarrer() {
+    eteintes = depuisLaPage();
+    if (!eteintes && !depuisLeConfigurateur()) depuisLeFichier();
+    appliquer();
+    // Le configurateur reconstruit ses pastilles plusieurs fois pendant les
+    // ~15 s de chargement : on repasse jusqu'à 30 s, puis on s'arrête.
+    var n = 0, iv = setInterval(function () { appliquer(); if (++n > 60) clearInterval(iv); }, 500);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer);
+  else demarrer();
+})();
+</script>
+{%- endif -%}

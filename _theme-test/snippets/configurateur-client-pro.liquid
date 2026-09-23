@@ -1,0 +1,1439 @@
+{% comment %}
+  Kuztom — Configurateur Client PRO
+  Snippet pour la fiche produit "Gobelet Personnalisé - Professionnels"
+  Handle : gobelet-personnalise-professionnels
+{% endcomment %}
+
+<style>
+  .product-gallery { display:none !important; }
+
+  /* ── VIEWER ── */
+  #kzc-viewer-col { min-width:0;display:flex;flex-direction:column;grid-column:1;grid-row:1; }
+  .kzc-iframe-wrap { position:relative;background:#faf8f5;border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.07); }
+/* Sur ordinateur, le gobelet reste visible pendant que le formulaire défile. */
+@media (min-width:1000px) {
+  .kzc-iframe-wrap { position:sticky; top:90px; z-index:1; }
+}
+  .kzc-iframe-wrap iframe { position:absolute;inset:0;width:100%;height:100%;z-index:1;border:none;display:block;opacity:0;transition:opacity .4s ease; }
+  .kzc-iframe-wrap iframe.kzc-ready { opacity:1; }
+  @keyframes kzc-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+  #kzc-skeleton { position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#faf8f5;transition:opacity .4s ease; }
+  #kzc-skeleton.kzc-hidden { opacity:0;pointer-events:none; }
+  @keyframes kzc-pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+  .kzc-skel-gobelet { animation:kzc-pulse 2s ease-in-out infinite; width:62%; max-width:320px; height:auto; display:block; }
+  #kzc-skel-text { margin-top:18px;font-size:13px;color:#c9a96e;letter-spacing:.08em;font-family:inherit;animation:kzc-pulse 2s ease-in-out infinite; }
+  .kzc-hint { text-align:center;font-size:14px;color:#b8a898;padding:4px 0 4px;letter-spacing:0.05em;margin:2px 0 0 0;border-top:1px solid #ede9e3; }
+
+  /* ── MINI VIEWER : rond 144px ── */
+  #kzc-mini-viewer {
+    display:none;position:fixed;top:10px;left:50%;transform:translateX(-50%);
+    width:144px;height:144px;border-radius:50%;
+    border:2.5px solid #c9a96e;
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    box-shadow:0 4px 20px rgba(201,169,110,0.25),0 2px 8px rgba(0,0,0,0.1);
+    overflow:hidden;cursor:pointer;z-index:9999;
+  }
+  #kzc-mini-viewer iframe {
+    position:absolute;top:0;left:-1px;
+    width:686px !important;height:686px !important;
+    transform:scale(0.21);transform-origin:top left;
+    pointer-events:none;border:none;
+  }
+  @media(min-width:768px){#kzc-mini-viewer{display:none !important;}}
+
+  /* ── CHAMPS ── */
+  #kzc-fields { display:flex;flex-direction:column;gap:12px;margin-bottom:10px; }
+
+  .kzc-pbar { display:flex;margin-bottom:20px;border-bottom:1px solid #ede9e3; }
+  .kzc-ps { flex:1;padding:10px 0;text-align:center;font-size:12px;font-weight:700;color:#b8a898;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s; }
+  .kzc-ps.on { color:#c9a96e;border-bottom-color:#c9a96e; }
+  .kzc-ps.done { color:#1c1c1c;border-bottom-color:#ede9e3; }
+
+  .kzc-pgrid { display:flex;flex-direction:column;gap:10px; }
+  .kzc-pcard { padding:16px;border:1.5px solid #e0dbd4;border-radius:14px;cursor:pointer;transition:all .2s;background:#fdfcfb;display:flex;align-items:center;gap:14px;position:relative; }
+  .kzc-pcard:hover,.kzc-pcard.active { border-color:#c9a96e;background:rgba(201,169,110,0.06); }
+  .kzc-pcard.active { box-shadow:0 0 0 3px rgba(201,169,110,0.12); }
+  .kzc-pnum { font-size:11px;font-weight:700;color:#c9a96e;letter-spacing:2px;min-width:22px;flex-shrink:0;opacity:0.8; }
+  .kzc-pem { font-size:22px;flex-shrink:0; }
+  .kzc-ptitle { font-size:14px;font-weight:700;color:#1c1c1c;margin-bottom:3px; }
+  .kzc-psub { font-size:12px;color:#8a8078;line-height:1.45; }
+
+  .kzc-ibox { padding:12px 14px;background:rgba(201,169,110,0.07);border:1px solid rgba(201,169,110,0.22);border-radius:10px;font-size:13px;color:#8a8078;line-height:1.6; }
+  .kzc-ibox strong { color:#1c1c1c; }
+  .kzc-stitle { font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #ede9e3; }
+  .kzc-ftabs { display:flex;gap:8px;margin-bottom:14px; }
+  .kzc-ftab { flex:1;padding:10px 8px;border:1.5px solid #e0dbd4;border-radius:8px;text-align:center;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#8a8078;transition:all .2s;background:#fdfcfb; }
+  .kzc-ftab.active { border-color:#c9a96e;background:rgba(201,169,110,0.07);color:#1c1c1c; }
+  .kzc-label { display:block;font-size:12px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#1c1c1c;margin-bottom:6px; }
+  .kzc-textarea { width:100%;padding:11px 14px;border:1.5px solid #e0dbd4;border-radius:10px;font-size:16px !important;font-family:inherit;color:#1c1c1c;background:#fdfcfb;outline:none;resize:none;min-height:60px;line-height:1.5;transition:border-color 120ms;box-sizing:border-box; }
+  .kzc-textarea:focus { border-color:#c9a96e; }
+  .kzc-cbwrap { margin-top:4px;height:3px;background:#ede8df;border-radius:2px;overflow:hidden; }
+  .kzc-cb { height:3px;border-radius:2px;transition:width .2s,background .2s; }
+  .kzc-cwarn { font-size:11px;color:#c0392b;margin-top:4px;display:none; }
+
+  .kzc-tcrow { display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;align-items:center; }
+  .kzc-tc { width:32px;height:32px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:all .15s;box-shadow:0 1px 4px rgba(0,0,0,0.18);flex-shrink:0;padding:0; }
+  .kzc-tc:hover { transform:scale(1.12); }
+  .kzc-tc.active { border-color:#1c1c1c;box-shadow:0 0 0 3px rgba(201,169,110,0.35); }
+  .kzc-tc.lt { box-shadow:0 0 0 1.5px #e0dbd4; }
+
+  /* ── BOUTON PALETTE DORÉ ── */
+  .kzc-tcpick {
+    width:34px;height:34px;border-radius:50%;
+    border:2px solid #c9a96e;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    font-size:16px;background:#fff;flex-shrink:0;
+    overflow:hidden;position:relative;
+    box-shadow:0 1px 4px rgba(201,169,110,0.35);
+    transition:transform .15s;
+  }
+  .kzc-tcpick:hover { transform:scale(1.12); }
+  .kzc-tcpick input { position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%; }
+
+  .kzc-frow { display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px; }
+  .kzc-fchip { padding:8px 16px;border:1.5px solid #e0dbd4;border-radius:20px;font-size:15px;cursor:pointer;transition:all .2s;background:#fff;color:#1c1c1c;letter-spacing:0.01em; }
+  .kzc-fchip:hover,.kzc-fchip.active { border-color:#c9a96e;background:rgba(201,169,110,0.07); }
+
+  .kzc-ztabs { display:flex;gap:8px;margin-bottom:10px; }
+  .kzc-ztab { flex:1;padding:8px 6px;border:1.5px solid #e0dbd4;border-radius:8px;text-align:center;cursor:pointer;font-size:11px;font-weight:700;text-transform:uppercase;color:#8a8078;transition:all .2s;background:#fff; }
+  .kzc-ztab.active { border-color:#c9a96e;background:rgba(201,169,110,0.07);color:#1c1c1c; }
+  .kzc-ztem { font-size:16px;display:block;margin-bottom:2px; }
+
+  .kzc-shapetabs { display:flex;gap:8px;margin-bottom:12px; }
+  .kzc-shapetab { flex:1;padding:8px 6px;border:1.5px solid #e0dbd4;border-radius:8px;text-align:center;cursor:pointer;font-size:12px;font-weight:700;text-transform:uppercase;color:#8a8078;transition:all .2s;background:#fff;display:flex;flex-direction:column;align-items:center;gap:4px; }
+  .kzc-shapetab.active { border-color:#c9a96e;background:rgba(201,169,110,0.07);color:#1c1c1c; }
+  .kzc-shapeico { font-size:20px; }
+
+  .kzc-upzone { border:2px dashed #c9a96e;border-radius:14px;padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;background:#fff;position:relative;margin-bottom:10px; }
+  .kzc-upzone:hover,.kzc-upzone.has { border-color:#c9a96e;background:rgba(201,169,110,0.04); }
+  .kzc-upzone input { position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%; }
+  .kzc-upzone-inner { pointer-events:none; }
+  .kzc-upico { font-size:32px;margin-bottom:8px; }
+  .kzc-uptit { font-size:14px;font-weight:700;color:#1c1c1c;margin-bottom:4px; }
+  .kzc-upsub { font-size:12px;color:#8a8078; }
+  .kzc-upfn { font-size:12px;color:#c9a96e;margin-top:5px;font-weight:500;display:none; }
+  .kzc-upql { font-size:11px;margin-top:5px;display:none;padding:6px 10px;border-radius:6px; }
+  .kzc-upql.warn { background:rgba(232,160,32,0.08);border:1px solid rgba(232,160,32,0.3);color:#c07a00; }
+  .kzc-upql.ok { background:rgba(45,122,45,0.06);border:1px solid rgba(45,122,45,0.2);color:#2d7a2d; }
+
+  .kzc-crop-controls { margin-top:10px;padding:12px 14px;background:#fafaf8;border:1px solid #e8e2db;border-radius:8px;display:none; }
+  .kzc-crop-row { display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;justify-content:center; }
+  .kzc-crop-lbl { font-size:12px;color:#888;min-width:70px; }
+  .kzc-crop-btn { width:34px;height:34px;border:1px solid #c4bfb9;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#555;padding:0; }
+  .kzc-crop-btn:hover { background:#f5f0eb;border-color:#c9a96e; }
+  .kzc-crop-zoom { flex:1;min-width:80px;accent-color:#c9a96e; }
+  .kzc-crop-reset { font-size:12px;color:#888;background:none;border:none;cursor:pointer;padding:2px 0;text-decoration:underline;display:block;margin-top:4px; }
+  .kzc-rmimg { display:none;font-size:12px;color:#8a8078;background:none;border:none;cursor:pointer;padding:4px 0;text-decoration:underline;font-family:inherit; }
+  .kzc-rmimg:hover { color:#1c1c1c; }
+
+  .kzc-date-wrap { padding:13px 15px;border:1.5px dashed #c9a96e;border-radius:10px;background:rgba(201,169,110,0.05); }
+  .kzc-date-lbl { font-size:12px;font-weight:700;color:#c9a96e;margin-bottom:7px; }
+  .kzc-date-note { font-size:11px;color:#8a8078;margin-top:6px;line-height:1.5; }
+  .kzc-sdiv { height:1px;background:#ede8df;margin:14px 0; }
+
+  /* ── LOADING ── */
+  #kzc-loading-overlay { display:none;position:fixed;inset:0;z-index:20000;background:rgba(255,255,255,0.92);flex-direction:column;align-items:center;justify-content:center;gap:16px;backdrop-filter:blur(4px); }
+  #kzc-loading-overlay.kzc-active { display:flex; }
+  #kzc-loading-bar-wrap { width:260px;height:6px;background:#ede8df;border-radius:3px;overflow:hidden; }
+  #kzc-loading-bar { height:6px;border-radius:3px;background:linear-gradient(90deg,#c9a96e,#e8c87a);width:0%;transition:width .3s ease; }
+  #kzc-loading-text { font-size:14px;color:#1c1c1c;font-family:inherit;letter-spacing:.03em; }
+  .kzc-loading-pulse { animation:kzc-loading-blink 1.2s ease-in-out infinite; }
+  @keyframes kzc-loading-blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* ── ERREUR TIMEOUT ── */
+  #kzc-timeout-error { display:none;position:fixed;inset:0;z-index:20001;background:rgba(253,252,251,0.97);flex-direction:column;align-items:center;justify-content:center;gap:18px;backdrop-filter:blur(6px);padding:30px; }
+  #kzc-timeout-error.kzc-visible { display:flex; }
+  .kzc-error-circle { width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e74c3c);display:flex;align-items:center;justify-content:center;animation:kzc-ping .6s ease-out forwards; }
+  @keyframes kzc-ping { 0%{transform:scale(0.6);opacity:0} 60%{transform:scale(1.1);opacity:1} 100%{transform:scale(1);opacity:1} }
+  .kzc-error-icon { font-size:38px;color:#fff; }
+  .kzc-error-title { font-size:20px;font-weight:800;color:#1c1c1c;text-align:center; }
+  .kzc-error-sub { font-size:14px;color:#5a4a30;text-align:center;line-height:1.7;max-width:300px; }
+  .kzc-error-btn { padding:13px 28px;background:#1c1c1c;color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px; }
+
+  /* ── CONFIRMATION VERTE ── */
+  #kzc-confirm-success { display:none;position:fixed;inset:0;z-index:20000;background:rgba(253,252,251,0.97);flex-direction:column;align-items:center;justify-content:center;gap:18px;backdrop-filter:blur(6px); }
+  #kzc-confirm-success.kzc-visible { display:flex; }
+  .kzc-success-circle { width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#2d7a2d,#3aa03a);display:flex;align-items:center;justify-content:center;animation:kzc-ping .8s ease-out forwards; }
+  .kzc-success-check { font-size:38px;color:#fff; }
+  .kzc-success-title { font-size:20px;font-weight:800;color:#1c1c1c;text-align:center; }
+  .kzc-success-sub { font-size:14px;color:#5a4a30;text-align:center;line-height:1.6;max-width:280px; }
+
+  /* ── POPUP ── */
+  #kzp-overlay { display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;padding:16px; }
+  #kzp-overlay.kzp-visible { display:flex; }
+  #kzp-modal { background:#fff;border-radius:18px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.28); }
+  #kzp-drag-handle { display:none; }
+  #kzp-top { display:flex;align-items:center;gap:14px;padding:18px 20px 14px;border-bottom:1px solid #f0ede8; }
+  #kzp-img-col { flex-shrink:0;width:72px;height:72px;border-radius:10px;overflow:hidden;background:#f7f4f0; }
+  #kzp-product-img { width:100%;height:100%;object-fit:cover;display:block; }
+  #kzp-title-col { flex:1; }
+  #kzp-brand { font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c9a96e;margin:0 0 3px; }
+  #kzp-title { font-family:Georgia,serif;font-size:17px;font-weight:700;color:#1c1c1c;margin:0;line-height:1.2; }
+  #kzp-subtitle { font-size:11px;color:#bbb;margin:3px 0 0; }
+  #kzp-sections { padding:12px 20px 4px;display:flex;flex-direction:column;gap:8px; }
+  .kzp-section { border:1.5px solid #ede9e3;border-radius:10px;padding:10px 13px; }
+  .kzp-section-title { font-family:Georgia,serif;font-size:12px;font-weight:700;color:#c9a96e;margin-bottom:7px;letter-spacing:.06em;text-transform:uppercase; }
+  .kzp-row { display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px solid #f5f2ee;font-size:13px;gap:10px; }
+  .kzp-row:last-child { border-bottom:none;padding-bottom:0; }
+  .kzp-label { color:#999;font-size:12px;flex-shrink:0; }
+  .kzp-val { font-weight:600;color:#1c1c1c;text-align:right;word-break:break-word;max-width:70%; }
+  #kzp-gold-line { height:1px;background:linear-gradient(90deg,transparent,#c9a96e55,transparent);margin:12px 20px; }
+  #kzp-actions { padding:0 20px 20px;display:flex;flex-direction:column;gap:8px; }
+  #kzp-confirm-btn { width:100%;padding:13px;background:#1c1c1c;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;letter-spacing:.04em;cursor:pointer;font-family:inherit; }
+  #kzp-confirm-btn:disabled { background:#888;cursor:not-allowed; }
+  #kzp-cancel-btn { width:100%;padding:11px;border:1.5px solid #e0dbd4;border-radius:10px;background:#fff;color:#1c1c1c;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit; }
+
+  .kzc-select { width:100%;padding:9px 12px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;font-family:inherit;outline:none;box-sizing:border-box;background:#fff;color:#1c1c1c; }
+  .kzc-eco-box { padding:14px 16px;background:rgba(122,158,126,0.10);border:1px solid rgba(122,158,126,0.35);border-radius:10px;font-size:13px;color:#3a5c42;line-height:1.6;margin-bottom:14px; }
+  .kzc-eco-box strong { color:#2c4a35; }
+  .kzc-logo-note { font-size:12px;color:#8a8078;line-height:1.6;margin-top:4px;margin-bottom:6px;padding:10px 12px;background:rgba(201,169,110,0.06);border-radius:8px;border-left:3px solid #c9a96e; }
+/* ── BOUTON COPIER POUR MON IA ── */
+.kzc-copy-btn-wrap { margin-top:16px; }
+.kzc-copy-main-btn {
+  width:100%;padding:16px 20px;
+  background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);
+  color:#fff;border:none;border-radius:14px;
+  font-size:17px;font-weight:800;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 4px 24px rgba(15,52,96,0.45),0 1px 4px rgba(0,0,0,0.2);
+  transition:transform .15s,box-shadow .15s;
+  letter-spacing:0.02em;position:relative;overflow:hidden;
+}
+.kzc-copy-main-btn::before {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent);
+  border-radius:14px;
+}
+.kzc-copy-main-btn:hover { transform:translateY(-2px);box-shadow:0 8px 32px rgba(15,52,96,0.55),0 2px 8px rgba(0,0,0,0.2); }
+.kzc-copy-main-btn:active { transform:translateY(0); }
+.kzc-copy-main-btn.copied {
+  background:linear-gradient(135deg,#1a5c1a,#2d7a2d) !important;
+  box-shadow:0 4px 24px rgba(45,122,45,0.5) !important;
+  animation:kzc-btn-pulse .4s ease;
+}
+@keyframes kzc-btn-pulse {
+  0%{transform:scale(1)} 40%{transform:scale(1.04)} 100%{transform:scale(1)}
+}
+.kzc-copy-main-btn .kzc-btn-icon { font-size:20px;transition:transform .3s; }
+.kzc-copy-main-btn.copied .kzc-btn-icon { transform:scale(1.3); }
+.kzc-copy-main-btn.invalid {
+  background:linear-gradient(135deg,#b45a00,#d4730a) !important;
+  box-shadow:0 4px 24px rgba(180,90,0,0.4) !important;
+  animation:kzc-btn-pulse .4s ease;
+}
+.kzc-copy-success-msg {
+  display:none;margin-top:12px;padding:12px 16px;
+  background:linear-gradient(135deg,rgba(45,122,45,0.1),rgba(45,122,45,0.05));
+  border:1.5px solid rgba(45,122,45,0.3);border-radius:10px;
+  font-size:13px;color:#2d7a2d;line-height:1.6;text-align:center;
+  animation:kzc-fade-in .3s ease;
+}
+.kzc-copy-success-msg.visible { display:block; }
+@keyframes kzc-fade-in { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.kzc-copy-hint {
+  font-size:12px;color:#8a8078;text-align:center;
+  margin-top:10px;line-height:1.6;
+}
+  .kzc-save-row { display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#fafaf8;border:1px solid #e8e2db;border-radius:10px;margin-top:10px; }
+  .kzc-save-row input[type="checkbox"] { margin-top:3px;flex-shrink:0;width:18px;height:18px;accent-color:#c9a96e;cursor:pointer; }
+  .kzc-save-row label { font-size:12px;color:#5a5249;line-height:1.5;cursor:pointer; }
+
+  @media(max-width:767px){
+    #kzp-overlay { align-items:flex-end;padding:0; }
+    #kzp-modal { border-radius:18px 18px 0 0;max-width:100%; }
+    #kzp-drag-handle { display:block;width:36px;height:4px;background:#ddd;border-radius:2px;margin:10px auto 0; }
+    #kzp-top { padding:12px 16px; }
+    #kzp-img-col { width:60px;height:60px; }
+    #kzp-sections { padding:10px 16px 4px; }
+    #kzp-gold-line { margin:10px 16px; }
+    #kzp-actions { padding:0 16px 28px; }
+    .kzc-iframe-wrap { height:100vw;max-height:420px;min-height:280px; }
+  }
+</style>
+
+<!-- Erreur timeout -->
+<div id="kzc-timeout-error">
+  <div class="kzc-error-circle"><span class="kzc-error-icon">⚠️</span></div>
+  <div class="kzc-error-title">Connexion trop lente</div>
+  <div class="kzc-error-sub">Votre design n'a pas pu être transmis à l'imprimeur. Cela arrive parfois avec une connexion lente ou instable.<br><br>Votre commande n'a pas été passée. Reconnectez-vous à un meilleur réseau (Wi-Fi de préférence) et réessayez.</div>
+  <button class="kzc-error-btn" id="kzc-error-retry">Réessayer</button>
+</div>
+
+<!-- Confirmation verte -->
+<div id="kzc-confirm-success">
+  <div class="kzc-success-circle"><span class="kzc-success-check">✓</span></div>
+  <div class="kzc-success-title">✅ Votre design est enregistré et prêt pour l'impression.</div>
+  <div class="kzc-success-sub">Dernière étape : validez votre commande pour lancer la production.</div>
+</div>
+
+<div id="kzc-viewer-col">
+  <div class="kzc-iframe-wrap" id="kzc-iframe-wrap">
+    <iframe id="kzc-iframe" title="Aperçu 3D de votre gobelet"></iframe>
+    <div id="kzc-skeleton">
+      <svg class="kzc-skel-gobelet" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="kzg-body" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#d0cdc8"/><stop offset="18%" stop-color="#e8e5e0"/>
+            <stop offset="42%" stop-color="#f5f3ef"/><stop offset="58%" stop-color="#f5f3ef"/>
+            <stop offset="82%" stop-color="#e2dfd9"/><stop offset="100%" stop-color="#c8c5c0"/>
+          </linearGradient>
+          <linearGradient id="kzg-shine" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+            <stop offset="40%" stop-color="#ffffff" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="kzg-shadow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#b0aca8" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#b0aca8" stop-opacity="0"/>
+          </radialGradient>
+          <clipPath id="kzg-clip">
+            <path d="M72 42 L228 42 L206 372 Q204 382 188 384 L112 384 Q96 382 94 372 Z"/>
+          </clipPath>
+        </defs>
+        <ellipse cx="150" cy="392" rx="72" ry="11" fill="url(#kzg-shadow)"/>
+        <path d="M72 42 L228 42 L206 372 Q204 382 188 384 L112 384 Q96 382 94 372 Z" fill="url(#kzg-body)"/>
+        <rect x="72" y="42" width="60" height="342" fill="url(#kzg-shine)" clip-path="url(#kzg-clip)"/>
+        <ellipse cx="150" cy="42" rx="78" ry="7" fill="#e8e5e0" stroke="#c0bcb8" stroke-width="1"/>
+        <ellipse cx="150" cy="42" rx="68" ry="5" fill="#ccc9c4"/>
+      </svg>
+      <div id="kzc-skel-text">Votre gobelet personnalisé arrive en 3D...</div>
+    </div>
+  </div>
+  <div id="kzc-crop-bar" style="display:none;width:100%;background:#faf8f5;padding:10px 12px;border:1px solid #e8e2db;border-radius:0 0 14px 14px;box-sizing:border-box;">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+      <span style="font-size:12px;color:#555;min-width:60px;">🔍 Zoom</span>
+      <button type="button" id="kcb-zm" style="width:34px;height:34px;border:1px solid #c4bfb9;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">−</button>
+      <input type="range" id="kcb-slider" min="50" max="300" value="100" step="5" style="flex:1;min-width:80px;accent-color:#c9a96e;">
+      <button type="button" id="kcb-zp" style="width:34px;height:34px;border:1px solid #c4bfb9;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">+</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;justify-content:center;">
+      <button type="button" id="kcb-l" style="width:34px;height:34px;border:1px solid #c4bfb9;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">◀</button>
+      <button type="button" id="kcb-r" style="width:34px;height:34px;border:1px solid #c4bfb9;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">▶</button>
+      <button type="button" id="kcb-u" style="width:34px;height:34px;border:1px solid #c4bfb9;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">▲</button>
+      <button type="button" id="kcb-d" style="width:34px;height:34px;border:1px solid #c4bfb9;border-radius:6px;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">▼</button>
+      <button type="button" id="kcb-ok" style="flex:1;padding:8px 6px;background:#c9a96e;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Valider</button>
+    </div>
+  </div>
+  <p class="kzc-hint"><span style="display:inline-block;animation:kzc-spin 3s linear infinite">↻</span> &nbsp;Tournez le gobelet pour voir les deux faces</p>
+</div>
+
+<div id="kzc-mini-viewer">
+  <iframe id="kzc-mini-iframe" title="Mini aperçu gobelet"></iframe>
+</div>
+
+<div id="kzc-loading-overlay">
+  <div style="display:flex;align-items:center;gap:10px;width:260px;">
+    <div id="kzc-loading-bar-wrap" style="flex:1;"><div id="kzc-loading-bar"></div></div>
+    <span id="kzc-loading-pct" style="font-size:12px;color:#c9a96e;font-weight:700;min-width:36px;text-align:right;">0%</span>
+  </div>
+  <div id="kzc-loading-text" class="kzc-loading-pulse">Préparation de votre commande en cours...</div>
+</div>
+
+<div id="kzp-overlay" role="dialog" aria-modal="true" aria-label="Récapitulatif de votre commande">
+  <div id="kzp-modal">
+    <div id="kzp-drag-handle"></div>
+    <div id="kzp-top">
+      {%- if product.featured_image -%}
+      <div id="kzp-img-col"><img id="kzp-product-img" src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}" width="300" height="300"></div>
+      {%- endif -%}
+      <div id="kzp-title-col">
+        <p id="kzp-brand">Kuztom</p>
+        <h2 id="kzp-title">Récapitulatif</h2>
+        <p id="kzp-subtitle">Vérifiez avant de confirmer</p>
+      </div>
+    </div>
+    <div id="kzp-sections">
+      <div class="kzp-section"><div class="kzp-section-title">Votre produit</div><div id="kzp-prod-rows"></div></div>
+      <div class="kzp-section" id="kzp-perso-section"><div class="kzp-section-title">Votre personnalisation</div><div id="kzp-perso-rows"></div></div>
+    </div>
+    <div id="kzp-gold-line"></div>
+    <div id="kzp-actions">
+      <button id="kzp-confirm-btn" type="button">Ajouter au panier</button>
+      <button id="kzp-cancel-btn" type="button">&larr; Modifier mon design</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var VIEWER_BASE   = 'https://dev.code-3d.pages.dev/configurateur-viewer.html';
+  var VIEWER_ORIGIN = '*';
+  var TEX_W = 1970, TEX_H = 1140;
+  var HALF  = TEX_W / 2;
+  var PROXY_URL = 'https://kuztom-proxy-test.contact-kuztom.workers.dev';
+  var PROXY_KEY = '';  var MIN_FS = 40;
+  var PHOTO_MIN_PX = 200, PHOTO_WARN_PX = 500;
+  var CONTACT_EMAIL = 'contact@kuztom.fr';
+  var CSTEP = 20;
+  var LOADING_MESSAGES = [
+    'Préparation de votre commande…',
+    'Envoi du design à l\'imprimeur…',
+    'Vérification des couleurs…',
+    'Finalisation en cours…'
+  ];
+
+  var FX = { av: HALF, ar: 0 };
+  var MT = Math.round(TEX_H * 0.10);
+  var ST = MT, SB = TEX_H - MT, SH = SB - ST;
+  var IH = Math.round(SH * 0.50), IMX = 60, IW = HALF - IMX * 2;
+
+  function genSessionId() {
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    var id = 'kzt-';
+    for (var i=0;i<6;i++) id+=chars[Math.floor(Math.random()*chars.length)];
+    return id;
+  }
+  var SESSION_ID = genSessionId();
+
+  var S = {
+    parcours: 'texte',
+    gColor: '#f5f0eb', gName: 'Translucide', gOp: 0.88,
+    face: 'av',
+    av: { t:['','',''], tc:'#2c2521', ff:'Cormorant Garamond', fn:'Élégant', img:null, imgName:null, iz:'center', ishape:'square', cropState:{zoom:1,ox:0,oy:0} },
+    ar: { t:['',''],    tc:'#2c2521', ff:'Cormorant Garamond', fn:'Élégant', img:null, imgName:null, iz:'center', ishape:'square', cropState:{zoom:1,ox:0,oy:0} },
+    cImg: null, cName: null,
+    saveDesign: false,
+    step: 1, vReady: false
+  };
+
+  var GCOLS = [
+    { name:'Translucide', hex:'#f5f0eb', op:0.88 },
+    { name:'Blanc',       hex:'#ffffff', op:1.0  }
+  ];
+
+  // TCOLS — sans blanc (comme configurateur texte)
+  var TCOLS = [
+    { hex:'#2c2521', lbl:'Brun foncé' },
+    { hex:'#1c1c1c', lbl:'Noir' },
+    { hex:'#C9A96E', lbl:'Doré' },
+    { hex:'#8B0000', lbl:'Bordeaux' },
+    { hex:'#1a3a6a', lbl:'Marine' },
+    { hex:'#a8d0e6', lbl:'Bleu ciel', lt:1 },
+    { hex:'#D4175A', lbl:'Rose fuchsia' }
+  ];
+  var FONTS = [
+    { name:'Élégant',   fam:'Cormorant Garamond' },
+    { name:'Moderne',   fam:'Jost' },
+    { name:'Script',    fam:'Dancing Script' },
+    { name:'Classique', fam:'Playfair Display' }
+  ];
+  var OCCASIONS = [
+    'Lancement de produit','Salon professionnel','Séminaire d\'entreprise',
+    'Soirée de fin d\'année','Team building','Conférence','Pot de départ collègue',
+    'Inauguration','Anniversaire d\'entreprise','Convention',
+    'Aucune occasion particulière','Autre'
+  ];
+
+  var iframe     = document.getElementById('kzc-iframe');
+  var miniIframe = document.getElementById('kzc-mini-iframe');
+  var miniViewer = document.getElementById('kzc-mini-viewer');
+  // Le mini viewer ne se charge que s'il devient visible (mobile).
+  var _kzMiniSrc = null, _kzMiniLoaded = false;
+  function kzLoadMini(){
+    if (_kzMiniLoaded || !miniIframe || !_kzMiniSrc) return;
+    _kzMiniLoaded = true;
+    miniIframe.src = _kzMiniSrc;
+  }
+  var iframeWrap = document.getElementById('kzc-iframe-wrap');
+  var isMobile   = window.innerWidth < 768;
+
+  function imgRect(face, zone) {
+    var x=FX[face]+IMX, w=IW, h=IH, y;
+    if(zone==='top')    y=ST+20;
+    if(zone==='center') y=ST+Math.round((SH-h)/2);
+    if(zone==='bottom') y=SB-h-20;
+    return {x:x,y:y,w:w,h:h};
+  }
+
+  function textZones(face, hasImg, zone) {
+    var cx=FX[face]+HALF/2, W=HALF-80;
+    if(!hasImg) return [
+      {cx:cx,y:ST+Math.round(SH*.18),h:Math.round(SH*.22),fs:100,w:W},
+      {cx:cx,y:ST+Math.round(SH*.44),h:Math.round(SH*.18),fs:74, w:W},
+      {cx:cx,y:ST+Math.round(SH*.67),h:Math.round(SH*.16),fs:58, w:W}
+    ];
+    var r=imgRect(face,zone), GAP=28;
+    if(zone==='center'){
+      var aH=r.y-ST-GAP, bH=SB-(r.y+r.h)-GAP;
+      return [
+        {cx:cx,y:ST+Math.round(aH*.10),h:Math.round(aH*.42),fs:68,w:W},
+        {cx:cx,y:ST+Math.round(aH*.58),h:Math.round(aH*.38),fs:52,w:W},
+        {cx:cx,y:r.y+r.h+GAP+Math.round(bH*.2),h:Math.round(bH*.55),fs:60,w:W}
+      ];
+    }
+    if(zone==='top'){
+      var sY=r.y+r.h+GAP, av=SB-sY;
+      return [
+        {cx:cx,y:sY+Math.round(av*.08),h:Math.round(av*.30),fs:100,w:W},
+        {cx:cx,y:sY+Math.round(av*.42),h:Math.round(av*.26),fs:74, w:W},
+        {cx:cx,y:sY+Math.round(av*.72),h:Math.round(av*.22),fs:58, w:W}
+      ];
+    }
+    if(zone==='bottom'){
+      var avH=r.y-GAP-ST;
+      return [
+        {cx:cx,y:ST+Math.round(avH*.08),h:Math.round(avH*.30),fs:100,w:W},
+        {cx:cx,y:ST+Math.round(avH*.42),h:Math.round(avH*.26),fs:74, w:W},
+        {cx:cx,y:ST+Math.round(avH*.72),h:Math.round(avH*.22),fs:58, w:W}
+      ];
+    }
+    return textZones(face,false,zone);
+  }
+
+  function calcFs(zone, text, ff) {
+    var fs=zone.fs, lines=text.split('\n');
+    var tc=document.createElement('canvas'), tx=tc.getContext('2d');
+    while(fs>6){
+      tx.font=fs+'px \''+ff+'\'';
+      var maxW=0;
+      for(var i=0;i<lines.length;i++){var w=tx.measureText(lines[i]).width;if(w>maxW)maxW=w;}
+      var m=tx.measureText('Agyjpq');
+      var rH=(m.actualBoundingBoxAscent+m.actualBoundingBoxDescent)||fs*.8;
+      var tH=lines.length*rH+(lines.length-1)*fs*.3;
+      if(maxW<=zone.w&&tH<=zone.h) break;
+      fs--;
+    }
+    return fs;
+  }
+
+  function sizeViewer() {
+    if(!iframeWrap) return;
+    var w=iframeWrap.offsetWidth||Math.round(window.innerWidth*.5);
+    iframeWrap.style.height=w+'px';
+    if(iframe) iframe.style.height=w+'px';
+  }
+  sizeViewer();
+  window.addEventListener('resize', sizeViewer);
+
+  // ── SCROLL MOBILE FIX ──
+  if(iframe){
+    var _touchStartX=0,_touchStartY=0,_scrollLocked=false;
+    iframe.addEventListener('touchstart',function(e){
+      if(e.touches.length!==1) return;
+      _touchStartX=e.touches[0].clientX;_touchStartY=e.touches[0].clientY;_scrollLocked=false;
+    },{passive:true});
+    iframe.addEventListener('touchmove',function(e){
+      if(e.touches.length!==1) return;
+      var dx=Math.abs(e.touches[0].clientX-_touchStartX);
+      var dy=Math.abs(e.touches[0].clientY-_touchStartY);
+      if(!_scrollLocked){if(dy>dx+5){_scrollLocked=true;return;}}
+      if(_scrollLocked) return;
+    },{passive:true});
+  }
+
+  if(isMobile&&miniViewer){
+    window.addEventListener('scroll',function(){
+      var rect=iframeWrap.getBoundingClientRect();
+      var _vis=(rect.bottom>0&&rect.top<window.innerHeight);
+      miniViewer.style.display=_vis?'none':'block';
+      if(!_vis) kzLoadMini();
+    },{passive:true});
+    miniViewer.addEventListener('click',function(){
+      iframeWrap.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+
+  function postV(data) {
+    if(iframe&&iframe.contentWindow) iframe.contentWindow.postMessage(data,VIEWER_ORIGIN);
+    if(_kzMiniLoaded && miniIframe && miniIframe.contentWindow) miniIframe.contentWindow.postMessage(data,VIEWER_ORIGIN);
+  }
+
+  function kzDebounce(fn, wait) {
+    var t;
+    return function() {
+      var ctx = this, args = arguments;
+      clearTimeout(t);
+      t = setTimeout(function() { fn.apply(ctx, args); }, wait);
+    };
+  }
+  var _kzPush = kzDebounce(function(){ renderAll(); }, 150);
+
+  function injectProp(key, value) {
+    var form=document.querySelector('form[action*="/cart/add"]');if(!form) return;
+    var el=form.querySelector('input[name="properties['+key+']"][data-kzc="1"]');
+    if(!el){el=document.createElement('input');el.type='hidden';el.name='properties['+key+']';el.setAttribute('data-kzc','1');form.appendChild(el);}
+    el.value=value;
+  }
+
+  function showError(){
+    var errEl=document.getElementById('kzc-timeout-error');
+    if(errEl) errEl.classList.add('kzc-visible');
+    var retryBtn=document.getElementById('kzc-error-retry');
+    if(retryBtn) retryBtn.addEventListener('click',function(){
+      if(errEl) errEl.classList.remove('kzc-visible');
+      window._kzcPngRequested=false;
+      window._kzcPending=false;
+      var cb=document.getElementById('kzp-confirm-btn');
+      if(cb){cb.disabled=false;cb.textContent='Ajouter au panier';}
+    });
+  }
+
+  function startLoadingAnimation(lb, ltxt, pctEl){
+    var pct=0, msgIdx=0, tick=0;
+    if(ltxt) ltxt.textContent=LOADING_MESSAGES[0];
+    if(lb) lb.style.width='0%';
+    if(pctEl) pctEl.textContent='0%';
+    // Avance vite au début puis ralentit, mais bouge toujours (min 0,5/pas) : jamais de blocage.
+    var interval=setInterval(function(){
+      if(pct<99) pct=Math.min(pct+Math.max((99-pct)*0.05,0.5),99);
+      var shown=Math.round(pct);
+      if(lb) lb.style.width=shown+'%';
+      if(pctEl) pctEl.textContent=shown+'%';
+      // Messages en boucle infinie toutes les ~3 s (15 ticks × 200ms), indépendants du %.
+      tick++;
+      if(tick % 15 === 0){
+        msgIdx=(msgIdx+1) % LOADING_MESSAGES.length;
+        if(ltxt) ltxt.textContent=LOADING_MESSAGES[msgIdx];
+      }
+    },200);
+    return interval;
+  }
+
+  window.addEventListener('message',function(e){
+    if (!/^https:\/\/([a-z0-9-]+\.)?code-3d\.pages\.dev$/.test(e.origin || '') && e.origin !== 'https://clcreation542-coder.github.io') return;   // P2-08 : messages du viewer uniquement
+    if(!e.data) return;
+    if(e.data.type==='kuztom_ready'){
+      if(_kzMiniLoaded && miniIframe && e.source===miniIframe.contentWindow){
+        miniIframe.classList.add('kzc-ready');
+        postV({type:'SET_AUTO_ROTATE',value:false});
+        var opM=(S.gColor==='#ffffff'||S.gOp>=1.0)?1.0:S.gOp;
+        postV({type:'UPDATE_COLOR',value:S.gColor,opacity:opM});
+        renderAll();
+        return;
+      }
+      S.vReady=true;
+      var skel=document.getElementById('kzc-skeleton');
+      if(skel) skel.classList.add('kzc-hidden');
+      if(iframe) iframe.classList.add('kzc-ready');
+      if(miniIframe) miniIframe.classList.add('kzc-ready');
+      postV({type:'SET_AUTO_ROTATE',value:false});
+      postV({type:'SET_ORDERS_TOKEN',proxyUrl:PROXY_URL,proxyKey:PROXY_KEY});
+      var initOp=(S.gColor==='#ffffff'||S.gOp>=1.0)?1.0:S.gOp;
+      postV({type:'UPDATE_COLOR',value:S.gColor,opacity:initOp});
+      renderAll();
+    }
+    if(e.data.type==='PRINT_PNG_READY'){
+      if(!window._kzcPending) return;
+      window._kzcPending=false;
+      clearInterval(window._kzcLoadInterval);
+      clearInterval(window._kzcRetryInterval);
+      clearTimeout(window._kzcTimeout);
+      injectProp('_PNG imprimeur',e.data.url);
+      injectProp('_source', S.parcours);
+      injectProp('_confirmation','✅ Votre design est bien pris en compte');
+      var lb=document.getElementById('kzc-loading-bar');
+      var lo=document.getElementById('kzc-loading-overlay');
+      var ltxt=document.getElementById('kzc-loading-text');
+      var pctEl=document.getElementById('kzc-loading-pct');
+      if(lb) lb.style.width='100%';
+      if(pctEl) pctEl.textContent='100%';
+      if(ltxt){ltxt.textContent='Design enregistré ✓';ltxt.classList.remove('kzc-loading-pulse');}
+      if(lo) lo.classList.remove('kzc-active');
+      var successEl=document.getElementById('kzc-confirm-success');
+      if(successEl) successEl.classList.add('kzc-visible');
+      setTimeout(function(){
+        var form=document.querySelector('form[action*="/cart/add"]');
+        window._kzcOrderDone=true;
+        if(form) form.submit();
+      },1800);
+      return;
+    }
+    if(e.data.type==='PRINT_PNG_ERROR'){
+      // Un échec ponctuel ne bloque plus la commande : la boucle de réessai
+      // va redemander le PNG. Seul le timeout de 60 s déclenche showError().
+      return;
+    }
+  });
+
+  function drawCircleImage(ctx, imgEl, r, cropState) {
+    var crop=cropState||{zoom:1,ox:0,oy:0};
+    var radius=Math.min(r.w,r.h)/2, cx=r.x+r.w/2, cy=r.y+r.h/2;
+    var iw=imgEl.naturalWidth||1, ih=imgEl.naturalHeight||1;
+    var bs=Math.max(radius*2/iw,radius*2/ih), sc=bs*crop.zoom;
+    var sw=iw*sc, sh=ih*sc, ox=cx-sw/2+crop.ox, oy=cy-sh/2+crop.oy;
+    ctx.save();ctx.beginPath();ctx.arc(cx,cy,radius,0,Math.PI*2);ctx.clip();
+    ctx.drawImage(imgEl,ox,oy,sw,sh);ctx.restore();
+  }
+
+  function buildCanvas(stroke, callback) {
+    var cv=document.createElement('canvas');cv.width=TEX_W;cv.height=TEX_H;
+    var ctx=cv.getContext('2d');
+    if(stroke){ctx.globalAlpha=1;ctx.fillStyle='#ffffff';}
+    else if(S.gOp>=1.0){ctx.globalAlpha=1;ctx.fillStyle='#ffffff';}
+    else{ctx.globalAlpha=S.gOp;ctx.fillStyle=S.gColor;}
+    ctx.fillRect(0,0,TEX_W,TEX_H);ctx.globalAlpha=1;
+
+    if((S.parcours==='canva'||S.parcours==='ia')&&S.cImg){
+      var imgEl=new Image();
+      imgEl.onload=function(){ctx.drawImage(imgEl,0,0,TEX_W,TEX_H);callback(cv);};
+      imgEl.onerror=function(){callback(cv);};
+      imgEl.src=S.cImg;return;
+    }
+
+    var faces=['av','ar'],fi=0;
+    function nextFace(){
+      if(fi>=faces.length){callback(cv);return;}
+      var face=faces[fi++],fd=S[face];
+      if(fd.img){
+        var imgEl=new Image();
+        imgEl.onload=function(){
+          var r=imgRect(face,fd.iz);
+          if(fd.ishape==='circle'){drawCircleImage(ctx,imgEl,r,fd.cropState);}
+          else{
+            var iw=imgEl.naturalWidth||1,ih=imgEl.naturalHeight||1;
+            var crop=fd.cropState||{zoom:1,ox:0,oy:0};
+            var bs=Math.max(r.w/iw,r.h/ih),sc=bs*crop.zoom;
+            var sw=iw*sc,sh=ih*sc,ox=r.x+(r.w-sw)/2+crop.ox,oy=r.y+(r.h-sh)/2+crop.oy;
+            ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
+            ctx.drawImage(imgEl,ox,oy,sw,sh);ctx.restore();
+          }
+          drawTxts(face,fd,ctx,stroke,nextFace);
+        };
+        imgEl.onerror=function(){drawTxts(face,fd,ctx,stroke,nextFace);};
+        imgEl.src=fd.img;
+      } else {drawTxts(face,fd,ctx,stroke,nextFace);}
+    }
+    function drawTxts(face,fd,ctx,stroke,done){
+      try{document.fonts.load('80px \''+fd.ff+'\'').then(function(){renderTxts(face,fd,ctx,stroke);done();}).catch(function(){renderTxts(face,fd,ctx,stroke);done();});}
+      catch(e){renderTxts(face,fd,ctx,stroke);done();}
+    }
+    function renderTxts(face,fd,ctx,stroke){
+      var nb=face==='av'?3:2,tz=textZones(face,!!fd.img,fd.iz);
+      for(var i=0;i<nb;i++){
+        var txt=(fd.t[i]||'').trim();if(!txt) continue;
+        var z=tz[i],fs=calcFs(z,txt,fd.ff);
+        var lines=txt.split('\n'),lh=fs*1.25;
+        ctx.font=fs+'px \''+fd.ff+'\'';ctx.textAlign='center';ctx.textBaseline='middle';
+        var cy=z.y+z.h/2;
+        if(stroke){ctx.strokeStyle=fd.tc;ctx.lineWidth=2.5;ctx.lineJoin='round';for(var j=0;j<lines.length;j++) ctx.strokeText(lines[j],z.cx,cy+(j-(lines.length-1)/2)*lh);}
+        ctx.fillStyle=fd.tc;
+        for(var j=0;j<lines.length;j++) ctx.fillText(lines[j],z.cx,cy+(j-(lines.length-1)/2)*lh);
+      }
+    }
+    nextFace();
+  }
+
+  function renderAll(){
+    if(!S.vReady) return;
+    buildCanvas(false,function(cv){
+      postV({type:'SET_DESIGN_IMAGE',dataUrl:cv.toDataURL('image/webp',0.88)});
+      var op=(S.gColor==='#ffffff'||S.gOp>=1.0)?1.0:S.gOp;
+      postV({type:'UPDATE_COLOR',value:S.gColor,opacity:op});
+      updateBars();updateLineItemProps();
+    });
+  }
+
+  function updateBars(){
+    [['av',3],['ar',2]].forEach(function(p){
+      var face=p[0],nb=p[1];
+      for(var i=1;i<=nb;i++){
+        var ta=document.getElementById('kzc-'+face+i);
+        var bar=document.getElementById('kzc-cb-'+face+i);
+        var warn=document.getElementById('kzc-cw-'+face+i);
+        if(!ta||!bar) continue;
+        bar.style.width=Math.min(ta.value.length/40*100,100)+'%';
+        if(ta.value.trim()){
+          var tz=textZones(face,!!S[face].img,S[face].iz);
+          if(tz[i-1]){var fs=calcFs(tz[i-1],ta.value,S[face].ff);bar.style.background=fs<MIN_FS?'#C0392B':fs<MIN_FS*1.5?'#e8a020':'#C9A96E';if(warn) warn.style.display=fs<MIN_FS?'block':'none';}
+        } else {bar.style.width='0';if(warn) warn.style.display='none';}
+      }
+    });
+  }
+
+  function checkBg(src,cb){
+    var img=new Image();
+    img.onload=function(){
+      var cv=document.createElement('canvas');cv.width=Math.min(img.naturalWidth,200);cv.height=Math.min(img.naturalHeight,200);
+      var ctx=cv.getContext('2d');ctx.drawImage(img,0,0,cv.width,cv.height);
+      var pts=[[0,0],[cv.width-1,0],[0,cv.height-1],[cv.width-1,cv.height-1],[Math.floor(cv.width/2),0],[0,Math.floor(cv.height/2)]];
+      var wc=0,ta=0;
+      pts.forEach(function(p){var d=ctx.getImageData(p[0],p[1],1,1).data;ta+=d[3];if(d[0]>240&&d[1]>240&&d[2]>240&&d[3]>200)wc++;});
+      cb(wc>=3||(ta/pts.length)>240);
+    };
+    img.onerror=function(){cb(false);};img.src=src;
+  }
+
+  function checkPhotoQuality(w,h,msgEl){
+    if(!msgEl) return;msgEl.style.display='none';
+    var base='display:block;padding:8px 12px;border-radius:8px;font-size:12px;margin-top:6px;';
+    if(w<PHOTO_MIN_PX||h<PHOTO_MIN_PX){msgEl.textContent='Cette photo est trop petite pour une impression de qualité. Veuillez en choisir une autre.';msgEl.style.cssText=base+'background:#fffaf2;border:1.5px solid #c9a96e;color:#7a5c2e;';}
+    else if(w<PHOTO_WARN_PX||h<PHOTO_WARN_PX){msgEl.textContent='Votre photo est de faible résolution. Le résultat imprimé risque d\'être flou.';msgEl.style.cssText=base+'background:#fffaf2;border:1.5px solid #c9a96e;color:#7a5c2e;';}
+  }
+
+  function updateLineItemProps(){
+    var form=document.querySelector('form[action*="/cart/add"]');if(!form) return;
+    form.querySelectorAll('input[data-kzc="1"]').forEach(function(el){el.remove();});
+    injectProp('Couleur gobelet',S.gName);
+    injectProp('_Référence design',SESSION_ID);
+    var dateEl=document.getElementById('kzc-date');
+    if(dateEl&&dateEl.value) injectProp('Date événement',dateEl.value);
+    if(S.parcours==='canva'||S.parcours==='ia'){
+      if(S.cName) injectProp('Image uploadée ✅',S.cName);
+      injectProp('_Parcours',S.parcours==='ia'?'Création IA Pro':'Import design Pro');
+    } else {
+      if(S.av.t[0].trim()) injectProp('Face avant ligne 1',S.av.t[0]);
+      if(S.av.t[1].trim()) injectProp('Face avant ligne 2',S.av.t[1]);
+      if(S.av.t[2].trim()) injectProp('Face avant ligne 3',S.av.t[2]);
+      if(S.av.imgName) injectProp('Image face avant',S.av.imgName);
+      if(S.ar.t[0].trim()) injectProp('Face arrière ligne 1',S.ar.t[0]);
+      if(S.ar.t[1].trim()) injectProp('Face arrière ligne 2',S.ar.t[1]);
+      if(S.ar.imgName) injectProp('Image face arrière',S.ar.imgName);
+      injectProp('_Parcours','Configurateur texte Pro');
+    }
+    injectProp('_Sauvegarde design autorisée',S.saveDesign?'Oui':'Non');
+  }
+
+  function uploadPhotoSource(dataUrl,label){
+    return new Promise(function(resolve){
+      try{
+        var b64=dataUrl.split(',')[1];if(!b64){resolve(null);return;}
+        // ── Nom triable : compte à rebours depuis une date lointaine dans le futur,
+        // + mot d'origine "pro" pour identifier ce configurateur.
+        var FAR_FUTURE = 9999999999; // borne au-delà de l'année 2286, largement suffisant
+        var nowSeconds = Math.floor(Date.now()/1000);
+        var inverted = String(FAR_FUTURE - nowSeconds).padStart(10,'0');
+        var filename='orders/'+inverted+'-pro-'+SESSION_ID+'-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,20)+'.png';
+        fetch(PROXY_URL+'/file',{
+        method:'POST',headers:{'Content-Type':'application/json','X-Auth-Key':PROXY_KEY},
+        body:JSON.stringify({path:filename,content:b64,message:'source: '+filename})
+      }).then(function(r){resolve(r.ok?{url:'https://dev.code-3d.pages.dev/'+filename,label:label}:null);}).catch(function(){resolve(null);});
+      } catch(e){resolve(null);}
+    });
+  }
+
+  function uploadAllPhotoSourcesClient(){
+    var uploads=[];
+    if(S.av.img) uploads.push({data:S.av.img,label:'face-avant'});
+    if(S.ar.img) uploads.push({data:S.ar.img,label:'face-arriere'});
+    if(S.cImg) uploads.push({data:S.cImg,label:'design-importe'});
+    if(uploads.length===0) return Promise.resolve([]);
+    var results=[];
+    function uploadNext(i){
+      if(i>=uploads.length) return Promise.resolve(results);
+      return new Promise(function(resolve){
+        setTimeout(function(){
+          uploadPhotoSource(uploads[i].data,uploads[i].label).then(function(r){results.push(r);resolve(uploadNext(i+1));});
+        },i===0?0:300);
+      });
+    }
+    return uploadNext(0);
+  }
+
+  function goStep(n){
+    S.step=n;
+    var s1=document.getElementById('kzc-step-1'),s2=document.getElementById('kzc-step-2');
+    if(s1) s1.style.display=n===1?'block':'none';
+    if(s2) s2.style.display=n===2?'block':'none';
+    document.querySelectorAll('.kzc-ps').forEach(function(p){
+      var sn=parseInt(p.dataset.s);
+      p.classList.toggle('on',sn===n);p.classList.toggle('done',sn<n);
+    });
+  }
+
+  function kzpGetVariants(){
+    var results=[];
+    document.querySelectorAll('fieldset.variant-picker__option').forEach(function(fs){
+      var leg=fs.querySelector('legend');
+      var optName=leg?leg.textContent.replace(/\s*:.*/,'').trim():'';
+      var checked=fs.querySelector('input[type="radio"]:checked');
+      if(checked){
+        var lbl=checked.closest('label');
+        if(!lbl&&checked.id) lbl=document.querySelector('label[for="'+checked.id+'"]');
+        if(lbl){var clone=lbl.cloneNode(true);clone.querySelectorAll('.sr-only,.visually-hidden').forEach(function(el){el.remove();});var val=clone.textContent.trim();if(val&&optName) results.push({label:optName,value:val});}
+      }
+    });
+    return results;
+  }
+
+  function kzpOpen(){
+    var overlay=document.getElementById('kzp-overlay');if(!overlay) return;
+    var productTitle={{ product.title | json }};
+    var variants=kzpGetVariants();
+    var prodRows='<div class="kzp-row"><span class="kzp-label">Produit</span><span class="kzp-val">'+productTitle+'</span></div>';
+    variants.forEach(function(v){prodRows+='<div class="kzp-row"><span class="kzp-label">'+v.label+'</span><span class="kzp-val">'+v.value+'</span></div>';});
+    prodRows+='<div class="kzp-row"><span class="kzp-label">Couleur gobelet</span><span class="kzp-val">'+S.gName+'</span></div>';
+    document.getElementById('kzp-prod-rows').innerHTML=prodRows;
+
+    var persoRows='';
+    if(S.parcours==='ia'||S.parcours==='canva'){
+      if(S.cImg&&S.cName) persoRows+='<div class="kzp-row"><span class="kzp-label">Image uploadée</span><span class="kzp-val">✅ '+S.cName+'</span></div>';
+    } else {
+      if(S.av.t[0].trim()) persoRows+='<div class="kzp-row"><span class="kzp-label">Ligne 1</span><span class="kzp-val" style="white-space:pre-line">'+S.av.t[0].trim()+'</span></div>';
+      if(S.av.t[1].trim()) persoRows+='<div class="kzp-row"><span class="kzp-label">Ligne 2</span><span class="kzp-val">'+S.av.t[1].trim()+'</span></div>';
+      if(S.av.t[2].trim()) persoRows+='<div class="kzp-row"><span class="kzp-label">Ligne 3</span><span class="kzp-val">'+S.av.t[2].trim()+'</span></div>';
+      if(S.av.imgName) persoRows+='<div class="kzp-row"><span class="kzp-label">Logo/image</span><span class="kzp-val">✅ '+S.av.imgName+'</span></div>';
+      if(S.ar.t[0].trim()) persoRows+='<div class="kzp-row"><span class="kzp-label">Arrière ligne 1</span><span class="kzp-val" style="white-space:pre-line">'+S.ar.t[0].trim()+'</span></div>';
+      if(S.ar.t[1].trim()) persoRows+='<div class="kzp-row"><span class="kzp-label">Arrière ligne 2</span><span class="kzp-val">'+S.ar.t[1].trim()+'</span></div>';
+      if(S.ar.imgName) persoRows+='<div class="kzp-row"><span class="kzp-label">Logo arrière</span><span class="kzp-val">✅ '+S.ar.imgName+'</span></div>';
+    }
+    var form2=document.querySelector('form[action*="/cart/add"]');
+    if(form2){
+      var pngEl=form2.querySelector('input[name="properties[_PNG imprimeur]"]');
+      if(pngEl&&pngEl.value) persoRows+='<div class="kzp-row"><span class="kzp-label">PNG imprimeur</span><span class="kzp-val"><a href="'+pngEl.value+'" target="_blank" style="color:#c9a96e;text-decoration:underline;">Voir →</a></span></div>';
+    }
+    var dateEl=document.getElementById('kzc-date');
+    if(dateEl&&dateEl.value) persoRows+='<div class="kzp-row"><span class="kzp-label">Date événement</span><span class="kzp-val">'+dateEl.value+'</span></div>';
+
+    var ps=document.getElementById('kzp-perso-section');
+    if(persoRows){document.getElementById('kzp-perso-rows').innerHTML=persoRows;ps.style.display='';}
+    else{ps.style.display='none';}
+    overlay.classList.add('kzp-visible');
+    document.body.style.overflow='hidden';
+  }
+
+  function kzpClose(){
+    var overlay=document.getElementById('kzp-overlay');
+    if(overlay) overlay.classList.remove('kzp-visible');
+    document.body.style.overflow='';
+  }
+
+  function buildForm(){
+    var container=document.createElement('div');container.id='kzc-fields';
+
+    var jdgmWrap=document.createElement('div');jdgmWrap.style.cssText='margin-bottom:8px;';
+    var jdgmDiv=document.createElement('div');jdgmDiv.className='jdgm-widget jdgm-preview-badge';
+    jdgmDiv.setAttribute('data-id','{{ product.id }}');jdgmDiv.setAttribute('data-auto-install','false');
+    jdgmWrap.appendChild(jdgmDiv);container.appendChild(jdgmWrap);
+
+    var badge=document.createElement('div');
+    badge.style.cssText='display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.3);border-radius:8px;margin-bottom:14px;';
+    badge.innerHTML='<span style="font-size:16px;">🏢</span><span style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#c9a96e;">Espace Professionnel & Associations</span>';
+    container.appendChild(badge);
+
+    var pbar=document.createElement('div');pbar.className='kzc-pbar';
+    [['1','Départ'],['2','Design']].forEach(function(item){
+      var p=document.createElement('div');p.className='kzc-ps'+(item[0]==='1'?' on':'');p.dataset.s=item[0];p.textContent=item[1];
+      p.addEventListener('click',function(){if(p.classList.contains('done')||p.classList.contains('on')) goStep(parseInt(item[0]));});
+      pbar.appendChild(p);
+    });
+    container.appendChild(pbar);
+
+    // ── ÉTAPE 1 ──
+    var step1=document.createElement('div');step1.id='kzc-step-1';
+    var pgrid=document.createElement('div');pgrid.className='kzc-pgrid';
+    [
+      {p:'texte',num:'01',em:'✏️',title:'Je crée mon design ici',sub:'Ajoutez vos textes, votre logo, vos photos, choisissez vos couleurs'},
+      {p:'ia',num:'02',em:'🤖',title:'Créer mon design avec l\'IA',sub:'Décrivez votre entreprise ou votre événement — générez un visuel professionnel avec Gemini ou ChatGPT en 30 secondes'},
+      {p:'canva',num:'03',em:'🎨',title:'Créer mon design avec Canva',sub:'Utilisez notre gabarit Canva aux bonnes dimensions — ajoutez votre logo, vos couleurs, vos textes, puis importez le fichier ici'}
+    ].forEach(function(item){
+      var card=document.createElement('div');card.className='kzc-pcard';card.dataset.p=item.p;
+      card.innerHTML='<span class="kzc-pnum">'+item.num+'</span><span class="kzc-pem">'+item.em+'</span><div class="kzc-ptext"><div class="kzc-ptitle">'+item.title+'</div><div class="kzc-psub">'+item.sub+'</div></div>';
+      card.addEventListener('click',function(){
+        document.querySelectorAll('.kzc-pcard').forEach(function(c){c.classList.remove('active');});
+        card.classList.add('active');
+        S.av={t:['','',''],tc:S.av.tc,ff:S.av.ff,fn:S.av.fn,img:null,imgName:null,iz:'center',ishape:'square',cropState:{zoom:1,ox:0,oy:0}};
+        S.ar={t:['',''],tc:S.ar.tc,ff:S.ar.ff,fn:S.ar.fn,img:null,imgName:null,iz:'center',ishape:'square',cropState:{zoom:1,ox:0,oy:0}};
+        S.cImg=null;S.cName=null;S.parcours=item.p;goStep(2);
+        document.getElementById('kzc-parcours-texte').style.display=item.p==='texte'?'block':'none';
+        document.getElementById('kzc-parcours-canva').style.display=(item.p==='canva'||item.p==='ia')?'block':'none';
+        var _ps=document.querySelector('#kzc-upz-canva .kzc-upsub'); if(_ps){ _ps.textContent=(item.p==='ia')?'Déposez ici le visuel généré par l’IA':'Déposez ici le design créé sur Canva'; }
+        var promptBloc=document.getElementById('kzc-prompt-bloc');if(promptBloc) promptBloc.style.display=item.p==='ia'?'block':'none';
+        var canvaBtnEl=document.getElementById('kzc-canva-btn'),canvaNoteEl=document.getElementById('kzc-canva-note');
+        if(canvaBtnEl) canvaBtnEl.style.display=item.p==='canva'?'flex':'none';
+        if(canvaNoteEl) canvaNoteEl.style.display=item.p==='canva'?'block':'none';
+      });
+      pgrid.appendChild(card);
+    });
+    step1.appendChild(pgrid);
+
+    // ── PANNEAU INFOS UNIFIÉ (remplace ibox + ecoBox + contactLink + legalNote) ──
+    var infoPanel = document.createElement('div');
+    infoPanel.style.cssText = 'background:#fff;border:1px solid rgba(201,169,110,0.3);border-radius:12px;overflow:hidden;margin-top:16px;margin-bottom:14px;';
+
+    var KZ_ICON_BULB = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M8.5 15a5 5 0 1 1 7 0c-.7.6-1 1.2-1 2H9.5c0-.8-.3-1.4-1-2z"/></svg>';
+    var KZ_ICON_BRUSH = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 4-2 4-4a2 2 0 0 0-2-2c-2 0-3 2-2 6z"/><path d="M7 15l9-9a2.1 2.1 0 0 1 3 3l-9 9"/></svg>';
+    var KZ_ICON_INFO = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>';
+    var KZ_ICON_LEAF = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c0-9 5-14 15-14 0 8-5 13-13 13"/><path d="M5 21c1-4 3-6 6-7"/></svg>';
+
+    function kzInfoRow(iconSvg, iconColor, title, text, withDivider) {
+      return (withDivider ? '<div style="height:1px;background:#f0ece5;margin:0 16px;"></div>' : '')
+        + '<div style="display:flex;align-items:flex-start;gap:12px;padding:15px 16px;">'
+        +   '<span style="color:' + iconColor + ';flex-shrink:0;line-height:1.2;display:flex;">' + iconSvg + '</span>'
+        +   '<div>'
+        +     '<div style="font-size:13px;font-weight:700;color:#1c1c1c;margin-bottom:2px;">' + title + '</div>'
+        +     '<div style="font-size:12.5px;color:#5a4a30;line-height:1.55;">' + text + '</div>'
+        +   '</div>'
+        + '</div>';
+    }
+
+    infoPanel.innerHTML =
+        kzInfoRow(KZ_ICON_BULB, '#c9a96e', 'Comment ça marche',
+          'Selon l\'option choisie, créez votre design ici, avec l\'IA ou sur Canva. Dans tous les cas, les logos, marques déposées et visuels protégés ne peuvent pas être reproduits : vous obtenez un design original et professionnel, dans l\'esprit de votre thème.', false)
+      + kzInfoRow(KZ_ICON_BRUSH, '#c9a96e', 'Vérifié par un graphiste',
+          'Nous vérifions et retouchons votre design avant impression. Le fond blanc est retiré pour un rendu net sur votre gobelet translucide.', true)
+      + kzInfoRow(KZ_ICON_INFO, '#c9a96e', 'Format standard 25/33cl',
+          'Prévu pour le gobelet standard, de 10 à 500 unités directement en ligne. Pour les formats 12/18cl, 50/60cl ou au-delà de 500 unités, <a href="mailto:' + CONTACT_EMAIL + '" style="color:#c9a96e;text-decoration:none;">contactez notre équipe</a>.', true)
+      + kzInfoRow(KZ_ICON_LEAF, '#7a9e7e', 'Une alternative durable',
+          'Nos gobelets réutilisables remplacent avantageusement le plastique jetable lors de vos événements professionnels et associatifs.', true);
+
+    step1.appendChild(infoPanel);
+    container.appendChild(step1);
+
+    // ── ÉTAPE 2 ──
+    var step2=document.createElement('div');step2.id='kzc-step-2';step2.style.display='none';
+
+    // ── PARCOURS TEXTE ──
+    var pt=document.createElement('div');pt.id='kzc-parcours-texte';
+    pt.appendChild(Object.assign(document.createElement('div'),{className:'kzc-sdiv'}));
+
+    var ftabs=document.createElement('div');ftabs.className='kzc-ftabs';
+    ['av','ar'].forEach(function(face){
+      var t=document.createElement('button');t.type='button';t.className='kzc-ftab'+(face==='av'?' active':'');t.dataset.face=face;
+      t.textContent=face==='av'?'🔵 Face avant':'⚪ Face arrière';
+      t.addEventListener('click',function(){
+        document.querySelectorAll('.kzc-ftab').forEach(function(x){x.classList.remove('active');});
+        t.classList.add('active');S.face=face;
+        document.getElementById('kzc-face-av').style.display=face==='av'?'block':'none';
+        document.getElementById('kzc-face-ar').style.display=face==='ar'?'block':'none';
+      });
+      ftabs.appendChild(t);
+    });
+    pt.appendChild(ftabs);
+
+    ['av','ar'].forEach(function(face){
+      var fd=document.createElement('div');fd.id='kzc-face-'+face;fd.style.display=face==='av'?'block':'none';
+      var secT=document.createElement('div');secT.className='kzc-stitle';
+      secT.textContent=face==='av'?'Textes — face avant':'Textes — face arrière';fd.appendChild(secT);
+
+      var nb=face==='av'?3:2;
+      var lbls=face==='av'
+        ?[['Ligne principale','Ex : Atelier Lumière'],['Ligne 2','Ex : Séminaire 2026'],['Ligne 3','Ex : Votre slogan']]
+        :[['Ligne principale','Ex : Merci pour votre fidélité'],['Ligne 2','Ex : Kuztom · kuztom.fr']];
+
+      for(var i=0;i<nb;i++){
+        (function(idx,lbl){
+          var grp=document.createElement('div');grp.className='kzc-field-group';
+          var lblEl=document.createElement('label');lblEl.className='kzc-label';lblEl.style.cssText='display:flex;align-items:center;justify-content:space-between;';lblEl.textContent=lbl[0];
+          var hint=document.createElement('span');hint.style.cssText='font-size:11px;color:#8a8078;font-weight:400;letter-spacing:0;font-style:italic;';hint.textContent=lbl[1];lblEl.appendChild(hint);grp.appendChild(lblEl);
+          var ta=document.createElement('textarea');ta.id='kzc-'+face+(idx+1);ta.className='kzc-textarea';ta.rows=1;ta.maxLength=40;ta.placeholder=lbl[1];
+          ta.addEventListener('input',function(){S[face].t[idx]=ta.value;_kzPush();});
+          var cbw=document.createElement('div');cbw.className='kzc-cbwrap';
+          var cb=document.createElement('div');cb.className='kzc-cb';cb.id='kzc-cb-'+face+(idx+1);cbw.appendChild(cb);grp.appendChild(cbw);
+          if(idx<2){var cw=document.createElement('div');cw.className='kzc-cwarn';cw.id='kzc-cw-'+face+(idx+1);cw.textContent='⚠ Texte trop long — taille minimum 40px atteinte';grp.appendChild(cw);}
+          fd.appendChild(grp);
+        })(i,lbls[i]);
+      }
+
+      fd.appendChild(Object.assign(document.createElement('div'),{className:'kzc-sdiv'}));
+
+      // Couleur texte — sans blanc
+      var tclbl=document.createElement('div');tclbl.className='kzc-label';tclbl.textContent='Couleur du texte';tclbl.style.marginBottom='8px';fd.appendChild(tclbl);
+      var tcRow=document.createElement('div');tcRow.className='kzc-tcrow';tcRow.id='kzc-tc-'+face;
+      TCOLS.forEach(function(c,i){
+        var b=document.createElement('button');b.type='button';b.className='kzc-tc'+(c.lt?' lt':'')+(i===0?' active':'');b.style.background=c.hex;b.title=c.lbl;
+        b.addEventListener('click',function(){tcRow.querySelectorAll('.kzc-tc').forEach(function(x){x.classList.remove('active');});b.classList.add('active');S[face].tc=c.hex;renderAll();});
+        tcRow.appendChild(b);
+      });
+      // Bouton palette doré
+      var pk=document.createElement('div');pk.className='kzc-tcpick';pk.title='Couleur personnalisée';
+      pk.innerHTML='<span style="pointer-events:none;font-size:16px;">🎨</span><input type="color" value="#C9A96E">';
+      pk.querySelector('input').addEventListener('input',function(e){tcRow.querySelectorAll('.kzc-tc').forEach(function(x){x.classList.remove('active');});S[face].tc=e.target.value;pk.style.background=e.target.value;renderAll();});
+      tcRow.appendChild(pk);fd.appendChild(tcRow);
+
+      // Police
+      var fflbl=document.createElement('div');fflbl.className='kzc-label';fflbl.textContent='Police d\'écriture';fflbl.style.cssText='margin-top:12px;margin-bottom:8px;';fd.appendChild(fflbl);
+      var ffRow=document.createElement('div');ffRow.className='kzc-frow';ffRow.id='kzc-fc-'+face;
+      FONTS.forEach(function(f,i){
+        var b=document.createElement('button');b.type='button';b.className='kzc-fchip'+(i===0?' active':'');b.style.fontFamily='\''+f.fam+'\'';b.style.fontSize='15px';b.textContent=f.name;
+        b.addEventListener('click',function(){ffRow.querySelectorAll('.kzc-fchip').forEach(function(x){x.classList.remove('active');});b.classList.add('active');S[face].ff=f.fam;S[face].fn=f.name;renderAll();});
+        ffRow.appendChild(b);
+      });
+      fd.appendChild(ffRow);
+      fd.appendChild(Object.assign(document.createElement('div'),{className:'kzc-sdiv'}));
+
+      // Image / logo
+      var imglbl=document.createElement('div');imglbl.className='kzc-label';imglbl.textContent='Image / logo — '+(face==='av'?'face avant':'face arrière')+' (optionnel)';imglbl.style.marginBottom='8px';fd.appendChild(imglbl);
+      var shapelbl=document.createElement('div');shapelbl.className='kzc-label';shapelbl.textContent='Forme';shapelbl.style.cssText='margin-bottom:8px;font-size:11px;';fd.appendChild(shapelbl);
+      var shapeTabs=document.createElement('div');shapeTabs.className='kzc-shapetabs';shapeTabs.id='kzc-shape-'+face;
+      [['square','⬛','Carré'],['circle','⭕','Rond']].forEach(function(item,si){
+        var t=document.createElement('button');t.type='button';t.className='kzc-shapetab'+(si===0?' active':'');t.dataset.shape=item[0];
+        t.innerHTML='<span class="kzc-shapeico">'+item[1]+'</span>'+item[2];
+        t.addEventListener('click',function(){shapeTabs.querySelectorAll('.kzc-shapetab').forEach(function(x){x.classList.remove('active');});t.classList.add('active');S[face].ishape=item[0];renderAll();});
+        shapeTabs.appendChild(t);
+      });
+      fd.appendChild(shapeTabs);
+
+      var ztabs=document.createElement('div');ztabs.className='kzc-ztabs';ztabs.id='kzc-zt-'+face;
+      [['center','🎯','Centre'],['top','⬆','Haut'],['bottom','⬇','Bas']].forEach(function(item){
+        var t=document.createElement('button');t.type='button';t.className='kzc-ztab'+(item[0]==='center'?' active':'');t.dataset.z=item[0];
+        t.innerHTML='<span class="kzc-ztem">'+item[1]+'</span>'+item[2];
+        t.addEventListener('click',function(){ztabs.querySelectorAll('.kzc-ztab').forEach(function(x){x.classList.remove('active');});t.classList.add('active');S[face].iz=item[0];renderAll();});
+        ztabs.appendChild(t);
+      });
+      fd.appendChild(ztabs);
+
+      var upz=document.createElement('div');upz.className='kzc-upzone';upz.id='kzc-upz-'+face;
+      upz.style.border='1.5px solid #e6dcc9';upz.style.background='#faf7f2';
+      var inp=document.createElement('input');inp.type='file';inp.id='kzc-img-'+face;inp.accept='image/*';
+      var inner=document.createElement('div');inner.className='kzc-upzone-inner';
+      inner.style.cssText='display:flex;align-items:center;gap:14px;text-align:left;pointer-events:none;';
+      inner.innerHTML='<svg viewBox="0 0 40 52" width="34" height="44" fill="none" style="flex-shrink:0;"><path d="M8 4 H32 L29 48 Q29 50 27 50 H13 Q11 50 11 48 Z" fill="#f3ece0" stroke="#c9a96e" stroke-width="1.5"/><circle cx="20" cy="24" r="7" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="3 2"/><path d="M17 24 h6 M20 21 v6" stroke="#c9a96e" stroke-width="1.5"/></svg><span style="display:flex;flex-direction:column;gap:2px;"><span class="kzc-uptit">Déposez votre design ici</span><span class="kzc-upsub">Déposez ici votre logo ou visuel</span></span>';
+      var fn=document.createElement('div');fn.className='kzc-upfn';fn.id='kzc-fn-'+face;
+      var ql=document.createElement('div');ql.className='kzc-upql';ql.id='kzc-ql-'+face;
+      var qualMsg=document.createElement('p');qualMsg.style.display='none';qualMsg.id='kzc-qmsg-'+face;
+      upz.appendChild(inp);upz.appendChild(inner);upz.appendChild(fn);upz.appendChild(ql);fd.appendChild(upz);fd.appendChild(qualMsg);
+
+      var rmBtn=document.createElement('button');rmBtn.type='button';rmBtn.className='kzc-rmimg';rmBtn.id='kzc-rm-'+face;rmBtn.textContent='Supprimer l\'image';
+      rmBtn.addEventListener('click',function(){
+        S[face].img=null;S[face].imgName=null;S[face].cropState={zoom:1,ox:0,oy:0};
+        upz.classList.remove('has');fn.textContent='';fn.style.display='none';ql.textContent='';ql.style.display='none';ql.className='kzc-upql';
+        qualMsg.style.display='none';inp.value='';rmBtn.style.display='none';
+        var cropBarRm=document.getElementById('kzc-crop-bar');if(cropBarRm) cropBarRm.style.display='none';
+        renderAll();
+      });
+      fd.appendChild(rmBtn);
+
+      if(face==='av'){
+        var nextFaceBtn=document.createElement('button');nextFaceBtn.type='button';
+        nextFaceBtn.style.cssText='display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px 16px;background:rgba(201,169,110,0.08);border:1.5px solid #c9a96e;border-radius:10px;font-size:13px;font-weight:700;color:#c9a96e;cursor:pointer;font-family:inherit;';
+        nextFaceBtn.innerHTML='⚪ Passer à la face arrière →';
+        nextFaceBtn.addEventListener('click',function(){
+          var arTab=document.querySelector('.kzc-ftab[data-face="ar"]');
+          if(arTab) arTab.click();
+          var wrap=document.getElementById('kzc-iframe-wrap');
+          if(wrap) wrap.scrollIntoView({behavior:'smooth',block:'start'});
+        });
+        fd.appendChild(nextFaceBtn);
+      }
+
+      (function(face,inp,upz,fn,ql,qualMsg,rmBtn){
+        inp.addEventListener('change',function(){
+          var file=inp.files&&inp.files[0];if(!file) return;
+          var reader=new FileReader();
+          reader.onload=function(ev){
+            var img=new Image();
+            img.onload=function(){
+              S[face].img=ev.target.result;S[face].imgName=file.name;S[face].cropState={zoom:1,ox:0,oy:0};
+              upz.classList.add('has');fn.textContent='✅ '+file.name;fn.style.display='block';rmBtn.style.display='block';
+              checkPhotoQuality(img.naturalWidth,img.naturalHeight,qualMsg);
+              var cropBar=document.getElementById('kzc-crop-bar');
+              if(cropBar){cropBar.style.display='block';var sl=document.getElementById('kcb-slider');if(sl) sl.value=100;var ifrWrap2=document.getElementById('kzc-iframe-wrap');if(ifrWrap2) ifrWrap2.scrollIntoView({behavior:'smooth',block:'start'});}
+              checkBg(ev.target.result,function(hasBg){
+                ql.style.display='block';var tooSmall=img.naturalWidth<800||img.naturalHeight<400;
+                ql.className='kzc-upql '+(tooSmall?'warn':'ok');ql.textContent=tooSmall?'⚠ Image un peu petite':'✅ Bonne qualité';renderAll();
+              });
+            };
+            img.src=ev.target.result;
+          };
+          reader.readAsDataURL(file);
+        });
+      })(face,inp,upz,fn,ql,qualMsg,rmBtn);
+
+      pt.appendChild(fd);
+    });
+    step2.appendChild(pt);
+
+    // ── PARCOURS CANVA/IA ──
+    var pc=document.createElement('div');pc.id='kzc-parcours-canva';pc.style.display='none';
+    var occOptionsHtml='<option value="">Sélectionnez une occasion</option>';
+    OCCASIONS.forEach(function(o){occOptionsHtml+='<option value="'+o+'">'+o+'</option>';});
+
+    pc.innerHTML='<div class="kzc-stitle">Créez votre design avec l\'IA</div>'
+      +'<div id="kzc-prompt-bloc" style="padding:16px;background:#f8f6f2;border:1.5px solid #e0dbd4;border-radius:12px;margin-bottom:14px;">'
+      +'<div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8a8078;margin-bottom:12px;">Remplissez vos informations</div>'
+      +'<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">'
+      +'<div><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1c1c1c;display:block;margin-bottom:4px;">Nom de l\'entreprise / association <span style="color:#c9a96e;">*</span></label>'
+      +'<input type="text" id="kzc-ia-entreprise" placeholder="ex : Atelier Lumière" style="width:100%;padding:9px 12px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;font-family:inherit;outline:none;box-sizing:border-box;"/></div>'
+      +'<div><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1c1c1c;display:block;margin-bottom:4px;">Date <span style="color:#8a8078;font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;">(optionnel)</span></label>'
+      +'<input type="text" id="kzc-ia-date" placeholder="ex : 14 juin 2026" style="width:100%;padding:9px 12px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;font-family:inherit;outline:none;box-sizing:border-box;"/></div>'
+      +'<div><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1c1c1c;display:block;margin-bottom:4px;">Occasion professionnelle <span style="color:#c9a96e;">*</span></label>'
+      +'<select id="kzc-ia-occasion" class="kzc-select">'+occOptionsHtml+'</select></div>'
+      +'<div id="kzc-ia-occasion-autre-wrap" style="display:none;"><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1c1c1c;display:block;margin-bottom:4px;">Précisez l\'occasion</label>'
+      +'<input type="text" id="kzc-ia-occasion-autre" placeholder="ex : Journée portes ouvertes" style="width:100%;padding:9px 12px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;font-family:inherit;outline:none;box-sizing:border-box;"/></div>'
+      +'<div><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1c1c1c;display:block;margin-bottom:4px;">Précision <span style="color:#8a8078;font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;">(optionnel)</span></label>'
+      +'<input type="text" id="kzc-ia-detail" placeholder="ex : 10 ans de l\'entreprise" style="width:100%;padding:9px 12px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;font-family:inherit;outline:none;box-sizing:border-box;"/></div>'
+      +'<div><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1c1c1c;display:block;margin-bottom:4px;">Thème visuel <span style="color:#c9a96e;">*</span></label>'
+      +'<input type="text" id="kzc-ia-theme" placeholder="ex : Corporate, moderne, épuré, festif" style="width:100%;padding:9px 12px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;font-family:inherit;outline:none;box-sizing:border-box;"/></div>'
+      +'<div><label style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1c1c1c;display:block;margin-bottom:4px;">Couleurs souhaitées <span style="color:#8a8078;font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;">(optionnel)</span></label>'
+      +'<input type="text" id="kzc-ia-couleurs" placeholder="ex : Bleu marine et or" style="width:100%;padding:9px 12px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;font-family:inherit;outline:none;box-sizing:border-box;"/></div>'
+      +'<p class="kzc-logo-note">💡 Vous avez un logo précis à conserver ? L\'IA ne le reproduira pas fidèlement — utilisez plutôt « Je crée mon design » pour l\'uploader directement.</p>'
+      +'</div>'
+      // Bouton copier pour mon IA
+      +'<div class="kzc-copy-btn-wrap">'
+      +'<button type="button" id="kzc-copy-only" class="kzc-copy-main-btn">\ud83d\udccb Copier mon texte pour l\'IA</button>'
+      +'<div id="kzc-copy-success-msg" class="kzc-copy-success-msg">\u2713 Prompt copi\u00e9 ! Ouvrez maintenant Gemini, ChatGPT ou votre IA pr\u00e9f\u00e9r\u00e9e et collez-le pour g\u00e9n\u00e9rer votre design.</div>'
+      +'<p class="kzc-copy-hint">Fonctionne avec Gemini, ChatGPT, Mistral, et toutes les IA.</p>'
+      +'</div>'
+      +'</div>';
+
+    pc.appendChild(Object.assign(document.createElement('div'),{className:'kzc-sdiv'}));
+
+    var canvaBtn=document.createElement('a');canvaBtn.href='https://canva.link/q6bfsaxpbof7n9b';canvaBtn.target='_blank';canvaBtn.rel='noopener noreferrer';canvaBtn.id='kzc-canva-btn';
+    canvaBtn.style.cssText='display:none;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 16px;background:linear-gradient(135deg,#7D2AE8 0%,#4A90E2 55%,#00C4CC 100%);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:800;letter-spacing:.01em;cursor:pointer;font-family:inherit;text-decoration:none;box-sizing:border-box;margin-bottom:10px;box-shadow:0 4px 18px rgba(125,42,232,0.35);';
+    canvaBtn.innerHTML='🎨 Ouvrir le gabarit Canva';pc.appendChild(canvaBtn);
+
+    var canvaNote=document.createElement('p');canvaNote.id='kzc-canva-note';canvaNote.style.cssText='display:none;font-size:11px;color:#8a8078;text-align:center;margin-bottom:14px;line-height:1.5;';
+    canvaNote.textContent='Personnalisez le gabarit sur Canva, téléchargez votre design en PNG, puis déposez-le ci-dessous.';pc.appendChild(canvaNote);
+
+    var upzC=document.createElement('div');upzC.className='kzc-upzone';upzC.id='kzc-upz-canva';
+    var inpC=document.createElement('input');inpC.type='file';inpC.id='kzc-img-canva';inpC.accept='image/png,image/jpeg,image/webp';
+    var innerC=document.createElement('div');innerC.className='kzc-upzone-inner';
+    innerC.innerHTML='<div class="kzc-upico">📁</div><div class="kzc-uptit">Déposez votre design ici</div><div class="kzc-upsub">Déposez ici votre visuel</div>';
+    var fnC=document.createElement('div');fnC.className='kzc-upfn';fnC.id='kzc-fn-canva';
+    var qlC=document.createElement('div');qlC.className='kzc-upql';qlC.id='kzc-ql-canva';
+    var qualMsgC=document.createElement('p');qualMsgC.style.display='none';
+    upzC.appendChild(inpC);upzC.appendChild(innerC);upzC.appendChild(fnC);upzC.appendChild(qlC);pc.appendChild(upzC);pc.appendChild(qualMsgC);
+
+    inpC.addEventListener('change',function(){
+      var file=inpC.files&&inpC.files[0];if(!file) return;
+      var reader=new FileReader();
+      reader.onload=function(ev){
+        var img=new Image();
+        img.onload=function(){
+          S.cImg=ev.target.result;S.cName=file.name;
+          var ratioC=img.naturalWidth/(img.naturalHeight||1);
+          if(ratioC<1.0||ratioC>2.5){
+            qualMsgC.textContent='⚠ Ce fichier n\'est pas au bon format. Le format requis est 1970×1140px (ratio paysage).';
+            qualMsgC.style.cssText='display:block;background:#fff0f0;border:1.5px solid #c0392b;color:#c0392b;padding:8px 12px;border-radius:8px;font-size:12px;margin-top:6px;';
+            S.cImg=null;S.cName=null;upzC.classList.remove('has');fnC.textContent='';fnC.style.display='none';inpC.value='';return;
+          }
+          checkPhotoQuality(img.naturalWidth,img.naturalHeight,qualMsgC);
+          checkBg(ev.target.result,function(hasBg){
+            qlC.style.display='block';var tooSmall=img.naturalWidth<800||img.naturalHeight<400;
+            qlC.className='kzc-upql '+(tooSmall?'warn':'ok');qlC.textContent=tooSmall?'⚠ Image un peu petite':'✅ Bonne qualité';
+            upzC.classList.add('has');fnC.textContent='✅ '+file.name;fnC.style.display='block';renderAll();
+          });
+        };
+        img.src=ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+    step2.appendChild(pc);
+
+    // Date
+    step2.appendChild(Object.assign(document.createElement('div'),{className:'kzc-sdiv'}));
+    var dateWrap=document.createElement('div');dateWrap.className='kzc-date-wrap';
+    dateWrap.innerHTML='<div class="kzc-date-lbl">📅 Date de votre événement</div>';
+    var dateInp=document.createElement('input');dateInp.type='date';dateInp.id='kzc-date';dateInp.className='kzc-date-input';
+    dateInp.style.cssText='padding:7px 11px;border:1.5px solid #e0dbd4;border-radius:6px;font-size:16px;font-family:inherit;outline:none;color:#1c1c1c;background:#fff;max-width:154px;';
+    var dateNote=document.createElement('p');dateNote.className='kzc-date-note';dateNote.textContent='Optionnel — nous aide à tout organiser pour une livraison sereine avant le jour J.';
+    dateWrap.appendChild(dateInp);dateWrap.appendChild(dateNote);
+    dateInp.addEventListener('change',function(){updateLineItemProps();});
+    step2.appendChild(dateWrap);
+    // Livraison (info)
+    var lw=document.createElement('div');
+    lw.style.cssText='margin-top:14px;font-size:13px;color:#5c554e;display:flex;align-items:center;gap:7px;line-height:1.4;';
+    lw.innerHTML='\ud83d\ude9a <span><strong style="color:#1c1c1c;">Livraison offerte en France</strong> \u00b7 sous 8 \u00e0 10 jours ouvr\u00e9s</span>';
+    step2.appendChild(lw);
+    // Prix degressif (info)
+    var dg=document.createElement('div');
+    dg.style.cssText='margin-top:6px;font-size:13px;color:#5c554e;line-height:1.4;';
+    dg.textContent='Plus vous en commandez, moins c\u2019est cher par gobelet.';
+    step2.appendChild(dg);
+
+    var saveRow=document.createElement('div');saveRow.className='kzc-save-row';
+    saveRow.innerHTML='<input type="checkbox" id="kzc-save-design"><label for="kzc-save-design">J\'autorise Kuztom à conserver mon design pour faciliter une future commande.</label>';
+    step2.appendChild(saveRow);
+    setTimeout(function(){var cb=document.getElementById('kzc-save-design');if(cb) cb.addEventListener('change',function(){S.saveDesign=cb.checked;updateLineItemProps();});},800);
+
+    container.appendChild(step2);
+
+    // Logique occasion "Autre"
+    setTimeout(function(){
+      var occSel=document.getElementById('kzc-ia-occasion'),occAutreWrap=document.getElementById('kzc-ia-occasion-autre-wrap');
+      if(occSel&&occAutreWrap) occSel.addEventListener('change',function(){occAutreWrap.style.display=occSel.value==='Autre'?'block':'none';});
+    },800);
+
+    // ── Prompt IA pro — court et séparé (événement / date sur lignes distinctes) ──
+    function buildAIPrompt(){
+      var entreprise=(document.getElementById('kzc-ia-entreprise')||{value:''}).value.trim();
+      var date=(document.getElementById('kzc-ia-date')||{value:''}).value.trim();
+      var occSel=(document.getElementById('kzc-ia-occasion')||{value:''}).value.trim();
+      var occAutre=(document.getElementById('kzc-ia-occasion-autre')||{value:''}).value.trim();
+      var detail=(document.getElementById('kzc-ia-detail')||{value:''}).value.trim();
+      var theme=(document.getElementById('kzc-ia-theme')||{value:''}).value.trim();
+      var couleurs=(document.getElementById('kzc-ia-couleurs')||{value:''}).value.trim();
+      var occasion=(occSel==='Autre')?occAutre:occSel;
+      var err=document.getElementById('kzc-ia-err');
+      if(!err){err=document.createElement('p');err.id='kzc-ia-err';err.style.cssText='font-size:12px;color:#c0392b;margin-top:6px;text-align:center;';var btns=document.querySelector('.kzc-ai-btns');if(btns) btns.parentNode.insertBefore(err,btns.nextSibling);}
+      if(!entreprise||!occasion||!theme){err.textContent='Merci de remplir au minimum : nom de l\'entreprise/association, occasion et thème visuel.';return null;}
+      err.textContent='';
+      var occasionFinale=occasion+(detail?' — '+detail:'');
+      var lignes=[];
+      lignes.push('Génère une image décorative au format paysage exact 1970×1140px, fond blanc pur (#FFFFFF), pour impression sur gobelet réutilisable.');
+      lignes.push('');
+      lignes.push('Thème : '+theme+(couleurs?' — couleurs : '+couleurs:''));
+      lignes.push('');
+      lignes.push('Intègre ces textes UNE SEULE FOIS chacun, centrés dans la composition :');
+      lignes.push('- "'+entreprise+'"');
+      lignes.push('- "'+occasionFinale+'"');
+      if(date) lignes.push('- "'+date+'"');
+      lignes.push('');
+      lignes.push('Règles :');
+      lignes.push('- Fond blanc uni #FFFFFF avec éléments graphiques colorés et expressifs');
+      lignes.push('- Format 1.73:1 (1970×1140px), marges 5% sur tous les bords');
+      lignes.push('- INTERDIT : ne reproduis jamais un logo de club sportif (PSG, OM, Real Madrid...), un personnage protégé (Disney, Marvel, Harry Potter...) ou une marque déposée (Nike, Adidas...). Si le thème s\'en approche, crée une alternative graphique originale dans le même esprit.');
+      lignes.push('- Chaque texte apparaît UNE SEULE FOIS, intégré naturellement dans le design');
+      lignes.push('- Aucun filigrane, cadre ou copyright');
+      lignes.push('- Réponds uniquement avec l\'image, sans texte explicatif.');
+      return lignes.join('\n');
+    }
+
+    function copyAndOpen(url,btn){
+      var txt=buildAIPrompt();if(!txt) return;
+      var originalLabel=btn.innerHTML;
+      function afterCopy(){btn.innerHTML='✅ Copié — collez-le dans la conversation !';setTimeout(function(){btn.innerHTML=originalLabel;},3500);}
+      window.open(url,'_blank','noopener,noreferrer');
+      if(navigator.clipboard){navigator.clipboard.writeText(txt).then(afterCopy).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);afterCopy();});}
+      else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);afterCopy();}
+    }
+
+    setTimeout(function(){
+      var btnCopyOnly=document.getElementById('kzc-copy-only');
+      var successMsgEl=document.getElementById('kzc-copy-success-msg');
+      if(btnCopyOnly) btnCopyOnly.addEventListener('click',function(){
+        var txt=buildAIPrompt();
+        if(!txt){
+          btnCopyOnly.classList.add('invalid');
+          var origHtml=btnCopyOnly.innerHTML;
+          btnCopyOnly.innerHTML='\u26a0\ufe0f Remplissez les champs requis';
+          setTimeout(function(){btnCopyOnly.classList.remove('invalid');btnCopyOnly.innerHTML=origHtml;},3000);
+          return;
+        }
+        function afterCopy(){
+          btnCopyOnly.classList.add('copied');
+          btnCopyOnly.innerHTML='<span class="kzc-btn-icon">\u2713</span> Prompt copi\u00e9 !';
+          if(successMsgEl) successMsgEl.classList.add('visible');
+          setTimeout(function(){
+            btnCopyOnly.classList.remove('copied');
+            btnCopyOnly.innerHTML='\ud83d\udccb Copier mon texte pour l\'IA';
+            if(successMsgEl) successMsgEl.classList.remove('visible');
+          },3500);
+        }
+        if(navigator.clipboard){navigator.clipboard.writeText(txt).then(afterCopy).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);afterCopy();});}
+        else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);afterCopy();}
+      });
+    },800);
+
+    goStep(1);
+
+    function doInject(t){
+      if(document.contains(container)) return;
+      var priceBlock=t.querySelector('[data-block-type="price"]');
+      if(priceBlock){t.insertBefore(container,priceBlock);}
+      else{var titleBlock=t.querySelector('[data-block-type="title"]');if(titleBlock&&titleBlock.nextSibling){t.insertBefore(container,titleBlock.nextSibling);}else{t.prepend(container);}}
+    }
+    function inject(){
+      var target=document.querySelector('.product-info');if(target){doInject(target);return;}
+      var observer=new MutationObserver(function(ml,obs){var t=document.querySelector('.product-info');if(t){obs.disconnect();doInject(t);}});
+      observer.observe(document.body,{childList:true,subtree:true});
+      [300,600,1000,2000,4000].forEach(function(delay){setTimeout(function(){if(document.contains(container)) return;var t=document.querySelector('.product-info')||document.querySelector('safe-sticky');if(t){observer.disconnect();doInject(t);}},delay);});
+    }
+    inject();
+  }
+
+  function interceptCartButton(){
+    document.addEventListener('click',function(e){
+      var btn=e.target.closest('button[type="submit"][is="custom-button"]');
+      if(!btn) return;
+      e.preventDefault();e.stopImmediatePropagation();updateLineItemProps();kzpOpen();
+    },true);
+
+    var overlay=document.getElementById('kzp-overlay');
+    var confirmBtn=document.getElementById('kzp-confirm-btn');
+    var cancelBtn=document.getElementById('kzp-cancel-btn');
+    if(cancelBtn) cancelBtn.addEventListener('click',kzpClose);
+    if(overlay) overlay.addEventListener('click',function(e){if(e.target===this) kzpClose();});
+
+    if(confirmBtn) confirmBtn.addEventListener('click',function(){
+      if(window._kzcOrderDone) return;
+      kzpClose();confirmBtn.disabled=true;confirmBtn.textContent='⏳ Préparation de votre commande…';
+      var form=document.querySelector('form[action*="/cart/add"]');if(!form) return;
+
+      if((S.parcours==='ia'||S.parcours==='canva')&&!S.cImg){
+        var msgEl=document.getElementById('kzc-no-design-msg');
+        if(!msgEl){msgEl=document.createElement('div');msgEl.id='kzc-no-design-msg';msgEl.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1c1c1c;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:30000;text-align:center;max-width:340px;';msgEl.textContent='Votre design n\'a pas encore été importé — ajoutez votre image pour continuer.';document.body.appendChild(msgEl);setTimeout(function(){if(msgEl.parentNode) msgEl.parentNode.removeChild(msgEl);},3500);}
+        confirmBtn.disabled=false;confirmBtn.textContent='Confirmer ma commande →';return;
+      }
+
+      if(window._kzcPending) return;
+      if(window._kzcPngRequested) return;
+      window._kzcPending=true;
+      window._kzcPngRequested=true;
+      var loadOv=document.getElementById('kzc-loading-overlay');
+      var loadBar=document.getElementById('kzc-loading-bar');
+      var loadTxt=document.getElementById('kzc-loading-text');
+      var pctEl=document.getElementById('kzc-loading-pct');
+      if(loadOv) loadOv.classList.add('kzc-active');
+      window._kzcLoadInterval=startLoadingAnimation(loadBar,loadTxt,pctEl);
+
+      // ── Boucle de réessai : redemande le PNG au GRAND iframe uniquement,
+      //    toutes les 8 s, tant que le viewer n'est pas prêt / que le PNG
+      //    n'est pas revenu. S'arrête dès réception de PRINT_PNG_READY.
+      //    NOTE : l'ancienne branche « else { form.submit() } » qui laissait
+      //    filer la commande sans PNG quand le viewer n'était pas prêt est
+      //    supprimée. On ne soumet JAMAIS sans PNG.
+      function requestPng(){
+        if(!window._kzcPending) return;   // déjà résolu → on n'envoie plus rien
+        if(!S.vReady) return;             // viewer pas encore prêt → on retentera au prochain tick
+        if(iframe&&iframe.contentWindow) iframe.contentWindow.postMessage({type:'REQUEST_PRINT_PNG',proxyUrl:PROXY_URL,proxyKey:PROXY_KEY,origin:'pro'},'*');
+      }
+      requestPng();                        // tentative immédiate
+      window._kzcRetryInterval=setInterval(requestPng,8000);
+
+      // Timeout 60s — si pas de PNG → erreur, la commande ne part PAS
+      window._kzcTimeout=setTimeout(function(){
+        if(window._kzcPending){window._kzcPending=false;clearInterval(window._kzcLoadInterval);clearInterval(window._kzcRetryInterval);if(loadOv) loadOv.classList.remove('kzc-active');showError();}
+      },60000);
+    });
+  }
+
+  function init(){
+    var link=document.createElement('link');link.rel='stylesheet';
+    link.href='https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap';
+    document.head.appendChild(link);
+
+    var CSTEP=20;
+    var kcbSlider=document.getElementById('kcb-slider');
+    if(kcbSlider) kcbSlider.addEventListener('input',function(){if(!S[S.face].cropState) S[S.face].cropState={zoom:1,ox:0,oy:0};S[S.face].cropState.zoom=parseInt(this.value)/100;renderAll();});
+    ['kcb-zm','kcb-zp','kcb-l','kcb-r','kcb-u','kcb-d'].forEach(function(bid){
+      var bb=document.getElementById(bid);if(!bb) return;
+      bb.addEventListener('click',function(){
+        if(!S[S.face].cropState) S[S.face].cropState={zoom:1,ox:0,oy:0};
+        var c=S[S.face].cropState;
+        if(bid==='kcb-zm') c.zoom=Math.max(0.5,c.zoom-0.1);if(bid==='kcb-zp') c.zoom=Math.min(3,c.zoom+0.1);
+        if(bid==='kcb-l') c.ox-=CSTEP;if(bid==='kcb-r') c.ox+=CSTEP;
+        if(bid==='kcb-u') c.oy-=CSTEP;if(bid==='kcb-d') c.oy+=CSTEP;
+        var sl=document.getElementById('kcb-slider');if(sl) sl.value=Math.round(c.zoom*100);renderAll();
+      });
+    });
+    var kcbOk=document.getElementById('kcb-ok');
+    if(kcbOk) kcbOk.addEventListener('click',function(){var cropBar=document.getElementById('kzc-crop-bar');if(cropBar) cropBar.style.display='none';});
+
+    buildForm();
+    var src=VIEWER_BASE+'?v='+Date.now();
+    if(iframe) iframe.src=src; _kzMiniSrc=src;
+    interceptCartButton();
+  }
+
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+  else{init();}
+
+  // Masquer la Contenance
+  function maskContenance(){
+    var fieldsets=document.querySelectorAll('.variant-picker__option,fieldset');
+    fieldsets.forEach(function(fs){
+      var legend=fs.querySelector('legend,.variant-picker__option-info');
+      if(legend&&legend.textContent.indexOf('Contenance')!==-1) fs.style.setProperty('display','none','important');
+    });
+    var selects=document.querySelectorAll('select');
+    selects.forEach(function(sel){
+      if(sel.id==='kzc-ia-occasion') return;
+      var parent=sel.parentElement;
+      while(parent){
+        if(parent.textContent.indexOf('Contenance')!==-1&&parent.textContent.indexOf('Quantité')===-1){parent.style.setProperty('display','none','important');break;}
+        if(parent.classList&&parent.classList.contains('product-info')) break;
+        parent=parent.parentElement;
+      }
+    });
+  }
+  setTimeout(maskContenance,200);setTimeout(maskContenance,600);setTimeout(maskContenance,1200);
+  var _mcObs=new MutationObserver(function(){maskContenance();});
+  _mcObs.observe(document.body,{childList:true,subtree:true});
+
+})();
+</script>

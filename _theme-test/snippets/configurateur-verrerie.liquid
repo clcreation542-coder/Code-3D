@@ -1,0 +1,1481 @@
+{% comment %}
+  Kuztom — Configurateur 3D VERRERIE v1
+  ---------------------------------------------------------------
+  Cloné depuis snippets/configurateur-3d.liquid (gobelets).
+  NE JAMAIS fusionner les deux : le configurateur gobelet garde sa
+  logique de contenances (12/18 · 25/33 · 50/60) et son format
+  d'impression 1970 x 1140. Ici la zone imprimable est un bandeau
+  (1970 x 420 pour le verre à vin, 1970 x 406 pour la flûte) et il
+  n'y a pas d'option de contenance.
+
+  Paramètre attendu :
+    forme = 'verre-a-vin' | 'flute'
+  ---------------------------------------------------------------
+{% endcomment %}
+
+{%- assign kz_forme = forme | default: 'verre-a-vin' -%}
+{%- if kz_forme == 'flute' -%}
+  {%- assign kz_nom          = 'flûte à champagne' -%}
+  {%- assign kz_nom_court    = 'flûte' -%}
+  {%- assign kz_perso        = 'Votre flûte à champagne personnalisée arrive en 3D...' -%}
+  {%- assign kz_label_coul   = 'Couleur de la flûte' -%}
+  {%- assign kz_prop_coul    = 'Couleur flûte' -%}
+  {%- assign kz_sur          = 'sur la flûte' -%}
+  {%- assign kz_par_unite    = "Plus vous en commandez, moins c'est cher par flûte." -%}
+{%- else -%}
+  {%- assign kz_nom          = 'verre à vin' -%}
+  {%- assign kz_nom_court    = 'verre' -%}
+  {%- assign kz_perso        = 'Votre verre à vin personnalisé arrive en 3D...' -%}
+  {%- assign kz_label_coul   = 'Couleur du verre' -%}
+  {%- assign kz_prop_coul    = 'Couleur verre' -%}
+  {%- assign kz_sur          = 'sur le verre' -%}
+  {%- assign kz_par_unite    = "Plus vous en commandez, moins c'est cher par verre." -%}
+{%- endif -%}
+
+<style>
+  .product-gallery { display:none !important; }
+  .product-info__variant-picker .variant-picker__option[data-option-name="Couleur"] { display:none !important; }
+  #kuztom-viewer-col { min-width:0; display:flex; flex-direction:column; grid-column:1; grid-row:1; }
+  .kuztom-iframe-wrap { position:relative; background:#faf8f5; border-radius:16px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,0.07); }
+/* Sur ordinateur, le verre reste visible pendant que le formulaire défile. */
+@media (min-width:1000px) {
+  /* La colonne doit occuper toute la hauteur, sinon le sticky n'a pas de marge pour glisser. */
+  #kuztom-viewer-col { align-self:stretch; height:100%; justify-content:flex-start; }
+  .kuztom-iframe-wrap { position:sticky; top:90px; z-index:1; flex:0 0 auto; }
+}
+  .kuztom-iframe-wrap::before { content:''; position:absolute; inset:0; z-index:0; pointer-events:none; background: linear-gradient(to bottom right, transparent calc(50% - 0.6px), rgba(148,136,126,0.38) calc(50% - 0.6px), rgba(148,136,126,0.38) calc(50% + 0.6px), transparent calc(50% + 0.6px)) no-repeat left bottom / 22% 36%, linear-gradient(to bottom left, transparent calc(50% - 0.6px), rgba(148,136,126,0.38) calc(50% - 0.6px), rgba(148,136,126,0.38) calc(50% + 0.6px), transparent calc(50% + 0.6px)) no-repeat right bottom / 22% 36%; }
+  .kuztom-iframe-wrap iframe { position:absolute; inset:0; width:100%; height:100%; z-index:1; border:none; display:block; opacity:0; transition:opacity .4s ease; }
+  .kuztom-iframe-wrap iframe.kuztom-ready { opacity:1; }
+  @keyframes kuztom-spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  .kuztom-hint { text-align:center; font-size:13px; color:#b8a898; padding:10px 0 14px; letter-spacing:0.06em; margin:6px 0 0 0; border-top:1px solid #ede9e3; }
+
+  #kuztom-skeleton { position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#faf8f5; transition:opacity .4s ease; }
+  #kuztom-skeleton.kuztom-skel-hidden { opacity:0; pointer-events:none; }
+  @keyframes kuztom-pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+  .kuztom-skel-shape { animation:kuztom-pulse 2s ease-in-out infinite; width:62%; max-width:320px; height:auto; display:block; }
+  #kuztom-skel-text { margin-top:18px; font-size:13px; color:#c9a96e; letter-spacing:.08em; font-family:inherit; animation:kuztom-pulse 2s ease-in-out infinite; }
+
+  /* ── LOADING ── */
+  #kuztom-loading-overlay { display:none; position:fixed; inset:0; z-index:20000; background:rgba(255,255,255,0.92); flex-direction:column; align-items:center; justify-content:center; gap:16px; backdrop-filter:blur(4px); }
+  #kuztom-loading-overlay.kuztom-loading-active { display:flex; }
+  #kuztom-loading-bar-wrap { width:260px; height:6px; background:#ede8df; border-radius:3px; overflow:hidden; }
+  #kuztom-loading-bar { height:6px; border-radius:3px; background:linear-gradient(90deg,#c9a96e,#e8c87a); width:0%; transition:width .3s ease; }
+  #kuztom-loading-text { font-size:14px; color:#1c1c1c; font-family:inherit; letter-spacing:.03em; }
+  .kuztom-loading-pulse { animation:kuztom-loading-blink 1.2s ease-in-out infinite; }
+  @keyframes kuztom-loading-blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* ── ERREUR TIMEOUT ── */
+  #kuztom-timeout-error { display:none; position:fixed; inset:0; z-index:20001; background:rgba(253,252,251,0.97); flex-direction:column; align-items:center; justify-content:center; gap:18px; backdrop-filter:blur(6px); padding:30px; }
+  #kuztom-timeout-error.kuztom-visible { display:flex; }
+  .kuztom-error-circle { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,#c0392b,#e74c3c); display:flex; align-items:center; justify-content:center; animation:kuztom-ping .6s ease-out forwards; }
+  @keyframes kuztom-ping { 0%{transform:scale(0.6);opacity:0} 60%{transform:scale(1.1);opacity:1} 100%{transform:scale(1);opacity:1} }
+  .kuztom-error-icon { font-size:38px; color:#fff; }
+  .kuztom-error-title { font-size:20px; font-weight:800; color:#1c1c1c; text-align:center; }
+  .kuztom-error-sub { font-size:14px; color:#5a4a30; text-align:center; line-height:1.7; max-width:300px; }
+  .kuztom-error-btn { padding:13px 28px; background:#1c1c1c; color:#fff; border:none; border-radius:12px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; margin-top:6px; }
+
+  /* ── CONFIRMATION VERTE ── */
+  #kuztom-confirm-success { display:none; position:fixed; inset:0; z-index:20000; background:rgba(253,252,251,0.97); flex-direction:column; align-items:center; justify-content:center; gap:18px; backdrop-filter:blur(6px); }
+  #kuztom-confirm-success.kuztom-visible { display:flex; }
+  .kuztom-success-circle { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,#2d7a2d,#3aa03a); display:flex; align-items:center; justify-content:center; animation:kuztom-ping .8s ease-out forwards; }
+  .kuztom-success-check { font-size:38px; color:#fff; }
+  .kuztom-success-title { font-size:20px; font-weight:800; color:#1c1c1c; text-align:center; }
+  .kuztom-success-sub { font-size:14px; color:#5a4a30; text-align:center; line-height:1.6; max-width:280px; }
+
+  #kuztom-injected-fields { display:flex; flex-direction:column; gap:22px; margin-bottom:8px; }
+  .kuztom-field-group { display:flex; flex-direction:column; gap:8px; }
+  .kuztom-label { display:block; font-size:12px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:#1c1c1c; margin:0; }
+  .kuztom-textarea { width:100%; padding:12px 16px; border:1.5px solid #e0dbd4; border-radius:10px; font-size:16px !important; font-family:inherit; color:#1c1c1c; background:#fdfcfb; outline:none; resize:vertical; min-height:80px; line-height:1.55; transition:border-color 120ms; box-sizing:border-box; }
+  .kuztom-textarea:focus { border-color:#c9a96e; }
+  .kuztom-upload-label { display:flex; align-items:center; gap:14px; padding:16px; border:1.5px solid #e6dcc9; border-radius:14px; cursor:pointer; font-size:14px; color:#555; background:#faf7f2; transition:border-color 120ms,background 120ms; user-select:none; width:100%; box-sizing:border-box; }
+  .kuztom-upload-label:hover { border-color:#c9a96e; background:#fdf9f2; }
+  .kuztom-file-input { position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; }
+  .kuztom-crop-controls { margin-top:10px; padding:12px 14px; background:#fafaf8; border:1px solid #e8e2db; border-radius:8px; }
+  .kuztom-crop-row { display:flex; align-items:center; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+  .kuztom-crop-lbl { font-size:12px; color:#888; min-width:75px; }
+  .kuztom-crop-btn { width:34px; height:34px; border:1px solid #c4bfb9; border-radius:6px; background:#fff; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; color:#555; padding:0; }
+  .kuztom-crop-btn:hover { background:#f5f0eb; border-color:#c9a96e; }
+  .kuztom-crop-zoom { flex:1; min-width:80px; accent-color:#c9a96e; }
+  .kuztom-crop-reset { font-size:12px; color:#888; background:none; border:none; cursor:pointer; padding:2px 0; text-decoration:underline; display:block; margin-top:4px; }
+  .kuztom-swatches { display:flex; flex-wrap:wrap; gap:10px; }
+  .kuztom-swatch { width:32px; height:32px; border-radius:50%; border:2px solid transparent; cursor:pointer; padding:0; outline:none; box-shadow:0 1px 4px rgba(0,0,0,0.22); transition:transform 120ms,border-color 120ms; flex-shrink:0; }
+  .kuztom-swatch:hover { transform:scale(1.15); }
+  .kuztom-swatch.active { border-color:#1c1c1c; }
+  .kuztom-swatch.kuztom-swatch-disabled { opacity:0.25; cursor:not-allowed; pointer-events:none; transform:none !important; filter:grayscale(1); }
+  .kuztom-color-label { font-size:13px; color:#555; margin-top:6px; font-style:italic; }
+  .kuztom-info-msg { font-size:12px; color:#8a8078; line-height:1.6; padding:4px 0; margin:0; }
+
+  .kuztom-alert { padding:12px 16px; background:#fffaf2; border:1.5px solid #c9a96e; border-radius:10px; font-size:13px; color:#7a5c2e; line-height:1.6; margin-top:4px; }
+  #kuztom-bloc-error { display:none; }
+  #kuztom-bloc-error.visible { display:block; }
+
+  /* ── CROP OVERLAY MOBILE ── */
+  #kuztom-crop-overlay { display:none; width:100%; background:#faf8f5; padding:10px 12px; border:1px solid #e8e2db; border-radius:0 0 14px 14px; box-sizing:border-box; }
+  #kuztom-crop-overlay .kuztom-crop-row { display:flex; align-items:center; gap:6px; margin-bottom:8px; flex-wrap:wrap; }
+  #kuztom-crop-overlay .kuztom-crop-lbl { font-size:12px; color:#555; min-width:60px; }
+  #kuztom-crop-overlay .kuztom-crop-btn { width:40px; height:40px; border:1px solid #c4bfb9; border-radius:6px; background:#fff; cursor:pointer; font-size:20px; display:flex; align-items:center; justify-content:center; color:#555; padding:0; }
+  #kuztom-crop-overlay .kuztom-crop-zoom { flex:1; min-width:80px; accent-color:#c9a96e; }
+
+  /* ── MINI VIEWER : rond 144px ── */
+  #kuztom-mini-viewer {
+    display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%);
+    width:144px; height:144px; border-radius:50%;
+    border:2.5px solid #c9a96e;
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    box-shadow:0 4px 20px rgba(201,169,110,0.25), 0 2px 8px rgba(0,0,0,0.1);
+    overflow:hidden; cursor:pointer; z-index:9999;
+  }
+  #kuztom-mini-iframe { position:absolute; top:0; left:-1px; width:686px !important; height:686px !important; transform:scale(0.21); transform-origin:top left; pointer-events:none; border:none; }
+  @media (max-width:767px) { #kuztom-viewer-col { width:100%; flex:none; } .kuztom-iframe-wrap { height:100vw; max-height:420px; min-height:320px; } }
+  @media (min-width:768px) { #kuztom-mini-viewer { display:none !important; } }
+</style>
+
+<!-- Erreur timeout -->
+<div id="kuztom-timeout-error">
+  <div class="kuztom-error-circle"><span class="kuztom-error-icon">⚠️</span></div>
+  <div class="kuztom-error-title">Connexion trop lente</div>
+  <div class="kuztom-error-sub">Votre design n'a pas pu être transmis à l'imprimeur. Cela arrive parfois avec une connexion lente ou instable.<br><br>Votre commande n'a pas été passée. Reconnectez-vous à un meilleur réseau (Wi-Fi de préférence) et réessayez.</div>
+  <button class="kuztom-error-btn" id="kuztom-error-retry">Réessayer</button>
+</div>
+
+<!-- Confirmation verte -->
+<div id="kuztom-confirm-success">
+  <div class="kuztom-success-circle"><span class="kuztom-success-check">✓</span></div>
+  <div class="kuztom-success-title">✅ Votre design est enregistré et prêt pour l'impression.</div>
+  <div class="kuztom-success-sub">Dernière étape : validez votre commande pour lancer la production.</div>
+</div>
+
+<div id="kuztom-loading-overlay">
+  <div style="display:flex;align-items:center;gap:10px;width:260px;">
+    <div id="kuztom-loading-bar-wrap" style="flex:1;"><div id="kuztom-loading-bar"></div></div>
+    <span id="kuztom-loading-pct" style="font-size:12px;color:#c9a96e;font-weight:700;min-width:36px;text-align:right;">0%</span>
+  </div>
+  <div id="kuztom-loading-text" class="kuztom-loading-pulse">Préparation de votre commande en cours...</div>
+</div>
+
+{%- assign jdgm_rating = product.metafields.judge_me.rating.value -%}
+{%- assign jdgm_count = product.metafields.judge_me.rating_count.value -%}
+{%- if jdgm_rating != blank and jdgm_count != blank and jdgm_count > 0 -%}
+<style>
+#kuztom-rating-bar { display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap; }
+.kuztom-stars { display:inline-flex;align-items:center;gap:2px; }
+.kuztom-stars svg { width:16px;height:16px; }
+.kuztom-rating-count { font-size:13px;color:#8a8078; }
+</style>
+<div id="kuztom-rating-bar">
+  <div class="kuztom-stars">
+    {%- assign rating_rounded = jdgm_rating | round -%}
+    {%- for i in (1..5) -%}
+      {%- if i <= rating_rounded -%}
+        <svg viewBox="0 0 24 24" fill="#E3D431" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      {%- else -%}
+        <svg viewBox="0 0 24 24" fill="#e0dbd4" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <span class="kuztom-rating-count">{{ jdgm_count }} avis</span>
+</div>
+<script>
+(function() {
+  function placeRating() {
+    var bar = document.getElementById('kuztom-rating-bar');
+    if (!bar) return;
+    var pi = document.querySelector('.product-info');
+    if (!pi) { setTimeout(placeRating, 200); return; }
+    var titleBlock = pi.querySelector('[data-block-type="title"]');
+    if (titleBlock) { titleBlock.parentNode.insertBefore(bar, titleBlock.nextSibling); return; }
+    var h1 = pi.querySelector('h1');
+    if (h1) { h1.parentNode.insertBefore(bar, h1.nextSibling); return; }
+    pi.prepend(bar);
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', placeRating); }
+  else { setTimeout(placeRating, 100); }
+})();
+</script>
+{%- endif -%}
+
+<div id="kuztom-viewer-col">
+  <div class="kuztom-iframe-wrap" id="kuztom-iframe-wrap">
+    <iframe id="kuztom-iframe" title="Aperçu 3D de votre {{ kz_nom }}"></iframe>
+    <div id="kuztom-skeleton">
+      <svg class="kuztom-skel-shape" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="kug-body" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#d0cdc8"/><stop offset="18%" stop-color="#e8e5e0"/>
+            <stop offset="42%" stop-color="#f5f3ef"/><stop offset="58%" stop-color="#f5f3ef"/>
+            <stop offset="82%" stop-color="#e2dfd9"/><stop offset="100%" stop-color="#c8c5c0"/>
+          </linearGradient>
+          <linearGradient id="kug-shine" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+            <stop offset="40%" stop-color="#ffffff" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="kug-shadow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#b0aca8" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#b0aca8" stop-opacity="0"/>
+          </radialGradient>
+          {%- if kz_forme == 'flute' -%}
+            {%- assign kz_path = 'M116 34 C116 172 123 214 140 224 L140 336 L100 336 Q90 336 90 344 Q90 352 100 352 L200 352 Q210 352 210 344 Q210 336 200 336 L160 336 L160 224 C177 214 184 172 184 34 Z' -%}
+            {%- assign kz_rim_rx = 34 -%}
+            {%- assign kz_rim_cy = 34 -%}
+          {%- else -%}
+            {%- assign kz_path = 'M88 44 C88 150 108 186 138 196 L138 336 L96 336 Q86 336 86 344 Q86 352 96 352 L204 352 Q214 352 214 344 Q214 336 204 336 L162 336 L162 196 C192 186 212 150 212 44 Z' -%}
+            {%- assign kz_rim_rx = 62 -%}
+            {%- assign kz_rim_cy = 44 -%}
+          {%- endif -%}
+          <clipPath id="kug-clip"><path d="{{ kz_path }}"/></clipPath>
+        </defs>
+        <ellipse cx="150" cy="360" rx="66" ry="9" fill="url(#kug-shadow)"/>
+        <path d="{{ kz_path }}" fill="url(#kug-body)"/>
+        <rect x="80" y="30" width="52" height="330" fill="url(#kug-shine)" clip-path="url(#kug-clip)"/>
+        <ellipse cx="150" cy="{{ kz_rim_cy }}" rx="{{ kz_rim_rx }}" ry="6" fill="#e8e5e0" stroke="#c0bcb8" stroke-width="1"/>
+        <ellipse cx="150" cy="{{ kz_rim_cy }}" rx="{{ kz_rim_rx | minus: 8 }}" ry="4" fill="#ccc9c4"/>
+      </svg>
+      <div id="kuztom-skel-text">{{ kz_perso }}</div>
+    </div>
+  </div>
+  <!-- CROP OVERLAY MOBILE : sous le viewer -->
+  <div id="kuztom-crop-overlay">
+    <div class="kuztom-crop-row">
+      <span class="kuztom-crop-lbl">&#128269; Zoom</span>
+      <button type="button" class="kuztom-crop-btn" id="kco-zm">&minus;</button>
+      <input type="range" class="kuztom-crop-zoom" id="kco-slider" min="50" max="300" value="100" step="5">
+      <button type="button" class="kuztom-crop-btn" id="kco-zp">+</button>
+    </div>
+    <div class="kuztom-crop-row" style="margin-bottom:0;justify-content:center;">
+      <button type="button" class="kuztom-crop-btn" id="kco-l" style="display:flex;align-items:center;justify-content:center;">&#9664;</button>
+      <button type="button" class="kuztom-crop-btn" id="kco-r" style="display:flex;align-items:center;justify-content:center;">&#9654;</button>
+      <button type="button" class="kuztom-crop-btn" id="kco-u" style="display:flex;align-items:center;justify-content:center;">&#9650;</button>
+      <button type="button" class="kuztom-crop-btn" id="kco-d" style="display:flex;align-items:center;justify-content:center;">&#9660;</button>
+      <button type="button" id="kuztom-crop-validate" style="flex:1;margin:0;padding:8px 6px;background:#c9a96e;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Valider</button>
+    </div>
+  </div>
+  <p class="kuztom-hint"><span style="display:inline-block;animation:kuztom-spin 3s linear infinite">&#8635;</span> &nbsp;Explorer &agrave; 360&deg;</p>
+</div>
+
+<div id="kuztom-mini-viewer">
+  <iframe id="kuztom-mini-iframe" title="Mini aperçu {{ kz_nom_court }}"></iframe>
+</div>
+
+<script>
+(function () {
+  // ══════════════════════════════════════════════════════════════
+  //  KZ_LAYOUT v5 — SOURCE DE VÉRITÉ UNIQUE
+  //  ⚠️ Bloc DUPLIQUÉ À L'IDENTIQUE dans :
+  //       kuztom-admin.html · configurateur-viewer.html · configurateur-3d.liquid
+  //     Toute modif doit être reportée dans les trois + version incrémentée.
+  //  Ici il sert à décider si le texte du client rentre encore (MIN_FONT_PX).
+  //  Il DOIT donner le même résultat que le viewer, sinon on bloque la frappe
+  //  sur des textes qui passaient, ou on en laisse passer qui débordent.
+  //
+  //  06/09/2026 — REMISE À NIVEAU v2 → v5.
+  //  Ce fichier était resté en v2 (décrément linéaire de 2 px, test de
+  //  hauteur autour d'un ancrage figé au milieu du cadratin) pendant que le
+  //  viewer et l'admin passaient en v5 (mesure sur l'ENCRE réelle +
+  //  dichotomie + test d'ellipse exact). Les deux ne rendaient plus le même
+  //  chiffre : sur « Alexis » dans une zone de 550×79 plafonnée à 102 px,
+  //  la v2 répondait 88 px là où le viewer en dessinait 102. Le garde-fou
+  //  bloquait donc la frappe plus tôt que nécessaire, sur des textes qui
+  //  passaient très bien. Le commentaire « source de vérité unique » était
+  //  devenu faux ; il redevient vrai.
+  // ══════════════════════════════════════════════════════════════
+  var KZ_LAYOUT_VERSION = 5;   // v3 : COURBURE (zone.curve) · v5 : ellipse exacte (KZ_fits)
+  var KZ_FS_MIN = 8;   // plancher commun (l'admin était à 6, le viewer à 8)
+  var KZ_FS_STEP = 2;
+  var _kzMeasureCtx = document.createElement('canvas').getContext('2d');
+
+  // ── v4 : mesure sur l'ENCRE + dichotomie ────────────────────────────
+  // Avant : on partait du plafond et on descendait de 2 px, et le test de
+  // hauteur était fait autour d'un ancrage FIGÉ (milieu du cadratin).
+  // Comme l'encre n'est pas symétrique autour de cet ancrage (hampes et
+  // accents en haut, presque rien en bas pour des chiffres), le texte
+  // butait en haut alors qu'il restait du vide en bas — vide inutilisable.
+  // Maintenant : on mesure la hauteur d'encre réelle, on la centre, et on
+  // cherche la plus grande taille par dichotomie au pixel près.
+  var KZ_INK_CENTER = true;    // ⚠️ BLOC MIROIR : même valeur dans le viewer
+  var KZ_INK_SW     = 3;       // marge réservée au contour
+
+  function KZ_ink(ctx, zone, text, fs) {
+    var lines = String(text == null ? '' : text).split('\n');
+    var lh    = zone.lineHeight || 1.3;
+    var lineH = fs * lh;
+    ctx.font = fs + "px '" + (zone.font_family || 'Jost') + "'";
+    ctx.textBaseline = 'middle';
+    ctx.textAlign    = 'left';
+    var mF = ctx.measureText(lines[0] || ' ');
+    var mL = ctx.measureText(lines[lines.length - 1] || ' ');
+    var asc  = (mF.actualBoundingBoxAscent  !== undefined) ? mF.actualBoundingBoxAscent  : fs * 0.35;
+    var desc = (mL.actualBoundingBoxDescent !== undefined) ? mL.actualBoundingBoxDescent : fs * 0.35;
+    var w = 0;
+    for (var i = 0; i < lines.length; i++) {
+      var m  = ctx.measureText(lines[i] || ' ');
+      var lw = (m.actualBoundingBoxLeft !== undefined && m.actualBoundingBoxRight !== undefined)
+             ? (Math.abs(m.actualBoundingBoxLeft) + Math.abs(m.actualBoundingBoxRight)) : m.width;
+      if (lw > w) w = lw;
+    }
+    return { w: w, h: asc + (lines.length - 1) * lineH + desc, asc: asc, desc: desc };
+  }
+
+  // Décalage vertical à appliquer au dessin pour centrer sur l'encre.
+  function KZ_inkShift(ctx, zone, text, fs) {
+    if (!KZ_INK_CENTER) return 0;
+    var prevF = ctx.font, prevB = ctx.textBaseline, prevA = ctx.textAlign;
+    var k = KZ_ink(ctx, zone, text, fs);
+    ctx.font = prevF; ctx.textBaseline = prevB; ctx.textAlign = prevA;
+    return (k.asc - k.desc) / 2;
+  }
+
+  // ── v5 : une zone OVALE ou RONDE n'est pas un rectangle rapetissé ───
+  // Avant : pour une zone ovale on rabotait la boîte de 29 % EN LARGEUR ET
+  // EN HAUTEUR (x 0,707). C'est le carré inscrit dans l'ellipse : exact
+  // uniquement si le bloc de texte est lui-même carré. Pour une ligne large
+  // et basse — « Kevin et Melody » — la hauteur n'était pas le frein, mais on
+  // bridait quand même la largeur de 29 % : la police restait trop petite.
+  // Le vrai test : un bloc centre w x h tient dans une ellipse W x H si
+  //     (w/W)^2 + (h/H)^2 <= 1
+  // Bloc carre : resultat identique a avant. Bloc plat ou etroit : jusqu'a
+  // +41 % de police. Ce test ne rend JAMAIS moins de place qu'avant.
+  // Rectangle : test inchange au pixel pres.
+  function KZ_fits(shape, W, H, w, h) {
+    if (W <= 0 || H <= 0) return false;
+    if (shape !== 'oval' && shape !== 'circle') return (w <= W && h <= H);
+    var u = w / W, v = h / H;
+    return (u * u + v * v) <= 1;
+  }
+
+  function KZ_fontSize(ctx, zone, text, boxW, boxH) {
+    var shape = zone.shape || 'rectangle';
+    var cap   = Math.max(KZ_FS_MIN, zone.font_size || 48);
+    var lines = String(text == null ? '' : text).split('\n');
+    if (!lines.some(function (l) { return l.trim(); })) return cap;
+
+    var prevBaseline = ctx.textBaseline, prevAlign = ctx.textAlign, prevFont = ctx.font;
+    var lo = KZ_FS_MIN, hi = cap, best = KZ_FS_MIN;
+    while (lo <= hi) {
+      var mid = (lo + hi) >> 1;
+      var k   = KZ_ink(ctx, zone, text, mid);
+      if (KZ_fits(shape, boxW, boxH, k.w + KZ_INK_SW, k.h + KZ_INK_SW)) { best = mid; lo = mid + 1; }
+      else hi = mid - 1;
+    }
+    ctx.textBaseline = prevBaseline; ctx.textAlign = prevAlign; ctx.font = prevFont;
+    return best;
+  }
+
+  var VIEWER_ORIGIN  = '*';
+  // ── ENVIRONNEMENT DE TEST (thème « TEST refonte admin », ne pas publier) ──
+  //    viewer, données et proxy de la branche dev / du Worker de test.
+  var VIEWER_BASE    = 'https://dev.code-3d.pages.dev/configurateur-viewer.html';
+  var DESIGNS_BASE   = 'https://dev.code-3d.pages.dev/designs/';            // P6-12 : un fichier par design
+  var DESIGNS_URL    = 'https://dev.code-3d.pages.dev/designs-light.json';  // repli : liste complète
+  var CACHE_KEY      = 'kuztom_design_' + {{ product.handle | json }};      // P6-12 : ne garde que CE design
+  var CACHE_TTL      = 60 * 60 * 1000;
+  var PROXY_URL = 'https://kuztom-proxy-test.contact-kuztom.workers.dev';
+  // P6-08 : origine réelle de cette fiche, lue par kz-express-guard (detectOrigin).
+  window.__kzSource = {{ kz_forme | json }};
+  // P2-08 : seuls les messages venant du viewer (Cloudflare Pages code-3d,
+  // production ou branche, ou GitHub Pages) sont pris en compte.
+  function kzOrigineViewer(o) {
+    return typeof o === 'string'
+        && (/^https:\/\/([a-z0-9-]+\.)?code-3d\.pages\.dev$/.test(o) || o === 'https://clcreation542-coder.github.io');
+  }
+  var PROXY_KEY = '';
+  // VERRERIE : pas d'option Contenance sur ces fiches (Quantité seule).
+  // Le tableau vide neutralise les règles gobelet sans retirer le code
+  // commun, ce qui garde les deux configurateurs alignés à la lecture.
+  var CONTENANCES_RESTREINTES = [];
+  var QTE_MIN = 0;
+  var PHOTO_MIN_PX = 200;
+  var PHOTO_WARN_PX = 500;
+  var LOADING_MESSAGES = [
+    'Préparation de votre commande…',
+    'Envoi du design à l\'imprimeur…',
+    'Vérification des couleurs…',
+    'Finalisation en cours…'
+  ];
+
+  var productHandle  = {{ product.handle | json }};
+  var iframe         = document.getElementById('kuztom-iframe');
+  var miniIframe     = document.getElementById('kuztom-mini-iframe');
+  var miniViewer     = document.getElementById('kuztom-mini-viewer');
+  // Le mini viewer ne se charge que s'il devient visible (mobile).
+  var _kzMiniSrc = null, _kzMiniLoaded = false;
+  function kzLoadMini(){
+    if (_kzMiniLoaded || !miniIframe || !_kzMiniSrc) return;
+    _kzMiniLoaded = true;
+    miniIframe.src = _kzMiniSrc;
+  }
+  var iframeWrap     = document.getElementById('kuztom-iframe-wrap');
+  var viewerReady    = false;
+  var formBuilt      = false;
+  var hasPhotoZones  = false;
+  var isMobile       = window.innerWidth < 768;
+  var photoCropState = {};
+  var CROP_STEP      = 20;
+  var activeCropZone = null;
+  var zoneInfoCache  = {};
+  var currentDesignName = '';
+  var fieldsContainer   = null;
+  window._kzpZoneAlignCache = {};
+  if (!window._kuztomPhotoFileNames) window._kuztomPhotoFileNames = {};
+
+  function getContenanceAffichee() {
+    var allSpans = document.querySelectorAll('span');
+    for (var i = 0; i < allSpans.length; i++) {
+      var t = allSpans[i].textContent.trim();
+      if ((t === '12 / 18 cl' || t === '50 / 60 cl' || t === '25 / 33 cl') && allSpans[i].children.length === 0) return t;
+    }
+    var labels = document.querySelectorAll('dt, .text-subdued');
+    for (var i = 0; i < labels.length; i++) {
+      if (labels[i].textContent.trim() === 'Contenance:' || labels[i].textContent.trim() === 'Contenance') {
+        var next = labels[i].nextElementSibling;
+        if (next && next.textContent.indexOf('cl') !== -1) return next.textContent.trim();
+      }
+    }
+    return '';
+  }
+
+  function getQuantiteAffichee() {
+    var allSpans = document.querySelectorAll('span');
+    for (var i = 0; i < allSpans.length; i++) {
+      var t = allSpans[i].textContent.trim();
+      var n = parseInt(t, 10);
+      if (!isNaN(n) && String(n) === t && n >= 10 && n <= 500 && allSpans[i].children.length === 0) return n;
+    }
+    return 0;
+  }
+
+  function estContenanceRestreinte(c) {
+    for (var i = 0; i < CONTENANCES_RESTREINTES.length; i++) {
+      if (c.indexOf(CONTENANCES_RESTREINTES[i]) !== -1) return true;
+    }
+    return false;
+  }
+
+  function verifierConditions() {
+    if (!fieldsContainer) return true;
+    var contenance = getContenanceAffichee();
+    var quantite   = getQuantiteAffichee();
+    var restreinte = contenance ? estContenanceRestreinte(contenance) : false;
+    var errorEl    = document.getElementById('kuztom-bloc-error');
+
+    var swatchBlanc = fieldsContainer.querySelector('.kuztom-swatch[data-color="#ffffff"], .kuztom-swatch[data-color="#FFFFFF"]');
+    if (swatchBlanc) {
+      if (restreinte) {
+        swatchBlanc.classList.add('kuztom-swatch-disabled');
+        if (swatchBlanc.classList.contains('active')) {
+          swatchBlanc.classList.remove('active');
+          var premierDispo = fieldsContainer.querySelector('.kuztom-swatch:not(.kuztom-swatch-disabled)');
+          if (premierDispo) {
+            premierDispo.classList.add('active');
+            var colorLabel = fieldsContainer.querySelector('.kuztom-color-label');
+            if (colorLabel) colorLabel.textContent = premierDispo.dataset.colorName || 'Translucide';
+            post({ type: 'UPDATE_COLOR', value: premierDispo.dataset.color, opacity: parseFloat(premierDispo.dataset.opacity || '0.88'), textColorOverride: null });
+            updateLineItemProperties();
+          }
+        }
+      } else {
+        swatchBlanc.classList.remove('kuztom-swatch-disabled');
+      }
+    }
+
+    var erreurs = [];
+    var activeSwatch = fieldsContainer.querySelector('.kuztom-swatch.active');
+    var couleurActive = activeSwatch ? (activeSwatch.dataset.color || '').toLowerCase() : '';
+
+    if (restreinte && couleurActive === '#ffffff') {
+      erreurs.push('Le ' + {{ kz_nom | json }} + ' Blanc n’est pas disponible en ' + contenance + '. Veuillez choisir Translucide.');
+    }
+    if (restreinte && quantite > 0 && quantite < QTE_MIN) {
+      erreurs.push('Le ' + contenance + ' est disponible à partir de ' + QTE_MIN + ' ' + {{ kz_nom_court | json }} + 's minimum.');
+    }
+
+    if (errorEl) {
+      if (erreurs.length > 0) {
+        errorEl.className = 'kuztom-alert visible';
+        errorEl.innerHTML = erreurs.join('<br>');
+      } else {
+        errorEl.className = '';
+        errorEl.id = 'kuztom-bloc-error';
+        errorEl.innerHTML = '';
+      }
+    }
+
+    return erreurs.length === 0;
+  }
+
+  function watchContenance() {
+    var variantPicker = document.querySelector('variant-picker');
+    if (!variantPicker) { setTimeout(watchContenance, 500); return; }
+    var observer = new MutationObserver(function() { setTimeout(verifierConditions, 400); });
+    observer.observe(variantPicker, { subtree: true, childList: true, characterData: true });
+    variantPicker.addEventListener('change', function() { setTimeout(verifierConditions, 400); });
+    variantPicker.addEventListener('click', function() { setTimeout(verifierConditions, 600); });
+    setTimeout(verifierConditions, 1000);
+  }
+
+  // ════════════════════════════════════════════════════════════
+  //  CACHE : servir vite, mais ne JAMAIS servir périmé.
+  //
+  //  AVANT : si le cache avait moins d'1 h, on ne vérifiait RIEN. Conséquence :
+  //  un design publié restait invisible jusqu'à 1 h pour tout visiteur déjà
+  //  venu, un design retiré restait commandable, et Ctrl+Shift+R n'y changeait
+  //  rien (le localStorage survit au rechargement forcé).
+  //
+  //  MAINTENANT : on sert le cache immédiatement (page instantanée) PUIS on
+  //  revalide en arrière-plan. Si LE design de cette page a changé, on
+  //  recharge une fois. Sinon on ne touche à rien.
+  // ════════════════════════════════════════════════════════════
+  var RELOAD_FLAG = 'kuztom_cache_reloaded';
+
+  // ════════════════════════════════════════════════════════════
+  //  P6-12 — UN SEUL chargement des données du design, partagé.
+  //  On lit designs/<handle>.json (quelques Ko) au lieu de la liste
+  //  complète designs-light.json (~600 Ko). Si ce fichier manque
+  //  (fiche sans design, déploiement partiel…), on retombe sur la liste
+  //  complète : au pire on refait exactement l'appel d'avant.
+  //  Le design trouvé (ou null) est publié dans window.kzDesignPret
+  //  (Promise) : kz-couleurs s'en sert au lieu de retélécharger.
+  //  Le cache garde le même principe (servir tout de suite, revalider en
+  //  arrière-plan, recharger une fois si CE design a changé), mais ne
+  //  stocke plus que le design de la fiche.
+  // ════════════════════════════════════════════════════════════
+  var _kzResoutDesign = null;
+  window.kzDesignPret = new Promise(function (r) { _kzResoutDesign = r; });
+  window.kzDesignPret.kzHandle = productHandle;
+  function kzPublieDesign(d) {
+    if (_kzResoutDesign) { _kzResoutDesign(d || null); _kzResoutDesign = null; }
+  }
+
+  function kzFindDesign(list, handle) {
+    if (!Array.isArray(list)) return null;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].shopify_handle && list[i].shopify_handle === handle) return list[i];
+    }
+    for (var j = 0; j < list.length; j++) {
+      if (list[j].id && list[j].id.indexOf(handle) === 0) return list[j];
+    }
+    return null;
+  }
+
+  function loadDesigns(callback) {
+    var served = false, cachedData = null;
+    try {
+      var cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        var parsed = JSON.parse(cached);
+        if (parsed && parsed.ts && parsed.data && (Date.now() - parsed.ts) < CACHE_TTL) {
+          cachedData = parsed.data;
+          callback(cachedData);   // page instantanée
+          served = true;
+        }
+      }
+    } catch(e) {}
+
+    // Revalidation : TOUJOURS, même si le cache est tout frais.
+    kzTelechargeDesign()
+      .then(function(design) {
+        try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: design })); } catch(e) {}
+        if (!served) { callback(design); return; }
+
+        var avant = JSON.stringify(cachedData);
+        var apres = JSON.stringify(design);
+        if (avant === apres) {
+          try { sessionStorage.removeItem(RELOAD_FLAG); } catch(e) {}
+          return;                                   // rien de neuf
+        }
+        // Ne JAMAIS recharger sous les doigts d'un client en train de commander :
+        // il perdrait sa photo et son panier en cours.
+        if (window._kuztomPendingSubmit || window._kuztomPngRequested) return;
+        if (Object.keys(window._kuztomPhotoDataUrls || {}).length) return;
+        try {
+          if (sessionStorage.getItem(RELOAD_FLAG)) return;   // sécurité anti-boucle
+          sessionStorage.setItem(RELOAD_FLAG, '1');
+        } catch(e) { return; }
+        console.info('Kuztom: catalogue mis à jour → rechargement.');
+        location.reload();
+      })
+      .catch(function(e) {
+        // Réseau KO : si le cache a déjà servi, on continue avec. Sinon rien à afficher.
+        console.warn('Kuztom: revalidation impossible:', e);
+        if (!served) kzPublieDesign(null);
+      });
+  }
+
+  // P6-12 : designs/<handle>.json d'abord, liste complète en repli.
+  function kzTelechargeDesign() {
+    return fetch(DESIGNS_BASE + encodeURIComponent(productHandle) + '.json', { cache: 'no-store' })
+      .then(function(r) { return r.ok ? r.json() : Promise.reject('HTTP ' + r.status); })
+      .then(function(d) {
+        if (!d || Array.isArray(d) || typeof d !== 'object' || d.shopify_handle !== productHandle) throw new Error('Format inattendu');
+        return d;
+      })
+      .catch(function() {
+        return fetch(DESIGNS_URL, { cache: 'no-store' })
+          .then(function(r) { return r.ok ? r.json() : Promise.reject('HTTP ' + r.status); })
+          .then(function(designs) {
+            if (!Array.isArray(designs)) throw new Error('Format inattendu');
+            return kzFindDesign(designs, productHandle);
+          });
+      });
+  }
+
+  function sizeViewer() {
+    if (!iframeWrap) return;
+    var w = iframeWrap.offsetWidth;
+    if (!w) w = Math.round(window.innerWidth * 0.5);
+    iframeWrap.style.height = w + 'px';
+    if (iframe) iframe.style.height = w + 'px';
+  }
+  sizeViewer();
+  window.addEventListener('resize', sizeViewer);
+
+  // ── SCROLL MOBILE FIX ──
+  if (iframe) {
+    var _touchStartX=0, _touchStartY=0, _scrollLocked=false;
+    iframe.addEventListener('touchstart', function(e) {
+      if (e.touches.length!==1) return;
+      _touchStartX=e.touches[0].clientX; _touchStartY=e.touches[0].clientY; _scrollLocked=false;
+    }, {passive:true});
+    iframe.addEventListener('touchmove', function(e) {
+      if (e.touches.length!==1) return;
+      var dx=Math.abs(e.touches[0].clientX-_touchStartX);
+      var dy=Math.abs(e.touches[0].clientY-_touchStartY);
+      if (!_scrollLocked) { if (dy>dx+5) { _scrollLocked=true; return; } }
+      if (_scrollLocked) return;
+    }, {passive:true});
+  }
+
+  if (isMobile && iframeWrap && miniViewer) {
+    window.addEventListener('scroll', function () {
+      var rect = iframeWrap.getBoundingClientRect();
+      var _vis=(rect.bottom>0&&rect.top<window.innerHeight);
+      miniViewer.style.display=_vis?'none':'block';
+      if(!_vis) kzLoadMini();
+    }, { passive: true });
+    miniViewer.addEventListener('click', function () {
+      iframeWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  function post(data) {
+    if (iframe && iframe.contentWindow) iframe.contentWindow.postMessage(data, VIEWER_ORIGIN);
+    if (_kzMiniLoaded && miniIframe && miniIframe.contentWindow) miniIframe.contentWindow.postMessage(data, VIEWER_ORIGIN);
+  }
+
+  function kzDebounce(fn, wait) {
+    var t;
+    return function() {
+      var ctx = this, args = arguments;
+      clearTimeout(t);
+      t = setTimeout(function() { fn.apply(ctx, args); }, wait);
+    };
+  }
+
+  function sendCrop(zoneId) {
+    var c = photoCropState[zoneId] || { zoom: 1, offsetX: 0, offsetY: 0 };
+    post({ type: 'PHOTO_CROP', zoneId: zoneId, zoom: c.zoom, offsetX: c.offsetX, offsetY: c.offsetY });
+    if (fieldsContainer) {
+      var slider = fieldsContainer.querySelector('.kuztom-crop-zoom[data-zone-id="' + zoneId + '"]');
+      if (slider) slider.value = Math.round(c.zoom * 100);
+    }
+    var mobSlider = document.getElementById('kco-slider');
+    if (mobSlider) mobSlider.value = Math.round(c.zoom * 100);
+  }
+
+  (function() {
+    var overlay = document.getElementById('kuztom-crop-overlay');
+    if (!overlay) return;
+    function getC() {
+      if (!activeCropZone) return { zoom: 1, offsetX: 0, offsetY: 0 };
+      if (!photoCropState[activeCropZone]) photoCropState[activeCropZone] = { zoom: 1, offsetX: 0, offsetY: 0 };
+      return photoCropState[activeCropZone];
+    }
+    var slider = document.getElementById('kco-slider');
+    if (slider) slider.addEventListener('input', function() {
+      var c = getC(); c.zoom = parseInt(slider.value) / 100;
+      if (activeCropZone) sendCrop(activeCropZone);
+    });
+    ['kco-zm','kco-zp','kco-l','kco-r','kco-u','kco-d'].forEach(function(id) {
+      var btn = document.getElementById(id);
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var c = getC();
+        if (id === 'kco-zm') c.zoom = Math.max(0.5, c.zoom - 0.1);
+        if (id === 'kco-zp') c.zoom = Math.min(3, c.zoom + 0.1);
+        if (id === 'kco-l')  c.offsetX -= CROP_STEP;
+        if (id === 'kco-r')  c.offsetX += CROP_STEP;
+        if (id === 'kco-u')  c.offsetY -= CROP_STEP;
+        if (id === 'kco-d')  c.offsetY += CROP_STEP;
+        if (activeCropZone) sendCrop(activeCropZone);
+      });
+    });
+    var validate = document.getElementById('kuztom-crop-validate');
+    if (validate) validate.addEventListener('click', function() {
+      overlay.style.display = 'none'; activeCropZone = null;
+    });
+  })();
+
+  function injectProp(form, key, value) {
+    var input = document.createElement('input');
+    input.type = 'hidden'; input.name = 'properties[' + key + ']'; input.value = value;
+    input.setAttribute('data-kuztom', '1');
+    form.appendChild(input);
+  }
+
+  window._kuztomPhotoDataUrls = window._kuztomPhotoDataUrls || {};
+
+  function uploadPhotoSource(zoneId, dataUrl, label) {
+    return new Promise(function(resolve) {
+      try {
+        var b64 = dataUrl.split(',')[1];
+        if (!b64) { resolve(null); return; }
+        var REPO = 'clcreation542-coder/Code-3D';
+        // ── Nom triable : compte à rebours depuis une date lointaine dans le futur,
+        // + la forme (verre-a-vin / flute) pour identifier ce configurateur, + nom du design conservé.
+        var FAR_FUTURE = 9999999999; // borne au-delà de l'année 2286, largement suffisant
+        var nowSeconds = Math.floor(Date.now() / 1000);
+        var inverted = String(FAR_FUTURE - nowSeconds).padStart(10, '0');
+        var slug = (currentDesignName || 'design').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40);
+        var filename = 'orders/' + inverted + '-' + {{ kz_forme | json }} + '-' + slug + '-photo-source-' + zoneId + '.png';
+      fetch(PROXY_URL + '/file', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Auth-Key': PROXY_KEY },
+        body: JSON.stringify({ path: filename, content: b64, message: 'photo source: ' + filename })
+      }).then(function(res) {
+        if (res.ok) { resolve({ url: 'https://dev.code-3d.pages.dev/' + filename, label: label }); }
+        else { resolve(null); }
+        }).catch(function() { resolve(null); });
+      } catch (e) { resolve(null); }
+    });
+  }
+
+  function uploadAllPhotoSources() {
+    var keys = Object.keys(window._kuztomPhotoDataUrls || {});
+    if (keys.length === 0) return Promise.resolve([]);
+    var promises = keys.map(function(zoneId) {
+      var entry = window._kuztomPhotoDataUrls[zoneId];
+      return uploadPhotoSource(zoneId, entry.dataUrl, entry.label);
+    });
+    return Promise.all(promises);
+  }
+
+  function updateLineItemProperties() {
+    var form = document.querySelector('form[action*="/cart/add"]');
+    if (!form || !fieldsContainer) return;
+    form.querySelectorAll('input[data-kuztom]').forEach(function(el) { el.remove(); });
+    injectProp(form, '_Design', currentDesignName || '');
+    var colorLabel = fieldsContainer.querySelector('.kuztom-color-label');
+    injectProp(form, {{ kz_prop_coul | json }}, colorLabel ? colorLabel.textContent : '');
+    var dateEl = document.getElementById('kuztom-event-date');
+    if (dateEl && dateEl.value) injectProp(form, 'Date evenement', dateEl.value);
+    Object.keys(window._kuztomPhotoFileNames || {}).forEach(function(zoneId) {
+      var entry = window._kuztomPhotoFileNames[zoneId];
+      if (!entry || !entry.name) return;
+      injectProp(form, entry.label, entry.name);
+    });
+    fieldsContainer.querySelectorAll('.kuztom-textarea[data-zone-id]').forEach(function(ta) {
+      var zoneId = ta.dataset.zoneId;
+      var label = (ta.closest('.kuztom-field-group').querySelector('.kuztom-label') || {}).textContent || zoneId;
+      var val = ta.value.trim();
+      var info = zoneInfoCache[zoneId];
+      if (val) {
+        injectProp(form, label, val);
+        var valBackoffice = val.replace(/ /g, '␛').replace(/\n/g, ' ↵\n');
+        injectProp(form, '_' + label + ' backoffice', valBackoffice);
+        injectProp(form, '_' + label + ' lignes', String(val.split('\n').length));
+        if (info) injectProp(form, '_' + label + ' police', String(info.fontSize) + 'px');
+      }
+    });
+    fieldsContainer.querySelectorAll('.kuztom-textarea[data-arch-zone-id]').forEach(function(ta) {
+      var label = (ta.closest('.kuztom-field-group').querySelector('.kuztom-label') || {}).textContent || ta.dataset.archZoneId;
+      var val = ta.value.trim();
+      if (val) {
+        injectProp(form, label, val);
+        injectProp(form, '_' + label + ' backoffice', val.replace(/\n/g, ' ↵\n'));
+      }
+    });
+  }
+
+  function syncAll() {
+    if (!fieldsContainer) return;
+    fieldsContainer.querySelectorAll('.kuztom-textarea[data-zone-id]').forEach(function(ta) {
+      post({ type: 'UPDATE_TEXT', zoneId: ta.dataset.zoneId, value: ta.value });
+    });
+    fieldsContainer.querySelectorAll('.kuztom-textarea[data-arch-zone-id]').forEach(function(ta) {
+      post({ type: 'UPDATE_TEXT', zoneId: ta.dataset.archZoneId, value: ta.value });
+    });
+    var active = fieldsContainer.querySelector('.kuztom-swatch.active');
+    if (active) post({ type: 'UPDATE_COLOR', value: active.dataset.color });
+    updateLineItemProperties();
+  }
+
+  function showError() {
+    var errEl = document.getElementById('kuztom-timeout-error');
+    if (errEl) errEl.classList.add('kuztom-visible');
+    var retryBtn = document.getElementById('kuztom-error-retry');
+    if (retryBtn) retryBtn.addEventListener('click', function() {
+      if (errEl) errEl.classList.remove('kuztom-visible');
+      window._kuztomPngRequested = false;
+      window._kuztomPendingSubmit = false;
+      var cb = document.getElementById('kzp-confirm-btn');
+      if (cb) { cb.disabled = false; cb.textContent = 'Ajouter au panier'; }
+    });
+  }
+
+  function startLoadingAnimation(loadBar, loadText, pctEl) {
+    var pct = 0, msgIdx = 0, tick = 0;
+    if (loadText) loadText.textContent = LOADING_MESSAGES[0];
+    if (loadBar) loadBar.style.width = '0%';
+    if (pctEl) pctEl.textContent = '0%';
+    // Avance vite au début puis ralentit, mais bouge toujours (min 0,5/pas) :
+    // jamais de blocage, et le client voit une vraie progression dès le départ.
+    var interval = setInterval(function() {
+      if (pct < 99) pct = Math.min(pct + Math.max((99 - pct) * 0.05, 0.5), 99);
+      var shown = Math.round(pct);
+      if (loadBar) loadBar.style.width = shown + '%';
+      if (pctEl) pctEl.textContent = shown + '%';
+      // Messages en boucle infinie toutes les ~3 s (15 ticks × 200ms), indépendants
+      // du pourcentage : même bloqué à 99 %, le texte continue de tourner.
+      tick++;
+      if (tick % 15 === 0) {
+        msgIdx = (msgIdx + 1) % LOADING_MESSAGES.length;
+        if (loadText) loadText.textContent = LOADING_MESSAGES[msgIdx];
+      }
+    }, 200);
+    return interval;
+  }
+
+  // ── P6-08 : une propriété = une seule valeur dans le formulaire ──
+  function kzRetireProp(form, key) {
+    form.querySelectorAll('input[name="properties[' + key + ']"]').forEach(function(el) { el.remove(); });
+  }
+
+  // ── P6-10 : photo(s) originale(s) du client, déposées par le viewer ──
+  //  Demandée une fois par tentative de commande (si le client a mis au
+  //  moins une photo). Le viewer attend la fin du PNG imprimeur avant
+  //  d'envoyer la photo. La commande part au plus tard
+  //  KZ_PHOTO_ATTENTE_MAX ms après le délai habituel : sans réponse, elle
+  //  part sans la propriété (rien n'est bloqué).
+  var KZ_PHOTO_ATTENTE_MAX = 8000;
+  function kzDemandePhotosSources() {
+    if (window._kzPhotoSrcDemandee) return;
+    var zones = Object.keys(window._kuztomPhotoDataUrls || {});
+    if (!zones.length || !iframe || !iframe.contentWindow) return;
+    window._kzPhotoSrcDemandee = true;
+    window._kzPhotoSrcAttente = true;
+    iframe.contentWindow.postMessage({ type: 'REQUEST_PHOTO_SOURCES', zoneIds: zones }, VIEWER_ORIGIN);
+  }
+  function kzPosePhotosSources(urls) {
+    window._kzPhotoSrcAttente = false;
+    var form = document.querySelector('form[action*="/cart/add"]');
+    if (!form || !urls) return;
+    Object.keys(urls).forEach(function(zoneId) {
+      if (!urls[zoneId]) return;
+      var entry = (window._kuztomPhotoFileNames || {})[zoneId];
+      var key = '_Photo originale ' + ((entry && entry.label) || zoneId);
+      kzRetireProp(form, key);
+      var input = document.createElement('input');
+      input.type = 'hidden'; input.name = 'properties[' + key + ']'; input.value = urls[zoneId];
+      input.setAttribute('data-kz-photo-source', '1');   // hors data-kuztom : non effacé par updateLineItemProperties
+      form.appendChild(input);
+    });
+  }
+  // Même délai qu'avant (1,8 s) ; prolongé seulement si une photo originale
+  // est en cours d'envoi.
+  function kzSoumettreApres(form, delai) {
+    var limite = Date.now() + delai + KZ_PHOTO_ATTENTE_MAX;
+    setTimeout(function attente() {
+      if (window._kzPhotoSrcAttente && Date.now() < limite) { setTimeout(attente, 200); return; }
+      window._kuztomOrderDone = true;
+      if (form) form.submit();
+    }, delai);
+  }
+
+  window.addEventListener('message', function(e) {
+    if (!kzOrigineViewer(e.origin)) return;   // P2-08
+    if (!e.data) return;
+    if (e.data.type === 'PHOTO_SOURCES_READY') { kzPosePhotosSources(e.data.urls); return; }
+    if (e.data.type === 'kuztom_zone_info') {
+      (e.data.zones || []).forEach(function(z) { zoneInfoCache[z.id] = z; });
+      updateLineItemProperties(); return;
+    }
+    if (e.data.type === 'kuztom_ready') {
+      if (_kzMiniLoaded && miniIframe && e.source === miniIframe.contentWindow) {
+        miniIframe.classList.add('kuztom-ready');
+        if (formBuilt) syncAll();
+        return;
+      }
+      viewerReady = true;
+      var skel = document.getElementById('kuztom-skeleton');
+      if (skel) skel.classList.add('kuztom-skel-hidden');
+      var ifr = document.getElementById('kuztom-iframe');
+      if (ifr) ifr.classList.add('kuztom-ready');
+      var ifrM = document.getElementById('kuztom-mini-iframe');
+      if (ifrM) ifrM.classList.add('kuztom-ready');
+      post({ type: 'SET_ORDERS_TOKEN', proxyUrl: PROXY_URL, proxyKey: PROXY_KEY });
+      if (formBuilt) syncAll(); return;
+    }
+    if (e.data.type === 'PRINT_PNG_READY') {
+      if (!window._kuztomPendingSubmit) return;
+      window._kuztomPendingSubmit = false;
+      clearInterval(window._kuztomLoadInterval);
+      clearInterval(window._kuztomRetryInterval);
+      clearTimeout(window._kuztomTimeout);
+      var pngUrl = e.data.url;
+      var form = document.querySelector('form[action*="/cart/add"]');
+      // P6-08 : un seul émetteur. On retire d'abord toute valeur déjà posée
+      // (PNG pré-généré par kz-express-guard) pour ne pas envoyer deux
+      // « _PNG imprimeur » / « _source » dans la même ligne.
+      if (form) { kzRetireProp(form, '_PNG imprimeur'); kzRetireProp(form, '_source'); }
+      if (form) injectProp(form, '_PNG imprimeur', pngUrl);
+      if (form) injectProp(form, '_source', {{ kz_forme | json }});
+      var loadBar = document.getElementById('kuztom-loading-bar');
+      var loadOv  = document.getElementById('kuztom-loading-overlay');
+      var loadTxt = document.getElementById('kuztom-loading-text');
+      var pctEl   = document.getElementById('kuztom-loading-pct');
+      if (loadBar) loadBar.style.width = '100%';
+      if (pctEl) pctEl.textContent = '100%';
+      if (loadTxt) { loadTxt.textContent = 'Design enregistré ✓'; loadTxt.classList.remove('kuztom-loading-pulse'); }
+      if (loadOv) loadOv.classList.remove('kuztom-loading-active');
+      var successEl = document.getElementById('kuztom-confirm-success');
+      if (successEl) successEl.classList.add('kuztom-visible');
+      kzSoumettreApres(form, 1800);   // P6-10 : attend la photo originale si besoin
+      return;
+    }
+    if (e.data.type === 'PRINT_PNG_ERROR') {
+      // Un échec ponctuel ne bloque plus la commande : la boucle de réessai
+      // va redemander le PNG. Seul le timeout de 60 s déclenche showError().
+      return;
+    }
+  });
+
+  function buildForm(design) {
+    var container = document.createElement('div');
+    container.id = 'kuztom-injected-fields';
+    fieldsContainer = container;
+    currentDesignName = design.name || '';
+    hasPhotoZones = (design.photo_zones || []).length > 0;
+
+    // Badge Judge.me injecté directement en HTML Liquid (hors JS) pour chargement correct
+
+    var textZones = [].concat(
+      (design.text_zones || []).map(function(z) { return Object.assign({}, z, { _kind: 'text' }); }),
+      (design.arch_zones || []).map(function(z) { return Object.assign({}, z, { _kind: 'arch' }); })
+    ).sort(function(a, b) { return (a.order || 99) - (b.order || 99); });
+
+    textZones.forEach(function(zone) {
+      var group = document.createElement('div'); group.className = 'kuztom-field-group';
+      var lbl = document.createElement('label'); lbl.className = 'kuztom-label';
+      lbl.textContent = zone.label || ''; lbl.htmlFor = 'kuztom-ta-' + zone.id;
+      group.appendChild(lbl);
+      var ta = document.createElement('textarea'); ta.id = 'kuztom-ta-' + zone.id;
+      ta.className = 'kuztom-textarea';
+      if (zone._kind === 'arch') {
+        ta.rows = 1; ta.style.minHeight = '48px'; ta.style.resize = 'none';
+        ta.dataset.archZoneId = zone.id;
+      } else {
+        ta.dataset.zoneId = zone.id; ta.rows = 3;
+      }
+      var zoneAlign = zone.align || zone.textAlign || 'center';
+      window._kzpZoneAlignCache[zone.id] = zoneAlign;
+      ta.dataset.zoneAlign = zoneAlign;
+      var _key = 'kuztom_draft_' + productHandle + '_' + zone.id;
+      var _saved = ''; try { _saved = localStorage.getItem(_key) || ''; } catch(e) {}
+      ta.value = _saved || (zone._kind === 'arch' ? '' : zone.placeholder) || '';
+      if (_saved) post({ type: 'UPDATE_TEXT', zoneId: zone.id, value: _saved });
+      var _kzPush = kzDebounce(function() {
+        post({ type: 'UPDATE_TEXT', zoneId: zone.id, value: ta.value });
+        updateLineItemProperties();
+        try { localStorage.setItem(_key, ta.value); } catch(e) {}
+      }, 150);
+      ta.addEventListener('input', function() {
+        // KZ_LAYOUT v1 : même fonction que le viewer et que l'admin.
+        // AVANT : ce bloc était un QUATRIÈME algorithme (largeur par measureText,
+        // hauteur mesurée sur 'Agyjpq', pas de 1, plancher 6) différent de celui
+        // avec lequel le viewer dessinait juste à côté → on refusait des caractères
+        // qui rentraient, ou on en acceptait qui débordaient.
+        var MIN_FONT_PX = 40;
+        var fs = KZ_fontSize(_kzMeasureCtx, zone, ta.value, zone.width, zone.height);
+        var warn = group.querySelector('.kuztom-font-warn');
+        if (fs < MIN_FONT_PX && ta.value.length > 0) {
+          ta.value = ta.value.slice(0, -1);
+          if (!warn) {
+            warn = document.createElement('p'); warn.className = 'kuztom-font-warn';
+            warn.style.cssText = 'font-size:12px;color:#c0392b;margin-top:4px;';
+            warn.textContent = "Texte trop long — taille minimum 40px pour l'impression atteinte.";
+            group.appendChild(warn);
+          }
+          return;
+        } else if (warn) { warn.remove(); }
+        _kzPush();
+      });
+      group.appendChild(ta); container.appendChild(group);
+    });
+
+    (design.photo_zones || []).forEach(function(zone) {
+      var group = document.createElement('div'); group.className = 'kuztom-field-group';
+      var lbl = document.createElement('p'); lbl.className = 'kuztom-label'; lbl.textContent = zone.label || ''; group.appendChild(lbl);
+      var inputId = 'kuztom-ph-' + zone.id;
+      var uploadLabel = document.createElement('label'); uploadLabel.className = 'kuztom-upload-label'; uploadLabel.htmlFor = inputId;
+      uploadLabel.innerHTML = '<svg viewBox="0 0 40 52" width="34" height="44" fill="none" style="flex-shrink:0;"><path d="M8 4 H32 L29 48 Q29 50 27 50 H13 Q11 50 11 48 Z" fill="#f3ece0" stroke="#c9a96e" stroke-width="1.5"/><circle cx="20" cy="24" r="7" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="3 2"/><path d="M17 24 h6 M20 21 v6" stroke="#c9a96e" stroke-width="1.5"/></svg><span style="display:flex;flex-direction:column;gap:2px;text-align:left;"><span class="kuztom-upload-text" style="font-weight:700;color:#1c1c1c;font-size:14px;">Déposez votre photo ici</span><span style="font-size:12px;color:#8a8078;">Ajoutez la photo à imprimer {{ kz_sur }}</span></span>';
+      var fileInput = document.createElement('input'); fileInput.type = 'file'; fileInput.id = inputId;
+      fileInput.className = 'kuztom-file-input'; fileInput.accept = 'image/*'; fileInput.dataset.zoneId = zone.id;
+
+      var photoQualityMsg = document.createElement('p');
+      photoQualityMsg.style.cssText = 'display:none;font-size:12px;line-height:1.6;margin:6px 0 0;padding:8px 12px;border-radius:8px;';
+
+      var cropDiv = document.createElement('div'); cropDiv.className = 'kuztom-crop-controls'; cropDiv.style.display = 'none';
+      cropDiv.innerHTML = '<div class="kuztom-crop-row"><span class="kuztom-crop-lbl">🔍 Zoom</span><button type="button" class="kuztom-crop-btn" data-action="zoom-out" data-zone-id="' + zone.id + '">−</button><input type="range" class="kuztom-crop-zoom" data-zone-id="' + zone.id + '" min="50" max="300" value="100" step="5"><button type="button" class="kuztom-crop-btn" data-action="zoom-in" data-zone-id="' + zone.id + '">+</button></div><div class="kuztom-crop-row" style="justify-content:center;"><span class="kuztom-crop-lbl">↔ Position</span><button type="button" class="kuztom-crop-btn" data-action="left" data-zone-id="' + zone.id + '" style="display:flex;align-items:center;justify-content:center;">◄</button><button type="button" class="kuztom-crop-btn" data-action="right" data-zone-id="' + zone.id + '" style="display:flex;align-items:center;justify-content:center;">►</button><button type="button" class="kuztom-crop-btn" data-action="up" data-zone-id="' + zone.id + '" style="display:flex;align-items:center;justify-content:center;">▲</button><button type="button" class="kuztom-crop-btn" data-action="down" data-zone-id="' + zone.id + '" style="display:flex;align-items:center;justify-content:center;">▼</button></div><button type="button" class="kuztom-crop-reset" data-zone-id="' + zone.id + '">↺ Réinitialiser</button>';
+
+      fileInput.addEventListener('change', function() {
+        var file = fileInput.files && fileInput.files[0]; if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          var img = new Image();
+          img.onload = function() {
+            var w = img.naturalWidth, h = img.naturalHeight;
+            photoQualityMsg.style.display = 'none'; photoQualityMsg.textContent = '';
+            if (w < PHOTO_MIN_PX || h < PHOTO_MIN_PX) {
+              photoQualityMsg.textContent = 'Cette photo est trop petite pour une impression de qualité. Veuillez en choisir une autre.';
+              photoQualityMsg.style.display = 'block'; photoQualityMsg.style.background = '#fffaf2';
+              photoQualityMsg.style.border = '1.5px solid #c9a96e'; photoQualityMsg.style.color = '#7a5c2e';
+            } else if (w < PHOTO_WARN_PX || h < PHOTO_WARN_PX) {
+              photoQualityMsg.textContent = 'Votre photo est de faible résolution. Le résultat imprimé risque d’être flou.';
+              photoQualityMsg.style.display = 'block'; photoQualityMsg.style.background = '#fffaf2';
+              photoQualityMsg.style.border = '1.5px solid #c9a96e'; photoQualityMsg.style.color = '#7a5c2e';
+            }
+          };
+          img.src = ev.target.result;
+
+          photoCropState[zone.id] = { zoom: 1, offsetX: 0, offsetY: 0 };
+          post({ type: 'UPDATE_PHOTO', zoneId: zone.id, value: ev.target.result });
+          var span = uploadLabel.querySelector('.kuztom-upload-text'); if (span) span.textContent = file.name;
+          activeCropZone = zone.id;
+          window._kuztomPhotoFileNames[zone.id] = { name: file.name, label: zone.label || 'Photo' };
+          window._kuztomPhotoDataUrls[zone.id] = { dataUrl: ev.target.result, label: zone.label || 'Photo' };
+          updateLineItemProperties();
+          if (isMobile) {
+            var cropOverlay = document.getElementById('kuztom-crop-overlay');
+            if (cropOverlay) cropOverlay.style.display = 'block';
+            var ms = document.getElementById('kco-slider'); if (ms) ms.value = 100;
+            if (iframeWrap) iframeWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            container.querySelectorAll('.kuztom-crop-controls').forEach(function(el) { el.style.display = 'none'; });
+            cropDiv.style.display = 'block';
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+
+      cropDiv.querySelector('.kuztom-crop-zoom').addEventListener('input', function(e) {
+        if (!photoCropState[zone.id]) photoCropState[zone.id] = { zoom: 1, offsetX: 0, offsetY: 0 };
+        photoCropState[zone.id].zoom = parseInt(e.target.value) / 100; sendCrop(zone.id);
+      });
+      cropDiv.querySelectorAll('.kuztom-crop-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var a = btn.dataset.action;
+          if (!photoCropState[zone.id]) photoCropState[zone.id] = { zoom: 1, offsetX: 0, offsetY: 0 };
+          var c = photoCropState[zone.id];
+          if (a === 'zoom-in')  c.zoom = Math.min(3, c.zoom + 0.1);
+          if (a === 'zoom-out') c.zoom = Math.max(0.5, c.zoom - 0.1);
+          if (a === 'left')  c.offsetX -= CROP_STEP;
+          if (a === 'right') c.offsetX += CROP_STEP;
+          if (a === 'up')    c.offsetY -= CROP_STEP;
+          if (a === 'down')  c.offsetY += CROP_STEP;
+          sendCrop(zone.id);
+        });
+      });
+      cropDiv.querySelector('.kuztom-crop-reset').addEventListener('click', function() {
+        photoCropState[zone.id] = { zoom: 1, offsetX: 0, offsetY: 0 };
+        post({ type: 'PHOTO_CROP_RESET', zoneId: zone.id });
+        cropDiv.querySelector('.kuztom-crop-zoom').value = 100;
+      });
+      uploadLabel.appendChild(fileInput);
+      group.appendChild(uploadLabel);
+      group.appendChild(photoQualityMsg);
+      group.appendChild(cropDiv);
+      container.appendChild(group);
+    });
+
+    var colors = design.variant_colors || [];
+    if (colors.length > 0) {
+      var group = document.createElement('div'); group.className = 'kuztom-field-group';
+      var lbl = document.createElement('p'); lbl.className = 'kuztom-label'; lbl.textContent = {{ kz_label_coul | json }}; group.appendChild(lbl);
+      var swatches = document.createElement('div'); swatches.className = 'kuztom-swatches';
+      var colorLabel = document.createElement('p'); colorLabel.className = 'kuztom-color-label';
+      colorLabel.textContent = colors[0] ? (colors[0].name || colors[0].hex) : '';
+      var colorInfo = document.createElement('p'); colorInfo.className = 'kuztom-info-msg';
+      // Pas de restriction de contenance sur la verrerie : message masqué.
+      colorInfo.textContent = '';
+      colorInfo.style.display = 'none';
+
+      colors.forEach(function(color, idx) {
+        var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'kuztom-swatch';
+        btn.style.background = color.hex;
+        btn.dataset.color = color.hex;
+        btn.dataset.colorName = color.name || color.hex;
+        btn.dataset.opacity = color.opacity !== undefined ? String(color.opacity) : '0.88';
+        if (color.hex === '#ffffff' || color.hex === '#FFFFFF') btn.style.boxShadow = '0 0 0 1.5px #e0dbd4, 0 1px 4px rgba(0,0,0,0.15)';
+        btn.setAttribute('aria-label', color.name || color.hex);
+        if (idx === 0) btn.classList.add('active');
+        btn.addEventListener('click', function() {
+          if (btn.classList.contains('kuztom-swatch-disabled')) return;
+          swatches.querySelectorAll('.kuztom-swatch').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          colorLabel.textContent = color.name || color.hex;
+          post({ type: 'UPDATE_COLOR', value: color.hex, opacity: color.opacity !== undefined ? color.opacity : 0.88, textColorOverride: color.force_text_color ? color.text_color_override : null });
+          updateLineItemProperties();
+          setTimeout(verifierConditions, 100);
+        });
+        swatches.appendChild(btn);
+      });
+      group.appendChild(swatches);
+      group.appendChild(colorLabel);
+      group.appendChild(colorInfo);
+      container.appendChild(group);
+    }
+
+    var dateWrapper = document.createElement('div');
+    dateWrapper.style.cssText = 'padding:14px 16px;border:1.5px dashed #c9a96e;border-radius:12px;background:rgba(201,169,110,0.06);';
+    var dateLbl = document.createElement('p'); dateLbl.style.cssText = 'font-size:13px;font-weight:600;color:#c9a96e;margin-bottom:8px;'; dateLbl.textContent = '📅 Date de votre événement';
+    var dateInput = document.createElement('input'); dateInput.type = 'date'; dateInput.id = 'kuztom-event-date';
+    dateInput.style.cssText = 'width:auto;max-width:154px;padding:7px 10px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;box-sizing:border-box;margin-bottom:8px;outline:none;font-family:inherit;height:38px;';
+    var dateNote = document.createElement('p'); dateNote.style.cssText = 'font-size:12px;color:#8a8078;line-height:1.6;margin:0;';
+    dateNote.textContent = "Cette information est précieuse pour notre équipe afin d'organiser votre commande dans les meilleures conditions et veiller à une livraison avant votre événement. Ce champ est optionnel et n'apparaît pas sur votre {{ kz_nom }}.";
+    dateWrapper.appendChild(dateLbl); dateWrapper.appendChild(dateInput); dateWrapper.appendChild(dateNote);
+    container.appendChild(dateWrapper);
+    // Livraison (info)
+    var lw=document.createElement('div');
+    lw.style.cssText='margin-top:14px;font-size:13px;color:#5c554e;display:flex;align-items:center;gap:7px;line-height:1.4;';
+    lw.innerHTML='🚚 <span><strong style="color:#1c1c1c;">Livraison offerte en France</strong> · sous 8 à 10 jours ouvrés</span>';
+    container.appendChild(lw);
+    // Prix degressif (info)
+    var dg=document.createElement('div');
+    dg.style.cssText='margin-top:6px;font-size:13px;color:#5c554e;line-height:1.4;';
+    dg.textContent={{ kz_par_unite | json }};
+    container.appendChild(dg);
+    dateInput.addEventListener('change', function() { updateLineItemProperties(); });
+
+    var errorBloc = document.createElement('div');
+    errorBloc.id = 'kuztom-bloc-error';
+    container.appendChild(errorBloc);
+
+    function doInject(t) {
+      if (document.contains(container)) return;
+      // Chercher le titre h1 comme point d'ancrage — stable sur mobile ET desktop
+      var h1 = t.querySelector('h1');
+      if (h1 && h1.parentNode === t) {
+        h1.parentNode.insertBefore(container, h1.nextSibling);
+        return;
+      }
+      var priceBlock = t.querySelector('[data-block-type="price"]');
+      if (priceBlock && priceBlock.parentNode === t) { t.insertBefore(container, priceBlock); return; }
+      var titleBlock = t.querySelector('[data-block-type="title"]');
+      if (titleBlock && titleBlock.nextSibling) { t.insertBefore(container, titleBlock.nextSibling); return; }
+      t.prepend(container);
+    }
+    function initJudgeMe() {
+      if (window.jdgm && window.jdgm.loadFromGlobalData) {
+        window.jdgm.loadFromGlobalData();
+      } else if (window.jdgm && window.jdgm.init) {
+        window.jdgm.init();
+      } else {
+        // Judge.me pas encore chargé, on réessaie
+        setTimeout(initJudgeMe, 500);
+      }
+    }
+    function inject() {
+      var target = document.querySelector('.product-info');
+      if (target) { doInject(target); setTimeout(initJudgeMe, 300); return; }
+      var observer = new MutationObserver(function(ml, obs) {
+        var t = document.querySelector('.product-info');
+        if (t) { obs.disconnect(); doInject(t); setTimeout(initJudgeMe, 300); }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+      [300, 600, 1000, 2000, 4000].forEach(function(delay) {
+        setTimeout(function() {
+          if (document.contains(container)) return;
+          var t = document.querySelector('.product-info') || document.querySelector('safe-sticky');
+          if (t) { observer.disconnect(); doInject(t); setTimeout(initJudgeMe, 300); }
+        }, delay);
+      });
+    }
+    inject();
+
+    formBuilt = true;
+    if (viewerReady) syncAll();
+
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', watchContenance); }
+    else { setTimeout(watchContenance, 600); }
+  }
+
+  function watchContenance() { watchContenance_impl(); }
+  function watchContenance_impl() {
+    var variantPicker = document.querySelector('variant-picker');
+    if (!variantPicker) { setTimeout(watchContenance_impl, 500); return; }
+    var observer = new MutationObserver(function() { setTimeout(verifierConditions, 400); });
+    observer.observe(variantPicker, { subtree: true, childList: true, characterData: true });
+    variantPicker.addEventListener('change', function() { setTimeout(verifierConditions, 400); });
+    variantPicker.addEventListener('click', function() { setTimeout(verifierConditions, 600); });
+    setTimeout(verifierConditions, 1000);
+  }
+
+  loadDesigns(function(design) {
+    // (la recherche par handle puis par préfixe d'id est faite dans
+    //  kzTelechargeDesign / kzFindDesign, comme avant)
+    kzPublieDesign(design);
+    if (!design || design.active === false) return;
+    if (iframeWrap) {
+      var iframeW = iframeWrap.offsetWidth || window.innerWidth * 0.5;
+      iframe.setAttribute('width', iframeW); iframe.setAttribute('height', iframeW);
+    }
+    // Le viewer lit designs/<handle>.json directement (P6-01) ; proxy de test.
+    var src = VIEWER_BASE + '?design=' + encodeURIComponent(design.shopify_handle || design.id)
+            + '&proxy=' + encodeURIComponent(PROXY_URL);
+    iframe.src = src;
+    // KZ_ZOOM v1 : la vignette flottante mobile n'affiche pas la loupe
+    // (elle est en pointer-events:none et réduite à 21 %).
+    _kzMiniSrc=src+'&mini=1';
+    buildForm(design);
+  });
+
+  (function() {
+    function interceptCartButton() {
+      var form = document.querySelector('form[action*="/cart/add"]');
+      if (!form) { setTimeout(interceptCartButton, 500); return; }
+      form.addEventListener('submit', function(e) {
+        if (window._kuztomOrderDone) return;                 // seul submit natif autorisé : celui déclenché après réception du PNG
+        e.preventDefault(); e.stopPropagation();             // tout autre submit est bloqué : jamais de commande sans PNG
+        if (window._kuztomPendingSubmit) return;             // un flux est déjà en cours
+        if (window._kuztomPngRequested) return;              // un essai est déjà lancé ; « Réessayer » réarme ce verrou
+        var ok = verifierConditions();
+        if (!ok) {
+          var errEl = document.getElementById('kuztom-bloc-error');
+          if (errEl) errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        window._kuztomPendingSubmit = true;
+        window._kuztomPngRequested = true;
+        window._kzPhotoSrcDemandee = false;   // P6-10 : nouvelle tentative, nouvelle demande
+        window._kzPhotoSrcAttente = false;
+        var loadOv   = document.getElementById('kuztom-loading-overlay');
+        var loadBar  = document.getElementById('kuztom-loading-bar');
+        var loadText = document.getElementById('kuztom-loading-text');
+        var pctEl    = document.getElementById('kuztom-loading-pct');
+        if (loadOv) loadOv.classList.add('kuztom-loading-active');
+        window._kuztomLoadInterval = startLoadingAnimation(loadBar, loadText, pctEl);
+
+        // ── Boucle de réessai : redemande le PNG au GRAND iframe uniquement,
+        //    toutes les 8 s, tant que le viewer n'est pas prêt / que le PNG
+        //    n'est pas revenu. S'arrête dès réception de PRINT_PNG_READY.
+        function requestPng() {
+          if (!window._kuztomPendingSubmit) return;   // déjà résolu → on n'envoie plus rien
+          if (!viewerReady) return;                   // viewer pas encore prêt → on retentera au prochain tick
+          if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage({ type: 'REQUEST_PRINT_PNG', proxyUrl: PROXY_URL, proxyKey: PROXY_KEY, origin: {{ kz_forme | json }} }, VIEWER_ORIGIN);
+            kzDemandePhotosSources();                   // P6-10 (une seule fois par tentative)
+          }
+        }
+        requestPng();                                          // tentative immédiate (t=0)
+        window._kuztomRetryInterval = setInterval(requestPng, 8000);
+
+        // ── Fin de fenêtre : au bout de 60 s sans PNG → message d'erreur + blocage.
+        window._kuztomTimeout = setTimeout(function() {
+          if (window._kuztomPendingSubmit) {
+            window._kuztomPendingSubmit = false;
+            clearInterval(window._kuztomLoadInterval);
+            clearInterval(window._kuztomRetryInterval);
+            window._kzPhotoSrcAttente = false;
+            if (loadOv) loadOv.classList.remove('kuztom-loading-active');
+            showError();
+          }
+        }, 60000);
+      }, true);
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', interceptCartButton); }
+    else { setTimeout(interceptCartButton, 600); }
+  })();
+
+})();
+</script>
+
+<!-- Popup recapitulatif -->
+<div id="kzp-overlay" role="dialog" aria-modal="true" aria-label="Recapitulatif de votre commande">
+  <div id="kzp-modal">
+    <div id="kzp-drag-handle"></div>
+    <div id="kzp-top">
+      {%- if product.featured_image -%}
+      <div id="kzp-img-col">
+        <img id="kzp-product-img" src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}" width="300" height="300" loading="lazy">
+      </div>
+      {%- endif -%}
+      <div id="kzp-title-col">
+        <p id="kzp-brand">Kuztom</p>
+        <h2 id="kzp-title">Recapitulatif</h2>
+        <p id="kzp-subtitle">Verifiez avant de confirmer</p>
+      </div>
+    </div>
+    <div id="kzp-sections">
+      <div class="kzp-section">
+        <div class="kzp-section-title">Votre produit</div>
+        <div id="kzp-prod-rows"></div>
+      </div>
+      <div class="kzp-section" id="kzp-perso-section">
+        <div class="kzp-section-title">Votre personnalisation</div>
+        <div id="kzp-perso-rows"></div>
+      </div>
+    </div>
+    <div id="kzp-gold-line"></div>
+    <div id="kzp-actions">
+      <button id="kzp-confirm-btn" type="button">Ajouter au panier</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #kzp-overlay { display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; padding:16px; }
+  #kzp-overlay.kzp-visible { display:flex; }
+  #kzp-modal { background:#fff; border-radius:18px; width:100%; max-width:480px; overflow:hidden; box-shadow:0 24px 64px rgba(0,0,0,0.28); }
+  #kzp-drag-handle { display:none; }
+  #kzp-top { display:flex; align-items:center; gap:14px; padding:18px 20px 14px; border-bottom:1px solid #f0ede8; }
+  #kzp-img-col { flex-shrink:0; width:72px; height:72px; border-radius:10px; overflow:hidden; background:#f7f4f0; }
+  #kzp-product-img { width:100%; height:100%; object-fit:cover; display:block; }
+  #kzp-title-col { flex:1; }
+  #kzp-brand { font-size:10px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#c9a96e; margin:0 0 3px; }
+  #kzp-title { font-family:Georgia,serif; font-size:17px; font-weight:700; color:#1c1c1c; margin:0; line-height:1.2; }
+  #kzp-subtitle { font-size:11px; color:#bbb; margin:3px 0 0; }
+  #kzp-sections { padding:12px 20px 4px; display:flex; flex-direction:column; gap:8px; }
+  .kzp-section { border:1.5px solid #ede9e3; border-radius:10px; padding:10px 13px; }
+  .kzp-section-title { font-family:Georgia,serif; font-size:12px; font-weight:700; color:#c9a96e; margin-bottom:7px; letter-spacing:0.06em; text-transform:uppercase; }
+  .kzp-row { display:flex; justify-content:space-between; align-items:baseline; padding:4px 0; border-bottom:1px solid #f5f2ee; font-size:12.5px; gap:10px; }
+  .kzp-row:last-child { border-bottom:none; padding-bottom:0; }
+  .kzp-label { color:#999; font-size:12px; flex-shrink:0; }
+  .kzp-val { font-weight:600; color:#1c1c1c; text-align:right; }
+  .kzp-row--text { display:flex; flex-direction:column; align-items:stretch; padding:6px 0; border-bottom:1px solid #f5f2ee; gap:4px; }
+  .kzp-row--text:last-child { border-bottom:none; }
+  .kzp-val--text { font-weight:600; color:#1c1c1c; white-space:pre-line; line-height:1.6; font-size:13px; }
+  .kzp-dot { display:inline-block; width:10px; height:10px; border-radius:50%; border:1.5px solid #ccc; vertical-align:middle; margin-right:4px; position:relative; top:-1px; }
+  #kzp-gold-line { height:1px; background:linear-gradient(90deg,transparent,#c9a96e55,transparent); margin:12px 20px; }
+  #kzp-actions { padding:0 20px 20px; display:flex; flex-direction:column; gap:8px; }
+  #kzp-confirm-btn { width:100%; padding:13px; background:#1c1c1c; color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:700; letter-spacing:0.04em; cursor:pointer; }
+  #kzp-confirm-btn:disabled { background:#888; cursor:not-allowed; }
+  @media (max-width:767px) {
+    #kzp-overlay { align-items:flex-end; padding:0; }
+    #kzp-modal { border-radius:18px 18px 0 0; max-width:100%; }
+    #kzp-drag-handle { display:block; width:36px; height:4px; background:#ddd; border-radius:2px; margin:10px auto 0; }
+    #kzp-top { padding:12px 16px 12px; }
+    #kzp-img-col { width:60px; height:60px; }
+    #kzp-title { font-size:16px; }
+    #kzp-sections { padding:10px 16px 4px; }
+    #kzp-gold-line { margin:10px 16px; }
+    #kzp-actions { padding:0 16px 28px; }
+  }
+</style>
+
+<script>
+(function() {
+  function kzpGetAllVariants() {
+    var results = [];
+    var fieldsets = document.querySelectorAll('fieldset.variant-picker__option');
+    fieldsets.forEach(function(fs) {
+      var legendEl = fs.querySelector('legend');
+      var optName = legendEl ? legendEl.textContent.replace(/\s*:.*/, '').trim() : '';
+      var checked = fs.querySelector('input[type="radio"]:checked');
+      if (checked) {
+        var lbl = checked.closest('label');
+        if (!lbl && checked.id) lbl = document.querySelector('label[for="' + checked.id + '"]');
+        if (lbl) {
+          var clone = lbl.cloneNode(true);
+          clone.querySelectorAll('.sr-only,.visually-hidden').forEach(function(el) { el.remove(); });
+          var val = clone.textContent.trim();
+          if (val && optName) results.push({ label: optName, value: val });
+        }
+      }
+    });
+    return results;
+  }
+
+  function kzpBuildContent() {
+    var productTitle = {{ product.title | json }};
+    var fc = document.getElementById('kuztom-injected-fields');
+    var colorLabel = fc ? (fc.querySelector('.kuztom-color-label') || {}).textContent : '';
+    var colorHex = fc ? ((fc.querySelector('.kuztom-swatch.active') || {}).dataset || {}).color || '' : '';
+    var variants = kzpGetAllVariants();
+    var prodRows = '';
+    prodRows += '<div class="kzp-row"><span class="kzp-label">Produit</span><span class="kzp-val">' + productTitle + '</span></div>';
+    variants.forEach(function(v) {
+      prodRows += '<div class="kzp-row"><span class="kzp-label">' + v.label + '</span><span class="kzp-val">' + v.value + '</span></div>';
+    });
+    if (colorLabel) prodRows += '<div class="kzp-row"><span class="kzp-label">' + {{ kz_label_coul | json }} + '</span><span class="kzp-val"><span class="kzp-dot" style="background:' + colorHex + ';' + (colorHex==='#ffffff'||colorHex==='#FFFFFF'?'box-shadow:0 0 0 1px #e0dbd4;':'') + '"></span>' + colorLabel + '</span></div>';
+    var persoRows = '';
+    if (fc) {
+      fc.querySelectorAll('.kuztom-field-group').forEach(function(grp) {
+        var lbl = (grp.querySelector('.kuztom-label') || {}).textContent || '';
+        var ta = grp.querySelector('.kuztom-textarea');
+        var fi = grp.querySelector('input[type="file"][data-zone-id]');
+        var uploadText = grp.querySelector('.kuztom-upload-text');
+        if (ta && ta.value.trim()) {
+          var zoneId = ta.dataset.zoneId || ta.dataset.archZoneId || '';
+          var align = (window._kzpZoneAlignCache && window._kzpZoneAlignCache[zoneId]) || ta.dataset.zoneAlign || 'center';
+          var safeText = ta.value.trim().replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          persoRows += '<div class="kzp-row--text"><span class="kzp-label">' + lbl + '</span><span class="kzp-val--text" style="text-align:' + align + '">' + safeText + '</span></div>';
+        } else if (fi && fi.dataset.zoneId && window._kuztomPhotoFileNames[fi.dataset.zoneId] && window._kuztomPhotoFileNames[fi.dataset.zoneId].name) {
+          persoRows += '<div class="kzp-row"><span class="kzp-label">' + lbl + '</span><span class="kzp-val">✅ ' + window._kuztomPhotoFileNames[fi.dataset.zoneId].name + '</span></div>';
+        } else if (uploadText && uploadText.textContent && uploadText.textContent !== 'Choisir une photo') {
+          persoRows += '<div class="kzp-row"><span class="kzp-label">' + lbl + '</span><span class="kzp-val">Photo ajoutée ✓</span></div>';
+        }
+      });
+    }
+    return { prodRows: prodRows, persoRows: persoRows };
+  }
+
+  function kzpOpen() {
+    var overlay = document.getElementById('kzp-overlay'); if (!overlay) return;
+    var c = kzpBuildContent();
+    overlay.querySelector('#kzp-prod-rows').innerHTML = c.prodRows;
+    var persoSection = overlay.querySelector('#kzp-perso-section');
+    if (c.persoRows) { overlay.querySelector('#kzp-perso-rows').innerHTML = c.persoRows; persoSection.style.display = ''; }
+    else { persoSection.style.display = 'none'; }
+    overlay.classList.add('kzp-visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function kzpClose() {
+    var overlay = document.getElementById('kzp-overlay');
+    if (overlay) overlay.classList.remove('kzp-visible');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('button[type="submit"][is="custom-button"]');
+    if (!btn) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    kzpOpen();
+  }, true);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var confirmBtn = document.getElementById('kzp-confirm-btn');
+    var overlay    = document.getElementById('kzp-overlay');
+    if (confirmBtn) confirmBtn.addEventListener('click', function() {
+      kzpClose();
+      confirmBtn.disabled = true; confirmBtn.textContent = '⏳ Préparation de votre commande…';
+      var form = document.querySelector('form[action*="/cart/add"]');
+      if (form) {
+        var allVariants = kzpGetAllVariants();
+        var contenanceVariant = null;
+        allVariants.forEach(function(v) { if (v.label.toLowerCase().indexOf('contenance') !== -1) contenanceVariant = v; });
+        var cv = contenanceVariant ? contenanceVariant.value.toLowerCase() : '';
+        if (cv && cv.indexOf('25') === -1 && cv.indexOf('33') === -1) {
+          var alertInput = form.querySelector('input[name="properties[_Contenance imprimeur]"]');
+          if (!alertInput) { alertInput = document.createElement('input'); alertInput.type = 'hidden'; alertInput.name = 'properties[_Contenance imprimeur]'; form.appendChild(alertInput); }
+          alertInput.value = 'Verifier taille : ' + contenanceVariant.value;
+        }
+        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      }
+    });
+    if (overlay) overlay.addEventListener('click', function(e) { if (e.target === this) kzpClose(); });
+  });
+})();
+</script>
+

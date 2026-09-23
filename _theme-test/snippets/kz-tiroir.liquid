@@ -1,0 +1,76 @@
+{%- comment -%}
+  ══════════════════════════════════════════════════════════════════
+  KZ_TIROIR — le pied du tiroir panier n'écrase plus les articles
+  ------------------------------------------------------------------
+  CONSTAT, mesuré le 28/08 sur le thème Impact.
+  Le tiroir est un flex vertical. Sa zone d'articles est en
+  `flex:1 1 auto` avec `min-height:auto` ; comme elle porte aussi
+  `overflow-y:auto`, sa taille minimale automatique vaut ZÉRO. Dès que
+  le pied grossit — et les encadrés de date + livraison express le
+  font grossir de plus de 400 px — la liste des articles est comprimée
+  jusqu'à disparaître.
+
+  Mesures réelles, panier d'un article, écran de 945 px :
+     sans les encadrés : articles 641 px · pied 272 px
+     avec les encadrés : articles  75 px · pied 838 px
+  Le client ne voyait plus ce qu'il achetait.
+
+  TROIS RÈGLES SUFFISENT
+    1. un PLANCHER sur la zone d'articles — il n'existait pas ;
+    2. un PLAFOND sur le pied, qui devient défilant au-delà ;
+    3. le bouton de commande collé en bas du pied, donc TOUJOURS
+       visible, quelle que soit la hauteur des encadrés.
+
+  Après correction, mesuré au même endroit :
+     articles 423 px · pied 490 px · bouton visible que le pied soit
+     défilé en haut ou en bas.
+
+  Les valeurs sont en vh : elles valent sur téléphone comme sur
+  ordinateur. 38 + 56 = 94 % de la hauteur d'écran, jamais plus.
+
+  POURQUOI ::part()
+  Le tiroir est un Shadow DOM, mais tous ses conteneurs portent un
+  attribut `part` (content, header, body, footer) : ::part() les
+  atteint depuis une feuille normale. Ne jamais viser `.v-stack` ni
+  `.gap-4` : ces classes utilitaires servent aussi à la boîte de note
+  et au bloc de remise.
+
+  13/09/2026 : deux ajouts en fin de liste.
+    · kz-paliers — le tableau des tarifs dégressifs sous le
+      sélecteur de quantité. Il n'écrit ni dans kz-fiche ni dans la
+      carte #kz-nudge : il pose un bloc neuf à côté.
+    · kz-mots — deux retouches de texte sur les configurateurs IA
+      et Canva, faites à l'exécution parce que les fichiers source
+      pèsent 79 et 44 Ko. Même méthode que kz-libelles.
+  Chacun se désactive en retirant sa seule ligne ci-dessous.
+
+  POUR DÉSACTIVER : retirer {% render 'kz-tiroir' %} de
+  snippets/kz-atc.liquid.
+  ══════════════════════════════════════════════════════════════════
+{%- endcomment -%}
+<style>
+  #cart-drawer::part(body){ min-height:38vh; }
+  #cart-drawer::part(footer){
+    max-height:56vh; overflow-y:auto; overscroll-behavior:contain;
+  }
+  /* Le pied est un v-stack : son `gap` espace déjà les encadrés,
+     leurs marges propres faisaient double emploi. */
+  #cart-drawer > [slot="footer"] > .kz-cart-deliv,
+  #cart-drawer > [slot="footer"] > .kz-alerte{ margin:0 !important; }
+  #cart-drawer > [slot="footer"] > form.buy-buttons{
+    position:sticky; bottom:0; z-index:2;
+    background:#fff; padding-block:10px; margin-block:-10px 0;
+  }
+  /* Écrans courts : le texte des encadrés s'allonge quand la largeur
+     se réduit, on rend donc un peu de hauteur au pied. */
+  @media (max-height:720px){
+    #cart-drawer::part(body){ min-height:32vh; }
+    #cart-drawer::part(footer){ max-height:60vh; }
+  }
+</style>
+{% render 'kz-canva-2faces' %}
+{% render 'kz-couleur-gobelet' %}
+{%- comment -%} P7-13 : kz-controle-fichier ne sert que sur une fiche produit (il ne s'active qu'en présence d'un sélecteur de fichier, qui n'existe que dans les configurateurs rendus par main-product). Ailleurs il n'est plus chargé. {%- endcomment -%}
+{%- if request.page_type == 'product' -%}{% render 'kz-controle-fichier' %}{%- endif -%}
+{% render 'kz-paliers' %}
+{% render 'kz-mots' %}

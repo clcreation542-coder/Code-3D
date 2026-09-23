@@ -1,0 +1,747 @@
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+
+#kzc-iframe-wrap {
+  width:100%;position:relative;overflow:hidden;border-radius:16px;background:#faf8f5;
+}
+/* Sur ordinateur, le gobelet reste visible pendant que le formulaire défile. */
+@media (min-width:1000px) {
+  #kzc-iframe-wrap { position:sticky; top:90px; z-index:1; }
+}
+#kzc-iframe-wrap iframe {
+  position:absolute;inset:0;width:100%;height:100%;
+  border:none;display:block;opacity:0;transition:opacity .4s ease;z-index:1;
+}
+#kzc-iframe-wrap iframe.kzc-ready { opacity:1; }
+#kzc-skeleton {
+  position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:#faf8f5;transition:opacity .4s ease;
+}
+#kzc-skeleton.kzc-hidden { opacity:0;pointer-events:none; }
+@keyframes kzc-pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+.kzc-skel-gobelet { animation:kzc-pulse 2s ease-in-out infinite;width:62%;max-width:320px;height:auto;display:block; }
+#kzc-skel-text { margin-top:18px;font-size:13px;color:#c9a96e;letter-spacing:.08em;font-family:inherit;animation:kzc-pulse 2s ease-in-out infinite; }
+
+#kzc-mini-viewer {
+  display:none;position:fixed;top:10px;left:50%;transform:translateX(-50%);
+  width:144px;height:144px;border-radius:50%;border:2.5px solid #c9a96e;
+  background:rgba(255,255,255,0.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 4px 20px rgba(201,169,110,0.25),0 2px 8px rgba(0,0,0,0.1);
+  overflow:hidden;cursor:pointer;z-index:9999;
+}
+@media(min-width:768px){#kzc-mini-viewer{display:none !important;}}
+#kzc-mini-viewer iframe {
+  position:absolute;top:0;left:-1px;width:686px !important;height:686px !important;
+  transform:scale(0.21);transform-origin:top left;pointer-events:none;border:none;
+}
+
+#kzc-fields { display:flex;flex-direction:column;gap:0;margin-bottom:10px; }
+.kzc-from-price { font-size:13px;color:#8a8078;margin-bottom:14px;line-height:1.5; }
+.kzc-header { margin-bottom:18px; }
+.kzc-header-title { font-size:18px;font-weight:700;color:#1c1c1c;margin-bottom:4px;display:flex;align-items:center;gap:8px; }
+.kzc-header-sub { font-size:12px;color:#8a8078;line-height:1.5; }
+.kzc-header-steps { display:flex;align-items:center;gap:6px;margin-top:10px; }
+.kzc-step-pill { display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:#f0ede8;color:#5a4a30;font-weight:600;font-size:11px;transition:all .3s; }
+.kzc-step-pill.active { background:rgba(201,169,110,0.15);color:#c9a96e;border:1px solid rgba(201,169,110,0.3); }
+.kzc-step-pill.done { background:rgba(60,160,80,0.1);color:#2d7a2d; }
+.kzc-step-sep { color:#e0dbd4;font-size:12px; }
+
+.kzc-card { border:1.5px solid #e0dbd4;border-radius:16px;background:#fdfcfb;overflow:hidden;transition:all .3s;margin-bottom:12px; }
+.kzc-card.active { border-color:rgba(201,169,110,0.5);box-shadow:0 4px 20px rgba(201,169,110,0.12); }
+.kzc-card.done { border-color:rgba(60,160,80,0.3);background:#fafffe; }
+.kzc-card-head { display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer; }
+.kzc-card-num { width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0;background:rgba(201,169,110,0.1);color:#c9a96e;border:1.5px solid rgba(201,169,110,0.25);transition:all .3s; }
+.kzc-card.active .kzc-card-num { background:#c9a96e;color:#fff;border-color:#c9a96e; }
+.kzc-card.done .kzc-card-num { background:rgba(60,160,80,0.1);color:#2d7a2d;border-color:rgba(60,160,80,0.3);font-size:18px; }
+.kzc-card-info { flex:1; }
+.kzc-card-title { font-size:14px;font-weight:700;color:#1c1c1c;margin-bottom:2px; }
+.kzc-card-subtitle { font-size:12px;color:#8a8078; }
+.kzc-card-body { padding:0 18px 18px;display:none; }
+.kzc-card.active .kzc-card-body { display:block; }
+
+.kzc-canva-box { border-radius:14px;overflow:hidden;margin-bottom:12px;background:linear-gradient(135deg,#00C4CC,#7B2D8B,#8B44FF);position:relative; }
+.kzc-canva-box::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent); }
+.kzc-canva-inner { padding:20px;position:relative;z-index:1; }
+.kzc-canva-icon { font-size:36px;margin-bottom:10px;display:block;animation:kzc-float 3s ease-in-out infinite; }
+@keyframes kzc-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.kzc-canva-title { font-size:16px;font-weight:700;color:#fff;margin-bottom:6px; }
+.kzc-canva-sub { font-size:13px;color:rgba(255,255,255,0.8); }
+.kzc-canva-btn { display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 16px;border:none;border-radius:10px;background:#fff;color:#7B2D8B;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s;position:relative;overflow:hidden; }
+.kzc-canva-btn::after { content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(123,45,139,0.08),transparent);transform:translateX(-100%);animation:kzc-shimmer 2.5s ease-in-out infinite; }
+@keyframes kzc-shimmer { 0%{transform:translateX(-100%)} 60%,100%{transform:translateX(100%)} }
+.kzc-canva-btn:hover { background:#f5eef8;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+.kzc-canva-steps { margin-top:16px;display:flex;flex-direction:column;gap:8px; }
+.kzc-canva-step-row { display:flex;align-items:flex-start;gap:10px; }
+.kzc-canva-step-n { width:22px;height:22px;border-radius:50%;flex-shrink:0;background:rgba(255,255,255,0.2);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center; }
+.kzc-canva-step-txt { font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5;padding-top:2px; }
+.kzc-next-btn { width:100%;padding:12px;background:rgba(201,169,110,0.15);color:#c9a96e;border:1.5px solid rgba(201,169,110,0.35);border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:12px;transition:all .2s; }
+.kzc-next-btn:hover { background:rgba(201,169,110,0.25); }
+
+.kzc-upzone { border:2px dashed #c9a96e;border-radius:14px;padding:30px 20px;text-align:center;cursor:pointer;transition:all .25s;background:#fff;position:relative; }
+.kzc-upzone:hover,.kzc-upzone.has { border-color:#c9a96e;background:rgba(201,169,110,0.04); }
+.kzc-upzone.has { border-style:solid; }
+.kzc-upzone input { position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%; }
+.kzc-upzone-inner { pointer-events:none; }
+.kzc-upico { font-size:36px;margin-bottom:8px; }
+.kzc-uptit { font-size:14px;font-weight:700;color:#1c1c1c;margin-bottom:4px; }
+.kzc-upsub { font-size:12px;color:#8a8078; }
+.kzc-upfn { font-size:13px;color:#2d7a2d;margin-top:8px;display:none;font-weight:600; }
+.kzc-upmsg { font-size:12px;margin-top:8px;display:none;padding:8px 12px;border-radius:8px; }
+.kzc-upmsg.err { background:#fff0f0;border:1.5px solid #c0392b;color:#c0392b; }
+
+.kzc-ibox { padding:12px 14px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.25);border-radius:10px;font-size:13px;color:#5a4a30;line-height:1.6;margin-bottom:10px; }
+.kzc-eco-box { padding:12px 14px;background:rgba(122,158,126,0.09);border:1px solid rgba(122,158,126,0.3);border-radius:10px;font-size:13px;color:#3a5c42;line-height:1.6;margin-bottom:10px; }
+.kzc-date-wrap { padding:12px 14px;background:#faf8f5;border:1.5px solid #e8e2db;border-radius:10px;margin-bottom:10px; }
+.kzc-date-title { font-size:12px;font-weight:700;color:#c9a96e;margin-bottom:6px; }
+
+/* ── LOADING ── */
+.kzc-loading-overlay { display:none;position:fixed;inset:0;background:rgba(253,252,251,0.94);z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:16px;backdrop-filter:blur(4px); }
+.kzc-loading-overlay.kzc-active { display:flex; }
+.kzc-loading-bar-wrap { width:220px;height:4px;background:#e0dbd4;border-radius:4px;overflow:hidden; }
+.kzc-loading-bar { height:100%;width:0;background:linear-gradient(90deg,#c9a96e,#e8c87a);border-radius:4px;transition:width .3s; }
+.kzc-loading-txt { font-size:13px;color:#8a8078;font-family:inherit; }
+.kzc-loading-pulse { animation:kzc-loading-blink 1.2s ease-in-out infinite; }
+@keyframes kzc-loading-blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ── ERREUR TIMEOUT ── */
+#kzc-timeout-error { display:none;position:fixed;inset:0;z-index:10001;background:rgba(253,252,251,0.97);flex-direction:column;align-items:center;justify-content:center;gap:18px;backdrop-filter:blur(6px);padding:30px; }
+#kzc-timeout-error.kzc-visible { display:flex; }
+.kzc-error-circle { width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e74c3c);display:flex;align-items:center;justify-content:center;animation:kzc-ping .6s ease-out forwards; }
+@keyframes kzc-ping { 0%{transform:scale(0.6);opacity:0} 60%{transform:scale(1.1);opacity:1} 100%{transform:scale(1);opacity:1} }
+.kzc-error-icon { font-size:38px;color:#fff; }
+.kzc-error-title { font-size:20px;font-weight:800;color:#1c1c1c;text-align:center; }
+.kzc-error-sub { font-size:14px;color:#5a4a30;text-align:center;line-height:1.7;max-width:300px; }
+.kzc-error-btn { padding:13px 28px;background:#1c1c1c;color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px; }
+
+/* ── CONFIRMATION VERTE ── */
+#kzc-confirm-success { display:none;position:fixed;inset:0;z-index:10000;background:rgba(253,252,251,0.97);flex-direction:column;align-items:center;justify-content:center;gap:18px;backdrop-filter:blur(6px); }
+#kzc-confirm-success.kzc-visible { display:flex; }
+.kzc-success-circle { width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#2d7a2d,#3aa03a);display:flex;align-items:center;justify-content:center;animation:kzc-ping .8s ease-out forwards; }
+.kzc-success-check { font-size:38px;color:#fff; }
+.kzc-success-title { font-size:20px;font-weight:800;color:#1c1c1c;text-align:center; }
+.kzc-success-sub { font-size:14px;color:#5a4a30;text-align:center;line-height:1.6;max-width:280px; }
+
+/* ── POPUP ── */
+.kzp-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9998;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px); }
+.kzp-overlay.kzp-open { display:flex; }
+.kzp-modal { background:#fff;border-radius:20px;padding:26px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 12px 60px rgba(0,0,0,0.2);animation:kzp-in .25s ease; }
+@keyframes kzp-in { from{transform:scale(.95);opacity:0} to{transform:scale(1);opacity:1} }
+.kzp-title { font-size:18px;font-weight:700;color:#1c1c1c;margin-bottom:18px; }
+.kzp-section { margin-bottom:14px; }
+.kzp-section-title { font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#c9a96e;margin-bottom:8px; }
+.kzp-row { display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:6px 0;border-bottom:1px solid #f0ece7;font-size:13px; }
+.kzp-label { color:#8a8078;flex-shrink:0; }
+.kzp-val { color:#1c1c1c;font-weight:500;text-align:right; }
+.kzp-btns { display:flex;gap:10px;margin-top:20px; }
+.kzp-btn-cancel { flex:1;padding:13px;border:1.5px solid #e0dbd4;border-radius:12px;background:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;color:#5a5249; }
+.kzp-btn-confirm { flex:2;padding:13px;border:none;border-radius:12px;background:#1c1c1c;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit; }
+.kzp-img-preview { display:block;max-width:100%;max-height:160px;border-radius:10px;margin:0 auto 12px;object-fit:contain;border:1px solid #e0dbd4;background:#f0ede8; }
+</style>
+
+<!-- Erreur timeout -->
+<div id="kzc-timeout-error">
+  <div class="kzc-error-circle"><span class="kzc-error-icon">⚠️</span></div>
+  <div class="kzc-error-title">Connexion trop lente</div>
+  <div class="kzc-error-sub">Votre design n'a pas pu être transmis à l'imprimeur. Cela arrive parfois avec une connexion lente ou instable.<br><br>Votre commande n'a pas été passée. Reconnectez-vous à un meilleur réseau (Wi-Fi de préférence) et réessayez.</div>
+  <button class="kzc-error-btn" id="kzc-error-retry">Réessayer</button>
+</div>
+
+<!-- Confirmation verte -->
+<div id="kzc-confirm-success">
+  <div class="kzc-success-circle"><span class="kzc-success-check">✓</span></div>
+  <div class="kzc-success-title">✅ Votre design est enregistré et prêt pour l'impression.</div>
+  <div class="kzc-success-sub">Dernière étape : validez votre commande pour lancer la production.</div>
+</div>
+
+<!-- Loading overlay -->
+<div id="kzc-loading-overlay" class="kzc-loading-overlay">
+  <div style="display:flex;align-items:center;gap:10px;width:220px;">
+    <div class="kzc-loading-bar-wrap" style="flex:1;"><div id="kzc-loading-bar" class="kzc-loading-bar"></div></div>
+    <span id="kzc-loading-pct" style="font-size:12px;color:#c9a96e;font-weight:700;min-width:36px;text-align:right;">0%</span>
+  </div>
+  <span id="kzc-loading-txt" class="kzc-loading-txt kzc-loading-pulse">Préparation de votre commande…</span>
+</div>
+
+<!-- Popup -->
+<div id="kzp-overlay" class="kzp-overlay">
+  <div class="kzp-modal">
+    <div class="kzp-title">✅ Récapitulatif de votre commande</div>
+    <div id="kzp-body"></div>
+    <div class="kzp-btns">
+      <button class="kzp-btn-cancel" id="kzp-cancel">← Modifier</button>
+      <button class="kzp-btn-confirm" id="kzp-confirm">Confirmer ma commande →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mini viewer mobile -->
+<div id="kzc-mini-viewer">
+  <iframe id="kzc-mini-iframe"
+    data-src="https://dev.code-3d.pages.dev/configurateur-viewer.html"
+    scrolling="no" loading="lazy"></iframe>
+</div>
+
+<!-- Viewer 3D -->
+<div id="kzc-iframe-wrap">
+  <div id="kzc-skeleton">
+    <svg class="kzc-skel-gobelet" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="kzgc-body" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#d0cdc8"/><stop offset="18%" stop-color="#e8e5e0"/>
+          <stop offset="42%" stop-color="#f5f3ef"/><stop offset="58%" stop-color="#f5f3ef"/>
+          <stop offset="82%" stop-color="#e2dfd9"/><stop offset="100%" stop-color="#c8c5c0"/>
+        </linearGradient>
+        <linearGradient id="kzgc-shine" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+          <stop offset="40%" stop-color="#ffffff" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="kzgc-shadow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#b0aca8" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#b0aca8" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="kzgc-clip">
+          <path d="M72 42 L228 42 L206 372 Q204 382 188 384 L112 384 Q96 382 94 372 Z"/>
+        </clipPath>
+      </defs>
+      <ellipse cx="150" cy="392" rx="72" ry="11" fill="url(#kzgc-shadow)"/>
+      <path d="M72 42 L228 42 L206 372 Q204 382 188 384 L112 384 Q96 382 94 372 Z" fill="url(#kzgc-body)"/>
+      <rect x="72" y="42" width="60" height="342" fill="url(#kzgc-shine)" clip-path="url(#kzgc-clip)"/>
+      <ellipse cx="150" cy="42" rx="78" ry="7" fill="#e8e5e0" stroke="#c0bcb8" stroke-width="1"/>
+      <ellipse cx="150" cy="42" rx="68" ry="5" fill="#ccc9c4"/>
+    </svg>
+    <div id="kzc-skel-text">Votre gobelet personnalisé arrive en 3D...</div>
+  </div>
+  <iframe id="kzc-iframe"
+    src="https://dev.code-3d.pages.dev/configurateur-viewer.html"
+    scrolling="no"
+    title="Aperçu 3D gobelet personnalisé"></iframe>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var PROXY_URL = 'https://kuztom-proxy-test.contact-kuztom.workers.dev';
+  var PROXY_KEY = '';
+  var CONTACT_EMAIL = 'contact@kuztom.fr';
+  var CANVA_URL = 'https://canva.link/q6bfsaxpbof7n9b';
+  var isMobile = window.innerWidth < 768;
+
+  var LOADING_MESSAGES = [
+    'Préparation de votre commande…',
+    'Envoi du design à l\'imprimeur…',
+    'Vérification des couleurs…',
+    'Finalisation en cours…'
+  ];
+
+  function genId() {
+    var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',id='kzt-';
+    for(var i=0;i<6;i++) id+=c[Math.floor(Math.random()*c.length)];
+    return id;
+  }
+  var SESSION_ID = genId();
+  var S = { cImg:null, cName:null, vReady:false, eventDate:null };
+
+  var iframe     = document.getElementById('kzc-iframe');
+  var miniIframe = document.getElementById('kzc-mini-iframe');
+  var miniViewer = document.getElementById('kzc-mini-viewer');
+  // Le mini viewer ne se charge que s'il devient visible (mobile).
+  var _kzMiniSrc = null, _kzMiniLoaded = false;
+  function kzLoadMini(){
+    if (!_kzMiniSrc && miniIframe) _kzMiniSrc = miniIframe.getAttribute('data-src');
+    if (_kzMiniLoaded || !miniIframe || !_kzMiniSrc) return;
+    _kzMiniLoaded = true;
+    miniIframe.src = _kzMiniSrc;
+  }
+  var iframeWrap = document.getElementById('kzc-iframe-wrap');
+
+  function sizeViewer() {
+    if (!iframeWrap) return;
+    var w = iframeWrap.offsetWidth || Math.round(window.innerWidth*0.5);
+    iframeWrap.style.height = w+'px';
+  }
+  sizeViewer();
+  window.addEventListener('resize', sizeViewer);
+
+  // ── SCROLL MOBILE FIX ──
+  if (iframe) {
+    var _touchStartX=0, _touchStartY=0, _scrollLocked=false;
+    iframe.addEventListener('touchstart', function(e) {
+      if (e.touches.length!==1) return;
+      _touchStartX=e.touches[0].clientX; _touchStartY=e.touches[0].clientY; _scrollLocked=false;
+    }, {passive:true});
+    iframe.addEventListener('touchmove', function(e) {
+      if (e.touches.length!==1) return;
+      var dx=Math.abs(e.touches[0].clientX-_touchStartX);
+      var dy=Math.abs(e.touches[0].clientY-_touchStartY);
+      if (!_scrollLocked) { if (dy>dx+5) { _scrollLocked=true; return; } }
+      if (_scrollLocked) return;
+    }, {passive:true});
+  }
+
+  if (isMobile && miniViewer) {
+    window.addEventListener('scroll', function() {
+      var r=iframeWrap.getBoundingClientRect();
+      var _vis=(r.bottom>0&&r.top<window.innerHeight);
+      miniViewer.style.display=_vis?'none':'block';
+      if(!_vis) kzLoadMini();
+    },{passive:true});
+    miniViewer.addEventListener('click',function(){
+      iframeWrap.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+
+  function postV(data) {
+    if(iframe&&iframe.contentWindow) iframe.contentWindow.postMessage(data,'*');
+    if(_kzMiniLoaded && miniIframe && miniIframe.contentWindow) miniIframe.contentWindow.postMessage(data,'*');
+  }
+
+  function injectProp(key,val) {
+    var form=document.querySelector('form[action*="/cart/add"]');if(!form)return;
+    var el=form.querySelector('input[name="properties['+key+']"][data-kzc="1"]');
+    if(!el){el=document.createElement('input');el.type='hidden';el.name='properties['+key+']';el.setAttribute('data-kzc','1');form.appendChild(el);}
+    el.value=val;
+  }
+
+  function updateProps() {
+    injectProp('_Référence design',SESSION_ID);
+    injectProp('_Parcours','Design Canva');
+    if(S.cName) injectProp('Design importé',S.cName);
+    if(S.eventDate) injectProp('Date événement',S.eventDate);
+  }
+
+  function showError() {
+    var errEl=document.getElementById('kzc-timeout-error');
+    if(errEl) errEl.classList.add('kzc-visible');
+    var retryBtn=document.getElementById('kzc-error-retry');
+    if(retryBtn) retryBtn.addEventListener('click',function(){
+      if(errEl) errEl.classList.remove('kzc-visible');
+      window._kzcPngRequested=false;
+      window._kzcPending=false;
+    });
+  }
+
+  function startLoadingAnimation(lb, ltxt, pctEl) {
+    var pct=0, msgIdx=0, tick=0;
+    if(ltxt) ltxt.textContent=LOADING_MESSAGES[0];
+    if(lb) lb.style.width='0%';
+    if(pctEl) pctEl.textContent='0%';
+    // Avance vite au début puis ralentit, mais bouge toujours (min 0,5/pas) : jamais de blocage.
+    var interval=setInterval(function(){
+      if(pct<99) pct=Math.min(pct+Math.max((99-pct)*0.05,0.5),99);
+      var shown=Math.round(pct);
+      if(lb) lb.style.width=shown+'%';
+      if(pctEl) pctEl.textContent=shown+'%';
+      // Messages en boucle infinie toutes les ~3 s (15 ticks × 200ms), indépendants du %.
+      tick++;
+      if(tick % 15 === 0){
+        msgIdx=(msgIdx+1) % LOADING_MESSAGES.length;
+        if(ltxt) ltxt.textContent=LOADING_MESSAGES[msgIdx];
+      }
+    },200);
+    return interval;
+  }
+
+  window.addEventListener('message',function(e){
+    if (!/^https:\/\/([a-z0-9-]+\.)?code-3d\.pages\.dev$/.test(e.origin || '') && e.origin !== 'https://clcreation542-coder.github.io') return;   // P2-08 : messages du viewer uniquement
+    if(!e.data) return;
+    if(e.data.type==='kuztom_ready'){
+      if(_kzMiniLoaded && miniIframe && e.source===miniIframe.contentWindow){
+        miniIframe.classList.add('kzc-ready');
+        var mw=miniIframe.contentWindow;
+        mw.postMessage({type:'SET_AUTO_ROTATE',value:false},'*');
+        mw.postMessage({type:'UPDATE_COLOR',value:'#f5f0eb',opacity:0.88},'*');
+        if(S.cImg) mw.postMessage({type:'SET_DESIGN_IMAGE',dataUrl:S.cImg},'*');
+        return;
+      }
+      S.vReady=true;
+      var skel=document.getElementById('kzc-skeleton');
+      if(skel) skel.classList.add('kzc-hidden');
+      if(iframe) iframe.classList.add('kzc-ready');
+      if(miniIframe) miniIframe.classList.add('kzc-ready');
+      postV({type:'SET_AUTO_ROTATE',value:false});
+      postV({type:'SET_ORDERS_TOKEN',proxyUrl:PROXY_URL,proxyKey:PROXY_KEY});
+      postV({type:'UPDATE_COLOR',value:'#f5f0eb',opacity:0.88});
+      if(S.cImg) postV({type:'SET_DESIGN_IMAGE',dataUrl:S.cImg});
+    }
+    if(e.data.type==='PRINT_PNG_READY'){
+      if(!window._kzcPending) return;
+      window._kzcPending=false;
+      clearInterval(window._kzcLoadInterval);
+      clearInterval(window._kzcRetryInterval);
+      clearTimeout(window._kzcTimeout);
+      injectProp('_PNG imprimeur',e.data.url);
+      injectProp('_source','canva');
+      injectProp('_confirmation','✅ Votre design est bien pris en compte');
+      var lb=document.getElementById('kzc-loading-bar');
+      var lo=document.getElementById('kzc-loading-overlay');
+      var ltxt=document.getElementById('kzc-loading-txt');
+      var pctEl=document.getElementById('kzc-loading-pct');
+      if(lb) lb.style.width='100%';
+      if(pctEl) pctEl.textContent='100%';
+      if(ltxt){ltxt.textContent='Design enregistré ✓';ltxt.classList.remove('kzc-loading-pulse');}
+      if(lo) lo.classList.remove('kzc-active');
+      var successEl=document.getElementById('kzc-confirm-success');
+      if(successEl) successEl.classList.add('kzc-visible');
+      setTimeout(function(){
+        window._kzcOrderDone=true;
+        var form=document.querySelector('form[action*="/cart/add"]');
+        if(form) form.submit();
+      },1800);
+      return;
+    }
+    if(e.data.type==='PRINT_PNG_ERROR'){
+      // Un échec ponctuel ne bloque plus la commande : la boucle de réessai
+      // va redemander le PNG. Seul le timeout de 60 s déclenche showError().
+      return;
+    }
+  });
+
+  function uploadPhotoSource(dataUrl,label) {
+    return new Promise(function(resolve){
+      try {
+        var b64=dataUrl.split(',')[1];if(!b64){resolve(null);return;}
+        // ── Nom triable : compte à rebours depuis une date lointaine dans le futur,
+        // + mot d'origine "canva" pour identifier ce configurateur.
+        var FAR_FUTURE = 9999999999; // borne au-delà de l'année 2286, largement suffisant
+        var nowSeconds = Math.floor(Date.now()/1000);
+        var inverted = String(FAR_FUTURE - nowSeconds).padStart(10,'0');
+        var filename='orders/'+inverted+'-canva-'+SESSION_ID+'-'+label.slice(0,15)+'.png';
+      fetch(PROXY_URL+'/file',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Auth-Key':PROXY_KEY},
+        body:JSON.stringify({path:filename,content:b64,message:'canva: '+filename})
+      }).then(function(r){
+        resolve(r.ok?{url:'https://dev.code-3d.pages.dev/'+filename}:null);
+      }).catch(function(){resolve(null);});
+      } catch(e){resolve(null);}
+    });
+  }
+
+  function getVariants() {
+    var results=[];
+    document.querySelectorAll('fieldset.variant-picker__option').forEach(function(fs){
+      var leg=fs.querySelector('legend');
+      var optName=leg?leg.textContent.replace(/\s*:.*/,'').trim():'';
+      var checked=fs.querySelector('input[type="radio"]:checked');
+      if(checked){
+        var lbl=checked.closest('label');
+        if(!lbl&&checked.id) lbl=document.querySelector('label[for="'+checked.id+'"]');
+        if(lbl){
+          var clone=lbl.cloneNode(true);
+          clone.querySelectorAll('.sr-only,.visually-hidden').forEach(function(el){el.remove();});
+          var val=clone.textContent.trim();
+          if(val&&optName) results.push({label:optName,value:val});
+        }
+      }
+    });
+    return results;
+  }
+
+  function buildForm() {
+    var container=document.createElement('div');
+    container.id='kzc-fields';
+
+    var jdgm=document.createElement('div');jdgm.style.cssText='margin-bottom:6px;';
+    var jdgmDiv=document.createElement('div');jdgmDiv.className='jdgm-widget jdgm-preview-badge';
+    jdgmDiv.setAttribute('data-id','{{ product.id }}');jdgmDiv.setAttribute('data-auto-install','false');
+    jdgm.appendChild(jdgmDiv);container.appendChild(jdgm);
+
+    var fp=document.createElement('p');fp.className='kzc-from-price';
+    fp.innerHTML='<span style="color:#c9a96e;font-weight:600;">D\u00e8s 39\u20ac pour 10 gobelets</span> \u2014 plus vous en commandez, moins vous payez par gobelet';
+    container.appendChild(fp);
+
+    var header=document.createElement('div');header.className='kzc-header';
+    header.innerHTML='<div class="kzc-header-title">\ud83c\udfa8 Cr\u00e9ez votre gobelet avec Canva</div>'
+      +'<div class="kzc-header-sub">Ouvrez le gabarit Canva \u00b7 Personnalisez librement \u00b7 T\u00e9l\u00e9chargez en PNG \u00b7 Importez ici</div>'
+      +'<div class="kzc-header-steps">'
+      +'<div class="kzc-step-pill active" id="kzc-pill-1"><span>1</span> Personnalisez</div>'
+      +'<span class="kzc-step-sep">\u203a</span>'
+      +'<div class="kzc-step-pill" id="kzc-pill-2"><span>2</span> Importez</div>'
+      +'</div>';
+    container.appendChild(header);
+
+    function setPill(n){
+      for(var i=1;i<=2;i++){
+        var el=document.getElementById('kzc-pill-'+i);if(!el) continue;
+        el.classList.remove('active','done');
+        if(i<n) el.classList.add('done');
+        else if(i===n) el.classList.add('active');
+      }
+    }
+
+function openCard(id){
+      var t=document.getElementById(id);if(t) t.classList.add('active');
+      setPill(parseInt(id.slice(-1)));
+    }
+
+
+
+    var c1=document.createElement('div');c1.className='kzc-card active';c1.id='kzc-c1';
+    var h1=document.createElement('div');h1.className='kzc-card-head';
+    h1.innerHTML='<div class="kzc-card-num">1</div>'
+      +'<div class="kzc-card-info"><div class="kzc-card-title">Personnalisez sur Canva</div>'
+      +'<div class="kzc-card-subtitle">Gabarit aux bonnes dimensions \u2014 d\u00e9corez librement</div></div>';
+    h1.addEventListener('click',function(){openCard('kzc-c1');});
+
+    var b1=document.createElement('div');b1.className='kzc-card-body';
+    var canvaBox=document.createElement('div');canvaBox.className='kzc-canva-box';
+    canvaBox.innerHTML='<div class="kzc-canva-inner">'
+      +'<span class="kzc-canva-icon">\ud83c\udfa8</span>'
+      +'<div class="kzc-canva-title">Gabarit officiel Kuztom</div>'
+      +'<div class="kzc-canva-sub">Le gabarit est aux bonnes dimensions (1970\u00d71140px) avec les zones de s\u00e9curit\u00e9 d\u00e9j\u00e0 plac\u00e9es. Personnalisez librement \u2014 textes, couleurs, photos, motifs.</div>'
+      +'<a href="'+CANVA_URL+'" target="_blank" rel="noopener noreferrer" class="kzc-canva-btn">\ud83d\udd17 Ouvrir le gabarit Canva</a>'
+      +'<div class="kzc-canva-steps">'
+      +'<div class="kzc-canva-step-row"><div class="kzc-canva-step-n">1</div><div class="kzc-canva-step-txt">Personnalisez le gabarit \u2014 textes, couleurs, photos, motifs</div></div>'
+      +'<div class="kzc-canva-step-row"><div class="kzc-canva-step-n">2</div><div class="kzc-canva-step-txt">Cliquez sur <strong style="color:#fff;">Partager \u2192 T\u00e9l\u00e9charger \u2192 PNG</strong></div></div>'
+      +'<div class="kzc-canva-step-row"><div class="kzc-canva-step-n">3</div><div class="kzc-canva-step-txt">Revenez ici et importer mon fichier</div></div>'
+      +'</div></div>';
+
+    var nextBtn=document.createElement('button');nextBtn.type='button';nextBtn.className='kzc-next-btn';
+    nextBtn.textContent='J\u2019ai t\u00e9l\u00e9charg\u00e9 mon design \u2192';
+    nextBtn.addEventListener('click',function(){
+      c1.classList.add('done');
+      var n1=c1.querySelector('.kzc-card-num');if(n1) n1.textContent='\u2713';
+      openCard('kzc-c2');
+    });
+    b1.appendChild(canvaBox);
+    c1.appendChild(h1);c1.appendChild(b1);
+    container.appendChild(c1);
+
+    var c2=document.createElement('div');c2.className='kzc-card active';c2.id='kzc-c2';
+    var h2=document.createElement('div');h2.className='kzc-card-head';
+    h2.innerHTML='<div class="kzc-card-num">2</div>'
+      +'<div class="kzc-card-info"><div class="kzc-card-title">Importez votre design</div>'
+      +'<div class="kzc-card-subtitle">D\u00e9posez votre PNG pour l\u2019apercevoir sur le gobelet</div></div>';
+    h2.addEventListener('click',function(){openCard('kzc-c2');});
+
+    var b2=document.createElement('div');b2.className='kzc-card-body';
+    var upzone=document.createElement('div');upzone.className='kzc-upzone';
+    var upInner=document.createElement('div');upInner.className='kzc-upzone-inner';
+    upInner.innerHTML='<div class="kzc-upico">\ud83d\udcc1</div>'
+      +'<div class="kzc-uptit">D\u00e9posez votre design ici</div>'
+      +'<div class="kzc-upsub">D\u00e9posez ici le design cr\u00e9\u00e9 sur Canva</div>';
+    var upInp=document.createElement('input');upInp.type='file';upInp.accept='image/*';
+    var upFn=document.createElement('div');upFn.className='kzc-upfn';
+    var upMsg=document.createElement('div');upMsg.className='kzc-upmsg';
+    upzone.appendChild(upInner);upzone.appendChild(upInp);
+    b2.appendChild(upzone);b2.appendChild(upFn);b2.appendChild(upMsg);
+
+    upInp.addEventListener('change',function(){
+      var file=upInp.files[0];if(!file) return;
+      var reader=new FileReader();
+      reader.onload=function(ev){
+        var img=new Image();
+        img.onload=function(){
+          var ratio=img.naturalWidth/(img.naturalHeight||1);
+          if(ratio<1.0||ratio>2.5){
+            upMsg.textContent='\u26a0\ufe0f Ce fichier n\u2019est pas au bon format. Il faut un rectangle large, au format 16:9 : repartez du gabarit Canva, il est d\u00e9j\u00e0 aux bonnes dimensions, puis t\u00e9l\u00e9chargez votre design en PNG.';
+            upMsg.className='kzc-upmsg err';upMsg.style.display='block';
+            upMsg.style.cssText='';upInp.value='';return;
+          }
+          /* KZ 13/09 — AVERTISSEMENT DE PROPORTIONS, NON BLOQUANT.
+             Le test ci-dessus ne refuse que le portrait et l'ultra-panoramique.
+             Une image CARRÉE vaut exactement 1.0 : elle passait donc sans un mot,
+             alors que c'est la sortie par défaut de ChatGPT et de Gemini.
+             On ne bloque pas — décision d'Allan, la commande doit passer — mais
+             le client est prévenu que son visuel sera rogné.
+             Tolérance 5 % : le 16/9 (2,9 % d'écart) passe sans alerte, le carré
+             (42 %) et le 4/3 (23 %) la déclenchent.
+             Pour désactiver : supprimer ce bloc, rien d'autre n'en dépend. */
+          var kzEcart = Math.abs(ratio - (1970/1140)) / (1970/1140);
+          if (kzEcart > 0.05) {
+            upMsg.className = 'kzc-upmsg';
+            upMsg.style.cssText = 'display:block;margin-top:10px;padding:12px 14px;'
+              + 'border:1.5px solid #C9821E;border-radius:10px;background:#FFF6E8;'
+              + 'color:#7A4E0B;font-size:13px;font-weight:600;line-height:1.5;text-align:left;';
+            upMsg.innerHTML = '\u26a0\ufe0f <b>Votre image n\u2019a pas la forme du gobelet.</b><br>'
+              + 'Le gobelet est panoramique : le haut et le bas de votre visuel seront rogn\u00e9s '
+              + '\u00e0 l\u2019impression. Regardez l\u2019aper\u00e7u 3D ci-contre pour juger du r\u00e9sultat.<br>'
+              + 'Pour un rendu fid\u00e8le, repartez du gabarit Canva, d\u00e9j\u00e0 aux bonnes '
+              + 'dimensions. Vous pouvez aussi commander ainsi : nous v\u00e9rifions '
+              + 'avant impression.';
+          } else {
+            upMsg.style.cssText = '';
+            upMsg.className = 'kzc-upmsg';
+            upMsg.style.display = 'none';
+          }
+          S.cImg=ev.target.result;S.cName=file.name;
+          upzone.classList.add('has');
+          upFn.textContent='\u2705 '+file.name;upFn.style.display='block';
+          c2.classList.add('done');
+          var n2=c2.querySelector('.kzc-card-num');if(n2) n2.textContent='\u2713';
+          setPill(3);
+          if(S.vReady) postV({type:'SET_DESIGN_IMAGE',dataUrl:S.cImg});
+        };
+        img.src=ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+    c2.appendChild(h2);c2.appendChild(b2);
+    container.appendChild(c2);
+
+    // ── PANNEAU INFOS UNIFIÉ (remplace ibox + canvaLegal + translucide + eco) ──
+    var infoPanel = document.createElement('div');
+    infoPanel.style.cssText = 'background:#fff;border:1px solid rgba(201,169,110,0.3);border-radius:12px;overflow:hidden;margin-bottom:12px;';
+
+    var KZ_ICON_BULB  = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M8.5 15a5 5 0 1 1 7 0c-.7.6-1 1.2-1 2H9.5c0-.8-.3-1.4-1-2z"/></svg>';
+    var KZ_ICON_BRUSH = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 4-2 4-4a2 2 0 0 0-2-2c-2 0-3 2-2 6z"/><path d="M7 15l9-9a2.1 2.1 0 0 1 3 3l-9 9"/></svg>';
+    var KZ_ICON_INFO  = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>';
+    var KZ_ICON_LEAF  = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c0-9 5-14 15-14 0 8-5 13-13 13"/><path d="M5 21c1-4 3-6 6-7"/></svg>';
+
+    function kzInfoRow(iconSvg, iconColor, title, text, withDivider) {
+      return (withDivider ? '<div style="height:1px;background:#f0ece5;margin:0 16px;"></div>' : '')
+        + '<div style="display:flex;align-items:flex-start;gap:12px;padding:15px 16px;">'
+        +   '<span style="color:' + iconColor + ';flex-shrink:0;line-height:1.2;display:flex;">' + iconSvg + '</span>'
+        +   '<div>'
+        +     '<div style="font-size:13px;font-weight:700;color:#1c1c1c;margin-bottom:2px;">' + title + '</div>'
+        +     '<div style="font-size:12.5px;color:#5a4a30;line-height:1.55;">' + text + '</div>'
+        +   '</div>'
+        + '</div>';
+    }
+
+    infoPanel.innerHTML =
+        kzInfoRow(KZ_ICON_BULB, '#c9a96e', 'Comment \u00e7a marche',
+          'Cr\u00e9ez votre visuel sur Canva puis importez-le ici. Utilisez uniquement des \u00e9l\u00e9ments dont vous avez les droits : \u00e9vitez les logos, personnages ou visages prot\u00e9g\u00e9s. Vous obtenez un design personnel et imprimable, \u00e0 votre image.', false)
+      + kzInfoRow(KZ_ICON_BRUSH, '#c9a96e', 'V\u00e9rifi\u00e9 avant impression',
+          'Nous contr\u00f4lons votre fichier avant de lancer l\u2019impression : cadrage, nettet\u00e9, rendu des couleurs. Si quelque chose risque de mal ressortir, nous vous pr\u00e9venons. Votre cr\u00e9ation reste la v\u00f4tre \u2014 nous n\u2019y apportons aucune modification.', true)
+      + kzInfoRow(KZ_ICON_INFO, '#c9a96e', 'Format standard 25/33cl',
+          'Ce configurateur est pr\u00e9vu pour le gobelet standard. Pour une autre contenance, <a href="mailto:' + CONTACT_EMAIL + '" style="color:#c9a96e;text-decoration:none;">contactez notre \u00e9quipe</a>.', true)
+      + kzInfoRow(KZ_ICON_LEAF, '#7a9e7e', 'Une alternative durable',
+          'Nos gobelets r\u00e9utilisables remplacent avantageusement le plastique jetable lors de vos \u00e9v\u00e9nements.', true);
+
+    container.appendChild(infoPanel);
+
+    var dw=document.createElement('div');dw.className='kzc-date-wrap';
+    dw.innerHTML='<div class="kzc-date-title">\ud83d\udcc5 Date de votre \u00e9v\u00e9nement <span style="font-weight:400;font-size:11px;color:#8a8078;">(optionnel)</span></div>';
+    var dateInp=document.createElement('input');dateInp.type='date';
+    dateInp.style.cssText='width:100%;max-width:154px;padding:8px 12px;border:1.5px solid #e0dbd4;border-radius:8px;font-size:16px;font-family:inherit;outline:none;margin-bottom:4px;';
+    var dateTxt=document.createElement('p');dateTxt.style.cssText='font-size:11px;color:#8a8078;margin:4px 0 0;';
+    dateTxt.textContent='Optionnel \u2014 nous aide \u00e0 tout organiser pour une livraison sereine avant le jour J.';
+    dateInp.addEventListener('change',function(){S.eventDate=dateInp.value;updateProps();});
+    dw.appendChild(dateInp);dw.appendChild(dateTxt);
+    container.appendChild(dw);
+    // Livraison (info)
+    var lw=document.createElement('div');
+    lw.style.cssText='margin-top:14px;font-size:13px;color:#5c554e;display:flex;align-items:center;gap:7px;line-height:1.4;';
+    lw.innerHTML='\ud83d\ude9a <span><strong style="color:#1c1c1c;">Livraison offerte en France</strong> \u00b7 sous 8 \u00e0 10 jours ouvr\u00e9s</span>';
+    container.appendChild(lw);
+    // Prix degressif (info)
+    var dg=document.createElement('div');
+    dg.style.cssText='margin-top:6px;font-size:13px;color:#5c554e;line-height:1.4;';
+    dg.textContent='Plus vous en commandez, moins c\u2019est cher par gobelet.';
+    container.appendChild(dg);
+
+    function doInject(t) {
+      if(document.contains(container)) return;
+      var pb=t.querySelector('[data-block-type="price"]');
+      if(pb&&pb.parentNode===t){t.insertBefore(container,pb);}
+      else{t.prepend(container);}
+    }
+    var tgt=document.querySelector('.product-info');
+    if(tgt){doInject(tgt);return;}
+    var obs=new MutationObserver(function(ml,o){
+      var t=document.querySelector('.product-info');
+      if(t){o.disconnect();doInject(t);}
+    });
+    obs.observe(document.body,{childList:true,subtree:true});
+    [300,600,1000,2000,4000].forEach(function(delay){
+      setTimeout(function(){
+        if(document.contains(container)) return;
+        var t=document.querySelector('.product-info')||document.querySelector('safe-sticky');
+        if(t){obs.disconnect();doInject(t);}
+      },delay);
+    });
+  }
+
+  function showRecap(){
+    var overlay=document.getElementById('kzp-overlay');
+    var body=document.getElementById('kzp-body');
+    if(!overlay||!body) return false;
+    var html='';
+    if(S.cImg) html+='<img src="'+S.cImg+'" class="kzp-img-preview" alt="Aperçu">';
+
+    var variants=getVariants();
+    var qteVariant=null;
+    variants.forEach(function(v){if(/quant/i.test(v.label)) qteVariant=v;});
+    if(qteVariant){
+      html+='<div class="kzp-section"><div class="kzp-section-title">Votre commande</div>';
+      html+='<div class="kzp-row"><span class="kzp-label">'+qteVariant.label+'</span><span class="kzp-val">'+qteVariant.value+'</span></div>';
+      html+='</div>';
+    }
+
+    html+='<div class="kzp-section"><div class="kzp-section-title">Caractéristiques du gobelet</div>';
+    html+='<div class="kzp-row"><span class="kzp-label">Contenance</span><span class="kzp-val">25/33cl</span></div>';
+    html+='<div class="kzp-row"><span class="kzp-label">Coloris</span><span class="kzp-val">Translucide</span></div>';
+    html+='</div>';
+
+    body.innerHTML=html;
+    overlay.classList.add('kzp-open');
+    return true;
+  }
+
+  function initCart(){
+    var form=document.querySelector('form[action*="/cart/add"]');
+    if(!form){setTimeout(initCart,600);return;}
+    form.addEventListener('submit',function(e){
+      if(window._kzcOrderDone) return;                 // seul submit natif autorisé : après réception du PNG
+      e.preventDefault();e.stopPropagation();           // tout autre submit est bloqué : jamais de commande sans PNG
+      if(window._kzcPending) return;                    // un flux est déjà en cours
+      if(window._kzcPngRequested) return;               // un essai est déjà lancé ; « Réessayer » réarme ce verrou
+      updateProps();
+      var shown=showRecap();
+      if(!shown){confirmOrder(form);return;}
+      document.getElementById('kzp-cancel').onclick=function(){document.getElementById('kzp-overlay').classList.remove('kzp-open');};
+      document.getElementById('kzp-confirm').onclick=function(){document.getElementById('kzp-overlay').classList.remove('kzp-open');confirmOrder(form);};
+    },true);
+  }
+
+  function confirmOrder(form){
+    var lo=document.getElementById('kzc-loading-overlay');
+    var lb=document.getElementById('kzc-loading-bar');
+    var ltxt=document.getElementById('kzc-loading-txt');
+    var pctEl=document.getElementById('kzc-loading-pct');
+    if(lo) lo.classList.add('kzc-active');
+    window._kzcPending=true;
+    window._kzcPngRequested=true;
+    window._kzcLoadInterval=startLoadingAnimation(lb,ltxt,pctEl);
+
+    // ── Boucle de réessai : redemande le PNG au GRAND iframe uniquement,
+    //    toutes les 8 s, tant que le viewer n'est pas prêt / que le PNG
+    //    n'est pas revenu. S'arrête dès réception de PRINT_PNG_READY.
+    function requestPng(){
+      if(!window._kzcPending) return;   // déjà résolu → on n'envoie plus rien
+      if(!S.vReady) return;             // viewer pas encore prêt → on retentera au prochain tick
+      if(iframe&&iframe.contentWindow) iframe.contentWindow.postMessage({type:'REQUEST_PRINT_PNG',proxyUrl:PROXY_URL,proxyKey:PROXY_KEY,origin:'canva'},'*');
+    }
+    requestPng();                        // tentative immédiate
+    window._kzcRetryInterval=setInterval(requestPng,8000);
+
+    // ── Fin de fenêtre : au bout de 60 s sans PNG → message d'erreur + blocage.
+    window._kzcTimeout=setTimeout(function(){
+      if(window._kzcPending){
+        window._kzcPending=false;
+        clearInterval(window._kzcLoadInterval);
+        clearInterval(window._kzcRetryInterval);
+        if(lo) lo.classList.remove('kzc-active');
+        showError();
+      }
+    },60000);
+  }
+
+  function maskContenance(){
+    document.querySelectorAll('fieldset,.product-form__option').forEach(function(el){
+      var txt=(el.getAttribute('data-option-name')||'')+(el.textContent||'');
+      if(/contenance/i.test(txt)) el.style.display='none';
+    });
+  }
+  setTimeout(maskContenance,200);
+  setTimeout(maskContenance,600);
+  setTimeout(maskContenance,1200);
+  var _mc=new MutationObserver(function(){maskContenance();});
+  _mc.observe(document.body,{childList:true,subtree:true});
+
+  buildForm();
+  initCart();
+});
+</script>
