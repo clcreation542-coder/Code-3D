@@ -1,0 +1,353 @@
+{%- comment -%}
+------------------------------------------------------------------------------------------------------------------------
+NOTE TO DEVELOPERS: welcome to Impact theme! This version is 100% KUZTOM Optimized - STRATÉGIE CONVERSION 2026.
+------------------------------------------------------------------------------------------------------------------------
+{%- endcomment -%}
+
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
+  <head>
+	<!-- Added by AVADA SEO Suite -->
+	{% include 'avada-seo' %}
+	<!-- /Added by AVADA SEO Suite -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="{{ settings.header_background }}">
+
+    {%- comment -%}
+      13/09/2026 — LE TITRE N'EST PLUS ÉCRIT EN CAPITALES.
+      Le filtre | upcase transformait la balise <title> en majuscules,
+      sur TOUTES les pages du site. Aucun texte n'y gagnait : Shopify
+      contient déjà le bon libellé, c'était le thème qui criait.
+      Ce que ça coûtait : Google coupe les titres à la LARGEUR, pas au
+      nombre de lettres, et les capitales sont plus larges.
+      Mesuré le 13/09 sur la fiche Pampa, police Arial 20 px, celle des
+      résultats Google :
+          « GOBELET MARIAGE PERSONNALISÉ PAMPA | KUZTOM »  526 px
+          « Gobelet Mariage Personnalisé Pampa | KUZTOM »  422 px
+      Même texte, 104 px de moins — 25 % de la largeur rendue, pour
+      une limite Google d'environ 600 px. Des titres qui frôlaient la
+      coupure repassent largement dessous.
+      Google réaffiche d'ailleurs souvent le titre en écriture normale
+      dans ses résultats : les capitales n'apportaient même pas le
+      bénéfice visuel qu'on pouvait leur prêter.
+      Pour revenir en arrière : remettre | upcase aux deux endroits.
+    {%- endcomment -%}
+    <title>{% if page_title == blank %}{{ shop.name }}{% else %}{{ page_title }}{% endif %}</title>
+
+    {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 96 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 }}">
+    {%- endif -%}
+
+    <link rel="preconnect" href="https://cdn.shopify.com">
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+
+    {%- comment -%} KUZTOM : amorce le visuel du design des la 1re milliseconde. crossorigin est obligatoire (le viewer charge l'image en mode CORS) sinon double telechargement. {%- endcomment -%}
+    {%- if request.page_type == 'product' -%}
+      {%- if product.template_suffix == blank or product.template_suffix == 'verrerie' -%}
+        {%- comment -%}
+          PRODUCTION : viewer et données sur code-3d.pages.dev.
+          La connexion « crossorigin » sert au fetch designs/<handle>.json de la
+          fiche (le viewer ne lit plus raw.githubusercontent : préconnexion retirée).
+          P6-13 : l'image préchargée doit être le design_url RÉEL. Il vaut
+          .../designs/<handle>.webp pour tous les designs publiés, SAUF les trois
+          dont le handle a été corrigé (P1-01..03) : leur image garde l'ancien nom.
+          Les fiches sans design (configurateurs client, vierge, livraison
+          express) ne préchargent plus une image qui n'existe pas.
+        {%- endcomment -%}
+        <link rel="preconnect" href="https://clcreation542-coder.github.io" crossorigin>
+        <link rel="preconnect" href="https://code-3d.pages.dev">
+        <link rel="preconnect" href="https://code-3d.pages.dev" crossorigin>
+        {%- case product.handle -%}
+          {%- when 'gobelet-anniversaire-animaux-ferme' -%}{%- assign kz_img = 'obelet-anniversaire-animaux-ferme' -%}
+          {%- when 'gobelet-anniversaire-lenvol-de-lourson' -%}{%- assign kz_img = 'gobelet-bapteme-lenvol-de-lourson' -%}
+          {%- when 'gobelet-bapteme-citron-bleu' -%}{%- assign kz_img = 'gobelet-bapteme-citron-bleu-dolce-vita' -%}
+          {%- when 'gobelet-personnalise-votre-design', 'gobelet-personnalise-professionnels', 'gobelet-personnalise-creer-avec-ia', 'gobelet-personnalise-creer-avec-canva', 'gobelet-personnalise-creer-mon-design', 'gobelet-vierge-translucide-gradue', 'livraison-express' -%}{%- assign kz_img = '' -%}
+          {%- else -%}{%- assign kz_img = product.handle -%}
+        {%- endcase -%}
+        {%- if kz_img != '' -%}
+        <link rel="preload" as="image" crossorigin fetchpriority="high" href="https://clcreation542-coder.github.io/Code-3D/designs/{{ kz_img }}.webp">
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- render 'social-meta-tags' -%}
+    {%- render 'microdata-schema' -%}
+    {%- render 'css-variables' -%}
+    {%- render 'js-variables' -%}
+
+    <script type="importmap">
+      {
+        "imports": {
+          "vendor": "{{ 'vendor.min.js' | asset_url }}",
+          "theme": "{{ 'theme.js' | asset_url }}",
+          "photoswipe": "{{ 'photoswipe.min.js' | asset_url }}"
+        }
+      }
+    </script>
+
+    <script type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
+
+    {{ content_for_header }}
+    {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
+
+    <style>
+      /* --- KUZTOM : DESIGN PANIER HAUTE CONVERSION --- */
+
+      /* 1. Suppression Quantité (Le client a déjà choisi son pack) */
+      quantity-input, .quantity-selector, .cart-item__quantity, line-item-quantity, [is="quantity-input"] {
+        display: none !important;
+      }
+
+      /* 2. Carte Produit Épurée */
+      line-item, .cart-item, .cart-drawer__item {
+        background: #FDFBF7 !important;
+        border-radius: 20px !important;
+        padding: 20px !important;
+        margin-bottom: 30px !important;
+        box-shadow: 0 10px 35px rgba(26,21,16,0.07) !important;
+        border: 1px solid #E0D9CC !important;
+        display: block !important;
+        position: relative !important;
+      }
+
+      /* 3. IMAGE XXL (L'émotion avant tout) */
+      .cart-item__image-wrapper, .line-item__image-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 20px 0 !important;
+        display: block !important;
+      }
+
+      img.cart-item__image, .cart-item__image-wrapper img, .line-item__image-wrapper img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 600px !important;
+        object-fit: contain !important;
+      }
+
+      /* 4. LE BOUTON PSYCHOLOGIQUE NOIR */
+      [name="checkout"], .cart__checkout-button, .cart-drawer__checkout-button {
+        background: #1A1510 !important;
+        color: #ffffff !important;
+        border-radius: 50px !important;
+        font-weight: 900 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        padding: 20px !important;
+        font-size: 16px !important;
+        border: none !important;
+        width: 100% !important;
+      }
+
+      /* 5. Bouton Modifier (Discret mais utile) */
+      .kuztom-edit-btn {
+        display: inline-block !important;
+        background: transparent !important;
+        color: #1A1510 !important;
+        border: 1.2px solid #1A1510 !important;
+        border-radius: 50px !important;
+        padding: 8px 18px !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        text-decoration: none !important;
+        margin-top: 15px !important;
+      }
+
+      /* 6. Croix de suppression */
+      .kuztom-delete {
+        position: absolute !important;
+        top: 15px !important;
+        right: 15px !important;
+        width: 32px !important;
+        height: 32px !important;
+        background: #1A1510 !important;
+        color: #fff !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 18px !important;
+        z-index: 100 !important;
+        text-decoration: none !important;
+      }
+
+      /* Style pour les propriétés traduites */
+      .kuztom-prop-line {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 4px;
+        color: #6B5E4F;
+      }
+    </style>
+  {% if request.page_type == 'collection' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ collection.title | json }},
+  "description": {{ collection.description | strip_html | truncate: 300 | json }},
+  "url": {{ shop.url | append: collection.url | json }},
+  "isPartOf": { "@type": "WebSite", "name": {{ shop.name | json }}, "url": {{ shop.url | json }} }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": {{ shop.url | json }} },
+    { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": {{ shop.url | append: collection.url | json }} }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {{ collection.title | json }},
+  "numberOfItems": {{ collection.products_count }},
+  "itemListElement": [
+    {%- for product in collection.products limit: 24 -%}
+    { "@type": "ListItem", "position": {{ forloop.index }}, "url": {{ shop.url | append: product.url | json }}, "name": {{ product.title | json }} }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{% endif %}
+    <link rel="stylesheet" href="{{ 'kz-kuztom.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'kz-global.css' | asset_url }}">
+</head>
+
+  <body class="{% if settings.zoom_image_on_hover %}zoom-image--enabled{% endif %}">
+    {%- render 'shadow-dom-templates' -%}
+
+    {%- if request.page_type != 'password' -%}
+      {%- sections 'header-group' -%}
+      {%- sections 'overlay-group' -%}
+    {%- endif -%}
+
+    <main role="main" id="main" class="anchor">
+      {%- if request.page_type == 'collection' -%}{%- render 'kuztom-collection-header', position: 'top' -%}{%- endif -%}
+      {{ content_for_layout }}
+      {%- if request.page_type == 'collection' -%}{%- render 'kuztom-collection-header', position: 'bottom' -%}{%- endif -%}
+
+      {%- if request.page_type != 'password' -%}
+        {%- sections 'footer-group' -%}
+      {%- endif -%}
+    </main>
+
+    <script>
+      /* ================================================================
+         KUZTOM · kMagic — mise en forme du panier
+         ----------------------------------------------------------------
+         La méthode reste la même (vérification périodique), car elle est
+         la seule qui voit l'intérieur des éléments fermés (shadow DOM)
+         du tiroir panier. On lui évite simplement de travailler dans le
+         vide :
+           1. sortie immédiate quand il n'y a ni panier ni bouton ;
+           2. chaque article n'est inspecté en profondeur qu'une fois ;
+           3. cadence passée de 500 ms à 1 000 ms (invisible à l'usage).
+         Aucune fonction retirée : image XL, traduction des options,
+         croix de suppression et bouton Modifier sont inchangés.
+         ================================================================ */
+      function kMagic() {
+        const cartItems    = document.querySelectorAll('line-item, .cart-item, .cart-drawer__item');
+        const checkoutBtns = document.querySelectorAll('[name="checkout"], .cart__checkout-button');
+
+        // Rien à faire sur cette page : on ressort tout de suite.
+        if (!cartItems.length && !checkoutBtns.length) return;
+
+        // MAJ TEXTE BOUTON PAYER
+        checkoutBtns.forEach(btn => {
+          if (btn && btn.innerText !== 'Valider ma commande') {
+            btn.innerText = 'Valider ma commande';
+          }
+        });
+
+        cartItems.forEach(item => {
+          const root = item.shadowRoot || item;
+
+          // IMAGE : Force le rendu final XL
+          const cImg = root.querySelector('a.link[href*=".png"], a.link[href*=".PNG"], a.link[href*=".jpg"]');
+          const mImg = root.querySelector('img');
+          if (cImg && mImg && !mImg.dataset.kDone) {
+            mImg.srcset = cImg.href;
+            mImg.src = cImg.href;
+            mImg.dataset.kDone = "true";
+          }
+
+          // TRADUCTION DES SLASHES EN INFOS CLAIRES
+          // C'est l'opération la plus coûteuse : on ne la refait pas
+          // indéfiniment. Si rien n'a été trouvé après 5 passages, cet
+          // article n'a tout simplement pas d'options à traduire.
+          if (!item.dataset.kzProps) {
+            let aTraduit = false;
+            root.querySelectorAll('dd, dt, span, p, li, .cart-item__properties').forEach(el => {
+              let txt = el.innerText;
+              if (!txt) return;
+              if (txt.startsWith('_') || txt.toLowerCase().startsWith('note')) return;
+              if (txt.includes('/') && (txt.includes('cl') || txt.includes('160') || txt.toLowerCase().includes('lucide'))) {
+                let parts = txt.split('/');
+                if (parts.length >= 3) {
+                  let formatted = `<div style="margin-top:10px;">`;
+                  formatted += `<span class="kuztom-prop-line"><strong>Contenance :</strong> ${parts[0]} / ${parts[1]}</span>`;
+                  formatted += `<span class="kuztom-prop-line"><strong>Quantité :</strong> ${parts[2]} exemplaires</span>`;
+                  if(parts[3]) {
+                    formatted += `<span class="kuztom-prop-line"><strong>Couleur :</strong> ${parts[3]}</span>`;
+                  }
+                  formatted += `</div>`;
+                  el.innerHTML = formatted;
+                  aTraduit = true;
+                }
+              }
+            });
+            const essais = parseInt(item.dataset.kzEssais || '0', 10) + 1;
+            if (aTraduit || essais >= 5) item.dataset.kzProps = '1';
+            else item.dataset.kzEssais = essais;
+          }
+
+          // CROIX DE SUPPRESSION
+          if (!root.querySelector('.kuztom-delete')) {
+            const oldDel = root.querySelector('a[href*="quantity=0"]');
+            if (oldDel) {
+              oldDel.style.display = 'none';
+              const x = document.createElement('a');
+              x.className = 'kuztom-delete';
+              x.href = oldDel.href;
+              x.innerHTML = '×';
+              item.appendChild(x);
+            }
+          }
+
+          // BOUTON MODIFIER (Mémoire du design)
+          if (!root.querySelector('.kuztom-edit-btn')) {
+            let editLink = root.querySelector('a[href*="edit"]') || root.querySelector('a[href*="config"]') || root.querySelector('a[href*="/products/"]');
+            if (editLink) {
+              const btn = document.createElement('a');
+              btn.className = 'kuztom-edit-btn';
+              btn.href = editLink.href;
+              btn.textContent = 'Modifier mon gobelet';
+              const info = root.querySelector('.cart-item__info, .line-item__info') || root;
+              if (info) info.appendChild(btn);
+            }
+          }
+        });
+      }
+
+      setInterval(kMagic, 1000);
+      window.addEventListener('load', kMagic);
+      document.addEventListener('shopify:section:load', kMagic);
+    </script>
+  {% render 'kz-fiche' %}
+  {% render 'kz-panier' %}
+  {% render 'kz-atc' %}
+  </body>
+</html>
