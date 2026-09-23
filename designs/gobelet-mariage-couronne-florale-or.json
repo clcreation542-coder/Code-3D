@@ -1,0 +1,110 @@
+{
+  "id": "gobelet-mariage-couronne-florale-or-mpban42cc0e6",
+  "name": "Gobelet Mariage - Couronne Florale & Or",
+  "shopify_handle": "gobelet-mariage-couronne-florale-or",
+  "gobelet_color": "#f0ede6",
+  "gobelet_opacity": 0,
+  "model_url": null,
+  "rotation_y": 5.672320068981571,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-couronne-florale-or.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.3,
+      "font_size": 93,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1455,
+      "y": 318,
+      "width": 357,
+      "height": 431,
+      "shape": "circle",
+      "placeholder": "Alex\n&\nSarah",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 15,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.5,
+      "font_size": 80,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1435,
+      "y": 891,
+      "width": 396,
+      "height": 88,
+      "shape": "rectangle",
+      "placeholder": "11 juillet 2027",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpp4yuwhknei",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 259,
+      "y": 275,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

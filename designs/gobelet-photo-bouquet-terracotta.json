@@ -1,0 +1,79 @@
+{
+  "id": "gobelet-mariage-personnalise-bouquet-terracotta-mrms0u0e9j4p",
+  "name": "Gobelet Mariage Personnalisé – Bouquet Terracotta",
+  "shopify_handle": "gobelet-photo-bouquet-terracotta",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.021385919380437,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-photo-bouquet-terracotta.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 85,
+      "color": "#b5472e",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1367,
+      "y": 350,
+      "width": 346,
+      "height": 392,
+      "shape": "oval",
+      "placeholder": "Mick\n&\nJulie",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "photo_mrpnjnf8pkm5",
+      "label": "Photo",
+      "order": 1,
+      "x": 368,
+      "y": 271,
+      "width": 348,
+      "height": 464,
+      "shape": "rectangle"
+    }
+  ],
+  "arch_zones": []
+}

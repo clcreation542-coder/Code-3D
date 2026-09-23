@@ -1,0 +1,112 @@
+{
+  "id": "brouillon-1-mubn8u549a0p",
+  "name": "Gobelet Anniversaire Personnalisé – Ballons Rouge & Noir",
+  "shopify_handle": "gobelet-anniversaire-ballons-rouge-noir",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 0.88,
+  "model_url": null,
+  "rotation_y": 5.8643062867009474,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ballons-rouge-noir.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.3,
+      "font_size": 250,
+      "color": "#cf4446",
+      "multiline": false,
+      "id": "mubn8u54mour",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1375,
+      "y": 401,
+      "width": 401,
+      "height": 343,
+      "shape": "oval",
+      "placeholder": "20",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_print": 2.5,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 129,
+      "color": "#cf4446",
+      "multiline": false,
+      "id": "texte_mubnak5ttnus",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1318,
+      "y": 855,
+      "width": 515,
+      "height": 144,
+      "shape": "rectangle",
+      "placeholder": "David",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_print": 2.5,
+      "stroke_preview": 1.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 100,
+      "color": "#cf4446",
+      "multiline": false,
+      "id": "texte_mubnbl67b9n8",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 250,
+      "y": 335,
+      "width": 768,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_print": 2.5,
+      "stroke_preview": 1.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

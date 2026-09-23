@@ -1,0 +1,89 @@
+{
+  "id": "copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-gobelet-anniversaire-animaux-de-la-foret-mpzkdruergr1",
+  "name": "Gobelet Anniversaire - Black & Beer Panoramique",
+  "shopify_handle": "gobelet-anniversaire-black-and-beer-panoramique",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.6199601914217405,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-black-and-beer-panoramique.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 369,
+      "y": 267,
+      "width": 554,
+      "height": 163,
+      "shape": "rectangle",
+      "placeholder": "Johan",
+      "font_family": "Alegreya",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 190,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 365,
+      "y": 430,
+      "width": 558,
+      "height": 171,
+      "shape": "rectangle",
+      "placeholder": "40 ans",
+      "font_family": "Alegreya",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

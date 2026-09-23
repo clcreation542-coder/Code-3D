@@ -1,0 +1,110 @@
+{
+  "id": "copie-de-gobelet-mariage-arche-eucalyptus-or-mpqtrs4viof6",
+  "name": "Gobelet Mariage - Arche Terracotta",
+  "shopify_handle": "gobelet-mariage-arche-terracotta",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.6,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-arche-terracotta.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#a2471b",
+      "multiline": false,
+      "id": "texte_mppguavyfv0j",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 274,
+      "y": 268,
+      "width": 780,
+      "height": 459,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#a2471b",
+      "multiline": false,
+      "id": "texte_mpqruvs9iajb",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1443,
+      "y": 316,
+      "width": 413,
+      "height": 321,
+      "shape": "rectangle",
+      "placeholder": "Marine\net\nBenjamin",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 82,
+      "color": "#a2471b",
+      "multiline": false,
+      "id": "texte_mpqrxxl9y4ug",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1434,
+      "y": 790,
+      "width": 435,
+      "height": 100,
+      "shape": "rectangle",
+      "placeholder": "11 juillet 2027",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 30,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

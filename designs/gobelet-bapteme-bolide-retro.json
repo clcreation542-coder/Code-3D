@@ -1,0 +1,110 @@
+{
+  "id": "copie-de-copie-de-copie-de-copie-de-copie-de-copie-de-gobelet-anniversaire-panda-bambou-mpwndacwe8aj",
+  "name": "Gobelet Baptême - Bolide Rétro",
+  "shopify_handle": "gobelet-bapteme-bolide-retro",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 1.5,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-bolide-retro.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 74,
+      "color": "#014c97",
+      "multiline": false,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 764,
+      "y": 43,
+      "width": 442,
+      "height": 102,
+      "shape": "rectangle",
+      "placeholder": "Baptême de",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 90,
+      "color": "#014c97",
+      "multiline": false,
+      "id": "texte_mpbbehsjclpa",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 787,
+      "y": 462,
+      "width": 396,
+      "height": 86,
+      "shape": "rectangle",
+      "placeholder": "8 fevrier 1992",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 68,
+      "color": "#014c97",
+      "multiline": false,
+      "id": "texte_mpxvggrgfyji",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 764,
+      "y": 145,
+      "width": 442,
+      "height": 89,
+      "shape": "rectangle",
+      "placeholder": "DORIAN",
+      "font_family": "Graduate",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

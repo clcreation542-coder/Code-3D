@@ -1,0 +1,89 @@
+{
+  "id": "copie-de-gobelet-mariage-arche-terracotta-mpwfi5tjl4kw",
+  "name": "Gobelet Mariage - Automne Enchanté",
+  "shopify_handle": "gobelet-mariage-automne-enchante",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 1.5,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-automne-enchante.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#f4e798"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.4,
+      "font_size": 83,
+      "color": "#da500a",
+      "multiline": false,
+      "id": "texte_mpqruvs9iajb",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 794,
+      "y": 296,
+      "width": 398,
+      "height": 419,
+      "shape": "oval",
+      "placeholder": "Chloé\n& \nMatthieu",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 83,
+      "color": "#da500a",
+      "multiline": false,
+      "id": "texte_mpqrxxl9y4ug",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 715,
+      "y": 938,
+      "width": 541,
+      "height": 82,
+      "shape": "rectangle",
+      "placeholder": "11.09.2027",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 30,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

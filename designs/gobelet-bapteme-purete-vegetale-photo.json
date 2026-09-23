@@ -1,0 +1,142 @@
+{
+  "id": "copie-de-gobelet-anniversaire-couronne-azur-photo-mpzf9er05zpp",
+  "name": "Gobelet Baptême - Pureté Végétale Photo",
+  "shopify_handle": "gobelet-bapteme-purete-vegetale-photo",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.6,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-bapteme-purete-vegetale-photo.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.5,
+      "font_size": 100,
+      "color": "#17622c",
+      "multiline": false,
+      "id": "texte_mpzauz28ez1k",
+      "label": "Zone de texte 4",
+      "order": 4,
+      "x": 362,
+      "y": 239,
+      "width": 635,
+      "height": 472,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 70,
+      "color": "#17622c",
+      "multiline": false,
+      "id": "texte_mpzbw0t8ajnj",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1441,
+      "y": 86,
+      "width": 293,
+      "height": 71,
+      "shape": "rectangle",
+      "placeholder": "Baptême",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 55,
+      "color": "#17622c",
+      "multiline": false,
+      "id": "texte_mpzbz81jdair",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 1392,
+      "y": 919,
+      "width": 525,
+      "height": 74,
+      "shape": "rectangle",
+      "placeholder": "21 juin 2027",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 60,
+      "color": "#17622c",
+      "multiline": false,
+      "id": "texte_mpzfj3v4w31e",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1475,
+      "y": 165,
+      "width": 191,
+      "height": 70,
+      "shape": "rectangle",
+      "placeholder": "Giulian",
+      "font_family": "EB Garamond",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "photo_mpypuln3byb0",
+      "label": "Photo",
+      "order": 1,
+      "x": 1495,
+      "y": 242,
+      "width": 319,
+      "height": 491,
+      "shape": "rectangle"
+    }
+  ],
+  "arch_zones": []
+}

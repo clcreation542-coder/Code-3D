@@ -1,0 +1,110 @@
+{
+  "id": "copie-de-gobelet-mariage-alliances-hiver-chic-mpqtjvb9ux87",
+  "name": "Gobelet Mariage - Cœur Géométrique Fleuri",
+  "shopify_handle": "gobelet-mariage-coeur-geometrique-fleuri",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 5.742133239061344,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-coeur-geometrique-fleuri.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2000,
+    "height": 1024
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 81,
+      "color": "#000000",
+      "multiline": true,
+      "id": "texte_mpbapgk1g4o2",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1443,
+      "y": 384,
+      "width": 334,
+      "height": 300,
+      "shape": "oval",
+      "placeholder": "Laetitia\n&\nFrédéric",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 80,
+      "color": "#0d0d0d",
+      "multiline": false,
+      "id": "texte_mpqwll75w4qe",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 338,
+      "y": 409,
+      "width": 561,
+      "height": 96,
+      "shape": "rectangle",
+      "placeholder": "01 Août 2027",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mq49u2fjgw1z",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 262,
+      "y": 596,
+      "width": 713,
+      "height": 133,
+      "shape": "rectangle",
+      "placeholder": "Vive les Mariés !",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
