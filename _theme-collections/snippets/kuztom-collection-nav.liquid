@@ -1,0 +1,147 @@
+{%- comment -%}
+  KUZTOM — Navigation inter-catégories · v2 (19/08/2026), code d'origine conservé
+  20/08/2026 : handle « gobelets-personnalises-bapteme-anniversaire-enfant »
+  remplacé par « gobelets-personnalises-bapteme-communion » (URL corrigée).
+
+  21/08/2026 — compactage sur téléphone. Sur mobile, 269 px séparaient le
+  haut de la page de la première vignette, dont 130 px pour ces seuls
+  boutons. Trois mesures, sans rien retirer :
+    · « Anniversaire Enfant » fait 124 px ; la place disponible dans un
+      bouton sur un écran de 360 px était de 123 px. Il manquait UN pixel,
+      d'où le passage à deux lignes. Marge intérieure 12 → 8 px et police
+      13,5 → 13 px : tout tient sur une ligne.
+    · Marges resserrées au-dessus des boutons et avant la grille.
+    · « Vous êtes dans : X » masqué — le titre juste au-dessus dit déjà
+      « Gobelets personnalisés X ». C'était un doublon pur.
+
+  24/08/2026 : les collections verrerie (verres à vin / flûtes) reçoivent leur
+  propre navigation — proposer « Mariage, Baptême… » sur un verre à vin
+  renvoyait le visiteur vers des gobelets.
+
+  25/08/2026 : fusion des deux évolutions ci-dessus, qui vivaient jusqu'ici
+  dans deux thèmes séparés. Elles ne se recouvrent pas : l'une touche la
+  feuille de style, l'autre le choix des boutons.
+
+  03/09/2026 — HAUTEUR IDENTIQUE PARTOUT. La hauteur était un MINIMUM :
+  40 px au téléphone, 56 px au bureau. Un libellé qui passait sur deux
+  lignes poussait sa rangée à 47 px pendant que la rangée voisine restait
+  à 40 — et le nombre de boutons change d'une page à l'autre (trois sur la
+  verrerie, quatre ou cinq sur les gobelets), donc la hauteur changeait
+  d'une page à l'autre. C'est désormais une hauteur FIXE.
+
+  03/09/2026 (soir) — BOUTONS PLUS ÉPAIS, à la demande d'Allan.
+  52 px au téléphone (était 44), 60 px au bureau (était 56). La police ne
+  bouge pas : c'est la place autour du texte qui grandit, donc aucun
+  libellé ne risque de repasser sur deux lignes. Ces deux valeurs sont
+  reprises à l'identique dans snippets/kz-collection.liquid, qui est
+  chargé après les sections : si l'une change, l'autre doit suivre.
+{%- endcomment -%}
+
+<style>
+  .kz-nav-wrap { max-width: 1100px; margin: 0 auto; padding: 10px 12px 0; }
+
+  .kz-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  /* 24/09/2026 : « Autres occasions » ajouté → 5 boutons. Sur téléphone,
+     un nombre impair de boutons : le dernier prend toute la largeur. */
+  .kz-nav > .kz-nav-btn:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  .kz-nav-btn {
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    height: 52px; padding: 8px 8px; box-sizing: border-box;
+    background: #D9C08C; color: #2A2A2A;
+    border: 1.5px solid #B8985A; border-radius: 50px;
+    font-size: 13px; font-weight: 600; letter-spacing: .02em; line-height: 1.2;
+    text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    transition: background .2s ease, transform .15s ease, box-shadow .2s ease;
+  }
+  .kz-nav-btn:hover, .kz-nav-btn:focus-visible {
+    background: #E6D2A8; transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(184,152,90,.28);
+  }
+
+  /* Doublon : « Vous êtes dans : Mariage » répète le titre de la page,
+     qui dit déjà « Gobelets personnalisés Mariage ». On masque la ligne
+     ET son conteneur, pour ne pas laisser une marge vide derrière.
+     Le garde-fou :not(:has(.kz-nav)) garantit qu'on ne masque jamais le
+     conteneur des boutons eux-mêmes. */
+  .kz-nav-current { display: none !important; }
+  .kz-nav-wrap:has(> .kz-nav-current):not(:has(.kz-nav)) { display: none !important; }
+
+  .shopify-section:has(.kz-nav-wrap) > .section { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+  .collection.collection--filters-sidebar,
+  .collection.collection--filters-drawer,
+  .container > .collection { margin-top: 10px !important; }
+
+  @media (min-width: 750px) {
+    .kz-nav-wrap { padding: 18px 16px 0; }
+    .kz-nav { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 14px; }
+    .kz-nav > .kz-nav-btn:last-child:nth-child(odd) { grid-column: auto; }
+    .kz-nav-btn { height: 60px; padding: 10px 14px; font-size: 15px; }
+    .collection.collection--filters-sidebar,
+    .collection.collection--filters-drawer,
+    .container > .collection { margin-top: 16px !important; }
+  }
+</style>
+
+<style>
+  .facets__header,
+  .facets__header-text,
+  .facets__count,
+  .collection__count,
+  .collection__header-count,
+  .products-count,
+  .product-count,
+  .main-collection__count,
+  .main-collection__header,
+  .section-header__description,
+  .collection__products-count,
+  .collection-count,
+  .collection-products-count,
+  .facets > .section-header,
+  .facets > .section-header__description,
+  .facets > p,
+  .facets > span,
+  .facets__header .count,
+  .collection__header .count,
+  [class*="product-count"],
+  [class*="produits"],
+  [class*="collection-count"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+</style>
+
+{%- assign current = collection.handle -%}
+{%- assign main_handles = "gobelets-personnalises-mariage,gobelets-personnalises-anniversaire,anniversaire-enfant,gobelets-personnalises-bapteme-communion,autres-occasions,tous-les-modeles" | split: "," -%}
+{%- assign main_labels = "Mariage,Anniversaire Adulte,Anniversaire Enfant,Baptême,Autres occasions,Tous les modèles" | split: "," -%}
+
+{%- assign is_main = false -%}
+{%- for h in main_handles -%}{%- if h == current -%}{%- assign is_main = true -%}{%- endif -%}{%- endfor -%}
+
+{%- comment -%}
+  Verrerie : on remplace entièrement le jeu de boutons. Le visiteur circule
+  entre les formes, avec un retour explicite vers les gobelets.
+{%- endcomment -%}
+{%- if current == "verres-a-vin" or current == "flutes-a-champagne" -%}
+  {%- assign main_handles = "verres-a-vin,flutes-a-champagne,tous-les-modeles" | split: "," -%}
+  {%- assign main_labels = "Verres à vin,Flûtes à champagne,Tous nos gobelets" | split: "," -%}
+  {%- assign is_main = true -%}
+{%- endif -%}
+
+<div class="kz-nav-wrap">
+  <nav class="kz-nav" aria-label="Catégories principales">
+    {%- for h in main_handles -%}
+      {%- assign l = main_labels[forloop.index0] -%}
+      {%- if is_main -%}
+        {%- unless h == current -%}<a href="/collections/{{ h }}" class="kz-nav-btn">{{ l }}</a>{%- endunless -%}
+      {%- else -%}
+        {%- unless h == "tous-les-modeles" -%}<a href="/collections/{{ h }}" class="kz-nav-btn">{{ l }}</a>{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </nav>
+</div>

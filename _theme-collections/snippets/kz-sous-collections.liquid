@@ -1,0 +1,156 @@
+{%- comment -%}
+  ════════════════════════════════════════════════════════════════════
+  KZ_SOUS_COLLECTIONS v2 — la colonne de gauche (24/09/2026)
+  ------------------------------------------------------------------
+  NOUVELLE ARBORESCENCE (fichier COLLECTION.xlsx d'Allan, 24/09/2026).
+  Cinq collections mères, chacune avec ses sous-collections, dans
+  l'ordre du fichier :
+    · Mariage          : Bohème & Champêtre, Eucalyptus & Végétal,
+                         Minimaliste & Chic, Cœur & Amour, Personnage, Photos
+    · Baptême/Communion: Fille, Garçon, Photos, Animaux & Jungle,
+                         Croix & Religieux, Bohème & Champêtre
+    · Anniv. enfant    : Fille, Garçon, Photos
+    · Anniv. adulte    : Bohème & Champêtre, Cocktail & Apéro, Véhicule,
+                         Métiers & Passions, Sport, Photo, Festif, Humour, Divers
+    · Autres occasions : EVG/EVJF, Anniversaire de mariage, Retraite,
+                         Crémaillère, Baby shower & Gender reveal,
+                         Remise de diplôme
+
+  COMMENT UN GOBELET ENTRE DANS UNE SOUS-COLLECTION : chaque
+  sous-collection est une collection automatique avec UNE règle,
+  « la balise du produit est égale à sc-… » (ex. sc-mariage-boheme).
+  Autres occasions : par type de produit (Gobelet EVJF, Gobelet Retraite…).
+
+  LES ANCIENNES SOUS-COLLECTIONS retirées de l'arborescence (Mariage Fleurs
+  & Floral, Bleu & Royal, Méditerranée, Hiver ; Baptême Fleurs & Champêtre,
+  Ourson ; Anniversaire Par Âge, Minimaliste & Chic, Musique, Floral…)
+  EXISTENT TOUJOURS, pour ne casser aucun lien ni aucune page indexée par
+  Google. Elles ne sont plus dans la liste ; si un visiteur y arrive, la
+  colonne lui montre les sous-collections de la bonne collection mère.
+
+  Garde-fou conservé : une sous-collection vide (0 fiche publiée) ne
+  s'affiche pas. « Anniversaire Divers » apparaîtra donc toute seule dès
+  qu'une de ses fiches sera activée.
+
+  Les filtres Thème, Style et Pour qui restent masqués là où la colonne
+  les remplace ; sur Autres occasions, ils restent visibles.
+  POUR DÉSACTIVER : retirer l'appel dans kz-filtres.liquid.
+  ════════════════════════════════════════════════════════════════════
+{%- endcomment -%}
+
+{%- if collection -%}
+{%- liquid
+  assign kz_h = collection.handle
+  assign kz_parent = ''
+  assign kz_prefixe = ''
+  assign kz_filtres = true
+
+  assign l_mariage = 'gobelets-personnalises-mariage-boheme-champetre,mariage-eucalyptus-vegetal,gobelets-personnalises-mariage-minimaliste-chic,mariage-coeur-amour,mariage-avec-personnage,gobelets-personnalises-mariage-avec-photos' | split: ','
+  assign o_mariage = 'mariage-fleurs-floral,mariage-mediterranee-citron,mariage-bleu-royal,mariage-hiver-noel' | split: ','
+  assign l_bapteme = 'bapteme-fille,bapteme-garcon,bapteme-avec-photo,bapteme-animaux-jungle,bapteme-croix-religieux,bapteme-boheme-eucalyptus' | split: ','
+  assign o_bapteme = 'bapteme-fleurs-champetre,bapteme-ourson' | split: ','
+  assign l_annivenf = 'anniversaire-enfant-fille,anniversaire-enfant-garcon,anniversaire-enfant-avec-photo' | split: ','
+  assign o_annivenf = 'anniversaire-enfant-animaux-jungle,anniversaire-enfant-feerie-magie,anniversaire-enfant-vehicules,anniversaire-enfant-boheme-champetre' | split: ','
+  assign l_annivad = 'gobelets-personnalises-anniversaire-boheme-champetre,anniversaire-cocktail-apero,gobelets-personnalises-anniversaire-vehicules-engins,anniversaire-metiers-passions,gobelets-personnalises-sport-passion,gobelets-personnalises-anniversaire-photo,anniversaire-festif,anniversaire-humour,anniversaire-divers' | split: ','
+  assign o_annivad = 'gobelets-personnalises-minimaliste-chic,anniversaire-par-age,anniversaire-musique,anniversaire-floral,anniversaire-eucalyptus-nature,gobelets-personnalises-anniversaire-retro-vintage,anniversaire-pays-origines,anniversaire-adulte-avec-personnage' | split: ','
+  assign l_autres = 'evjf-evg,anniversaire-de-mariage,anniversaire-retraite,cremaillere,baby-shower-gender-reveal,remise-de-diplome' | split: ','
+
+  if kz_h == 'anniversaire-enfant' or l_annivenf contains kz_h or o_annivenf contains kz_h
+    assign kz_parent = 'anniversaire-enfant'
+    assign kz_enfants = l_annivenf
+    assign kz_prefixe = 'Anniversaire Enfant '
+  elsif kz_h == 'gobelets-personnalises-mariage' or l_mariage contains kz_h or o_mariage contains kz_h
+    assign kz_parent = 'gobelets-personnalises-mariage'
+    assign kz_enfants = l_mariage
+    assign kz_prefixe = 'Mariage '
+  elsif kz_h == 'gobelets-personnalises-bapteme-communion' or l_bapteme contains kz_h or o_bapteme contains kz_h
+    assign kz_parent = 'gobelets-personnalises-bapteme-communion'
+    assign kz_enfants = l_bapteme
+    assign kz_prefixe = 'Baptême '
+  elsif kz_h == 'gobelets-personnalises-anniversaire' or l_annivad contains kz_h or o_annivad contains kz_h
+    assign kz_parent = 'gobelets-personnalises-anniversaire'
+    assign kz_enfants = l_annivad
+    assign kz_prefixe = 'Anniversaire '
+  elsif kz_h == 'autres-occasions' or l_autres contains kz_h
+    assign kz_parent = 'autres-occasions'
+    assign kz_enfants = l_autres
+    assign kz_prefixe = ''
+    assign kz_filtres = false
+  endif
+-%}
+{%- if kz_parent != '' -%}
+  {%- assign kz_mere = collections[kz_parent] -%}
+
+  <nav class="kz-sc" aria-label="Sous-collections de {{ kz_mere.title | escape }}">
+    <p class="kz-sc__titre">{{ kz_mere.title }}</p>
+    <ul class="kz-sc__liste">
+      <li>
+        <a href="{{ kz_mere.url }}" class="kz-sc__lien{% if kz_h == kz_parent %} is-current{% endif %}"{% if kz_h == kz_parent %} aria-current="page"{% endif %}>
+          <span class="kz-sc__nom">Tout voir</span>
+          <span class="kz-sc__n">{{ kz_mere.products_count }}</span>
+        </a>
+      </li>
+      {%- for kz_c in kz_enfants -%}
+        {%- assign kz_co = collections[kz_c] -%}
+        {%- if kz_co.products_count > 0 -%}
+          {%- if kz_prefixe != '' -%}{%- assign kz_nom = kz_co.title | remove_first: kz_prefixe | strip -%}{%- else -%}{%- assign kz_nom = kz_co.title -%}{%- endif -%}
+          {%- if kz_nom == blank -%}{%- assign kz_nom = kz_co.title -%}{%- endif -%}
+          <li>
+            <a href="{{ kz_co.url }}" class="kz-sc__lien{% if kz_h == kz_c %} is-current{% endif %}"{% if kz_h == kz_c %} aria-current="page"{% endif %}>
+              <span class="kz-sc__nom">{{ kz_nom }}</span>
+              <span class="kz-sc__n">{{ kz_co.products_count }}</span>
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+
+  <style>
+    .kz-sc { margin-bottom: 22px; }
+    .kz-sc__titre {
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: #8A6D3B; font-weight: 600; margin: 0 0 10px;
+    }
+    .kz-sc__liste { list-style: none; margin: 0; padding: 0; }
+    .kz-sc__liste li { margin: 0; }
+    .kz-sc__lien {
+      display: flex; align-items: baseline; gap: 10px;
+      padding: 7px 0; text-decoration: none; color: #3D372E;
+      font-size: 14px; line-height: 1.35;
+      border-bottom: 1px solid #EFE9DD;
+    }
+    .kz-sc__liste li:last-child .kz-sc__lien { border-bottom: 0; }
+    .kz-sc__nom { flex: 1 1 auto; min-width: 0; }
+    /* « avec Photos » devient « Avec Photos » : retirer le préfixe du titre
+       laisse parfois une minuscule en tête. On ne touche pas au texte, juste
+       à son rendu — capitalize aurait aussi mis « photos » en minuscule. */
+    .kz-sc__nom::first-letter { text-transform: uppercase; }
+    .kz-sc__n {
+      flex: none; font-size: 12px; color: #A79E8C;
+      font-variant-numeric: tabular-nums;
+    }
+    @media (hover: hover) {
+      .kz-sc__lien:hover { color: #1A1510; }
+      .kz-sc__lien:hover .kz-sc__n { color: #8A6D3B; }
+    }
+    .kz-sc__lien.is-current { color: #1A1510; font-weight: 500; }
+    .kz-sc__lien.is-current .kz-sc__nom {
+      box-shadow: inset 0 -2px 0 #C4A882;
+    }
+    .kz-sc__lien:focus-visible { outline: 2px solid #B8985A; outline-offset: 2px; }
+
+  </style>
+  {%- if kz_filtres -%}
+  <style>
+    /* Thème, Style et Pour qui font doublon avec la colonne ci-dessus :
+       on ne garde que Couleur. Voir l'en-tête du fichier. */
+    details:has(input[name="filter.p.m.custom.theme"]),
+    details:has(input[name="filter.p.m.custom.style"]),
+    details:has(input[name="filter.p.m.custom.pour_qui"]) {
+      display: none !important;
+    }
+  </style>
+  {%- endif -%}
+{%- endif -%}
+{%- endif -%}
