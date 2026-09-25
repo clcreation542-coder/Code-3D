@@ -10151,7 +10151,12 @@
         "y": 319,
         "width": 317,
         "height": 418,
-        "shape": "rectangle"
+        "shape": "rectangle",
+        "photo_fit": {
+          "scale": 1,
+          "offx": 0,
+          "offy": 0
+        }
       }
     ],
     "arch_zones": []
@@ -10414,7 +10419,12 @@
         "y": 346,
         "width": 391,
         "height": 468,
-        "shape": "rectangle"
+        "shape": "rectangle",
+        "photo_fit": {
+          "scale": 1,
+          "offx": 0,
+          "offy": 0
+        }
       }
     ],
     "arch_zones": []
@@ -12810,7 +12820,12 @@
         "y": 358,
         "width": 295,
         "height": 387,
-        "shape": "rectangle"
+        "shape": "rectangle",
+        "photo_fit": {
+          "scale": 1,
+          "offx": 0,
+          "offy": 0
+        }
       }
     ],
     "arch_zones": []
@@ -12974,11 +12989,16 @@
         "id": "photo_mr9fk2r1vlf5",
         "label": "Photo",
         "order": 2,
-        "x": 1227,
+        "x": 1225,
         "y": 227,
         "width": 444,
         "height": 592,
-        "shape": "rectangle"
+        "shape": "rectangle",
+        "photo_fit": {
+          "scale": 1,
+          "offx": 0,
+          "offy": 0
+        }
       }
     ],
     "arch_zones": []
@@ -13387,7 +13407,12 @@
         "y": 273,
         "width": 424,
         "height": 506,
-        "shape": "rectangle"
+        "shape": "rectangle",
+        "photo_fit": {
+          "scale": 1,
+          "offx": 0,
+          "offy": 0
+        }
       }
     ],
     "arch_zones": []

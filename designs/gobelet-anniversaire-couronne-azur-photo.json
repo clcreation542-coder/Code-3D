@@ -114,7 +114,12 @@
       "y": 319,
       "width": 317,
       "height": 418,
-      "shape": "rectangle"
+      "shape": "rectangle",
+      "photo_fit": {
+        "scale": 1,
+        "offx": 0,
+        "offy": 0
+      }
     }
   ],
   "arch_zones": []

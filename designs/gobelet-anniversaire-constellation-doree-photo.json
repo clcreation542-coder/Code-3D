@@ -68,11 +68,16 @@
       "id": "photo_mr9fk2r1vlf5",
       "label": "Photo",
       "order": 2,
-      "x": 1227,
+      "x": 1225,
       "y": 227,
       "width": 444,
       "height": 592,
-      "shape": "rectangle"
+      "shape": "rectangle",
+      "photo_fit": {
+        "scale": 1,
+        "offx": 0,
+        "offy": 0
+      }
     }
   ],
   "arch_zones": []
