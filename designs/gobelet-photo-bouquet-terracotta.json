@@ -72,7 +72,12 @@
       "y": 271,
       "width": 348,
       "height": 464,
-      "shape": "rectangle"
+      "shape": "rectangle",
+      "photo_fit": {
+        "scale": 1.75,
+        "offx": 0,
+        "offy": 0
+      }
     }
   ],
   "arch_zones": []

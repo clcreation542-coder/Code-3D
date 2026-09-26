@@ -1,6 +1,6 @@
 {
   "id": "copie-de-gobelet-anniversaire-couronne-azur-photo-mpzf9er05zpp",
-  "name": "Gobelet Baptême - Pureté Végétale Photo",
+  "name": "Gobelet Baptême – Pureté Végétale Photo",
   "shopify_handle": "gobelet-bapteme-purete-vegetale-photo",
   "gobelet_color": "#f5f0eb",
   "gobelet_opacity": 1,
@@ -128,14 +128,20 @@
   ],
   "photo_zones": [
     {
-      "id": "photo_mpypuln3byb0",
+      "id": "photo_muhpaqsvdlt3",
       "label": "Photo",
       "order": 1,
-      "x": 1495,
-      "y": 242,
-      "width": 319,
-      "height": 491,
-      "shape": "rectangle"
+      "x": 1499,
+      "y": 301,
+      "width": 313,
+      "height": 431,
+      "shape": "rectangle",
+      "locked": false,
+      "photo_fit": {
+        "scale": 1,
+        "offx": 0,
+        "offy": 0
+      }
     }
   ],
   "arch_zones": []

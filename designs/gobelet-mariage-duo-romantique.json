@@ -72,7 +72,12 @@
       "y": 258,
       "width": 432,
       "height": 576,
-      "shape": "rounded"
+      "shape": "rounded",
+      "photo_fit": {
+        "scale": 1.16,
+        "offx": -0.03,
+        "offy": 0
+      }
     }
   ],
   "arch_zones": []

@@ -42,7 +42,7 @@
   ],
   "text_zones": [
     {
-      "lineHeight": 1.3,
+      "lineHeight": 1,
       "font_size": 200,
       "color": "#252364",
       "multiline": false,

@@ -111,10 +111,17 @@
       "label": "Photo",
       "order": 1,
       "x": 1469,
-      "y": 272,
+      "y": 269,
       "width": 407,
-      "height": 546,
-      "shape": "rectangle"
+      "height": 554,
+      "shape": "rectangle",
+      "rotation": 0,
+      "locked": false,
+      "photo_fit": {
+        "scale": 1.23,
+        "offx": 0.02,
+        "offy": -0.06
+      }
     }
   ],
   "arch_zones": []

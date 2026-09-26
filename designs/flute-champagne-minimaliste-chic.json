@@ -1,6 +1,6 @@
 {
   "id": "brouillon-6-mt77xrb57s0e",
-  "name": "Flûte à Champagne Personnalisée - Minimaliste - chic",
+  "name": "Flûte à Champagne Personnalisée – Minimaliste – chic",
   "shopify_handle": "flute-champagne-minimaliste-chic",
   "gobelet_color": "#f5f0eb",
   "gobelet_opacity": 1,
@@ -13,7 +13,7 @@
     "width": 1970,
     "height": 420
   },
-  "active": true,
+  "active": false,
   "variant_colors": [
     {
       "name": "Translucide",
