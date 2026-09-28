@@ -17768,7 +17768,7 @@
         "font_family": "Allura",
         "align": "center",
         "rotation": 0,
-        "max_chars": 15,
+        "max_chars": 0,
         "stroke_preview": 1.5,
         "stroke_print": 2.5
       },
@@ -22976,7 +22976,7 @@
       {
         "lineHeight": 1.3,
         "font_size": 590,
-        "color": "#d93aa7",
+        "color": "#f904ab",
         "multiline": false,
         "id": "mubojp9lh7cq",
         "label": "Zone de texte 1",
