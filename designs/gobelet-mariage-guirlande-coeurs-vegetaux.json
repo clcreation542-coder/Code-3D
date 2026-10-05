@@ -1,0 +1,113 @@
+{
+  "id": "nouveau-design-muvmpy6zr0wy",
+  "name": "Gobelet Mariage Personnalisé – Guirlande Cœurs Végétaux",
+  "shopify_handle": "gobelet-mariage-guirlande-coeurs-vegetaux",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 1.413716694115407,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-guirlande-coeurs-vegetaux.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.3,
+      "font_size": 250,
+      "color": "#909f8b",
+      "multiline": false,
+      "id": "texte_muvmubo1awax",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 432,
+      "y": 285,
+      "width": 1145,
+      "height": 285,
+      "shape": "rectangle",
+      "placeholder": "Mariage \nde ",
+      "font_family": "Clicker Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 150,
+      "color": "#909f8b",
+      "multiline": false,
+      "id": "texte_muvmv6xxvqfq",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 575,
+      "y": 608,
+      "width": 858,
+      "height": 140,
+      "shape": "rectangle",
+      "placeholder": "Vicky & Johan",
+      "font_family": "Clicker Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 100,
+      "color": "#909f8b",
+      "multiline": false,
+      "id": "texte_muvmx20zcygd",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 582,
+      "y": 870,
+      "width": 845,
+      "height": 154,
+      "shape": "rectangle",
+      "placeholder": "24 avril 2027",
+      "font_family": "Clicker Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
