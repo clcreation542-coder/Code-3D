@@ -1,0 +1,112 @@
+{
+  "id": "nouveau-design-muvn1tdx6f6f",
+  "name": "Gobelet Anniversaire Personnalisé – Roses & Eucalyptus",
+  "shopify_handle": "gobelet-anniversaire-roses-eucalyptus",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 1.4660765716752369,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-roses-eucalyptus.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.3,
+      "font_size": 350,
+      "color": "#db8281",
+      "multiline": false,
+      "id": "muvn1tdx8ggk",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 736,
+      "y": 228,
+      "width": 501,
+      "height": 240,
+      "shape": "rectangle",
+      "placeholder": "1 an",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 250,
+      "color": "#db8281",
+      "multiline": false,
+      "id": "texte_muvn5ushhtwz",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 730,
+      "y": 547,
+      "width": 507,
+      "height": 264,
+      "shape": "rectangle",
+      "placeholder": "Mya",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 100,
+      "color": "#db8281",
+      "multiline": false,
+      "id": "texte_muvn9k9ffvlx",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 739,
+      "y": 868,
+      "width": 494,
+      "height": 125,
+      "shape": "rectangle",
+      "placeholder": "10 juillet 2027",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
