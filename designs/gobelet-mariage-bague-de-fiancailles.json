@@ -1,0 +1,112 @@
+{
+  "id": "nouveau-design-muvm7wmula86",
+  "name": "Gobelet Mariage Personnalisé – Bague de Fiançailles",
+  "shopify_handle": "gobelet-mariage-bague-de-fiancailles",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.213372137099814,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-bague-de-fiancailles.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.3,
+      "font_size": 120,
+      "color": "#0f121a",
+      "multiline": false,
+      "id": "muvm7wmufaxi",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1084,
+      "y": 108,
+      "width": 788,
+      "height": 142,
+      "shape": "rectangle",
+      "placeholder": "Mélanie & Johan",
+      "font_family": "Rouge Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 100,
+      "color": "#0f121a",
+      "multiline": false,
+      "id": "texte_muvm981ybjr6",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1089,
+      "y": 885,
+      "width": 783,
+      "height": 127,
+      "shape": "rectangle",
+      "placeholder": "27 février 2027",
+      "font_family": "Rouge Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.3,
+      "font_size": 100,
+      "color": "#0f121a",
+      "multiline": false,
+      "id": "texte_muvm9ybqiqr2",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 121,
+      "y": 289,
+      "width": 750,
+      "height": 512,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Rouge Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
