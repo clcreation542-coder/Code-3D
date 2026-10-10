@@ -27,7 +27,7 @@
       "name": "Blanc",
       "hex": "#f0ede6",
       "opacity": 0,
-      "visible": true,
+      "visible": false,
       "force_text_color": false,
       "text_color_override": "#ffffff"
     },
