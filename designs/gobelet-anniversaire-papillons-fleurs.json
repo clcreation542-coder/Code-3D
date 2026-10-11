@@ -38,6 +38,14 @@
       "visible": true,
       "force_text_color": true,
       "text_color_override": "#fad5eb"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e8cfe5"
     }
   ],
   "text_zones": [

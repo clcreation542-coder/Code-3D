@@ -38,6 +38,14 @@
       "visible": true,
       "force_text_color": true,
       "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
     }
   ],
   "text_zones": [

@@ -39,6 +39,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -259,6 +267,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e7c873"
       }
     ],
     "text_zones": [
@@ -369,6 +385,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e7c873"
       }
     ],
     "text_zones": [
@@ -851,6 +875,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#fbdc06"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#decb15"
       }
     ],
     "text_zones": [
@@ -957,6 +989,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -2281,6 +2321,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -2412,6 +2460,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -2518,6 +2574,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
@@ -2632,6 +2696,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#f2eaad"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -2961,6 +3033,14 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3381,6 +3461,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#fc9ed7"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#d3ca86"
       }
     ],
     "text_zones": [
@@ -4062,6 +4150,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#e8e7c8"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -4172,6 +4268,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -4278,6 +4382,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -5340,6 +5452,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#eda7ba"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -5446,6 +5566,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -5560,6 +5688,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -5670,6 +5806,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffdede"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -5776,6 +5920,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -6524,6 +6676,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6609,6 +6769,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -6723,6 +6891,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -6808,6 +6984,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -7031,6 +7215,14 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7341,6 +7533,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -7540,6 +7740,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffc97d"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#d8aa6d"
       }
     ],
     "text_zones": [
@@ -7628,6 +7836,14 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -7959,6 +8175,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8048,6 +8272,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#c9a793"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -8158,6 +8390,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#f3efe3"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8268,6 +8508,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#f2ceb8"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8907,6 +9155,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -9127,6 +9383,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#fdefe9"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -9237,6 +9501,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#f9e9cb"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -9457,6 +9729,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -9545,6 +9825,14 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9652,6 +9940,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -10585,6 +10881,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e7c873"
       }
     ],
     "text_zones": [
@@ -10854,6 +11158,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e7c873"
       }
     ],
     "text_zones": [
@@ -11183,6 +11495,14 @@
         "opacity": 1,
         "visible": false,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -12064,6 +12384,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e7c873"
       }
     ],
     "text_zones": [
@@ -12174,6 +12502,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e7c873"
       }
     ],
     "text_zones": [
@@ -12283,6 +12619,14 @@
         "opacity": 1,
         "visible": false,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -12462,6 +12806,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -12551,6 +12903,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -12640,6 +13000,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#fabd43"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -12746,6 +13114,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
@@ -12876,6 +13252,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#fde65d"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#c8bd53"
       }
     ],
     "text_zones": [
@@ -12965,6 +13349,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -13045,6 +13437,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -13463,6 +13863,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -13589,6 +13997,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#fcdc89"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -14770,6 +15186,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -15032,6 +15456,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -15112,6 +15544,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -15551,6 +15991,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -15792,6 +16240,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -15949,6 +16405,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -16038,6 +16502,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -16139,6 +16611,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
@@ -16256,6 +16736,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -16366,6 +16854,14 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -16479,6 +16975,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -17036,6 +17540,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#edd3bf"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -17350,6 +17862,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -17528,6 +18048,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -17638,6 +18166,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -17746,6 +18282,14 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -19911,6 +20455,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#e6dfdb"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -20001,6 +20553,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -20339,6 +20899,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -20541,6 +21109,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -20649,6 +21225,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
@@ -20831,6 +21415,14 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
       }
@@ -21037,6 +21629,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -21126,6 +21726,14 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -21397,6 +22005,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ec8ebf"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e2bcd0"
       }
     ],
     "text_zones": [
@@ -21487,6 +22103,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#fad5eb"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e8cfe5"
       }
     ],
     "text_zones": [
@@ -21667,6 +22291,14 @@
         "visible": false,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -21776,6 +22408,14 @@
       {
         "name": "Noir",
         "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
@@ -22118,6 +22758,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#d9bc97"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -22320,6 +22968,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -22432,6 +23088,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#121212"
       }
     ],
     "text_zones": [
@@ -22543,6 +23207,14 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -22768,6 +23440,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -22880,6 +23560,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -22970,6 +23658,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -23059,6 +23755,14 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -23172,6 +23876,14 @@
         "visible": true,
         "force_text_color": false,
         "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#df5e1f"
       }
     ],
     "text_zones": [
@@ -23369,6 +24081,14 @@
         "opacity": 1,
         "visible": false,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -24151,6 +24871,14 @@
         "opacity": 1,
         "visible": false,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],

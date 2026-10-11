@@ -38,6 +38,14 @@
       "visible": true,
       "force_text_color": false,
       "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#121212"
     }
   ],
   "text_zones": [
