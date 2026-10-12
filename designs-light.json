@@ -25397,5 +25397,115 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "gobelet-anniversaire-personnalise-couronne-lavande-olives-mv5whjvvolmv",
+    "name": "Gobelet Anniversaire Personnalisé – Pétanque Provençale",
+    "shopify_handle": "gobelet-anniversaire-petanque-provencale",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.178465552059927,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-petanque-provencale.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.5,
+        "font_size": 200,
+        "color": "#5d4d92",
+        "multiline": false,
+        "id": "mv5whjvvhc05",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1268,
+        "y": 359,
+        "width": 422,
+        "height": 414,
+        "shape": "circle",
+        "placeholder": "Alex",
+        "font_family": "Cinzel",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      },
+      {
+        "lineHeight": 1,
+        "font_size": 86,
+        "color": "#5d4d92",
+        "multiline": false,
+        "id": "mv5whjvvuybf",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1226,
+        "y": 892,
+        "width": 506,
+        "height": 108,
+        "shape": "rectangle",
+        "placeholder": "25 ANS",
+        "font_family": "Cinzel",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      },
+      {
+        "lineHeight": 1.2,
+        "font_size": 100,
+        "color": "#5d4d92",
+        "multiline": false,
+        "id": "mv5whjvv7usb",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 102,
+        "y": 341,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "placeholder": "",
+        "font_family": "Cinzel",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
