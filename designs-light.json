@@ -25263,5 +25263,139 @@
     ],
     "photo_zones": [],
     "arch_zones": []
+  },
+  {
+    "id": "nouveau-design-mv5vxffmwaq0",
+    "name": "Gobelet Anniversaire Personnalisé – Ronde des Dinosaures",
+    "shopify_handle": "gobelet-anniversaire-ronde-des-dinosaures",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.19591884457987,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ronde-des-dinosaures.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#000000"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "font_size": 253,
+        "color": "#bf3804",
+        "multiline": false,
+        "id": "mv5vxffnk3qj",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1287,
+        "y": 400,
+        "width": 376,
+        "height": 340,
+        "shape": "oval",
+        "placeholder": "5 ans\nde\nNoa",
+        "font_family": "Jost",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      },
+      {
+        "lineHeight": 1,
+        "font_size": 102,
+        "color": "#bf3804",
+        "multiline": false,
+        "id": "mv5vxffnef5g",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1215,
+        "y": 869,
+        "width": 550,
+        "height": 96,
+        "shape": "rectangle",
+        "placeholder": "",
+        "font_family": "Jost",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      },
+      {
+        "lineHeight": 1,
+        "font_size": 100,
+        "color": "#bf3804",
+        "multiline": false,
+        "id": "mv5vxffni6ob",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 104,
+        "y": 341,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "placeholder": "",
+        "font_family": "Jost",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
   }
 ]
