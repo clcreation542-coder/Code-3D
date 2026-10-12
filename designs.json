@@ -24044,8 +24044,8 @@
   },
   {
     "id": "nouveau-design-muu4fcncz3lu",
-    "name": "Gobelet Baptême Personnalisé – Prairie Céleste",
-    "shopify_handle": "gobelet-bapteme-prairie-celeste",
+    "name": "Gobelet Anniversaire Personnalisé – Prairie Céleste",
+    "shopify_handle": "gobelet-anniversaire-prairie-celeste",
     "gobelet_color": "#f5f0eb",
     "gobelet_opacity": 1,
     "model_url": null,
@@ -25177,6 +25177,82 @@
         "height": 319,
         "shape": "rectangle",
         "placeholder": "60 ans de\nCatherine",
+        "font_family": "Alegreya",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-anniversaire-personnalise-ballons-de-football-mv54fl5rascz",
+    "name": "Gobelet Anniversaire Personnalisé – Ballons de Football",
+    "shopify_handle": "gobelet-anniversaire-ballons-de-football",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 1.4835298641951802,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-ballons-de-football.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.1,
+        "font_size": 146,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mv54fl5slwan",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 718,
+        "y": 296,
+        "width": 534,
+        "height": 609,
+        "shape": "rectangle",
+        "placeholder": "30 ans \nde\nDamien",
         "font_family": "Alegreya",
         "align": "center",
         "rotation": 0,
