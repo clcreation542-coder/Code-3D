@@ -1,0 +1,105 @@
+{
+  "id": "gobelet-anniversaire-personnalise-volcans-palmiers-mv6symag7otp",
+  "name": "Gobelet Anniversaire Personnalisé – Volcans & Palmiers",
+  "shopify_handle": "gobelet-anniversaire-volcans-palmiers",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-volcans-palmiers.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#f48d2a"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 160,
+      "color": "#b0774d",
+      "multiline": false,
+      "id": "mv6symagszgs",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1218,
+      "y": 284,
+      "width": 522,
+      "height": 559,
+      "shape": "rectangle",
+      "placeholder": "10ans\nde\nTiago",
+      "font_family": "Style Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 160,
+      "color": "#b0774d",
+      "multiline": false,
+      "id": "mv6symagyukr",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 219,
+      "y": 284,
+      "width": 550,
+      "height": 555,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Style Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

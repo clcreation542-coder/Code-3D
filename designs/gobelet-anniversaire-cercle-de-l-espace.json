@@ -1,0 +1,126 @@
+{
+  "id": "gobelet-anniversaire-personnalise-cercle-de-l-espace-mv6ti2c94plu",
+  "name": "Gobelet Anniversaire Personnalisé – Cercle de l'Espace",
+  "shopify_handle": "gobelet-anniversaire-cercle-de-l-espace",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.178465552059927,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-cercle-de-l-espace.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#121212"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "font_size": 150,
+      "color": "#1b4f99",
+      "multiline": false,
+      "id": "mv6ti2c98qq6",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1250,
+      "y": 347,
+      "width": 456,
+      "height": 431,
+      "shape": "circle",
+      "placeholder": "8ans\nMalo",
+      "font_family": "Coming Soon",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 101,
+      "color": "#1b4f99",
+      "multiline": false,
+      "id": "mv6ti2c9ew1w",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1213,
+      "y": 883,
+      "width": 531,
+      "height": 112,
+      "shape": "rectangle",
+      "placeholder": "Le 12 Juillet 2027",
+      "font_family": "Coming Soon",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#1b4f99",
+      "multiline": false,
+      "id": "mv6ti2c91vdy",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 102,
+      "y": 258,
+      "width": 780,
+      "height": 625,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Coming Soon",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
