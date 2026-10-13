@@ -25509,6 +25509,124 @@
     "arch_zones": []
   },
   {
+    "id": "gobelet-anniversaire-personnalise-couronne-rock-n-roll-mv6dzps2uou7",
+    "name": "Gobelet Anniversaire Personnalisé – Couronne Rock'n'Roll",
+    "shopify_handle": "gobelet-anniversaire-couronne-rock-n-roll",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.213372137099814,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-couronne-rock-n-roll.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "font_size": 400,
+        "color": "#b70101",
+        "multiline": false,
+        "id": "mv6dzps3vgew",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1284,
+        "y": 379,
+        "width": 376,
+        "height": 366,
+        "shape": "oval",
+        "placeholder": "25",
+        "font_family": "Style Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      },
+      {
+        "lineHeight": 1,
+        "font_size": 200,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mv6dzps34yo0",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1201,
+        "y": 874,
+        "width": 550,
+        "height": 134,
+        "shape": "rectangle",
+        "placeholder": "Kelvin",
+        "font_family": "Style Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      },
+      {
+        "lineHeight": 1,
+        "font_size": 100,
+        "color": "#000000",
+        "multiline": false,
+        "id": "mv6dzps31gcm",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 104,
+        "y": 329,
+        "width": 780,
+        "height": 459,
+        "shape": "rectangle",
+        "placeholder": "",
+        "font_family": "Style Script",
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
     "id": "gobelet-anniversaire-personnalise-volcans-palmiers-mv6symag7otp",
     "name": "Gobelet Anniversaire Personnalisé – Volcans & Palmiers",
     "shopify_handle": "gobelet-anniversaire-volcans-palmiers",
