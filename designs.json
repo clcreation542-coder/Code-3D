@@ -161,8 +161,8 @@
     ],
     "text_zones": [
       {
-        "lineHeight": 1.7,
-        "font_size": 93,
+        "lineHeight": 1.2,
+        "font_size": 100,
         "color": "#99745f",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
