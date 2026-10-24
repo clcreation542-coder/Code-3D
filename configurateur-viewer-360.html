@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Viewer Gobelet — Kuztom</title>
-  <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #a8a5a1; }
     #viewer { width: 100%; height: 100%; position: relative; }
@@ -918,6 +917,7 @@ function initThree() {
   var size = getSize();
   var w = size.w, h = size.h;
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
+  renderer.setClearColor(0xF0F0F0, 1);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
