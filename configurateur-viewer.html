@@ -227,32 +227,60 @@ function appliquerFormatTexture() {
 
 function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 
-// ══════════════════════════════════════════════════════════════════
-//  KZ_LAYOUT v1 — SOURCE DE VÉRITÉ UNIQUE
-//  ⚠️ Bloc DUPLIQUÉ À L'IDENTIQUE dans :
-//       kuztom-admin.html · configurateur-viewer.html · configurateur-3d.liquid
-//     Toute modif doit être reportée dans les trois + KZ_LAYOUT_VERSION incrémentée.
+// ═══════════════════════════════════════════════════════════════════
+//  KZ_LAYOUT v6 – MISE EN PAGE DU TEXTE – SOURCE DE VÉRITÉ UNIQUE
+//  ⚠️ BLOC MIROIR, IDENTIQUE À L'OCTET PRÈS dans :
+//       kuztom-admin : workers/admin/public/kz35-principal.js (admin des designs)
+//                      workers/admin/public/commandes.html   (atelier des commandes)
+//       Code-3D      : configurateur-viewer.html · configurateur-viewer-360.html
+//       thème        : configurateur-3d.liquid (s'il contient ce bloc)
+//     Toute modification doit être reportée partout, et KZ_LAYOUT_VERSION
+//     incrémentée. C'est ce qui garantit que l'admin, l'atelier, l'écran du
+//     client et le PNG imprimeur dessinent exactement la même chose.
 //
-//  AVANT : la mesure additionnait les pixels réellement allumés (totalH += b.h)
-//  alors que le dessin empile n × fs × lh. Deux définitions différentes de
-//  « hauteur totale » → le texte sortait de sa boîte sans que rien ne l'arrête.
-//  Ici la mesure reproduit la GÉOMÉTRIE EXACTE du dessin : centre de la 1re
-//  ligne à -totalH/2 + lineH/2, moins l'ascendante réelle, plus la descendante
-//  de la dernière, plus la moitié du contour.
-//  Bonus : plus de getImageData sur 2000×800 (qui coupait les grandes polices
-//  et coûtait des millions de lectures de pixels à chaque frappe).
-// ══════════════════════════════════════════════════════════════════
-const KZ_LAYOUT_VERSION = 5;
-const KZ_FS_MIN = 8;
+//  v1 : la mesure suit la géométrie exacte du dessin (n × fs × lh).
+//  v3 : COURBURE (zone.curve, −100 → +100, 0 = droit).
+//  v4 : mesure sur l'ENCRE + dichotomie.
+//  v5 : zone ovale/ronde = vraie ellipse (KZ_fits).
+//  v6 : (02/11/2026, commande #2257) le SITE et le PNG imprimeur dessinent
+//       enfin la courbure, avec la fonction de l'admin (avant : texte droit
+//       chez le client et à l'impression, courbé seulement dans l'admin et
+//       l'atelier). Ajouts :
+//       · KZ_fontSize renvoie la taille du texte COURBÉ (celle du dessin) ;
+//       · zone.letter_spacing facultatif (défaut 0) : espacement des
+//         lettres en % de la taille de police (−10 → +50).
+//       · un émoji composé reste entier dans une zone courbée ou espacée.
+//  curve 0 (ou absent) ET letter_spacing 0 (ou absent) : rendu STRICTEMENT
+//  identique à la v5, au pixel près.
+// ═══════════════════════════════════════════════════════════════════
+const KZ_LAYOUT_VERSION = 6;
+const KZ_FS_MIN  = 8;     // plancher commun
 const KZ_FS_STEP = 2;
-const _kzMeasureCtx = document.createElement('canvas').getContext('2d');
+var   KZ_INK_CENTER = true;
+var   KZ_INK_SW     = 3;  // marge réservée au contour
+const KZ_CURVE_MIN   = 0.75;     // flèche en px sous laquelle le texte est rendu droit
+const KZ_CURVE_SWEEP = Math.PI;  // ouverture maximale d'une ligne : 180°
+const KZ_LS_MIN = -10, KZ_LS_MAX = 50;   // espacement des lettres, en % de la police
 
-// ── v4 : mesure sur l'ENCRE + dichotomie ────────────────────────────
-// Le test de hauteur se faisait autour d'un ancrage figé (milieu du
-// cadratin). L'encre n'étant pas symétrique autour de cet ancrage, le
-// texte butait en haut de la boîte alors qu'il restait du vide en bas.
-var KZ_INK_CENTER = true;    // ⚠️ MÊME VALEUR dans l'admin et le liquid
-var KZ_INK_SW     = 3;
+// Espacement des lettres en pixels pour une taille de police donnée.
+function KZ_lsPx(zone, fs) {
+  var v = Number(zone && zone.letter_spacing) || 0;
+  if (!v) return 0;
+  if (v < KZ_LS_MIN) v = KZ_LS_MIN;
+  if (v > KZ_LS_MAX) v = KZ_LS_MAX;
+  return v / 100 * fs;
+}
+
+// Lettres d'une ligne. Un émoji composé (👨‍👩‍👧, 👍🏽, drapeaux) reste UN seul
+// caractère (avant : Array.from le coupait en morceaux qui sortaient de la zone).
+var KZ_segmenter = null;
+try { if (typeof Intl !== 'undefined' && Intl.Segmenter) KZ_segmenter = new Intl.Segmenter('fr', { granularity: 'grapheme' }); } catch (e) {}
+function KZ_graphemes(s) {
+  s = String(s == null ? '' : s);
+  if (!KZ_segmenter) return Array.from(s);
+  var out = []; for (var it of KZ_segmenter.segment(s)) out.push(it.segment);
+  return out;
+}
 
 function KZ_ink(ctx, zone, text, fs) {
   var lines = String(text == null ? '' : text).split('\n');
@@ -265,28 +293,28 @@ function KZ_ink(ctx, zone, text, fs) {
   var mL = ctx.measureText(lines[lines.length - 1] || ' ');
   var asc  = (mF.actualBoundingBoxAscent  !== undefined) ? mF.actualBoundingBoxAscent  : fs * 0.35;
   var desc = (mL.actualBoundingBoxDescent !== undefined) ? mL.actualBoundingBoxDescent : fs * 0.35;
+  var ls = KZ_lsPx(zone, fs);
   var w = 0;
   for (var i = 0; i < lines.length; i++) {
     var m  = ctx.measureText(lines[i] || ' ');
     var lw = (m.actualBoundingBoxLeft !== undefined && m.actualBoundingBoxRight !== undefined)
            ? (Math.abs(m.actualBoundingBoxLeft) + Math.abs(m.actualBoundingBoxRight)) : m.width;
+    if (ls) lw += Math.max(0, KZ_graphemes(lines[i]).length - 1) * ls;
     if (lw > w) w = lw;
   }
   return { w: w, h: asc + (lines.length - 1) * lineH + desc, asc: asc, desc: desc };
 }
 
+// Décalage vertical à appliquer au dessin pour centrer sur l'encre.
 function KZ_inkShift(ctx, zone, text, fs) {
   if (!KZ_INK_CENTER) return 0;
-  var pf = ctx.font, pb = ctx.textBaseline, pa = ctx.textAlign;
+  var prevF = ctx.font, prevB = ctx.textBaseline, prevA = ctx.textAlign;
   var k = KZ_ink(ctx, zone, text, fs);
-  ctx.font = pf; ctx.textBaseline = pb; ctx.textAlign = pa;
+  ctx.font = prevF; ctx.textBaseline = prevB; ctx.textAlign = prevA;
   return (k.asc - k.desc) / 2;
 }
 
-// v5 : un bloc centre w x h tient dans une ellipse W x H si
-// (w/W)^2 + (h/H)^2 <= 1. L'ancien x 0,707 sur les DEUX cotes supposait un
-// bloc carre ; sur une ligne large et basse il bridait la police de 29 %
-// en largeur pour rien. Bloc carre : identique. Rectangle : identique.
+// Un bloc centré w × h tient dans une ellipse W × H si (w/W)² + (h/H)² ≤ 1.
 function KZ_fits(shape, W, H, w, h) {
   if (W <= 0 || H <= 0) return false;
   if (shape !== 'oval' && shape !== 'circle') return (w <= W && h <= H);
@@ -294,22 +322,304 @@ function KZ_fits(shape, W, H, w, h) {
   return (u * u + v * v) <= 1;
 }
 
-function KZ_fontSize(ctx, zone, text, boxW, boxH) {
+// Taille de police d'un texte DROIT (dichotomie sur l'encre). C'est la v5.
+function KZ_fontSizeDroit(ctx, zone, text, boxW, boxH) {
   var shape = zone.shape || 'rectangle';
   var cap   = Math.max(KZ_FS_MIN, zone.font_size || 48);
   var lines = String(text == null ? '' : text).split('\n');
   if (!lines.some(function (l) { return l.trim(); })) return cap;
-  var pb = ctx.textBaseline, pa = ctx.textAlign, pf = ctx.font;
+  var prevBaseline = ctx.textBaseline, prevAlign = ctx.textAlign, prevFont = ctx.font;
   var lo = KZ_FS_MIN, hi = cap, best = KZ_FS_MIN;
   while (lo <= hi) {
     var mid = (lo + hi) >> 1;
-    var k = KZ_ink(ctx, zone, text, mid);
+    var k   = KZ_ink(ctx, zone, text, mid);
     if (KZ_fits(shape, boxW, boxH, k.w + KZ_INK_SW, k.h + KZ_INK_SW)) { best = mid; lo = mid + 1; }
     else hi = mid - 1;
   }
-  ctx.textBaseline = pb; ctx.textAlign = pa; ctx.font = pf;
+  ctx.textBaseline = prevBaseline; ctx.textAlign = prevAlign; ctx.font = prevFont;
   return best;
 }
+
+// Zone courbée ? (même seuil que le dessin)
+function KZ_isCurved(zone) { return KZ_curveSagitta(zone) >= KZ_CURVE_MIN; }
+
+// Taille de police RÉELLEMENT dessinée. Zone courbée : celle du texte courbé.
+function KZ_fontSize(ctx, zone, text, boxW, boxH) {
+  if (KZ_isCurved(zone)) {
+    var zb = (boxW === zone.width && boxH === zone.height) ? zone
+           : Object.assign({}, zone, { width: boxW, height: boxH });
+    var lines = String(text == null ? '' : text).split('\n');
+    if (!lines.some(function (l) { return l.trim(); })) return Math.max(KZ_FS_MIN, zone.font_size || 48);
+    return KZ_textLayout(ctx, zb, text).fs;
+  }
+  return KZ_fontSizeDroit(ctx, zone, text, boxW, boxH);
+}
+
+// Plus grande taille possible, plafond ignoré (indication « la zone se remplit à … px »).
+function KZ_fontSizeMax(ctx, zone, text) {
+  var lines = String(text == null ? '' : text).split('\n');
+  if (!lines.some(function (l) { return l.trim(); })) return zone.font_size || 48;
+  return KZ_fontSize(ctx, Object.assign({}, zone, { font_size: 4000 }), text, zone.width, zone.height);
+}
+
+// ── COURBURE ────────────────────────────────────────────────────────
+//  La zone reste un RECTANGLE (x, y, width, height, rotation). zone.curve
+//  courbe le texte À L'INTÉRIEUR : > 0 arc bombé (arc-en-ciel), < 0 arc
+//  creusé (sourire). La flèche de l'arc vaut |curve|/100 × hauteur/2.
+function KZ_curveSagitta(zone) {
+  var curve = Number(zone && zone.curve) || 0;
+  if (!curve) return 0;
+  if (curve >  100) curve =  100;
+  if (curve < -100) curve = -100;
+  return Math.abs(curve) / 100 * (Math.max(1, zone.height || 1) / 2);
+}
+
+// Rayon dont l'arc, parcouru sur une longueur L, a exactement la flèche s.
+function KZ_solveRadius(L, s) {
+  var lo = L / KZ_CURVE_SWEEP;
+  if (!(s < lo)) return lo;
+  var f  = function (R) { return R * (1 - Math.cos(L / (2 * R))) - s; };
+  var hi = Math.max(lo * 2, L * 20);
+  var guard = 0;
+  while (f(hi) > 0 && guard++ < 60) hi *= 2;
+  for (var i = 0; i < 60; i++) {
+    var mid = (lo + hi) / 2;
+    if (f(mid) > 0) lo = mid; else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+// Géométrie de l'arc pour une longueur de texte donnée. null = rendu droit.
+function KZ_curveGeom(zone, arcLen, totalH) {
+  var sWanted = KZ_curveSagitta(zone);
+  if (sWanted < KZ_CURVE_MIN) return null;
+  var L = Math.max(1, arcLen || 0);
+  var Rmin = L / KZ_CURVE_SWEEP + Math.max(0, totalH || 0) / 2;
+  var sMax = Rmin * (1 - Math.cos(L / (2 * Rmin)));
+  var s = Math.min(sWanted, sMax);
+  if (s < KZ_CURVE_MIN) return null;
+  var R = Math.max(Rmin, KZ_solveRadius(L, s));
+  return { sign: (Number(zone.curve) || 0) > 0 ? 1 : -1, s: s, R: R };
+}
+
+// Position et rotation de chaque lettre le long de l'arc, RELATIVES au centre
+// de la zone, recentrées verticalement. Renvoie [{ ch, x, y, rot }].
+// (contexte : police posée, textBaseline 'middle', textAlign 'center')
+function KZ_curvedGlyphs(c, zone, L) {
+  var g  = L.g;
+  var Ox = 0;
+  var Oy = g.sign > 0 ? (-g.s / 2 + g.R) : (g.s / 2 - g.R);
+  var align = zone.align || 'center';
+  var ls = L.ls || 0;
+  var out = [], yMin = Infinity, yMax = -Infinity;
+  out.tight = false;   // vrai si une ligne s'enroule sur plus d'un demi-cercle
+
+  for (var li = 0; li < L.lines.length; li++) {
+    var off = -L.totalH / 2 + L.lineH / 2 + li * L.lineH;   // positif = plus bas
+    var Ri = g.sign > 0 ? (g.R - off) : (g.R + off);
+    if (Ri < 1) { out.tight = true; continue; }
+
+    var chars = KZ_graphemes(L.lines[li]);
+    if (!chars.length) continue;
+    var widths = [], adv = 0;
+    for (var k = 0; k < chars.length; k++) {
+      var w = c.measureText(chars[k]).width;
+      widths.push(w); adv += w;
+    }
+    adv += (chars.length - 1) * ls;
+    if (adv / Ri > KZ_CURVE_SWEEP + 1e-6) out.tight = true;
+    var span = L.arcLen / Ri;      // éventail commun à toutes les lignes
+    var a;
+    if      (align === 'left')  a = -span / 2;
+    else if (align === 'right') a =  span / 2 - adv / Ri;
+    else                        a = -(adv / Ri) / 2;
+
+    for (var j = 0; j < chars.length; j++) {
+      var halfA = widths[j] / (2 * Ri);
+      a += halfA;
+      var px = Ox + Ri * Math.sin(a);
+      var py = g.sign > 0 ? (Oy - Ri * Math.cos(a)) : (Oy + Ri * Math.cos(a));
+      if (py < yMin) yMin = py;
+      if (py > yMax) yMax = py;
+      out.push({ ch: chars[j], x: px, y: py, rot: g.sign > 0 ? a : -a });
+      a += halfA + ls / Ri;
+    }
+  }
+  if (out.length) {
+    var dy = -(yMin + yMax) / 2;
+    for (var q = 0; q < out.length; q++) out[q].y += dy;
+    out.dy = dy;
+    out.originY = Oy + dy;
+  }
+  return out;
+}
+
+// L'encre des lettres tient-elle dans les bornes verticales de la zone ?
+// (baseline 'middle' déjà posée par l'appelant)
+function KZ_glyphsFitVert(c, glyphs, yTop, yBottom) {
+  for (var i = 0; i < glyphs.length; i++) {
+    var m = c.measureText(glyphs[i].ch);
+    var a = (m.actualBoundingBoxAscent  !== undefined) ? m.actualBoundingBoxAscent  : 0;
+    var d = (m.actualBoundingBoxDescent !== undefined) ? m.actualBoundingBoxDescent : 0;
+    if (glyphs[i].y - a < yTop - 0.5)    return false;
+    if (glyphs[i].y + d > yBottom + 0.5) return false;
+  }
+  return true;
+}
+
+// ── CACHE DE MISE EN PAGE ──────────────────────────────────────────
+// La mise en page ne dépend que du texte et de la boîte (pas de la position,
+// de la rotation, de la couleur ni du contour) : on la mémorise.
+var KZ_layoutCache = new Map();
+var KZ_LAYOUT_CACHE_MAX = 400;
+var KZ_fontGen = 0;   // incrémenté quand une police finit de charger
+if (typeof document !== 'undefined' && document.fonts && document.fonts.addEventListener) {
+  document.fonts.addEventListener('loadingdone', function () { KZ_fontGen++; KZ_layoutCache.clear(); });
+}
+function KZ_layoutKey(zone, text) {
+  return [KZ_fontGen, text,
+          zone.font_family || 'Jost', zone.font_size || 48,
+          zone.lineHeight  || 1.3,    zone.align || 'center',
+          zone.shape || 'rectangle',  zone.width, zone.height,
+          Number(zone.curve) || 0,    Number(zone.letter_spacing) || 0,
+          KZ_INK_CENTER ? 1 : 0, KZ_INK_SW
+         ].join('\u0001');
+}
+function KZ_cacheLayout(key, val) {
+  if (KZ_layoutCache.size >= KZ_LAYOUT_CACHE_MAX) {
+    var drop = Math.ceil(KZ_LAYOUT_CACHE_MAX / 2), i = 0;
+    for (var k of KZ_layoutCache.keys()) { KZ_layoutCache.delete(k); if (++i >= drop) break; }
+  }
+  KZ_layoutCache.set(key, val);
+  return val;
+}
+
+// Mise en page complète d'une zone texte : police, lignes et, si la zone est
+// courbée, position finale de chaque lettre. ⚠️ Résultat partagé (cache) :
+// le lire, ne jamais le modifier.
+function KZ_textLayout(c, zone, text) {
+  var str   = (text == null) ? '' : String(text);
+  var key   = KZ_layoutKey(zone, str);
+  var hit   = KZ_layoutCache.get(key);
+  if (hit) return hit;
+  var lines = str.split('\n');
+  var lh    = zone.lineHeight || 1.3;
+  var fam   = zone.font_family || 'Jost';
+  var H     = Math.max(1, zone.height || 1);
+  var sWanted = KZ_curveSagitta(zone);
+  // La flèche mange de la hauteur : la police part de ce qu'il reste.
+  var fs0 = KZ_fontSizeDroit(c, zone, str, zone.width, Math.max(1, H - sWanted));
+
+  var base = { lines: lines, fs: fs0, lineH: fs0 * lh, totalH: lines.length * fs0 * lh,
+               arcLen: 0, ls: KZ_lsPx(zone, fs0), g: null, glyphs: null,
+               inkShift: KZ_inkShift(c, zone, str, fs0) };
+  if (sWanted < KZ_CURVE_MIN) return KZ_cacheLayout(key, base);   // zone droite
+
+  var prevFont = c.font, prevBase = c.textBaseline, prevAlign = c.textAlign;
+  c.textBaseline = 'middle';
+  c.textAlign    = 'center';
+  var res = base, fs = fs0;
+  // Une ligne courbée n'a pas la même flèche selon son rayon : on redescend
+  // la police tant que l'encre dépasse la boîte (algorithme de l'admin).
+  for (var guard = 0; guard < 40; guard++) {
+    c.font = fs + "px '" + fam + "'";
+    var ls = KZ_lsPx(zone, fs), arcLen = 0;
+    for (var i = 0; i < lines.length; i++) {
+      var w = c.measureText(lines[i] || ' ').width;
+      if (ls) w += Math.max(0, KZ_graphemes(lines[i]).length - 1) * ls;
+      if (w > arcLen) arcLen = w;
+    }
+    var cand = { lines: lines, fs: fs, lineH: fs * lh, totalH: lines.length * fs * lh,
+                 arcLen: arcLen, ls: ls, g: null, glyphs: null, inkShift: 0 };
+    cand.g = KZ_curveGeom(zone, arcLen, cand.totalH);
+    if (!cand.g) { res = cand; break; }
+    cand.glyphs = KZ_curvedGlyphs(c, zone, cand);
+    res = cand;
+    if (!cand.glyphs.tight && KZ_glyphsFitVert(c, cand.glyphs, -H / 2, H / 2)) break;
+    if (fs - KZ_FS_STEP < KZ_FS_MIN) break;
+    fs -= KZ_FS_STEP;
+  }
+
+  c.font = prevFont; c.textBaseline = prevBase; c.textAlign = prevAlign;
+  return KZ_cacheLayout(key, res);
+}
+
+// Dessin unique d'une zone texte (droite OU courbée), contour + remplissage.
+// opts = { text, color, strokeWidth, strokeColor }
+function KZ_drawTextZone(c, zone, opts) {
+  var text = (opts && opts.text != null) ? String(opts.text) : '';
+  if (!text.trim()) return;
+  var L   = KZ_textLayout(c, zone, text);
+  var cx  = zone.x + zone.width  / 2;
+  var cy  = zone.y + zone.height / 2;
+  var rot = (zone.rotation || 0) * Math.PI / 180;
+  var strokeW = (opts && opts.strokeWidth != null) ? opts.strokeWidth : 2.5;
+  var color   = (opts && opts.color) || '#7a5c2e';
+
+  c.save();
+  if (rot) { c.translate(cx, cy); c.rotate(rot); c.translate(-cx, -cy); }
+  c.font         = L.fs + "px '" + (zone.font_family || 'Jost') + "'";
+  c.textBaseline = 'middle';
+  c.fillStyle    = color;
+  c.strokeStyle  = (opts && opts.strokeColor) || color;
+  c.lineWidth    = strokeW;
+  c.lineJoin     = 'round';
+
+  if (!L.g) {
+    var tx = zone.align === 'left'  ? zone.x
+           : zone.align === 'right' ? zone.x + zone.width
+           : cx;
+    var startY = cy - L.totalH / 2 + L.lineH / 2 + (L.inkShift || 0);
+    if (!L.ls) {
+      // ── TEXTE DROIT – chemin d'origine, inchangé au pixel près ──
+      c.textAlign = zone.align || 'center';
+      for (var i = 0; i < L.lines.length; i++) {
+        var y = startY + i * L.lineH;
+        if (strokeW) c.strokeText(L.lines[i], tx, y);
+        c.fillText(L.lines[i], tx, y);
+      }
+    } else {
+      // ── TEXTE DROIT ESPACÉ – lettre par lettre ──
+      c.textAlign = 'left';
+      for (var i2 = 0; i2 < L.lines.length; i2++) {
+        var ch = KZ_graphemes(L.lines[i2]);
+        var ws = [], tot = 0;
+        for (var k = 0; k < ch.length; k++) { ws.push(c.measureText(ch[k]).width); tot += ws[k]; }
+        tot += Math.max(0, ch.length - 1) * L.ls;
+        var x = zone.align === 'left' ? tx : zone.align === 'right' ? tx - tot : tx - tot / 2;
+        var y2 = startY + i2 * L.lineH;
+        for (var k2 = 0; k2 < ch.length; k2++) {
+          if (strokeW) c.strokeText(ch[k2], x, y2);
+          c.fillText(ch[k2], x, y2);
+          x += ws[k2] + L.ls;
+        }
+      }
+    }
+    c.restore();
+    return;
+  }
+
+  // ── TEXTE COURBÉ ── (lettres en repère relatif au centre de la zone)
+  c.textAlign = 'center';
+  var glyphs = L.glyphs || KZ_curvedGlyphs(c, zone, L);
+  c.translate(cx, cy);
+  for (var n = 0; n < glyphs.length; n++) {
+    var G = glyphs[n];
+    c.save();
+    c.translate(G.x, G.y);
+    c.rotate(G.rot);
+    if (strokeW) c.strokeText(G.ch, 0, 0);
+    c.fillText(G.ch, 0, 0);
+    c.restore();
+  }
+  c.restore();
+}
+
+// Faut-il passer par KZ_drawTextZone plutôt que par l'ancien dessin droit ?
+// (zone courbée ou lettres espacées). Sinon : chemin historique inchangé.
+function KZ_needsLayout(zone) { return KZ_isCurved(zone) || !!(Number(zone && zone.letter_spacing) || 0); }
+// ══════════════════════ FIN DU BLOC KZ_LAYOUT v6 ══════════════════════
+const _kzMeasureCtx = document.createElement('canvas').getContext('2d');
 
 // 8 formes de zone. AVANT : le viewer clippait TOUJOURS un rectangle, donc un
 // cœur ou une arche créé dans l'admin sortait carré chez le client ET à l'impression.
@@ -382,6 +692,18 @@ function getFontSize(zone, text) {
 
 function drawTextZone(zone, text) {
   if (!text || !text.trim()) return;
+  // KZ_LAYOUT v6 : zone COURBÉE (ou lettres espacées) → le dessin commun à
+  // l'admin, l'atelier et au PNG imprimeur. Avant, le site ignorait zone.curve
+  // et le client voyait son texte DROIT (commande #2257).
+  // Zone droite sans espacement : chemin historique ci-dessous, inchangé.
+  if (KZ_needsLayout(zone)) {
+    KZ_drawTextZone(ctx2d, zone, {
+      text: text,
+      color: zone._colorOverride || zone.color || '#2c2521',
+      strokeWidth: (zone.stroke_preview !== undefined ? zone.stroke_preview : 2.5)
+    });
+    return;
+  }
   const lh     = zone.lineHeight || 1.3;
   const size   = getFontSize(zone, text);
   const lines  = text.split('\n');
@@ -1367,8 +1689,21 @@ window.addEventListener('message', function(e) {
         document.body.removeChild(fontForcer);
         const STROKE_WIDTH = 2.5;
         (CFG.text_zones||[]).forEach(zone => {
-          const txt = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||'')).trim();
+          const brut = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||''));
+          const txt = brut.trim();
           if (!txt) return;
+          // KZ_LAYOUT v6 : zone COURBÉE (ou lettres espacées) → exactement le
+          // dessin de l'écran (même fonction, même texte, même taille). Avant,
+          // le PNG imprimeur sortait DROIT (commande #2257). Seul le contour
+          // suit sa règle habituelle : stroke_print ici, stroke_preview à l'écran.
+          if (KZ_needsLayout(zone)) {
+            KZ_drawTextZone(pctx, zone, {
+              text: brut,
+              color: zone._colorOverride || zone.color || '#7a5c2e',
+              strokeWidth: (zone.stroke_print !== undefined ? zone.stroke_print : STROKE_WIDTH)
+            });
+            return;
+          }
           const lh = zone.lineHeight||1.3;
           const lines = txt.split('\n');
           // KZ_LAYOUT v1 : même fonction que l'écran et que l'admin.
