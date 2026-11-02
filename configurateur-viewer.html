@@ -245,10 +245,11 @@ function parseHexColor(c) { return (c && c.startsWith('#')) ? c : '#ffffff'; }
 //  v6 : (02/11/2026, commande #2257) le SITE et le PNG imprimeur dessinent
 //       enfin la courbure, avec la fonction de l'admin (avant : texte droit
 //       chez le client et à l'impression, courbé seulement dans l'admin et
-//       l'atelier). Deux ajouts seulement :
+//       l'atelier). Ajouts :
 //       · KZ_fontSize renvoie la taille du texte COURBÉ (celle du dessin) ;
 //       · zone.letter_spacing facultatif (défaut 0) : espacement des
 //         lettres en % de la taille de police (−10 → +50).
+//       · un émoji composé reste entier dans une zone courbée ou espacée.
 //  curve 0 (ou absent) ET letter_spacing 0 (ou absent) : rendu STRICTEMENT
 //  identique à la v5, au pixel près.
 // ═══════════════════════════════════════════════════════════════════
@@ -270,8 +271,16 @@ function KZ_lsPx(zone, fs) {
   return v / 100 * fs;
 }
 
-// Lettres d'une ligne (même découpage que la courbure de l'admin).
-function KZ_graphemes(s) { return Array.from(String(s == null ? '' : s)); }
+// Lettres d'une ligne. Un émoji composé (👨‍👩‍👧, 👍🏽, drapeaux) reste UN seul
+// caractère (avant : Array.from le coupait en morceaux qui sortaient de la zone).
+var KZ_segmenter = null;
+try { if (typeof Intl !== 'undefined' && Intl.Segmenter) KZ_segmenter = new Intl.Segmenter('fr', { granularity: 'grapheme' }); } catch (e) {}
+function KZ_graphemes(s) {
+  s = String(s == null ? '' : s);
+  if (!KZ_segmenter) return Array.from(s);
+  var out = []; for (var it of KZ_segmenter.segment(s)) out.push(it.segment);
+  return out;
+}
 
 function KZ_ink(ctx, zone, text, fs) {
   var lines = String(text == null ? '' : text).split('\n');
