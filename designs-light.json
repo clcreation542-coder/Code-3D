@@ -162,7 +162,7 @@
     "text_zones": [
       {
         "lineHeight": 1.2,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#99745f",
         "multiline": false,
         "id": "texte_mpbapgk1g4o2",
@@ -183,7 +183,7 @@
       },
       {
         "lineHeight": 1.5,
-        "font_size": 80,
+        "font_size": 120,
         "color": "#99745f",
         "multiline": false,
         "id": "texte_mpbbehsjclpa",
@@ -204,7 +204,7 @@
       },
       {
         "lineHeight": 1.2,
-        "font_size": 100,
+        "font_size": 120,
         "color": "#987661",
         "multiline": false,
         "id": "texte_mppgu4277c7u",
@@ -215,7 +215,7 @@
         "width": 780,
         "height": 459,
         "shape": "rectangle",
-        "placeholder": "Merci ",
+        "placeholder": "",
         "font_family": "Dancing Script",
         "align": "center",
         "rotation": 0,
@@ -383,7 +383,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       },
       {
@@ -874,7 +874,7 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
-        "text_color_override": "#fbdc06"
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Vert",
@@ -1638,7 +1638,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -2209,7 +2209,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -2366,7 +2366,7 @@
         "width": 396,
         "height": 122,
         "shape": "rectangle",
-        "placeholder": "2015-2025",
+        "placeholder": "2017-2027",
         "font_family": "Italianno",
         "align": "center",
         "rotation": 0,
@@ -2922,7 +2922,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -3032,7 +3032,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       },
       {
@@ -4149,7 +4149,7 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
-        "text_color_override": "#e8e7c8"
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Bleu",
@@ -4612,7 +4612,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -5451,7 +5451,7 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
-        "text_color_override": "#eda7ba"
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Rose",
@@ -5805,7 +5805,7 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
-        "text_color_override": "#ffdede"
+        "text_color_override": "#ffffff"
       },
       {
         "name": "Rose",
@@ -6544,7 +6544,7 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
-        "text_color_override": "#b2b584"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -8063,7 +8063,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9153,7 +9153,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       },
       {
@@ -9271,7 +9271,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -9824,7 +9824,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       },
       {
@@ -14242,7 +14242,7 @@
         "opacity": 1,
         "visible": true,
         "force_text_color": true,
-        "text_color_override": "#ffc9d8"
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -16853,7 +16853,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       },
       {
@@ -23754,7 +23754,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       },
       {
@@ -24421,7 +24421,7 @@
         "hex": "#121212",
         "opacity": 1,
         "visible": true,
-        "force_text_color": false,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
