@@ -893,7 +893,9 @@ function drawTexture() {
   (CFG.photo_zones || []).forEach(zone => {
     const img = state.photos[zone.id];
     if (img) drawPhotoZone(zone, img);
-    else drawPhotoPlaceholder(zone);
+    // Zone au dos (moitié gauche du PNG imprimeur) : rien sur le gobelet
+    // tant que le client n'a pas ajouté sa photo. Face : cadre + appareil photo.
+    else if (zone.x + zone.width / 2 >= TEX_W / 2) drawPhotoPlaceholder(zone);
   });
   if (state.designImage) {
     const d = CFG.design || { x: 0, y: 0, width: TEX_W, height: TEX_H };
