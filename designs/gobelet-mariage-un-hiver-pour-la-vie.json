@@ -147,7 +147,7 @@
       "max_chars": 0,
       "stroke_preview": 1.5,
       "stroke_print": 2.5,
-      "shape": "oval",
+      "shape": "rectangle",
       "placeholder": "",
       "id": "mw3nf2ni9onu",
       "label": "Zone de texte 3",
