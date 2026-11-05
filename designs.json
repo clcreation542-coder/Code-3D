@@ -23906,6 +23906,14 @@
         "visible": true,
         "force_text_color": true,
         "text_color_override": "#ffcdd8"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
       }
     ],
     "text_zones": [
@@ -24923,6 +24931,22 @@
         "opacity": 1,
         "visible": false,
         "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
         "text_color_override": "#ffffff"
       }
     ],
@@ -26979,7 +27003,8 @@
           "scale": 1,
           "offx": 0,
           "offy": 0
-        }
+        },
+        "photo": "/img/1793894385729-067c178be5835536d5d8ef3e.png"
       }
     ],
     "arch_zones": []
@@ -27674,7 +27699,8 @@
           "scale": 1,
           "offx": 0,
           "offy": 0
-        }
+        },
+        "photo": "/img/1793894386000-a941305d14dd8f327dbc9ed4.png"
       }
     ],
     "arch_zones": []
@@ -29540,7 +29566,8 @@
         "width": 370,
         "height": 370,
         "shape": "circle",
-        "photo_dessus": false
+        "photo_dessus": false,
+        "photo": "/img/1793900177903-bcce89c41502dea613688e92.jpg"
       }
     ],
     "arch_zones": []
@@ -29718,7 +29745,8 @@
         "width": 400,
         "height": 400,
         "shape": "circle",
-        "photo_dessus": false
+        "photo_dessus": false,
+        "photo": "/img/1793900178068-4c84c02aa2dbfb8057c98a41.jpg"
       }
     ],
     "arch_zones": []
@@ -29896,7 +29924,8 @@
         "width": 406,
         "height": 406,
         "shape": "circle",
-        "photo_dessus": false
+        "photo_dessus": false,
+        "photo": "/img/1793900178215-7b8e6b967da806557e19544b.jpg"
       }
     ],
     "arch_zones": []
@@ -32379,7 +32408,8 @@
         "width": 402,
         "height": 402,
         "shape": "circle",
-        "photo_dessus": false
+        "photo_dessus": false,
+        "photo": "/img/1793889968472-c573c35cf3ff9c367e96f8ee.png"
       }
     ],
     "arch_zones": []
