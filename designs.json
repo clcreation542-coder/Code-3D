@@ -37943,5 +37943,168 @@
       }
     ],
     "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-coeur-eucalyptus-photo-mw3r2cnruk9r",
+    "name": "Gobelet Mariage Personnalisé – Cœur d'Eucalyptus Photo",
+    "shopify_handle": "gobelet-mariage-c-ur-d-eucalyptus-photo",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-c-ur-d-eucalyptus-photo.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.05,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnrcy5j",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 262,
+        "y": 250,
+        "width": 460,
+        "height": 430,
+        "font_size": 120,
+        "color": "#2f4a3a",
+        "font_family": "Pinyon Script",
+        "placeholder": "Margaux\n&\nBastien"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnreiue",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 262,
+        "y": 720,
+        "width": 460,
+        "height": 95,
+        "font_size": 62,
+        "color": "#6b7f5e",
+        "font_family": "Cormorant Garamond",
+        "placeholder": "09 . 10 . 2027"
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3r2cnr4dmi",
+        "label": "Photo",
+        "order": 3,
+        "x": 1137,
+        "y": 240,
+        "width": 680,
+        "height": 570,
+        "shape": "heart",
+        "photo_dessus": false,
+        "photo": "/img/1793895915763-15d0560c24034c45b74352b5.jpg",
+        "photo_fit": {
+          "scale": 1.1,
+          "offx": 0,
+          "offy": 0.1
+        }
+      }
+    ],
+    "arch_zones": []
   }
 ]
