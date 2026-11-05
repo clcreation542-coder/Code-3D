@@ -1,0 +1,149 @@
+{
+  "id": "gobelet-retraite-personnalise-plage-soleil-tropical-mvb3kgp7y2lq",
+  "name": "Gobelet Retraite – Plage & Soleil Tropical",
+  "shopify_handle": "gobelet-retraite-plage-soleil-tropical",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.161012259539983,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-retraite-plage-soleil-tropical.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#121212"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#121212"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#121212"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.05,
+      "font_size": 120,
+      "color": "#3b6702",
+      "multiline": false,
+      "id": "texte_mvb3ow3uxomz",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1302,
+      "y": 383,
+      "width": 359,
+      "height": 375,
+      "shape": "oval",
+      "placeholder": "Bonne\nretraite\nSylvie",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "locked": false,
+      "curve": 0
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 120,
+      "color": "#3b6702",
+      "multiline": false,
+      "id": "texte_mvb3ow3ujohp",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 104,
+      "y": 342,
+      "width": 776,
+      "height": 456,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "locked": false,
+      "curve": 0
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

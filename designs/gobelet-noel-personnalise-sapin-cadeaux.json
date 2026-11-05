@@ -1,0 +1,177 @@
+{
+  "id": "nouveau-design-mw3dju52ofp4",
+  "name": "Gobelet Noël Personnalisé – Sapin & Cadeaux",
+  "shopify_handle": "gobelet-noel-personnalise-sapin-cadeaux",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-noel-personnalise-sapin-cadeaux.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3dk60ktzoe",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1170,
+      "y": 140,
+      "width": 600,
+      "height": 125,
+      "font_size": 95,
+      "color": "#b8902f",
+      "font_family": "Alegreya",
+      "placeholder": "Joyeux Noël"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3dk60kxa3e",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1110,
+      "y": 855,
+      "width": 740,
+      "height": 190,
+      "font_size": 160,
+      "color": "#2f6b3a",
+      "font_family": "Rouge Script",
+      "placeholder": "Famille Lambert"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3dk60kv3q3",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 262,
+      "y": 325,
+      "width": 460,
+      "height": 530,
+      "font_size": 110,
+      "color": "#2f6b3a",
+      "font_family": "Rouge Script",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3dk60k6t2x",
+      "label": "Photo",
+      "order": 4,
+      "x": 262,
+      "y": 325,
+      "width": 460,
+      "height": 530,
+      "shape": "rounded"
+    }
+  ],
+  "arch_zones": []
+}

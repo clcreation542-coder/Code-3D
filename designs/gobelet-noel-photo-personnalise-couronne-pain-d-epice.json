@@ -1,0 +1,182 @@
+{
+  "id": "gobelet-noel-personnalise-couronne-pain-d-epice-mvb3yute9ohf",
+  "name": "Gobelet Noël Photo Personnalisé – Couronne Pain d'Épice",
+  "shopify_handle": "gobelet-noel-photo-personnalise-couronne-pain-d-epice",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-noel-photo-personnalise-couronne-pain-d-epice.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3blu8vvkn5",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1228,
+      "y": 140,
+      "width": 500,
+      "height": 95,
+      "font_size": 62,
+      "color": "#8a4b1f",
+      "font_family": "Cinzel Decorative",
+      "placeholder": "Joyeux Noël"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3blu8vn6li",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1203,
+      "y": 905,
+      "width": 550,
+      "height": 150,
+      "font_size": 110,
+      "color": "#a70505",
+      "font_family": "Alex Brush",
+      "placeholder": "Famille Petit"
+    },
+    {
+      "lineHeight": 1.1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3blu8v7jr2",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 247,
+      "y": 368,
+      "width": 490,
+      "height": 460,
+      "font_size": 110,
+      "color": "#a70505",
+      "font_family": "Alex Brush",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "photo_mvb3z89hgynb",
+      "label": "Photo",
+      "order": 4,
+      "x": 1273,
+      "y": 365,
+      "width": 410,
+      "height": 410,
+      "shape": "circle",
+      "photo_fit": {
+        "scale": 1,
+        "offx": 0,
+        "offy": 0
+      }
+    }
+  ],
+  "arch_zones": []
+}

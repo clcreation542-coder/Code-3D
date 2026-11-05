@@ -1,0 +1,199 @@
+{
+  "id": "gobelet-anniversaire-personnalise-fanions-papillons-pastel-mw3i9z2twjua",
+  "name": "Gobelet Anniversaire Personnalisé – Fanions & Papillons Pastel",
+  "shopify_handle": "gobelet-anniversaire-fanions-papillons-pastel",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-fanions-papillons-pastel.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3icjzlfcp7",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1118,
+      "y": 380,
+      "width": 720,
+      "height": 95,
+      "font_size": 70,
+      "color": "#c2507e",
+      "font_family": "Quicksand",
+      "placeholder": "Joyeux anniversaire"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3icjzlkqg0",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1068,
+      "y": 490,
+      "width": 820,
+      "height": 250,
+      "font_size": 200,
+      "color": "#8a6bb0",
+      "font_family": "Satisfy",
+      "placeholder": "Jeanne"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3ii4pyeuhm",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 1278,
+      "y": 755,
+      "width": 400,
+      "height": 110,
+      "font_size": 88,
+      "color": "#c2507e",
+      "font_family": "Quicksand",
+      "placeholder": "4 ans"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3icjzl0g93",
+      "label": "Zone de texte 4",
+      "order": 4,
+      "x": 262,
+      "y": 358,
+      "width": 460,
+      "height": 530,
+      "font_size": 110,
+      "color": "#8a6bb0",
+      "font_family": "Satisfy",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3icjzlwiom",
+      "label": "Photo",
+      "order": 5,
+      "x": 262,
+      "y": 358,
+      "width": 460,
+      "height": 530,
+      "shape": "rounded",
+      "photo_dessus": false
+    }
+  ],
+  "arch_zones": []
+}

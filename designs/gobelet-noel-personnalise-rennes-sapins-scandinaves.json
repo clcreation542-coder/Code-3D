@@ -1,0 +1,178 @@
+{
+  "id": "gobelet-noel-personnalise-rennes-sapins-scandinaves-mvb3xil5c7hw",
+  "name": "Gobelet Noël Personnalisé – Rennes & Sapins Scandinaves",
+  "shopify_handle": "gobelet-noel-personnalise-rennes-sapins-scandinaves",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-noel-personnalise-rennes-sapins-scandinaves.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#121212"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#121212"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3bj1nisteg",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1228,
+      "y": 390,
+      "width": 500,
+      "height": 100,
+      "font_size": 78,
+      "color": "#a3141c",
+      "font_family": "Josefin Sans",
+      "placeholder": "JOYEUX NOËL"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3bj1nilrof",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1178,
+      "y": 510,
+      "width": 600,
+      "height": 170,
+      "font_size": 120,
+      "color": "#1e5a32",
+      "font_family": "Dancing Script",
+      "placeholder": "Famille Garcia"
+    },
+    {
+      "lineHeight": 1.1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3bj1niin65",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 247,
+      "y": 305,
+      "width": 490,
+      "height": 460,
+      "font_size": 110,
+      "color": "#a3141c",
+      "font_family": "Dancing Script",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3bj1nirkbp",
+      "label": "Photo",
+      "order": 4,
+      "x": 247,
+      "y": 305,
+      "width": 490,
+      "height": 460,
+      "shape": "rounded",
+      "rotation": 0
+    }
+  ],
+  "arch_zones": []
+}

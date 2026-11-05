@@ -1,0 +1,178 @@
+{
+  "id": "gobelet-anniversaire-personnalise-prairie-fleurie-pastel-mw3ia6ybdmws",
+  "name": "Gobelet Anniversaire Personnalisé – Prairie Fleurie Pastel",
+  "shopify_handle": "gobelet-anniversaire-prairie-fleurie-pastel",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-prairie-fleurie-pastel.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3icjzlfiy0",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1098,
+      "y": 180,
+      "width": 760,
+      "height": 300,
+      "font_size": 240,
+      "color": "#c2507e",
+      "font_family": "Allura",
+      "placeholder": "Rose"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3ii5z01cc1",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1278,
+      "y": 495,
+      "width": 400,
+      "height": 120,
+      "font_size": 96,
+      "color": "#8a6bb0",
+      "font_family": "Quicksand",
+      "placeholder": "3 ans"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3icjzllbk4",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 262,
+      "y": 133,
+      "width": 460,
+      "height": 530,
+      "font_size": 110,
+      "color": "#c2507e",
+      "font_family": "Allura",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3icjzl0ce6",
+      "label": "Photo",
+      "order": 4,
+      "x": 262,
+      "y": 133,
+      "width": 460,
+      "height": 530,
+      "shape": "rounded",
+      "photo_dessus": false
+    }
+  ],
+  "arch_zones": []
+}

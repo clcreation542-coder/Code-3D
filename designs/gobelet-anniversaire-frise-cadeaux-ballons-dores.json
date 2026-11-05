@@ -1,0 +1,199 @@
+{
+  "id": "gobelet-anniversaire-personnalise-frise-cadeaux-ballons-dores-mw3h5g0tqujt",
+  "name": "Gobelet Anniversaire Personnalisé – Frise Cadeaux & Ballons Dorés",
+  "shopify_handle": "gobelet-anniversaire-frise-cadeaux-ballons-dores",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-frise-cadeaux-ballons-dores.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3h75vbyczc",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1118,
+      "y": 110,
+      "width": 720,
+      "height": 110,
+      "font_size": 76,
+      "color": "#b8902f",
+      "font_family": "Lora",
+      "placeholder": "Joyeux anniversaire"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3h75vbo8m4",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1068,
+      "y": 235,
+      "width": 820,
+      "height": 235,
+      "font_size": 190,
+      "color": "#1a1a1a",
+      "font_family": "Parisienne",
+      "placeholder": "Thierry"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3h75vbauoz",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 1228,
+      "y": 485,
+      "width": 500,
+      "height": 135,
+      "font_size": 110,
+      "color": "#b8902f",
+      "font_family": "Cinzel",
+      "placeholder": "60 ans"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3h75vbyqc0",
+      "label": "Zone de texte 4",
+      "order": 4,
+      "x": 262,
+      "y": 100,
+      "width": 460,
+      "height": 530,
+      "font_size": 110,
+      "color": "#1a1a1a",
+      "font_family": "Parisienne",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3h75vb5u1p",
+      "label": "Photo",
+      "order": 5,
+      "x": 262,
+      "y": 100,
+      "width": 460,
+      "height": 530,
+      "shape": "rounded",
+      "photo_dessus": false
+    }
+  ],
+  "arch_zones": []
+}
