@@ -29415,6 +29415,186 @@
     "arch_zones": []
   },
   {
+    "id": "nouveau-design-mw3dkve1tsk6",
+    "name": "Gobelet Noël Personnalisé – Polaroïd Houx & Ruban",
+    "shopify_handle": "gobelet-noel-personnalise-polaroid-houx-ruban",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-noel-personnalise-polaroid-houx-ruban.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3dld9sj6og",
+        "label": "Zone de texte 1",
+        "order": 2,
+        "x": 1325,
+        "y": 708,
+        "width": 225,
+        "height": 80,
+        "font_size": 52,
+        "color": "#555555",
+        "font_family": "Coming Soon",
+        "placeholder": "Noël 2026"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3dld9srvzf",
+        "label": "Zone de texte 2",
+        "order": 3,
+        "x": 1130,
+        "y": 885,
+        "width": 700,
+        "height": 170,
+        "font_size": 140,
+        "color": "#b3262b",
+        "font_family": "Sacramento",
+        "placeholder": "Famille Bonnet"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3dld9s6k7z",
+        "label": "Zone de texte 3",
+        "order": 4,
+        "x": 212,
+        "y": 445,
+        "width": 560,
+        "height": 530,
+        "font_size": 110,
+        "color": "#b3262b",
+        "font_family": "Sacramento",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3dld9rv46h",
+        "label": "Photo",
+        "order": 1,
+        "x": 1306,
+        "y": 351,
+        "width": 360,
+        "height": 347,
+        "shape": "rectangle",
+        "rotation": -5.5,
+        "photo_dessus": false,
+        "photo": "/img/1793902200801-8ca609a77a3e40340a89ee82.jpg"
+      }
+    ],
+    "arch_zones": []
+  },
+  {
     "id": "nouveau-design-mw3e2iyi67p6",
     "name": "Gobelet Noël Personnalisé – Couronne Boules Dorées & Pommes de Pin",
     "shopify_handle": "gobelet-noel-personnalise-couronne-boules-dorees-pommes-de-pin",
@@ -32133,6 +32313,151 @@
     "arch_zones": []
   },
   {
+    "id": "gobelet-anniversaire-personnalise-c-urs-etoiles-pastel-mw3iavr6p6t0",
+    "name": "Gobelet Anniversaire Personnalisé – Cœurs & Étoiles Pastel",
+    "shopify_handle": "gobelet-anniversaire-coeurs-etoiles-pastel",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-coeurs-etoiles-pastel.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3icjzl3z1a",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1245,
+        "y": 378,
+        "width": 460,
+        "height": 190,
+        "font_size": 150,
+        "color": "#c2507e",
+        "font_family": "Satisfy",
+        "placeholder": "Margaux"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3icjzlapro",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1245,
+        "y": 578,
+        "width": 460,
+        "height": 110,
+        "font_size": 86,
+        "color": "#8a6bb0",
+        "font_family": "Quicksand",
+        "placeholder": "7 ans"
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
     "id": "gobelet-anniversaire-personnalise-nuee-de-papillons-pastel-mw3ib2r4cp51",
     "name": "Gobelet Anniversaire Personnalisé – Nuée de Papillons Pastel",
     "shopify_handle": "gobelet-anniversaire-nuee-de-papillons-pastel",
@@ -32410,6 +32735,185 @@
         "shape": "circle",
         "photo_dessus": false,
         "photo": "/img/1793889968472-c573c35cf3ff9c367e96f8ee.png"
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "nouveau-design-2-mw3jooqwfvxy",
+    "name": "Gobelet Mariage Personnalisé – Couronne Roses Bordeaux & Houx",
+    "shopify_handle": "gobelet-mariage-couronne-roses-bordeaux-houx",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-couronne-roses-bordeaux-houx.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3jxi4noqq5",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1150,
+        "y": 90,
+        "width": 660,
+        "height": 150,
+        "font_size": 125,
+        "color": "#7a1f2b",
+        "font_family": "Great Vibes",
+        "placeholder": "Constance & Félix"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3jxi4n99ef",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1230,
+        "y": 895,
+        "width": 500,
+        "height": 95,
+        "font_size": 70,
+        "color": "#b8902f",
+        "font_family": "Cinzel",
+        "placeholder": "19.12.2026"
+      },
+      {
+        "lineHeight": 1.2,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3jxk04mwcp",
+        "label": "Zone de texte 4",
+        "order": 4,
+        "x": 262,
+        "y": 275,
+        "width": 460,
+        "height": 530,
+        "font_size": 110,
+        "color": "#7a1f2b",
+        "font_family": "Great Vibes",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3jxi4nsu2b",
+        "label": "Photo",
+        "order": 3,
+        "x": 1268,
+        "y": 355,
+        "width": 428,
+        "height": 428,
+        "shape": "circle",
+        "photo_dessus": false,
+        "photo": "/img/1793889969547-61433791232eff20cbbf1c9a.png"
       }
     ],
     "arch_zones": []
@@ -33127,6 +33631,362 @@
     "arch_zones": []
   },
   {
+    "id": "nouveau-design-7-mw3jpu1axfdo",
+    "name": "Gobelet Mariage Personnalisé – Hexagone Doré & Roses d'Hiver",
+    "shopify_handle": "gobelet-mariage-hexagone-dore-roses-d-hiver",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-hexagone-dore-roses-d-hiver.webp",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "oval",
+        "id": "mw3jxi4nwzqc",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1300,
+        "y": 394,
+        "width": 338,
+        "height": 346,
+        "font_size": 112,
+        "color": "#2f4a3a",
+        "font_family": "Italianno",
+        "placeholder": "Apolline\n&\nAugustin"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3jxi4njwyd",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1269,
+        "y": 876,
+        "width": 400,
+        "height": 85,
+        "font_size": 62,
+        "color": "#b8902f",
+        "font_family": "Raleway",
+        "placeholder": "30.01.2027"
+      },
+      {
+        "lineHeight": 1.2,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "oval",
+        "id": "mw3jxpze3iwn",
+        "label": "Zone de texte 4",
+        "order": 3,
+        "x": 262,
+        "y": 413,
+        "width": 460,
+        "height": 530,
+        "font_size": 110,
+        "color": "#2f4a3a",
+        "font_family": "Italianno",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3jxpzeg3j3",
+        "label": "Photo",
+        "order": 4,
+        "x": 262,
+        "y": 413,
+        "width": 460,
+        "height": 530,
+        "shape": "oval",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-guirlande-sapin-baies-roses-mw3m04l9gokt",
+    "name": "Gobelet Mariage Personnalisé – Guirlande Sapin, Baies & Roses",
+    "shopify_handle": "gobelet-mariage-guirlande-sapin-baies-roses",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-guirlande-sapin-baies-roses.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3m04l9dkto",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1148,
+        "y": 410,
+        "width": 660,
+        "height": 220,
+        "font_size": 150,
+        "color": "#7a1f2b",
+        "font_family": "Rouge Script",
+        "placeholder": "Inès & Maxime"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3m04l9xyyg",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1178,
+        "y": 660,
+        "width": 600,
+        "height": 95,
+        "font_size": 62,
+        "color": "#b8902f",
+        "font_family": "Lora",
+        "placeholder": "12 décembre 2026"
+      },
+      {
+        "lineHeight": 1.2,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "circle",
+        "placeholder": "",
+        "id": "mw3m04l9k8dp",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 232,
+        "y": 320,
+        "width": 520,
+        "height": 520,
+        "font_size": 110,
+        "color": "#7a1f2b",
+        "font_family": "Rouge Script"
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3m04l994t1",
+        "label": "Photo",
+        "order": 4,
+        "x": 232,
+        "y": 320,
+        "width": 520,
+        "height": 520,
+        "shape": "circle",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
     "id": "gobelet-mariage-personnalise-eucalyptus-flocons-argentes-mw3m04l98ur9",
     "name": "Gobelet Mariage Personnalisé – Eucalyptus & Flocons Argentés",
     "shopify_handle": "gobelet-mariage-eucalyptus-flocons-argentes",
@@ -33836,6 +34696,130 @@
         "photo_dessus": false
       }
     ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-brins-de-houx-sapin-mw3m4iayhuw7",
+    "name": "Gobelet Mariage Personnalisé – Brins de Houx & Sapin",
+    "shopify_handle": "gobelet-mariage-brins-de-houx-sapin",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-brins-de-houx-sapin.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3m4iay5jef",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1147,
+        "y": 400,
+        "width": 660,
+        "height": 300,
+        "font_size": 130,
+        "color": "#7a1f2b",
+        "font_family": "Rouge Script",
+        "placeholder": "Chloé & Mathis\n26 décembre 2026"
+      }
+    ],
+    "photo_zones": [],
     "arch_zones": []
   },
   {
@@ -34729,6 +35713,184 @@
     "arch_zones": []
   },
   {
+    "id": "gobelet-mariage-personnalise-velours-bordeaux-sapin-mw3nf2nihmia",
+    "name": "Gobelet Mariage Personnalisé – Velours Bordeaux & Sapin",
+    "shopify_handle": "gobelet-mariage-velours-bordeaux-sapin",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-velours-bordeaux-sapin.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3nf2niu085",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1148,
+        "y": 410,
+        "width": 660,
+        "height": 220,
+        "font_size": 150,
+        "color": "#7a1f2b",
+        "font_family": "Rouge Script",
+        "placeholder": "Zoé & Paul"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3nf2niq2mr",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 1178,
+        "y": 655,
+        "width": 600,
+        "height": 95,
+        "font_size": 62,
+        "color": "#b8902f",
+        "font_family": "Lora",
+        "placeholder": "12.12.2026"
+      },
+      {
+        "lineHeight": 1.2,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "placeholder": "",
+        "id": "mw3nf2nior1u",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 262,
+        "y": 315,
+        "width": 460,
+        "height": 530,
+        "font_size": 110,
+        "color": "#7a1f2b",
+        "font_family": "Rouge Script"
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3nf2niryxv",
+        "label": "Photo",
+        "order": 4,
+        "x": 262,
+        "y": 315,
+        "width": 460,
+        "height": 530,
+        "shape": "rectangle",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
     "id": "gobelet-mariage-personnalise-petits-c-urs-flocons-mw3nf2niwxmv",
     "name": "Gobelet Mariage Personnalisé – Petits Cœurs & Flocons",
     "shopify_handle": "gobelet-mariage-petits-c-urs-flocons",
@@ -35016,6 +36178,1770 @@
       }
     ],
     "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-pots-terre-cuite-feuillages-mw3r2cnqv6j9",
+    "name": "Gobelet Mariage Personnalisé – Pots en Terre Cuite & Feuillages",
+    "shopify_handle": "gobelet-mariage-pots-en-terre-cuite-feuillages",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-pots-en-terre-cuite-feuillages.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqwmr4",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 1147,
+        "y": 260,
+        "width": 660,
+        "height": 220,
+        "font_size": 150,
+        "color": "#2f4a3a",
+        "font_family": "Pinyon Script",
+        "placeholder": "Sarah & Maxime"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnq1y7y",
+        "label": "Zone de texte 4",
+        "order": 4,
+        "x": 1177,
+        "y": 520,
+        "width": 600,
+        "height": 95,
+        "font_size": 56,
+        "color": "#6b7f5e",
+        "font_family": "Josefin Sans",
+        "placeholder": "28 . 08 . 2027"
+      },
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqeo0f",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 252,
+        "y": 140,
+        "width": 480,
+        "height": 520,
+        "font_size": 110,
+        "color": "#2f4a3a",
+        "font_family": "Pinyon Script",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3r2cnqyjv6",
+        "label": "Photo",
+        "order": 1,
+        "x": 252,
+        "y": 140,
+        "width": 480,
+        "height": 520,
+        "shape": "arch",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-bouquet-eucalyptus-roses-blanches-mw3r2cnqw14y",
+    "name": "Gobelet Mariage Personnalisé – Bouquet Eucalyptus & Roses Blanches",
+    "shopify_handle": "gobelet-mariage-bouquet-eucalyptus-roses-blanches",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-bouquet-eucalyptus-roses-blanches.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqjj4l",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 1147,
+        "y": 70,
+        "width": 660,
+        "height": 180,
+        "font_size": 140,
+        "color": "#2f4a3a",
+        "font_family": "Pinyon Script",
+        "placeholder": "Emma & Louis"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnq3smw",
+        "label": "Zone de texte 4",
+        "order": 4,
+        "x": 1177,
+        "y": 770,
+        "width": 600,
+        "height": 95,
+        "font_size": 62,
+        "color": "#6b7f5e",
+        "font_family": "Cormorant Garamond",
+        "placeholder": "14 . 06 . 2027"
+      },
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "oval",
+        "id": "mw3r2cnqcopd",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 262,
+        "y": 300,
+        "width": 460,
+        "height": 540,
+        "font_size": 110,
+        "color": "#2f4a3a",
+        "font_family": "Pinyon Script",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3r2cnqfty8",
+        "label": "Photo",
+        "order": 1,
+        "x": 262,
+        "y": 300,
+        "width": 460,
+        "height": 540,
+        "shape": "oval",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-guirlande-eucalyptus-fleurs-blanches-mw3r2cnque1w",
+    "name": "Gobelet Mariage Personnalisé – Guirlande Eucalyptus & Fleurs Blanches",
+    "shopify_handle": "gobelet-mariage-guirlande-eucalyptus-fleurs-blanches",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-guirlande-eucalyptus-fleurs-blanches.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqvaas",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 1147,
+        "y": 370,
+        "width": 660,
+        "height": 220,
+        "font_size": 150,
+        "color": "#2f4a3a",
+        "font_family": "Parisienne",
+        "placeholder": "Camille & Léo"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqxym9",
+        "label": "Zone de texte 4",
+        "order": 4,
+        "x": 1177,
+        "y": 630,
+        "width": 600,
+        "height": 95,
+        "font_size": 62,
+        "color": "#6b7f5e",
+        "font_family": "Cormorant Garamond",
+        "placeholder": "05 . 07 . 2027"
+      },
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnq3784",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 262,
+        "y": 300,
+        "width": 460,
+        "height": 600,
+        "font_size": 110,
+        "color": "#2f4a3a",
+        "font_family": "Parisienne",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3r2cnqkpwu",
+        "label": "Photo",
+        "order": 1,
+        "x": 262,
+        "y": 300,
+        "width": 460,
+        "height": 600,
+        "shape": "rounded",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-prairie-champetre-eucalyptus-mw3r2cnqca7q",
+    "name": "Gobelet Mariage Personnalisé – Prairie Champêtre & Eucalyptus",
+    "shopify_handle": "gobelet-mariage-prairie-champetre-eucalyptus",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-prairie-champetre-eucalyptus.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqz8ej",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 1147,
+        "y": 230,
+        "width": 660,
+        "height": 220,
+        "font_size": 150,
+        "color": "#2f4a3a",
+        "font_family": "Great Vibes",
+        "placeholder": "Chloé & Antoine"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqinoq",
+        "label": "Zone de texte 4",
+        "order": 4,
+        "x": 1177,
+        "y": 490,
+        "width": 600,
+        "height": 95,
+        "font_size": 62,
+        "color": "#6b7f5e",
+        "font_family": "Cormorant Garamond",
+        "placeholder": "12 . 06 . 2027"
+      },
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "oval",
+        "id": "mw3r2cnqla52",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 262,
+        "y": 110,
+        "width": 460,
+        "height": 520,
+        "font_size": 110,
+        "color": "#2f4a3a",
+        "font_family": "Great Vibes",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3r2cnqr14h",
+        "label": "Photo",
+        "order": 1,
+        "x": 262,
+        "y": 110,
+        "width": 460,
+        "height": 520,
+        "shape": "oval",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-tout-autour-eucalyptus-brins-blancs-mw3r2cnqhco5",
+    "name": "Gobelet Mariage Personnalisé – Tout Autour Eucalyptus & Brins Blancs",
+    "shopify_handle": "gobelet-mariage-tout-autour-eucalyptus-brins-blancs",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-tout-autour-eucalyptus-brins-blancs.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqgrgz",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1147,
+        "y": 400,
+        "width": 660,
+        "height": 320,
+        "font_size": 120,
+        "color": "#2f4a3a",
+        "font_family": "Parisienne",
+        "placeholder": "Inès & Paul\n10 . 07 . 2027"
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-tout-autour-olivier-coeurs-dores-mw3r2cnqjnki",
+    "name": "Gobelet Mariage Personnalisé – Tout Autour Olivier & Cœurs Dorés",
+    "shopify_handle": "gobelet-mariage-tout-autour-olivier-c-urs-dores",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-tout-autour-olivier-c-urs-dores.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnq45sq",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1192,
+        "y": 415,
+        "width": 570,
+        "height": 290,
+        "font_size": 110,
+        "color": "#2f4a3a",
+        "font_family": "Great Vibes",
+        "placeholder": "Lucie & Nathan\n03 . 09 . 2027"
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-ruban-lin-vert-sauge-mw3r2cnrpy2y",
+    "name": "Gobelet Mariage Personnalisé – Ruban Lin Vert Sauge",
+    "shopify_handle": "gobelet-mariage-ruban-lin-vert-sauge",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-ruban-lin-vert-sauge.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqkfwm",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1147,
+        "y": 450,
+        "width": 660,
+        "height": 240,
+        "font_size": 180,
+        "color": "#2f4a3a",
+        "font_family": "Pinyon Script",
+        "placeholder": "Alice & Romain"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnqzcn8",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 242,
+        "y": 480,
+        "width": 500,
+        "height": 180,
+        "font_size": 100,
+        "color": "#2f4a3a",
+        "font_family": "Cormorant Garamond",
+        "placeholder": "26 . 06 . 2027"
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-bande-ivoire-eucalyptus-mw3r2cnraj2k",
+    "name": "Gobelet Mariage Personnalisé – Bande Ivoire & Eucalyptus",
+    "shopify_handle": "gobelet-mariage-bande-ivoire-eucalyptus",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-bande-ivoire-eucalyptus.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnrxpb0",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 1147,
+        "y": 500,
+        "width": 660,
+        "height": 170,
+        "font_size": 130,
+        "color": "#2f4a3a",
+        "font_family": "Great Vibes",
+        "placeholder": "Clara & Julien"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnr2gez",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 262,
+        "y": 525,
+        "width": 460,
+        "height": 130,
+        "font_size": 62,
+        "color": "#9a7b3c",
+        "font_family": "Cinzel",
+        "placeholder": "17 . 07 . 2027"
+      }
+    ],
+    "photo_zones": [],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-coeur-dore-eucalyptus-mw3r2cnrty9l",
+    "name": "Gobelet Mariage Personnalisé – Cœur Doré & Eucalyptus",
+    "shopify_handle": "gobelet-mariage-c-ur-dore-eucalyptus",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-c-ur-dore-eucalyptus.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnr0elk",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 1147,
+        "y": 330,
+        "width": 660,
+        "height": 200,
+        "font_size": 150,
+        "color": "#2f4a3a",
+        "font_family": "Great Vibes",
+        "placeholder": "Léa & Samuel"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnrrrqw",
+        "label": "Zone de texte 4",
+        "order": 4,
+        "x": 1177,
+        "y": 715,
+        "width": 600,
+        "height": 95,
+        "font_size": 58,
+        "color": "#9a7b3c",
+        "font_family": "Cinzel",
+        "placeholder": "11 . 09 . 2027"
+      },
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "circle",
+        "id": "mw3r2cnr2k1v",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 232,
+        "y": 300,
+        "width": 520,
+        "height": 520,
+        "font_size": 110,
+        "color": "#2f4a3a",
+        "font_family": "Great Vibes",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3r2cnrs0m2",
+        "label": "Photo",
+        "order": 1,
+        "x": 232,
+        "y": 300,
+        "width": 520,
+        "height": 520,
+        "shape": "circle",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-brin-eucalyptus-olivier-mw3r2cnrhwz2",
+    "name": "Gobelet Mariage Personnalisé – Brin d'Eucalyptus & Olivier",
+    "shopify_handle": "gobelet-mariage-brin-d-eucalyptus-olivier",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-brin-d-eucalyptus-olivier.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnrvd8i",
+        "label": "Zone de texte 3",
+        "order": 3,
+        "x": 1147,
+        "y": 80,
+        "width": 660,
+        "height": 200,
+        "font_size": 150,
+        "color": "#2f4a3a",
+        "font_family": "Allura",
+        "placeholder": "Zoé & Victor"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnr7hzm",
+        "label": "Zone de texte 4",
+        "order": 4,
+        "x": 1177,
+        "y": 740,
+        "width": 600,
+        "height": 95,
+        "font_size": 62,
+        "color": "#6b7f5e",
+        "font_family": "Cormorant Garamond",
+        "placeholder": "24 . 07 . 2027"
+      },
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "oval",
+        "id": "mw3r2cnretvs",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 262,
+        "y": 300,
+        "width": 460,
+        "height": 540,
+        "font_size": 110,
+        "color": "#2f4a3a",
+        "font_family": "Allura",
+        "placeholder": ""
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3r2cnrgu65",
+        "label": "Photo",
+        "order": 1,
+        "x": 262,
+        "y": 300,
+        "width": 460,
+        "height": 540,
+        "shape": "oval",
+        "photo_dessus": false
+      }
+    ],
+    "arch_zones": []
+  },
+  {
+    "id": "gobelet-mariage-personnalise-cadre-dore-eucalyptus-photo-mw3r2cnrly60",
+    "name": "Gobelet Mariage Personnalisé – Cadre Doré & Eucalyptus Photo",
+    "shopify_handle": "gobelet-mariage-cadre-dore-eucalyptus-photo",
+    "gobelet_color": "#f5f0eb",
+    "gobelet_opacity": 1,
+    "model_url": null,
+    "rotation_y": 6.14355896702004,
+    "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-cadre-dore-eucalyptus-photo.png",
+    "design": {
+      "x": 0,
+      "y": 0,
+      "width": 1970,
+      "height": 1140
+    },
+    "active": true,
+    "variant_colors": [
+      {
+        "name": "Translucide",
+        "hex": "#f5f0eb",
+        "opacity": 1,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Blanc",
+        "hex": "#f0ede6",
+        "opacity": 0,
+        "visible": true,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Noir",
+        "hex": "#121212",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#e0c780"
+      },
+      {
+        "name": "Orange",
+        "hex": "#c6621b",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#e7c873"
+      },
+      {
+        "name": "Bleu",
+        "hex": "#144dbb",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Turquoise",
+        "hex": "#0da0e0",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Vert",
+        "hex": "#078630",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rouge",
+        "hex": "#c21816",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": true,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Jaune",
+        "hex": "#d9b308",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      },
+      {
+        "name": "Rose",
+        "hex": "#b62d57",
+        "opacity": 1,
+        "visible": false,
+        "force_text_color": false,
+        "text_color_override": "#ffffff"
+      }
+    ],
+    "text_zones": [
+      {
+        "lineHeight": 1.15,
+        "multiline": true,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnrci0q",
+        "label": "Zone de texte 1",
+        "order": 1,
+        "x": 262,
+        "y": 330,
+        "width": 460,
+        "height": 330,
+        "font_size": 120,
+        "color": "#2f4a3a",
+        "font_family": "Parisienne",
+        "placeholder": "Anaïs & Pierre"
+      },
+      {
+        "lineHeight": 1,
+        "multiline": false,
+        "align": "center",
+        "rotation": 0,
+        "max_chars": 0,
+        "stroke_preview": 1.5,
+        "stroke_print": 2.5,
+        "shape": "rectangle",
+        "id": "mw3r2cnry94g",
+        "label": "Zone de texte 2",
+        "order": 2,
+        "x": 262,
+        "y": 720,
+        "width": 460,
+        "height": 95,
+        "font_size": 58,
+        "color": "#9a7b3c",
+        "font_family": "Cinzel",
+        "placeholder": "02 . 10 . 2027"
+      }
+    ],
+    "photo_zones": [
+      {
+        "id": "mw3r2cnrayuq",
+        "label": "Photo",
+        "order": 3,
+        "x": 1160,
+        "y": 176,
+        "width": 635,
+        "height": 793,
+        "shape": "rounded",
+        "photo_dessus": false,
+        "photo": "/img/1793895915590-18e451c76b22f7974283e561.jpg"
+      }
+    ],
     "arch_zones": []
   }
 ]

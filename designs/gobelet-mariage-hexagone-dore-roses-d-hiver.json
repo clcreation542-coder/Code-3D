@@ -1,0 +1,178 @@
+{
+  "id": "nouveau-design-7-mw3jpu1axfdo",
+  "name": "Gobelet Mariage Personnalisé – Hexagone Doré & Roses d'Hiver",
+  "shopify_handle": "gobelet-mariage-hexagone-dore-roses-d-hiver",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-hexagone-dore-roses-d-hiver.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e0c780"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "oval",
+      "id": "mw3jxi4nwzqc",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1300,
+      "y": 394,
+      "width": 338,
+      "height": 346,
+      "font_size": 112,
+      "color": "#2f4a3a",
+      "font_family": "Italianno",
+      "placeholder": "Apolline\n&\nAugustin"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3jxi4njwyd",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1269,
+      "y": 876,
+      "width": 400,
+      "height": 85,
+      "font_size": 62,
+      "color": "#b8902f",
+      "font_family": "Raleway",
+      "placeholder": "30.01.2027"
+    },
+    {
+      "lineHeight": 1.2,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "oval",
+      "id": "mw3jxpze3iwn",
+      "label": "Zone de texte 4",
+      "order": 3,
+      "x": 262,
+      "y": 413,
+      "width": 460,
+      "height": 530,
+      "font_size": 110,
+      "color": "#2f4a3a",
+      "font_family": "Italianno",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3jxpzeg3j3",
+      "label": "Photo",
+      "order": 4,
+      "x": 262,
+      "y": 413,
+      "width": 460,
+      "height": 530,
+      "shape": "oval",
+      "photo_dessus": false
+    }
+  ],
+  "arch_zones": []
+}

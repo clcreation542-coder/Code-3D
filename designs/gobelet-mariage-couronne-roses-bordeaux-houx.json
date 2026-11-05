@@ -1,0 +1,179 @@
+{
+  "id": "nouveau-design-2-mw3jooqwfvxy",
+  "name": "Gobelet Mariage Personnalisé – Couronne Roses Bordeaux & Houx",
+  "shopify_handle": "gobelet-mariage-couronne-roses-bordeaux-houx",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-couronne-roses-bordeaux-houx.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e0c780"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3jxi4noqq5",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1150,
+      "y": 90,
+      "width": 660,
+      "height": 150,
+      "font_size": 125,
+      "color": "#7a1f2b",
+      "font_family": "Great Vibes",
+      "placeholder": "Constance & Félix"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3jxi4n99ef",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1230,
+      "y": 895,
+      "width": 500,
+      "height": 95,
+      "font_size": 70,
+      "color": "#b8902f",
+      "font_family": "Cinzel",
+      "placeholder": "19.12.2026"
+    },
+    {
+      "lineHeight": 1.2,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3jxk04mwcp",
+      "label": "Zone de texte 4",
+      "order": 4,
+      "x": 262,
+      "y": 275,
+      "width": 460,
+      "height": 530,
+      "font_size": 110,
+      "color": "#7a1f2b",
+      "font_family": "Great Vibes",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3jxi4nsu2b",
+      "label": "Photo",
+      "order": 3,
+      "x": 1268,
+      "y": 355,
+      "width": 428,
+      "height": 428,
+      "shape": "circle",
+      "photo_dessus": false,
+      "photo": "/img/1793889969547-61433791232eff20cbbf1c9a.png"
+    }
+  ],
+  "arch_zones": []
+}

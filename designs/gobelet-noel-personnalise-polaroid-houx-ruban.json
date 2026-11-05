@@ -1,0 +1,180 @@
+{
+  "id": "nouveau-design-mw3dkve1tsk6",
+  "name": "Gobelet Noël Personnalisé – Polaroïd Houx & Ruban",
+  "shopify_handle": "gobelet-noel-personnalise-polaroid-houx-ruban",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-noel-personnalise-polaroid-houx-ruban.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3dld9sj6og",
+      "label": "Zone de texte 1",
+      "order": 2,
+      "x": 1325,
+      "y": 708,
+      "width": 225,
+      "height": 80,
+      "font_size": 52,
+      "color": "#555555",
+      "font_family": "Coming Soon",
+      "placeholder": "Noël 2026"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3dld9srvzf",
+      "label": "Zone de texte 2",
+      "order": 3,
+      "x": 1130,
+      "y": 885,
+      "width": 700,
+      "height": 170,
+      "font_size": 140,
+      "color": "#b3262b",
+      "font_family": "Sacramento",
+      "placeholder": "Famille Bonnet"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3dld9s6k7z",
+      "label": "Zone de texte 3",
+      "order": 4,
+      "x": 212,
+      "y": 445,
+      "width": 560,
+      "height": 530,
+      "font_size": 110,
+      "color": "#b3262b",
+      "font_family": "Sacramento",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3dld9rv46h",
+      "label": "Photo",
+      "order": 1,
+      "x": 1306,
+      "y": 351,
+      "width": 360,
+      "height": 347,
+      "shape": "rectangle",
+      "rotation": -5.5,
+      "photo_dessus": false,
+      "photo": "/img/1793902200801-8ca609a77a3e40340a89ee82.jpg"
+    }
+  ],
+  "arch_zones": []
+}
