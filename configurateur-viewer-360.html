@@ -1199,6 +1199,7 @@ function kzAllerNiveau(n) {
 // Interpolation appelée à chaque frame depuis animate().
 function kzAnimerZoom() {
   if (!kzAnimT0 || kzCibZ === null) return;
+  kzActivite(); // KZ_MOBILE v7 : zoom en cours = rendu plein régime
   let t = (kzMaintenant() - kzAnimT0) / KZ_ZOOM_DUREE;
   if (t >= 1) { t = 1; kzAnimT0 = 0; }
   const e = 1 - Math.pow(1 - t, 3);        // ease-out cubique
@@ -1235,13 +1236,25 @@ function kzCaptureNeutre(fn) {
   finally { kzCurZ = sZ; kzCurY = sY; kzAppliquerCamera(); }
 }
 
+// KZ_MOBILE v7 (03/11/2026) — résolution plafonnée (2x, 1,5x en mode mini) : moins de chauffe sur mobile.
+function kzRatio() {
+  var dpr = window.devicePixelRatio || 1;
+  var mini = (typeof KZ_MINI !== 'undefined') ? KZ_MINI : /[?&]mini=1/.test(location.search);
+  return Math.min(dpr, mini ? 1.5 : 2);
+}
+// KZ_MOBILE v7 — rendu à la demande : plein régime pendant une activité (doigt, souris, message
+// du thème, zoom, rotation auto), puis 4 images/seconde au repos (les mises à jour de texture
+// restent visibles, la batterie respire).
+var kzDerniereActivite = Date.now(), kzDernierRendu = 0;
+function kzActivite() { kzDerniereActivite = Date.now(); }
+
 function initThree() {
   const container = document.getElementById('canvas-container');
   var size = getSize();
   var w = size.w, h = size.h;
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
   renderer.setClearColor(0xF0F0F0, 1);
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(kzRatio());
   renderer.setSize(w, h);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.shadowMap.enabled = true;
@@ -1306,6 +1319,7 @@ function initThree() {
     const t = Math.min((Date.now() - _entryStart) / 1100, 1);
     const ease = 1 - Math.pow(1 - t, 3);
     gobeletGroup.rotation.y = _startY + (_targetY - _startY) * ease;
+    kzActivite();
     if (t < 1) requestAnimationFrame(_animEntry);
   })();
   scene.add(gobeletGroup);
@@ -1449,32 +1463,53 @@ let autoRotate = false, autoRotateSpeed = 0.003, photoEditMode = false, lastInte
 
 function animate() {
   requestAnimationFrame(animate);
-  if (autoRotate && gobeletGroup && !isDragging && !photoEditMode) {
-    if (Date.now() - lastInteraction > 2000) { rotY += autoRotateSpeed; gobeletGroup.rotation.y = rotY; }
+  var maintenant = Date.now();
+  var tourne = autoRotate && gobeletGroup && !isDragging && !photoEditMode;
+  if (tourne) {
+    if (maintenant - lastInteraction > 2000) { rotY += autoRotateSpeed; gobeletGroup.rotation.y = rotY; }
   }
   kzAnimerZoom();
-  renderer.render(scene, camera);
+  var actif = tourne || isDragging || (maintenant - kzDerniereActivite < 1500);
+  if (actif || maintenant - kzDernierRendu > 250) {
+    renderer.render(scene, camera);
+    kzDernierRendu = maintenant;
+  }
 }
 
 function initInteraction() {
   const el = renderer.domElement;
-  el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; lastInteraction = Date.now(); });
+  el.addEventListener('mousedown', e => { isDragging = true; lastPointerX = e.clientX; lastInteraction = Date.now(); kzActivite(); });
   window.addEventListener('mousemove', e => {
     if (!isDragging) return;
     rotY += (e.clientX - lastPointerX) * 0.01; lastPointerX = e.clientX;
-    gobeletGroup.rotation.y = rotY;
+    gobeletGroup.rotation.y = rotY; kzActivite();
   });
   window.addEventListener('mouseup', () => { isDragging = false; });
+  // KZ_MOBILE v7 — le doigt fait tourner le gobelet seulement si le geste est HORIZONTAL.
+  // Un geste vertical laisse défiler la page (avant : le client restait bloqué avant le bouton panier).
+  el.style.touchAction = 'pan-y';
+  var kzDepartX = 0, kzDepartY = 0, kzSens = null; // null = pas encore décidé, 'h' ou 'v'
   el.addEventListener('touchstart', e => {
-    if (e.touches.length !== 1) return;
-    isDragging = true; lastPointerX = e.touches[0].clientX; lastInteraction = Date.now();
+    if (e.touches.length !== 1) { isDragging = false; return; }
+    kzDepartX = lastPointerX = e.touches[0].clientX; kzDepartY = e.touches[0].clientY;
+    kzSens = null; isDragging = false; lastInteraction = Date.now(); kzActivite();
   }, { passive: true });
   el.addEventListener('touchmove', e => {
-    if (!isDragging || e.touches.length !== 1) return;
-    rotY += (e.touches[0].clientX - lastPointerX) * 0.01; lastPointerX = e.touches[0].clientX;
-    gobeletGroup.rotation.y = rotY; e.preventDefault();
+    if (e.touches.length !== 1) return;
+    var x = e.touches[0].clientX, y = e.touches[0].clientY;
+    if (kzSens === null) {
+      var dx = Math.abs(x - kzDepartX), dy = Math.abs(y - kzDepartY);
+      if (dx < 6 && dy < 6) return;               // trop petit pour décider
+      kzSens = dx > dy ? 'h' : 'v';
+      isDragging = (kzSens === 'h');
+    }
+    if (kzSens !== 'h') return;                    // vertical : on laisse la page défiler
+    rotY += (x - lastPointerX) * 0.01; lastPointerX = x;
+    gobeletGroup.rotation.y = rotY; lastInteraction = Date.now(); kzActivite();
+    if (e.cancelable) e.preventDefault();
   }, { passive: false });
-  el.addEventListener('touchend', () => { isDragging = false; });
+  el.addEventListener('touchend', () => { isDragging = false; kzSens = null; kzActivite(); });
+  el.addEventListener('touchcancel', () => { isDragging = false; kzSens = null; });
 }
 
 function onResize() {
@@ -1482,7 +1517,7 @@ function onResize() {
   var size = getSize();
   var w = size.w, h = size.h;
   if (w === 0 || h === 0) return;
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(kzRatio());
   renderer.setSize(w, h);
   camera.aspect = w / h;
   // KZ_ZOOM v1 — on ne réécrit plus la position en dur : kzAppliquerCamera()
@@ -1492,6 +1527,7 @@ function onResize() {
 }
 
 window.addEventListener('message', function(e) {
+  kzActivite(); // KZ_MOBILE v7 : tout message du thème relance le rendu plein régime
   // KZ_ORIGINES v1 — P2-08 : tout message d'une origine non autorisée est ignoré.
   if (!kzOrigineAutorisee(e.origin)) return;
   const data = e.data;
