@@ -663,10 +663,13 @@ function KZ_zonePath(c, zone) {
       break;
     }
     case 'heart': {
-      const cx2=x+w/2, cy2=y+h/2, sz=Math.min(w,h)*0.45;
-      c.moveTo(cx2,cy2+sz*0.9);
-      c.bezierCurveTo(cx2-sz*1.3,cy2+sz*0.3,cx2-sz*1.4,cy2-sz*0.6,cx2,cy2-sz*0.15);
-      c.bezierCurveTo(cx2+sz*1.4,cy2-sz*0.6,cx2+sz*1.3,cy2+sz*0.3,cx2,cy2+sz*0.9);
+      /* 05/11 : vrai cœur qui remplit toute la zone (même tracé que l'admin et le fichier imprimeur) */
+      const cx2=x+w/2;
+      c.moveTo(cx2, y+h*0.2);
+      c.bezierCurveTo(cx2, y-h*0.02, x, y-h*0.02, x, y+h*0.3);
+      c.bezierCurveTo(x, y+h*0.6, x+w*0.32, y+h*0.78, cx2, y+h);
+      c.bezierCurveTo(x+w*0.68, y+h*0.78, x+w, y+h*0.6, x+w, y+h*0.3);
+      c.bezierCurveTo(x+w, y-h*0.02, cx2, y-h*0.02, cx2, y+h*0.2);
       break;
     }
     default:
