@@ -1,0 +1,178 @@
+{
+  "id": "nouveau-design-3-mw3jovjc5kkr",
+  "name": "Gobelet Mariage Personnalisé – Givre & Roses Blanches",
+  "shopify_handle": "gobelet-mariage-givre-roses-blanches",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-givre-roses-blanches.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e0c780"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3jxi4n03jb",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1148,
+      "y": 364,
+      "width": 660,
+      "height": 250,
+      "font_size": 150,
+      "color": "#5a6a7a",
+      "font_family": "Parisienne",
+      "placeholder": "Diane & Étienne"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3jxi4ntqja",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1148,
+      "y": 634,
+      "width": 660,
+      "height": 100,
+      "font_size": 66,
+      "color": "#5a6a7a",
+      "font_family": "Cormorant Garamond",
+      "placeholder": "12 décembre 2026"
+    },
+    {
+      "lineHeight": 1.2,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "circle",
+      "placeholder": "",
+      "id": "mw3jypi97nsy",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 257,
+      "y": 283,
+      "width": 470,
+      "height": 470,
+      "font_size": 101,
+      "color": "#5a6a7a",
+      "font_family": "Parisienne"
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3jypi9e1q7",
+      "label": "Photo",
+      "order": 4,
+      "x": 257,
+      "y": 283,
+      "width": 470,
+      "height": 470,
+      "shape": "circle",
+      "photo_dessus": false
+    }
+  ],
+  "arch_zones": []
+}

@@ -1,0 +1,178 @@
+{
+  "id": "nouveau-design-5-mw3jpg9cmhnr",
+  "name": "Gobelet Mariage Personnalisé – Arche Sapin & Roses Blanches",
+  "shopify_handle": "gobelet-mariage-arche-sapin-roses-blanches",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-arche-sapin-roses-blanches.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e0c780"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "oval",
+      "id": "mw3jxi4nwgcv",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1308,
+      "y": 345,
+      "width": 340,
+      "height": 330,
+      "font_size": 118,
+      "color": "#2f4a3a",
+      "font_family": "Tangerine",
+      "placeholder": "Joséphine\n&\nSamuel"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3jxi4nqedj",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1358,
+      "y": 690,
+      "width": 240,
+      "height": 80,
+      "font_size": 58,
+      "color": "#2f4a3a",
+      "font_family": "EB Garamond",
+      "placeholder": "23.01.2027"
+    },
+    {
+      "lineHeight": 1.2,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3jxnlsednp",
+      "label": "Zone de texte 4",
+      "order": 3,
+      "x": 262,
+      "y": 293,
+      "width": 460,
+      "height": 530,
+      "font_size": 110,
+      "color": "#2f4a3a",
+      "font_family": "Tangerine",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3jxnlsv3zw",
+      "label": "Photo",
+      "order": 4,
+      "x": 262,
+      "y": 293,
+      "width": 460,
+      "height": 530,
+      "shape": "arch",
+      "photo_dessus": false
+    }
+  ],
+  "arch_zones": []
+}

@@ -1,0 +1,178 @@
+{
+  "id": "gobelet-mariage-personnalise-lanterne-doree-sapin-enneige-mw3m04l9wvz7",
+  "name": "Gobelet Mariage Personnalisé – Lanterne Dorée & Sapin Enneigé",
+  "shopify_handle": "gobelet-mariage-lanterne-doree-sapin-enneige",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-lanterne-doree-sapin-enneige.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#e0c780"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3m04l9undb",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1148,
+      "y": 80,
+      "width": 660,
+      "height": 190,
+      "font_size": 150,
+      "color": "#8a6a2a",
+      "font_family": "Rouge Script",
+      "placeholder": "Margaux & Hugo"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3m04l9q3ob",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1178,
+      "y": 860,
+      "width": 600,
+      "height": 95,
+      "font_size": 62,
+      "color": "#2f4a3a",
+      "font_family": "Lora",
+      "placeholder": "30 janvier 2027"
+    },
+    {
+      "lineHeight": 1.2,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "placeholder": "",
+      "id": "mw3m04l9qj0j",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 257,
+      "y": 250,
+      "width": 470,
+      "height": 540,
+      "font_size": 110,
+      "color": "#8a6a2a",
+      "font_family": "Rouge Script"
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw3m04l9h03s",
+      "label": "Photo",
+      "order": 4,
+      "x": 257,
+      "y": 250,
+      "width": 470,
+      "height": 540,
+      "shape": "arch",
+      "photo_dessus": false
+    }
+  ],
+  "arch_zones": []
+}

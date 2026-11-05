@@ -1,0 +1,187 @@
+{
+  "id": "gobelet-anniversaire-personnalise-bande-ballons-bleu-nuit-argent-mw3h5pf1icxl",
+  "name": "Gobelet Anniversaire Personnalisé – Bande Ballons Bleu Nuit & Argent",
+  "shopify_handle": "gobelet-anniversaire-bande-ballons-bleu-nuit-argent",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14355896702004,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-bande-ballons-bleu-nuit-argent.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3hfsargd6x",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1078,
+      "y": 140,
+      "width": 800,
+      "height": 120,
+      "font_size": 80,
+      "color": "#1f2f5c",
+      "font_family": "Raleway",
+      "placeholder": "Joyeux anniversaire"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3hfsary5v3",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1068,
+      "y": 465,
+      "width": 820,
+      "height": 195,
+      "font_size": 180,
+      "color": "#1f2f5c",
+      "font_family": "Allura",
+      "placeholder": "Clément"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": false,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3hfsarprdp",
+      "label": "Zone de texte 3",
+      "order": 3,
+      "x": 1228,
+      "y": 860,
+      "width": 500,
+      "height": 150,
+      "font_size": 115,
+      "color": "#8a8f99",
+      "font_family": "Cinzel",
+      "placeholder": "30 ans"
+    },
+    {
+      "lineHeight": 1,
+      "multiline": true,
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "shape": "rectangle",
+      "id": "mw3hfsarvq8a",
+      "label": "Zone de texte 4",
+      "order": 4,
+      "x": 313,
+      "y": 463,
+      "width": 360,
+      "height": 214,
+      "font_size": 90,
+      "color": "#1f2f5c",
+      "font_family": "Allura",
+      "placeholder": ""
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
