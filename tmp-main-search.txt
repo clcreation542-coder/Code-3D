@@ -1,0 +1,166 @@
+{%- comment -%}
+  KUZTOM — Recherche stricte (05-11-2026 21h10)
+  La recherche Shopify ajoute des produits « approchants » : presque tout le
+  catalogue ressortait (291 résultats pour « noel », 246 pour « pelleteuse »).
+  Ici on ne garde que les gobelets / verres dont le NOM, le TYPE, les MOTS-CLÉS
+  (tags) ou les COLLECTIONS contiennent chaque mot cherché (accents et
+  pluriels ignorés). Pas d'articles de blog ni de pages.
+{%- endcomment -%}
+
+{%- liquid
+  assign kz_norm_q = search.terms | downcase
+  assign kz_norm_q = kz_norm_q | replace: 'É', 'e' | replace: 'È', 'e' | replace: 'Ê', 'e' | replace: 'À', 'a' | replace: 'Â', 'a' | replace: 'Î', 'i' | replace: 'Ô', 'o' | replace: 'Û', 'u' | replace: 'Ç', 'c' | replace: 'Œ', 'oe'
+  assign kz_norm_q = kz_norm_q | replace: 'é', 'e' | replace: 'è', 'e' | replace: 'ê', 'e' | replace: 'ë', 'e' | replace: 'à', 'a' | replace: 'â', 'a' | replace: 'ä', 'a' | replace: 'î', 'i' | replace: 'ï', 'i' | replace: 'ô', 'o' | replace: 'ö', 'o' | replace: 'ù', 'u' | replace: 'û', 'u' | replace: 'ü', 'u' | replace: 'ç', 'c' | replace: 'œ', 'oe'
+  assign kz_norm_q = kz_norm_q | replace: '-', ' ' | replace: "'", ' ' | replace: '’', ' ' | replace: '&', ' ' | replace: ',', ' ' | replace: '.', ' '
+  assign kz_raw_words = kz_norm_q | split: ' '
+  assign kz_stop = ',de,du,la,le,les,des,pour,et,un,une,a,au,aux,en,avec,sur,mon,ma,mes,d,l,gobelet,gobelets,personnalise,personnalises,personnalisee,personnalisees,'
+  assign kz_words = ''
+  for w in kz_raw_words
+    assign w = w | strip
+    if w == ''
+      continue
+    endif
+    assign kz_test = ',' | append: w | append: ','
+    if kz_stop contains kz_test
+      continue
+    endif
+    assign kz_last = w | slice: -1
+    if w.size > 3
+      if kz_last == 's' or kz_last == 'x'
+        assign kz_len = w.size | minus: 1
+        assign w = w | slice: 0, kz_len
+      endif
+    endif
+    assign kz_words = kz_words | append: w | append: '|'
+  endfor
+  assign kz_words = kz_words | split: '|'
+-%}
+
+{%- capture search_form -%}
+  <form class="main-search-form" action="{{ routes.search_url }}" method="get" role="search">
+    <input type="hidden" name="type" value="product">
+    <div class="v-stack gap-6 sm:gap-12">
+      <div class="search-input">
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.general.search_placeholder' | t }}" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="{{ 'search.general.title' | t | escape }}">
+        <button type="submit">{%- render 'icon' with 'search' -%}</button>
+      </div>
+    </div>
+  </form>
+{%- endcapture -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --product-list-gap: {% if section.settings.products_per_row_mobile == '2' %}var(--product-list-row-gap) var(--spacing-2){% else %}var(--product-list-row-gap) var(--product-list-column-gap){% endif %};
+    --product-list-items-per-row: {{ section.settings.products_per_row_mobile | times: 1 }};
+    --product-list-grid: auto-flow dense / repeat(var(--product-list-items-per-row), minmax(0, 1fr));
+    --content-over-media-gap: var(--spacing-8);
+  }
+  @media screen and (min-width: 700px) {
+    #shopify-section-{{ section.id }} { --product-list-gap: var(--product-list-row-gap) var(--product-list-column-gap); --product-list-items-per-row: 2; }
+  }
+  @media screen and (min-width: 1000px) {
+    #shopify-section-{{ section.id }} { --product-list-items-per-row: {{ section.settings.products_per_row_desktop | at_most: 3 }}; }
+  }
+  @media screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} { --product-list-items-per-row: {{ section.settings.products_per_row_desktop }}; }
+  }
+  .kz-search-empty { padding-block: var(--spacing-12); }
+</style>
+
+{%- if search.performed and kz_words.size > 0 -%}
+  {%- paginate search.results by 1000 -%}
+    {%- liquid
+      assign kz_hits = ''
+      for item in search.results
+        if item.object_type != 'product'
+          continue
+        endif
+        assign kz_hay = item.title | append: ' ' | append: item.product_type | append: ' ' | append: item.handle | append: ' '
+        assign kz_tags = item.tags | join: ' '
+        assign kz_cols = item.collections | map: 'title' | join: ' '
+        assign kz_hay = kz_hay | append: kz_tags | append: ' ' | append: kz_cols | downcase
+        assign kz_hay = kz_hay | replace: 'É', 'e' | replace: 'È', 'e' | replace: 'Ê', 'e' | replace: 'À', 'a' | replace: 'Â', 'a' | replace: 'Î', 'i' | replace: 'Ô', 'o' | replace: 'Û', 'u' | replace: 'Ç', 'c' | replace: 'Œ', 'oe'
+        assign kz_hay = kz_hay | replace: 'é', 'e' | replace: 'è', 'e' | replace: 'ê', 'e' | replace: 'ë', 'e' | replace: 'à', 'a' | replace: 'â', 'a' | replace: 'ä', 'a' | replace: 'î', 'i' | replace: 'ï', 'i' | replace: 'ô', 'o' | replace: 'ö', 'o' | replace: 'ù', 'u' | replace: 'û', 'u' | replace: 'ü', 'u' | replace: 'ç', 'c' | replace: 'œ', 'oe' | replace: '-', ' '
+        assign kz_ok = true
+        for w in kz_words
+          unless kz_hay contains w
+            assign kz_ok = false
+            break
+          endunless
+        endfor
+        if kz_ok
+          assign kz_hits = kz_hits | append: '|' | append: item.handle
+        endif
+      endfor
+      assign kz_hits = kz_hits | append: '|'
+      if kz_hits == '|'
+        assign kz_count = 0
+      else
+        assign kz_count = kz_hits | remove_first: '|' | split: '|' | size
+      endif
+    -%}
+
+    {%- if kz_count > 0 -%}
+      <div class="search-banner v-stack gap-6 sm:gap-8 bg-secondary">
+        <h1 class="h2 text-center">{{- 'search.results_count' | t: count: kz_count, terms: search.terms -}}</h1>
+        {{- search_form -}}
+      </div>
+
+      <div class="container">
+        <div class="collection">
+          <div class="collection__results">
+            <reveal-items selector=".product-list > *">
+              <product-list class="product-list" role="region" aria-live="polite">
+                {%- assign kz_pos = 0 -%}
+                {%- for item in search.results -%}
+                  {%- if item.object_type == 'product' -%}
+                    {%- assign kz_key = '|' | append: item.handle | append: '|' -%}
+                    {%- if kz_hits contains kz_key -%}
+                      {%- assign kz_pos = kz_pos | plus: 1 -%}
+                      {%- render 'product-card', product: item, stacked: true, position: kz_pos, show_badges: true -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </product-list>
+            </reveal-items>
+          </div>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="container kz-search-empty">
+        <div class="empty-state">
+          <h1 class="h2">Aucun gobelet ne correspond à « {{ search.terms | escape }} »</h1>
+          <p>Essayez un autre mot : une occasion (mariage, Noël, baptême…), un style (bohème, chic…) ou un produit (flûte, verre à vin…).</p>
+          {{- search_form -}}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+{%- else -%}
+  <div class="container">
+    <div class="empty-state">
+      <h1 class="h2">{{- 'search.general.title' | t -}}</h1>
+      {{- search_form -}}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Search",
+  "class": "shopify-section--main-search",
+  "tag": "section",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 50, "step": 1, "default": 24 },
+    { "type": "select", "id": "products_per_row_mobile", "label": "Products per row (mobile)", "options": [ { "value": "1", "label": "1" }, { "value": "2", "label": "2" } ], "default": "2" },
+    { "type": "range", "min": 2, "max": 5, "id": "products_per_row_desktop", "label": "Products per row (desktop)", "default": 3 },
+    { "type": "header", "content": "Filters & sort" },
+    { "type": "select", "id": "filter_layout", "label": "Desktop layout", "options": [ { "value": "sidebar", "label": "Sidebar" }, { "value": "horizontal", "label": "Horizontal" }, { "value": "drawer", "label": "Drawer" } ], "default": "sidebar" },
+    { "type": "checkbox", "id": "show_sort_by", "label": "Show sort by", "default": true },
+    { "type": "checkbox", "id": "show_filters", "label": "Show filters", "default": true },
+    { "type": "checkbox", "id": "show_filter_group_name", "label": "Show group name", "default": false },
+    { "type": "checkbox", "id": "show_filter_values_count", "label": "Show filter values count", "default": true },
+    { "type": "checkbox", "id": "open_first_filter_group", "label": "Open first group by default", "default": false }
+  ]
+}
+{% endschema %}
