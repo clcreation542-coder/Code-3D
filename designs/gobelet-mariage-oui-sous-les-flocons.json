@@ -110,7 +110,7 @@
       "label": "Zone de texte 1",
       "order": 1,
       "x": 1148,
-      "y": 370,
+      "y": 345,
       "width": 660,
       "height": 190,
       "font_size": 140,
@@ -120,7 +120,7 @@
     },
     {
       "lineHeight": 1,
-      "multiline": false,
+      "multiline": true,
       "align": "center",
       "rotation": 0,
       "max_chars": 0,
@@ -130,14 +130,14 @@
       "id": "mw3nf2nineop",
       "label": "Zone de texte 2",
       "order": 2,
-      "x": 1157,
-      "y": 595,
-      "width": 640,
-      "height": 90,
-      "font_size": 56,
+      "x": 1181,
+      "y": 550,
+      "width": 593,
+      "height": 194,
+      "font_size": 62,
       "color": "#2f4a3a",
       "font_family": "Lora",
-      "placeholder": "Alice & Gabriel · 23.01.2027"
+      "placeholder": "Alice\n&\nGabriel · 23.01.2027"
     },
     {
       "lineHeight": 1.2,

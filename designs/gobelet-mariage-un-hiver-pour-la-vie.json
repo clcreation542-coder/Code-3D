@@ -110,7 +110,7 @@
       "label": "Zone de texte 1",
       "order": 1,
       "x": 1148,
-      "y": 320,
+      "y": 318,
       "width": 660,
       "height": 180,
       "font_size": 140,
@@ -120,7 +120,7 @@
     },
     {
       "lineHeight": 1,
-      "multiline": false,
+      "multiline": true,
       "align": "center",
       "rotation": 0,
       "max_chars": 0,
@@ -130,14 +130,14 @@
       "id": "mw3nf2nianlc",
       "label": "Zone de texte 2",
       "order": 2,
-      "x": 1157,
-      "y": 625,
-      "width": 640,
-      "height": 90,
-      "font_size": 56,
+      "x": 1209,
+      "y": 611,
+      "width": 537,
+      "height": 194,
+      "font_size": 62,
       "color": "#b8902f",
       "font_family": "Lora",
-      "placeholder": "Emma & Lucas · 16.01.2027"
+      "placeholder": "Emma\n&\nLucas · 16.01.2027"
     },
     {
       "lineHeight": 1.2,

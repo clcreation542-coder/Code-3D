@@ -99,7 +99,7 @@
   "text_zones": [
     {
       "lineHeight": 1,
-      "multiline": false,
+      "multiline": true,
       "align": "center",
       "rotation": 0,
       "max_chars": 0,
@@ -109,14 +109,14 @@
       "id": "mw3nf2niec6g",
       "label": "Zone de texte 1",
       "order": 1,
-      "x": 1148,
-      "y": 250,
-      "width": 660,
-      "height": 220,
-      "font_size": 150,
+      "x": 1287,
+      "y": 145,
+      "width": 383,
+      "height": 447,
+      "font_size": 143,
       "color": "#5a3e2b",
       "font_family": "Rouge Script",
-      "placeholder": "Lina & Raphaël"
+      "placeholder": "Lina\n&\nRaphaël"
     },
     {
       "lineHeight": 1,
@@ -131,7 +131,7 @@
       "label": "Zone de texte 2",
       "order": 2,
       "x": 1178,
-      "y": 500,
+      "y": 604,
       "width": 600,
       "height": 95,
       "font_size": 62,

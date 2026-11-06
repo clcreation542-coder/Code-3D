@@ -99,7 +99,7 @@
   "text_zones": [
     {
       "lineHeight": 1,
-      "multiline": false,
+      "multiline": true,
       "align": "center",
       "rotation": 0,
       "max_chars": 0,
@@ -109,14 +109,14 @@
       "id": "mw3nf2nirpvl",
       "label": "Zone de texte 1",
       "order": 1,
-      "x": 1148,
-      "y": 420,
-      "width": 660,
-      "height": 220,
-      "font_size": 150,
+      "x": 1306,
+      "y": 340,
+      "width": 345,
+      "height": 397,
+      "font_size": 127,
       "color": "#2f4a3a",
       "font_family": "Rouge Script",
-      "placeholder": "Agathe & Nathan"
+      "placeholder": "Agathe\n&\nNathan"
     },
     {
       "lineHeight": 1,
@@ -131,7 +131,7 @@
       "label": "Zone de texte 2",
       "order": 2,
       "x": 1178,
-      "y": 670,
+      "y": 750,
       "width": 600,
       "height": 95,
       "font_size": 62,

@@ -99,7 +99,7 @@
   "text_zones": [
     {
       "lineHeight": 1,
-      "multiline": false,
+      "multiline": true,
       "align": "center",
       "rotation": 0,
       "max_chars": 0,
@@ -109,14 +109,14 @@
       "id": "mw3m4iayw7lg",
       "label": "Zone de texte 1",
       "order": 1,
-      "x": 1148,
-      "y": 230,
-      "width": 660,
-      "height": 220,
-      "font_size": 150,
+      "x": 1298,
+      "y": 133,
+      "width": 360,
+      "height": 422,
+      "font_size": 135,
       "color": "#5a3e2b",
       "font_family": "Rouge Script",
-      "placeholder": "Léa & Antoine"
+      "placeholder": "Léa\n&\nAntoine"
     },
     {
       "lineHeight": 1,
@@ -131,7 +131,7 @@
       "label": "Zone de texte 2",
       "order": 2,
       "x": 1178,
-      "y": 480,
+      "y": 572,
       "width": 600,
       "height": 95,
       "font_size": 62,

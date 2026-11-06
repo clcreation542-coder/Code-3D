@@ -99,7 +99,7 @@
   "text_zones": [
     {
       "lineHeight": 1,
-      "multiline": false,
+      "multiline": true,
       "align": "center",
       "rotation": 0,
       "max_chars": 0,
@@ -109,14 +109,14 @@
       "id": "mw3r2cnqwmr4",
       "label": "Zone de texte 3",
       "order": 3,
-      "x": 1147,
-      "y": 260,
-      "width": 660,
-      "height": 220,
-      "font_size": 150,
+      "x": 1232,
+      "y": 114,
+      "width": 490,
+      "height": 465,
+      "font_size": 149,
       "color": "#2f4a3a",
       "font_family": "Pinyon Script",
-      "placeholder": "Sarah & Maxime"
+      "placeholder": "Sarah\n&\nMaxime"
     },
     {
       "lineHeight": 1,
@@ -131,7 +131,7 @@
       "label": "Zone de texte 4",
       "order": 4,
       "x": 1177,
-      "y": 520,
+      "y": 592,
       "width": 600,
       "height": 95,
       "font_size": 56,
