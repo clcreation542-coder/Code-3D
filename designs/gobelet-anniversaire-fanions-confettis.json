@@ -1,0 +1,129 @@
+{
+  "id": "gobelet-anniversaire-personnalise-fanions-confettis-mw47nk86hk2b",
+  "name": "Gobelet Anniversaire Personnalisé – Fanions & Confettis",
+  "shopify_handle": "gobelet-anniversaire-fanions-confettis",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-fanions-confettis.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 440,
+      "color": "#e0703a",
+      "multiline": false,
+      "id": "mw47nk86vr32",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1267,
+      "y": 292,
+      "width": 420,
+      "height": 350,
+      "shape": "rectangle",
+      "placeholder": "7",
+      "font_family": "Graduate",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 190,
+      "color": "#3aa0a8",
+      "multiline": false,
+      "id": "mw47nk866357",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1187,
+      "y": 645,
+      "width": 580,
+      "height": 195,
+      "shape": "rectangle",
+      "placeholder": "Zoé",
+      "font_family": "Dancing Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#333333",
+      "multiline": false,
+      "id": "mw47nk86fs0p",
+      "label": "Texte sur photo (dos)",
+      "order": 3,
+      "x": 247,
+      "y": 340,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Graduate",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw47nk86qnse",
+      "label": "Photo",
+      "order": 1,
+      "x": 247,
+      "y": 340,
+      "width": 490,
+      "height": 460,
+      "shape": "oval",
+      "rotation": 0,
+      "locked": false
+    }
+  ],
+  "arch_zones": []
+}

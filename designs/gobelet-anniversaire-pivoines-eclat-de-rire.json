@@ -1,0 +1,121 @@
+{
+  "id": "gobelet-anniversaire-personnalise-pivoines-eclat-de-rire-mw47rpkkrpci",
+  "name": "Gobelet Anniversaire Personnalisé – Pivoines & Éclat de Rire",
+  "shopify_handle": "gobelet-anniversaire-pivoines-eclat-de-rire",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-pivoines-eclat-de-rire.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 220,
+      "color": "#c2577a",
+      "multiline": false,
+      "id": "mw47rpkk71hd",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1147,
+      "y": 25,
+      "width": 660,
+      "height": 220,
+      "shape": "rectangle",
+      "placeholder": "Laura",
+      "font_family": "Mr De Haviland",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 130,
+      "color": "#7a5a8a",
+      "multiline": false,
+      "id": "mw47rpkkq006",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1217,
+      "y": 895,
+      "width": 520,
+      "height": 160,
+      "shape": "rectangle",
+      "placeholder": "30 ans",
+      "font_family": "Josefin Sans",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#333333",
+      "multiline": false,
+      "id": "mw47rpkk5u5b",
+      "label": "Texte sur photo (dos)",
+      "order": 3,
+      "x": 247,
+      "y": 310,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Mr De Haviland",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw47rpkkl0ol",
+      "label": "Photo",
+      "order": 1,
+      "x": 247,
+      "y": 310,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "rotation": 0,
+      "locked": false
+    }
+  ],
+  "arch_zones": []
+}

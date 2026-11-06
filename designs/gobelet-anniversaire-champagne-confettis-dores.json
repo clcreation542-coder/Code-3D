@@ -1,0 +1,121 @@
+{
+  "id": "gobelet-anniversaire-personnalise-champagne-confettis-dores-mw47rpkkbzkt",
+  "name": "Gobelet Anniversaire Personnalisé – Champagne & Confettis Dorés",
+  "shopify_handle": "gobelet-anniversaire-champagne-confettis-dores",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-champagne-confettis-dores.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 190,
+      "color": "#8b1e3f",
+      "multiline": false,
+      "id": "mw47rpkkqhin",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1147,
+      "y": 25,
+      "width": 660,
+      "height": 210,
+      "shape": "rectangle",
+      "placeholder": "Claire",
+      "font_family": "Rouge Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 130,
+      "color": "#b8902e",
+      "multiline": false,
+      "id": "mw47rpkkb0c9",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1217,
+      "y": 895,
+      "width": 520,
+      "height": 160,
+      "shape": "rectangle",
+      "placeholder": "40 ans",
+      "font_family": "Playfair Display",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#333333",
+      "multiline": false,
+      "id": "mw47rpkk98fi",
+      "label": "Texte sur photo (dos)",
+      "order": 3,
+      "x": 247,
+      "y": 310,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Rouge Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw47rpkk9j60",
+      "label": "Photo",
+      "order": 1,
+      "x": 247,
+      "y": 310,
+      "width": 490,
+      "height": 460,
+      "shape": "oval",
+      "rotation": 0,
+      "locked": false
+    }
+  ],
+  "arch_zones": []
+}

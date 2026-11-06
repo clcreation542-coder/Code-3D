@@ -1,0 +1,121 @@
+{
+  "id": "gobelet-anniversaire-personnalise-bouquet-d-eucalyptus-dore-mw47itap7eup",
+  "name": "Gobelet Anniversaire Personnalisé – Bouquet d’Eucalyptus Doré",
+  "shopify_handle": "gobelet-anniversaire-bouquet-d-eucalyptus-dore",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-bouquet-d-eucalyptus-dore.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 190,
+      "color": "#5f7a61",
+      "multiline": false,
+      "id": "mw47itaoqdoa",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1147,
+      "y": 40,
+      "width": 660,
+      "height": 220,
+      "shape": "rectangle",
+      "placeholder": "Philippe",
+      "font_family": "Alex Brush",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#b8902e",
+      "multiline": false,
+      "id": "mw47itaov788",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1217,
+      "y": 880,
+      "width": 520,
+      "height": 170,
+      "shape": "rectangle",
+      "placeholder": "40 ans",
+      "font_family": "Cinzel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#333333",
+      "multiline": false,
+      "id": "mw47itape7c9",
+      "label": "Texte sur photo (dos)",
+      "order": 3,
+      "x": 247,
+      "y": 315,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Alex Brush",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw47itapbxsg",
+      "label": "Photo",
+      "order": 1,
+      "x": 247,
+      "y": 315,
+      "width": 490,
+      "height": 460,
+      "shape": "circle",
+      "rotation": 0,
+      "locked": false
+    }
+  ],
+  "arch_zones": []
+}

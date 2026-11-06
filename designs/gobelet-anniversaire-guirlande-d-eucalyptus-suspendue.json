@@ -1,0 +1,121 @@
+{
+  "id": "gobelet-anniversaire-personnalise-guirlande-d-eucalyptus-suspendue-mw47itapkqsl",
+  "name": "Gobelet Anniversaire Personnalisé – Guirlande d’Eucalyptus Suspendue",
+  "shopify_handle": "gobelet-anniversaire-guirlande-d-eucalyptus-suspendue",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-guirlande-d-eucalyptus-suspendue.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 190,
+      "color": "#5f7a61",
+      "multiline": false,
+      "id": "mw47itaoa7n4",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1147,
+      "y": 470,
+      "width": 660,
+      "height": 220,
+      "shape": "rectangle",
+      "placeholder": "Hélène",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 150,
+      "color": "#b8902e",
+      "multiline": false,
+      "id": "mw47itaodmm1",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1217,
+      "y": 705,
+      "width": 520,
+      "height": 170,
+      "shape": "rectangle",
+      "placeholder": "60 ans",
+      "font_family": "EB Garamond",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#333333",
+      "multiline": false,
+      "id": "mw47itapxdl1",
+      "label": "Texte sur photo (dos)",
+      "order": 3,
+      "x": 247,
+      "y": 445,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw47itapez1m",
+      "label": "Photo",
+      "order": 1,
+      "x": 247,
+      "y": 445,
+      "width": 490,
+      "height": 460,
+      "shape": "arch",
+      "rotation": 0,
+      "locked": false
+    }
+  ],
+  "arch_zones": []
+}

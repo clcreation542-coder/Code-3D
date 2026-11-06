@@ -1,0 +1,129 @@
+{
+  "id": "gobelet-anniversaire-personnalise-parade-des-animaux-en-fete-mw47nk8696tl",
+  "name": "Gobelet Anniversaire Personnalisé – Parade des Animaux en Fête",
+  "shopify_handle": "gobelet-anniversaire-parade-des-animaux-en-fete",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-parade-des-animaux-en-fete.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 480,
+      "color": "#f0a020",
+      "multiline": false,
+      "id": "mw47nk86mp95",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1257,
+      "y": 40,
+      "width": 440,
+      "height": 450,
+      "shape": "rectangle",
+      "placeholder": "2",
+      "font_family": "Quicksand",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 190,
+      "color": "#4a8a5c",
+      "multiline": false,
+      "id": "mw47nk86jlvm",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1167,
+      "y": 500,
+      "width": 620,
+      "height": 210,
+      "shape": "rectangle",
+      "placeholder": "Jules",
+      "font_family": "Style Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#333333",
+      "multiline": false,
+      "id": "mw47nk861dkc",
+      "label": "Texte sur photo (dos)",
+      "order": 3,
+      "x": 247,
+      "y": 200,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Quicksand",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw47nk86l33b",
+      "label": "Photo",
+      "order": 1,
+      "x": 247,
+      "y": 200,
+      "width": 490,
+      "height": 460,
+      "shape": "heart",
+      "rotation": 0,
+      "locked": false
+    }
+  ],
+  "arch_zones": []
+}

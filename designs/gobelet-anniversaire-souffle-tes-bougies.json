@@ -1,0 +1,121 @@
+{
+  "id": "gobelet-anniversaire-personnalise-souffle-tes-bougies-mw47rpkkvgbl",
+  "name": "Gobelet Anniversaire Personnalisé – Souffle tes Bougies",
+  "shopify_handle": "gobelet-anniversaire-souffle-tes-bougies",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-souffle-tes-bougies.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 200,
+      "color": "#1f3b73",
+      "multiline": false,
+      "id": "mw47rpkkivo4",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1147,
+      "y": 25,
+      "width": 660,
+      "height": 210,
+      "shape": "rectangle",
+      "placeholder": "Marc",
+      "font_family": "Clicker Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 130,
+      "color": "#b8902e",
+      "multiline": false,
+      "id": "mw47rpkk2aih",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1217,
+      "y": 895,
+      "width": 520,
+      "height": 160,
+      "shape": "rectangle",
+      "placeholder": "50 ans",
+      "font_family": "Raleway",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#333333",
+      "multiline": false,
+      "id": "mw47rpkkbt74",
+      "label": "Texte sur photo (dos)",
+      "order": 3,
+      "x": 247,
+      "y": 310,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Clicker Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw47rpkkch7b",
+      "label": "Photo",
+      "order": 1,
+      "x": 247,
+      "y": 310,
+      "width": 490,
+      "height": 460,
+      "shape": "rounded",
+      "rotation": 0,
+      "locked": false
+    }
+  ],
+  "arch_zones": []
+}
