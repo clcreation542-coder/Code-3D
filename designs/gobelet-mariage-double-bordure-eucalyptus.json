@@ -1,0 +1,172 @@
+{
+  "id": "gobelet-mariage-personnalise-double-bordure-eucalyptus-mvb52a3fyjqs",
+  "name": "Gobelet Mariage Personnalisé – Double Bordure Eucalyptus",
+  "shopify_handle": "gobelet-mariage-double-bordure-eucalyptus",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.161012259539983,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-mariage-double-bordure-eucalyptus.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": true,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Bleu",
+      "hex": "#144dbb",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": true,
+      "text_color_override": "#e7c873"
+    },
+    {
+      "name": "Turquoise",
+      "hex": "#0da0e0",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Vert",
+      "hex": "#078630",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rouge",
+      "hex": "#c21816",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Orange",
+      "hex": "#c6621b",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Jaune",
+      "hex": "#d9b308",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Rose",
+      "hex": "#b62d57",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 137,
+      "color": "#000000",
+      "multiline": true,
+      "id": "texte_mvb541i4vchg",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1070,
+      "y": 266,
+      "width": 815,
+      "height": 475,
+      "shape": "rectangle",
+      "placeholder": "Yasmine\n&\nKarim",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "locked": false,
+      "curve": 0
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 85,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mvb541i4vchgd",
+      "label": "Date",
+      "order": 3,
+      "x": 1177,
+      "y": 756,
+      "width": 600,
+      "height": 100,
+      "shape": "rectangle",
+      "placeholder": "28 Août 2027",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "locked": false,
+      "curve": 0
+    },
+    {
+      "lineHeight": 1.2,
+      "font_size": 100,
+      "color": "#000000",
+      "multiline": false,
+      "id": "texte_mvb541i4vcf6",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 104,
+      "y": 339,
+      "width": 776,
+      "height": 456,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5,
+      "locked": false,
+      "curve": 0
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
