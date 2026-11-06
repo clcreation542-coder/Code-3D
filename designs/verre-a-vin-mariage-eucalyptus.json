@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-21-mw50015vyzda",
+  "name": "Verre à Vin Personnalisé – Mariage Eucalyptus",
+  "shopify_handle": "verre-a-vin-mariage-eucalyptus",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-mariage-eucalyptus.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2221,
+    "height": 472
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 120,
+      "color": "#3f5245",
+      "multiline": true,
+      "id": "tzmw502h86a",
+      "label": "Prénoms des mariés",
+      "order": 1,
+      "x": 300,
+      "y": 25,
+      "width": 510,
+      "height": 422,
+      "shape": "rectangle",
+      "placeholder": "Léa\n&\nHugo",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 120,
+      "color": "#3f5245",
+      "multiline": true,
+      "id": "tzmw502h86b",
+      "label": "Date",
+      "order": 2,
+      "x": 1411,
+      "y": 25,
+      "width": 510,
+      "height": 422,
+      "shape": "rectangle",
+      "placeholder": "12 juin\n2027",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

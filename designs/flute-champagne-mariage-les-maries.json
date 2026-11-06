@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-37-mw53j0xbq1g8",
+  "name": "Flûte à Champagne Personnalisée – Mariage Les Mariés",
+  "shopify_handle": "flute-champagne-mariage-les-maries",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-mariage-les-maries.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2091,
+    "height": 413
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 108,
+      "color": "#24384f",
+      "multiline": true,
+      "id": "tzmw53j1ba0",
+      "label": "",
+      "order": 1,
+      "x": 300,
+      "y": 20,
+      "width": 460,
+      "height": 373,
+      "shape": "rectangle",
+      "placeholder": "Inès\n&\nMaxime",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 90,
+      "color": "#24384f",
+      "multiline": true,
+      "id": "tzmw53j1ba1",
+      "label": "",
+      "order": 2,
+      "x": 1346,
+      "y": 40,
+      "width": 460,
+      "height": 333,
+      "shape": "rectangle",
+      "placeholder": "9 octobre\n2027",
+      "font_family": "Playfair Display",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

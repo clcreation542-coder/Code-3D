@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-48-mw53p0i9op88",
+  "name": "Flûte à Champagne Personnalisée – Anniversaire Festif Chapeaux de Fête",
+  "shopify_handle": "flute-champagne-anniversaire-festif-chapeaux-de-fete",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-anniversaire-festif-chapeaux-de-fete.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2091,
+    "height": 413
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 150,
+      "color": "#7b3f9e",
+      "multiline": true,
+      "id": "tzmw53p0ux0",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 250,
+      "y": 15,
+      "width": 546,
+      "height": 383,
+      "shape": "rectangle",
+      "placeholder": "Thomas",
+      "font_family": "Pacifico",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 152,
+      "color": "#7b3f9e",
+      "multiline": true,
+      "id": "tzmw53p0ux1",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1294,
+      "y": 15,
+      "width": 548,
+      "height": 383,
+      "shape": "rectangle",
+      "placeholder": "30\nans",
+      "font_family": "Pacifico",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

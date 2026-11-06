@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-26-mw50mqz0y3fo",
+  "name": "Verre à Vin Personnalisé – Mariage Couple de Mariés",
+  "shopify_handle": "verre-a-vin-mariage-couple-de-maries",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+  "rotation_y": 2.705260340591211,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-mariage-couple-de-maries.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2221,
+    "height": 472
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 125,
+      "color": "#1f2f55",
+      "multiline": true,
+      "id": "tzmw50mrby0",
+      "label": "Prénoms des mariés",
+      "order": 1,
+      "x": 345,
+      "y": 20,
+      "width": 730,
+      "height": 432,
+      "shape": "rectangle",
+      "placeholder": "Emma\n&\nHugo",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 125,
+      "color": "#1f2f55",
+      "multiline": true,
+      "id": "tzmw50mrby1",
+      "label": "Date",
+      "order": 2,
+      "x": 1455,
+      "y": 20,
+      "width": 735,
+      "height": 432,
+      "shape": "rectangle",
+      "placeholder": "Mariés le\n18 juillet 2027",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

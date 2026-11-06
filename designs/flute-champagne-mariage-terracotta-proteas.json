@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-52-mw53pbcty0yd",
+  "name": "Flûte à Champagne Personnalisée – Mariage Terracotta Protéas",
+  "shopify_handle": "flute-champagne-mariage-terracotta-proteas",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-mariage-terracotta-proteas.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2091,
+    "height": 413
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 107,
+      "color": "#9c4a2a",
+      "multiline": true,
+      "id": "tzmw53pbsm0",
+      "label": "",
+      "order": 1,
+      "x": 300,
+      "y": 20,
+      "width": 440,
+      "height": 373,
+      "shape": "rectangle",
+      "placeholder": "Lou\n&\nGabriel",
+      "font_family": "Allura",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 84,
+      "color": "#9c4a2a",
+      "multiline": true,
+      "id": "tzmw53pbsm1",
+      "label": "",
+      "order": 2,
+      "x": 1346,
+      "y": 40,
+      "width": 440,
+      "height": 333,
+      "shape": "rectangle",
+      "placeholder": "26 septembre\n2027",
+      "font_family": "Cormorant Garamond",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

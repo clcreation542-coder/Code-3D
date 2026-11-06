@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-31-mw532l3f7tvn",
+  "name": "Verre à Vin Personnalisé – Baptême Fleurs Pastel",
+  "shopify_handle": "verre-a-vin-bapteme-fleurs-pastel",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-bapteme-fleurs-pastel.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2221,
+    "height": 472
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 130,
+      "color": "#7d5c8c",
+      "multiline": true,
+      "id": "tzmw532lga0",
+      "label": "Texte devant",
+      "order": 1,
+      "x": 290,
+      "y": 30,
+      "width": 530,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "Baptême\nde Lina",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 110,
+      "color": "#7d5c8c",
+      "multiline": true,
+      "id": "tzmw532lga1",
+      "label": "Date au dos",
+      "order": 2,
+      "x": 1401,
+      "y": 30,
+      "width": 530,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "12 mai\n2027",
+      "font_family": "Cinzel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

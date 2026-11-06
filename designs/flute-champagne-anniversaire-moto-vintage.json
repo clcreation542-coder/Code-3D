@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-51-mw53p6gjvdtq",
+  "name": "Flûte à Champagne Personnalisée – Anniversaire Moto Vintage",
+  "shopify_handle": "flute-champagne-anniversaire-moto-vintage",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-anniversaire-moto-vintage.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2091,
+    "height": 413
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 200,
+      "color": "#2c4a6e",
+      "multiline": true,
+      "id": "tzmw53p6ss0",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 378,
+      "y": 15,
+      "width": 650,
+      "height": 383,
+      "shape": "rectangle",
+      "placeholder": "Patrick",
+      "font_family": "Rouge Script",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 152,
+      "color": "#2c4a6e",
+      "multiline": true,
+      "id": "tzmw53p6ss1",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1424,
+      "y": 15,
+      "width": 650,
+      "height": 383,
+      "shape": "rectangle",
+      "placeholder": "60\nANS",
+      "font_family": "Cinzel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

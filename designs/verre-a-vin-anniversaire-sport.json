@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-35-mw5390ty5wge",
+  "name": "Verre à Vin Personnalisé – Anniversaire Sport",
+  "shopify_handle": "verre-a-vin-anniversaire-sport",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+  "rotation_y": 2.6354471705114375,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-anniversaire-sport.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2221,
+    "height": 472
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 130,
+      "color": "#1F3A5F",
+      "multiline": false,
+      "id": "tzmw5391940",
+      "label": "Prénom",
+      "order": 1,
+      "x": 470,
+      "y": 30,
+      "width": 620,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "Maxime",
+      "font_family": "Graduate",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.05,
+      "font_size": 190,
+      "color": "#C8962E",
+      "multiline": true,
+      "id": "tzmw5391941",
+      "label": "Âge",
+      "order": 2,
+      "x": 1525,
+      "y": 15,
+      "width": 675,
+      "height": 442,
+      "shape": "rectangle",
+      "placeholder": "40\nANS",
+      "font_family": "Graduate",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

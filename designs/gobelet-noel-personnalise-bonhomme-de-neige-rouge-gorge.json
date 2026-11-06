@@ -152,7 +152,7 @@
       "label": "Zone de texte 3",
       "order": 3,
       "x": 262,
-      "y": 325,
+      "y": 271,
       "width": 460,
       "height": 530,
       "font_size": 110,
@@ -167,7 +167,7 @@
       "label": "Photo",
       "order": 4,
       "x": 262,
-      "y": 325,
+      "y": 271,
       "width": 460,
       "height": 530,
       "shape": "rounded"

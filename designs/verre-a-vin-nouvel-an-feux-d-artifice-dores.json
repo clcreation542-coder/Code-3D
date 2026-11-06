@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-32-mw51i786byet",
+  "name": "Verre à Vin Personnalisé – Nouvel An Feux d'Artifice Dorés",
+  "shopify_handle": "verre-a-vin-nouvel-an-feux-d-artifice-dores",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-nouvel-an-feux-d-artifice-dores.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2221,
+    "height": 472
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.2,
+      "font_size": 110,
+      "color": "#8c6a1f",
+      "multiline": true,
+      "id": "tzmw51i7km0",
+      "label": "Message",
+      "order": 1,
+      "x": 290,
+      "y": 30,
+      "width": 530,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "BONNE\nANNÉE\n2027",
+      "font_family": "Cinzel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 170,
+      "color": "#8c6a1f",
+      "multiline": false,
+      "id": "tzmw51i7km1",
+      "label": "Prénom",
+      "order": 2,
+      "x": 1401,
+      "y": 30,
+      "width": 530,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "Julie",
+      "font_family": "Great Vibes",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-33-mw535xow8lkv",
+  "name": "Verre à Vin Personnalisé – Anniversaire Pays & Origines",
+  "shopify_handle": "verre-a-vin-anniversaire-pays-origines",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+  "rotation_y": 2.670353755551324,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-anniversaire-pays-origines.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2221,
+    "height": 472
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 150,
+      "color": "#2E5E7E",
+      "multiline": false,
+      "id": "tzmw535y3a0",
+      "label": "Prénom",
+      "order": 1,
+      "x": 390,
+      "y": 30,
+      "width": 700,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "Karim",
+      "font_family": "Playfair Display",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.05,
+      "font_size": 200,
+      "color": "#9C3B2E",
+      "multiline": true,
+      "id": "tzmw535y3a1",
+      "label": "Âge",
+      "order": 2,
+      "x": 1470,
+      "y": 15,
+      "width": 720,
+      "height": 442,
+      "shape": "rectangle",
+      "placeholder": "45\nANS",
+      "font_family": "Cinzel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

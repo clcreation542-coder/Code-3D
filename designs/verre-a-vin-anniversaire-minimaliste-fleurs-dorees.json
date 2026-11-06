@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-34-mw51pl614dss",
+  "name": "Verre à Vin Personnalisé – Anniversaire Minimaliste Fleurs Dorées",
+  "shopify_handle": "verre-a-vin-anniversaire-minimaliste-fleurs-dorees",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-anniversaire-minimaliste-fleurs-dorees.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2221,
+    "height": 472
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 110,
+      "color": "#86662a",
+      "multiline": false,
+      "id": "tzmw51plmp0",
+      "label": "Prénom",
+      "order": 1,
+      "x": 300,
+      "y": 30,
+      "width": 512,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "SOPHIE",
+      "font_family": "Josefin Sans",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 200,
+      "color": "#86662a",
+      "multiline": true,
+      "id": "tzmw51plmp1",
+      "label": "Âge",
+      "order": 2,
+      "x": 1411,
+      "y": 15,
+      "width": 512,
+      "height": 442,
+      "shape": "rectangle",
+      "placeholder": "50\nANS",
+      "font_family": "Josefin Sans",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
