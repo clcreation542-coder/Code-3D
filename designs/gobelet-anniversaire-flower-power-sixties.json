@@ -1,0 +1,121 @@
+{
+  "id": "gobelet-anniversaire-personnalise-flower-power-sixties-mw45p85nah2s",
+  "name": "Gobelet Anniversaire Personnalisé – Flower Power Sixties",
+  "shopify_handle": "gobelet-anniversaire-flower-power-sixties",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": null,
+  "rotation_y": 6.14,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/gobelet-anniversaire-flower-power-sixties.png",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 1970,
+    "height": 1140
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.1,
+      "font_size": 170,
+      "color": "#e8601c",
+      "multiline": false,
+      "id": "mw45p85m1aco",
+      "label": "Zone de texte 1",
+      "order": 1,
+      "x": 1187,
+      "y": 390,
+      "width": 580,
+      "height": 195,
+      "shape": "rectangle",
+      "placeholder": "Sophie",
+      "font_family": "Pacifico",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 130,
+      "color": "#d94f8a",
+      "multiline": false,
+      "id": "mw45p85m2hlu",
+      "label": "Zone de texte 2",
+      "order": 2,
+      "x": 1237,
+      "y": 600,
+      "width": 480,
+      "height": 150,
+      "shape": "rectangle",
+      "placeholder": "60 ans",
+      "font_family": "Josefin Sans",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.1,
+      "font_size": 120,
+      "color": "#333333",
+      "multiline": false,
+      "id": "mw45p85nydi9",
+      "label": "Texte sur photo (dos)",
+      "order": 3,
+      "x": 247,
+      "y": 340,
+      "width": 490,
+      "height": 460,
+      "shape": "rectangle",
+      "placeholder": "",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "locked": false,
+      "curve": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [
+    {
+      "id": "mw45p85n73ll",
+      "label": "Photo",
+      "order": 1,
+      "x": 247,
+      "y": 340,
+      "width": 490,
+      "height": 460,
+      "shape": "rounded",
+      "rotation": 0,
+      "locked": false
+    }
+  ],
+  "arch_zones": []
+}
