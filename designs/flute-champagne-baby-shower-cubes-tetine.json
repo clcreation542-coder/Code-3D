@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-40-mw5f7geeb66z",
+  "name": "Flûte à Champagne Personnalisée – Baby Shower Cubes & Tétine",
+  "shopify_handle": "flute-champagne-baby-shower-cubes-tetine",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-baby-shower-cubes-tetine.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2091,
+    "height": 413
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 105,
+      "color": "#c99d7b",
+      "multiline": true,
+      "id": "tzmw5f7gta0",
+      "label": "",
+      "order": 1,
+      "x": 45,
+      "y": 22,
+      "width": 751,
+      "height": 369,
+      "shape": "rectangle",
+      "placeholder": "Baby shower\nde Chloé",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 100,
+      "color": "#c99d7b",
+      "multiline": true,
+      "id": "tzmw5f7gta1",
+      "label": "",
+      "order": 2,
+      "x": 1201,
+      "y": 22,
+      "width": 584,
+      "height": 369,
+      "shape": "rectangle",
+      "placeholder": "12 juin\n2027",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
