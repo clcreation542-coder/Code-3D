@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-39-mw5f33db6x8t",
+  "name": "Flûte à Champagne Personnalisée – Crémaillère Maison Eucalyptus & Clés",
+  "shopify_handle": "flute-champagne-cremaillere-maison-eucalyptus-cles",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-cremaillere-maison-eucalyptus-cles.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2091,
+    "height": 413
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 90,
+      "color": "#76937c",
+      "multiline": true,
+      "id": "tzmw5f34th0",
+      "label": "",
+      "order": 1,
+      "x": 30,
+      "y": 22,
+      "width": 799,
+      "height": 369,
+      "shape": "rectangle",
+      "placeholder": "Crémaillère\nde Julie",
+      "font_family": "Cinzel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 90,
+      "color": "#76937c",
+      "multiline": true,
+      "id": "tzmw5f34th1",
+      "label": "",
+      "order": 2,
+      "x": 1171,
+      "y": 22,
+      "width": 623,
+      "height": 369,
+      "shape": "rectangle",
+      "placeholder": "5 septembre\n2027",
+      "font_family": "Cinzel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

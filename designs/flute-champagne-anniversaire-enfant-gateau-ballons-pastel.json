@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-53-mw545wnfpfcb",
+  "name": "Flûte à Champagne Personnalisée – Anniversaire Enfant Gâteau & Ballons Pastel",
+  "shopify_handle": "flute-champagne-anniversaire-enfant-gateau-ballons-pastel",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/FluteChampagne.glb",
+  "rotation_y": 2.6878070480712672,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/flute-champagne-anniversaire-enfant-gateau-ballons-pastel.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2091,
+    "height": 413
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 110,
+      "color": "#d45a8a",
+      "multiline": true,
+      "id": "tzmw545x430",
+      "label": "",
+      "order": 1,
+      "x": 25,
+      "y": 20,
+      "width": 766,
+      "height": 373,
+      "shape": "rectangle",
+      "placeholder": "Anniversaire\nde Lina",
+      "font_family": "Borel",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1.15,
+      "font_size": 300,
+      "color": "#6a5acd",
+      "multiline": true,
+      "id": "tzmw545x431",
+      "label": "",
+      "order": 2,
+      "x": 1206,
+      "y": 5,
+      "width": 575,
+      "height": 403,
+      "shape": "rectangle",
+      "placeholder": "5",
+      "font_family": "Josefin Sans",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}

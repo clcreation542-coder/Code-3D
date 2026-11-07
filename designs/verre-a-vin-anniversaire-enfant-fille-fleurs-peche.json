@@ -1,0 +1,89 @@
+{
+  "id": "brouillon-38-mw53hd4b5vs8",
+  "name": "Verre à Vin Personnalisé – Anniversaire Enfant Fille Fleurs Pêche",
+  "shopify_handle": "verre-a-vin-anniversaire-enfant-fille-fleurs-peche",
+  "gobelet_color": "#f5f0eb",
+  "gobelet_opacity": 1,
+  "model_url": "https://clcreation542-coder.github.io/Code-3D/VerreAVin.glb",
+  "rotation_y": 3.141592653589793,
+  "design_url": "https://clcreation542-coder.github.io/Code-3D/designs/verre-a-vin-anniversaire-enfant-fille-fleurs-peche.webp",
+  "design": {
+    "x": 0,
+    "y": 0,
+    "width": 2221,
+    "height": 472
+  },
+  "active": true,
+  "variant_colors": [
+    {
+      "name": "Translucide",
+      "hex": "#f5f0eb",
+      "opacity": 1,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Blanc",
+      "hex": "#f0ede6",
+      "opacity": 0,
+      "visible": true,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    },
+    {
+      "name": "Noir",
+      "hex": "#121212",
+      "opacity": 1,
+      "visible": false,
+      "force_text_color": false,
+      "text_color_override": "#ffffff"
+    }
+  ],
+  "text_zones": [
+    {
+      "lineHeight": 1.15,
+      "font_size": 135,
+      "color": "#eca194",
+      "multiline": true,
+      "id": "tzmw5er0t90",
+      "label": "Prénom",
+      "order": 1,
+      "x": 41,
+      "y": 30,
+      "width": 730,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "Anniversaire\nde Lina",
+      "font_family": "Parisienne",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    },
+    {
+      "lineHeight": 1,
+      "font_size": 190,
+      "color": "#eca194",
+      "multiline": true,
+      "id": "tzmw5er0t91",
+      "label": "Âge",
+      "order": 2,
+      "x": 1151,
+      "y": 30,
+      "width": 730,
+      "height": 412,
+      "shape": "rectangle",
+      "placeholder": "6\nans",
+      "font_family": "Montserrat",
+      "align": "center",
+      "rotation": 0,
+      "max_chars": 0,
+      "stroke_preview": 1.5,
+      "stroke_print": 2.5
+    }
+  ],
+  "photo_zones": [],
+  "arch_zones": []
+}
