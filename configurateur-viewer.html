@@ -988,7 +988,10 @@ function KZ_drawMention(c, W, H) {
   c.save();
   c.font = KZM_FONT;
   const L = c.measureText(KZM_TEXTE).width;
-  const cle = (CFG.id || CFG.shopify_handle || '') + '|' + W + 'x' + H + '|' + Object.keys(state.photos || {}).length;
+  // La clé suit aussi l'image du décor : un design IA / Canva envoyé par
+  // le client (SET_DESIGN_IMAGE) change l'image sans changer le design.
+  const src = state.designImage ? String(state.designImage.src || '') : '';
+  const cle = (CFG.id || CFG.shopify_handle || '') + '|' + W + 'x' + H + '|' + Object.keys(state.photos || {}).length + '|' + src.length + ':' + src.slice(-48);
   if (kzmCache.cle !== cle || !kzmCache.pos) kzmCache = { cle: cle, pos: kzmPlace(W, H, L) };
   const p = kzmCache.pos;
   c.translate(p.x, p.y);
