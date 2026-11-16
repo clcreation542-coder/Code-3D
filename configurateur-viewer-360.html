@@ -969,9 +969,14 @@ function kzmPlace(W, H, longueurTexte) {
     }
     // Aucun espace libre (design qui couvre tout le gobelet, souvent les
     // designs IA / Canva du client) : on reste EN BAS, à 6 mm du bord.
-    // Décision d'Allan (16/11) : l'étiquette va tout en bas À GAUCHE du
-    // PNG, collée au bord, pour tomber sur la jonction du gobelet.
-    if (basY !== null) return { x: KZM_FS * 1.3 / 2 + 4, y: (basY + bh / 2) * C, surDecor: true };
+    // Décision d'Allan (16/11) : l'étiquette va en bas À GAUCHE du PNG,
+    // près de la jonction du gobelet : bord de l'étiquette à 3 mm de la
+    // jonction (bord gauche du PNG) et à 6 mm du bas de l'impression.
+    if (basY !== null) return {
+      x: 3 * C + KZM_FS * 1.3 / 2,
+      y: H - 6 * C - (longueurTexte + 24) / 2,
+      surDecor: true
+    };
   }
   let best = -1, bx = 0, by = 0;
   for (let y = 0; y + bh <= GH; y++) for (let x = 0; x <= xMax; x++) {
