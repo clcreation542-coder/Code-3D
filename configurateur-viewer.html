@@ -203,6 +203,7 @@ const state = {
   gobeletColor: '#f5f0eb',
   designImage: null,
   fontsReady: false,
+  kzMention: false,
 };
 
 const textureCanvas  = document.createElement('canvas');
@@ -818,6 +819,151 @@ function drawPhotoZone(zone, img) {
   KZ_zoneEnd(ctx2d);
 }
 
+// ══════════════════════════════════════════════════════════════════
+//  KZ_MENTION v1 (16/11/2026) — option « -5 % avec kuztom.fr »
+//  Le client coche une case dans le configurateur du thème ; le thème
+//  envoie SET_KZ_MENTION { value:true }. Tant qu'il ne l'envoie pas,
+//  RIEN ne change : l'aperçu et le PNG imprimeur restent identiques.
+//  Règles d'Allan :
+//    · texte « kuztom.fr », VERTICAL, lu de bas en haut ;
+//    · 40 px de corps (PNG 10 px/mm → 4 mm), police fine mais pas
+//      ultra-fine (Jost 400) ;
+//    · gris moyen lisible sur gobelet clair/translucide, blanc sur foncé ;
+//    · placé automatiquement dans la moitié arrière du PNG, à l'endroit
+//      le PLUS ÉLOIGNÉ de tout pixel du décor et de toute zone texte /
+//      photo ; position forcée possible par design : CFG.kz_mention
+//      = { x, y } (centre, en px du PNG).
+//    · jamais sur un verre à vin ou une flûte (coque dédiée).
+//  Même fonction pour l'écran et pour le PNG imprimeur.
+// ══════════════════════════════════════════════════════════════════
+const KZM_TEXTE = 'kuztom.fr';
+const KZM_FS = 40;
+const KZM_FONT = "400 " + KZM_FS + "px 'Jost'";
+let kzmCache = { cle: null, pos: null };
+(function () {
+  try {
+    if (!document.querySelector('link[data-kzm-font]')) {
+      const l = document.createElement('link');
+      l.rel = 'stylesheet'; l.setAttribute('data-kzm-font', '1');
+      l.href = 'https://fonts.googleapis.com/css2?family=Jost:wght@400&display=swap';
+      document.head.appendChild(l);
+    }
+  } catch (e) {}
+})();
+
+function kzmActive() {
+  if (!state.kzMention) return false;
+  try { if (modele3DCourant().mesh_impression) return false; } catch (e) {}
+  return true;
+}
+
+function kzmCouleur() {
+  const c = parseHexColor(state.gobeletColor || '#f5f0eb');
+  const n = parseInt(c.slice(1, 7), 16);
+  if (isNaN(n)) return '#6b6b6b';
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  return lum < 0.5 ? '#ffffff' : '#6b6b6b';
+}
+
+// Placement : grille de 1 mm (10 px), transformée de distance, puis on
+// cherche dans la moitié gauche (dos) la position du cadre vertical dont
+// la case la plus proche d'un obstacle est la plus éloignée possible.
+function kzmPlace(W, H, longueurTexte) {
+  if (CFG.kz_mention && typeof CFG.kz_mention.x === 'number' && typeof CFG.kz_mention.y === 'number') {
+    return { x: CFG.kz_mention.x, y: CFG.kz_mention.y };
+  }
+  const C = 10;
+  const GW = Math.ceil(W / C), GH = Math.ceil(H / C);
+  const occ = new Uint8Array(GW * GH);
+  function marque(x0, y0, x1, y1) {
+    const a = Math.max(0, Math.floor(x0 / C)), b = Math.min(GW - 1, Math.floor(x1 / C));
+    const c = Math.max(0, Math.floor(y0 / C)), d = Math.min(GH - 1, Math.floor(y1 / C));
+    for (let y = c; y <= d; y++) for (let x = a; x <= b; x++) occ[y * GW + x] = 1;
+  }
+  // 1. Pixels du décor (alpha)
+  if (state.designImage) {
+    try {
+      const k = document.createElement('canvas');
+      k.width = GW * 2; k.height = GH * 2;
+      const kc = k.getContext('2d', { willReadFrequently: true });
+      const d = CFG.design || { x: 0, y: 0 };
+      kc.drawImage(state.designImage, (d.x || 0) * k.width / W, (d.y || 0) * k.height / H, k.width, k.height);
+      const px = kc.getImageData(0, 0, k.width, k.height).data;
+      for (let y = 0; y < k.height; y++) for (let x = 0; x < k.width; x++) {
+        if (px[(y * k.width + x) * 4 + 3] > 6) occ[(y >> 1) * GW + (x >> 1)] = 1;
+      }
+    } catch (e) { /* image non lisible : on se contente des zones */ }
+  }
+  // 2. Zones texte / photo (cadre englobant, rotation comprise)
+  (CFG.text_zones || []).concat(CFG.photo_zones || []).forEach(function (z) {
+    const w = z.width || 0, h = z.height || 0;
+    const a = (z.rotation || 0) * Math.PI / 180;
+    const cw = Math.abs(w * Math.cos(a)) + Math.abs(h * Math.sin(a));
+    const ch = Math.abs(w * Math.sin(a)) + Math.abs(h * Math.cos(a));
+    const cx = (z.x || 0) + w / 2, cy = (z.y || 0) + h / 2;
+    marque(cx - cw / 2, cy - ch / 2, cx + cw / 2, cy + ch / 2);
+  });
+  (CFG.arch_zones || []).forEach(function (z) {
+    const r = (z.radius || 280) + (z.font_size || 60);
+    marque((z.cx || 0) - r, (z.cy || 0) - r, (z.cx || 0) + r, (z.cy || 0) + r);
+  });
+  // 3. Distance (chanfrein 3-4) ; le bord de la zone d'impression compte
+  //    comme un obstacle : la mention reste à distance des bords et des
+  //    soudures.
+  const INF = 1e9, dist = new Float64Array(GW * GH);
+  for (let i = 0; i < GW * GH; i++) dist[i] = occ[i] ? 0 : INF;
+  function bord(x, y) { return Math.min(x + 1, y + 1, GW - x, GH - y) * 3; }
+  for (let y = 0; y < GH; y++) for (let x = 0; x < GW; x++) {
+    const i = y * GW + x; let v = Math.min(dist[i], bord(x, y));
+    if (x > 0) v = Math.min(v, dist[i - 1] + 3);
+    if (y > 0) {
+      v = Math.min(v, dist[i - GW] + 3);
+      if (x > 0) v = Math.min(v, dist[i - GW - 1] + 4);
+      if (x < GW - 1) v = Math.min(v, dist[i - GW + 1] + 4);
+    }
+    dist[i] = v;
+  }
+  for (let y = GH - 1; y >= 0; y--) for (let x = GW - 1; x >= 0; x--) {
+    const i = y * GW + x; let v = dist[i];
+    if (x < GW - 1) v = Math.min(v, dist[i + 1] + 3);
+    if (y < GH - 1) {
+      v = Math.min(v, dist[i + GW] + 3);
+      if (x < GW - 1) v = Math.min(v, dist[i + GW + 1] + 4);
+      if (x > 0) v = Math.min(v, dist[i + GW - 1] + 4);
+    }
+    dist[i] = v;
+  }
+  // 4. Cadre vertical : largeur = hauteur des lettres, hauteur = longueur.
+  const bw = Math.max(1, Math.ceil(KZM_FS * 1.1 / C)), bh = Math.max(1, Math.ceil(longueurTexte / C));
+  let best = -1, bx = 0, by = 0;
+  const xMax = Math.floor(GW / 2) - bw;           // moitié arrière du PNG
+  for (let y = 0; y + bh <= GH; y++) for (let x = 0; x <= xMax; x++) {
+    let m = INF;
+    for (let yy = y; yy < y + bh && m > best; yy++) for (let xx = x; xx < x + bw; xx++) {
+      const v = dist[yy * GW + xx]; if (v < m) { m = v; if (m <= best) break; }
+    }
+    if (m > best) { best = m; bx = x; by = y; }
+  }
+  return { x: (bx + bw / 2) * C, y: (by + bh / 2) * C };
+}
+
+function KZ_drawMention(c, W, H) {
+  if (!kzmActive()) return;
+  c.save();
+  c.font = KZM_FONT;
+  const L = c.measureText(KZM_TEXTE).width;
+  const cle = (CFG.id || CFG.shopify_handle || '') + '|' + W + 'x' + H + '|' + Object.keys(state.photos || {}).length;
+  if (kzmCache.cle !== cle || !kzmCache.pos) kzmCache = { cle: cle, pos: kzmPlace(W, H, L) };
+  const p = kzmCache.pos;
+  c.translate(p.x, p.y);
+  c.rotate(-Math.PI / 2);                          // lu de bas en haut
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillStyle = kzmCouleur();
+  c.fillText(KZM_TEXTE, 0, 0);
+  c.restore();
+}
+
 function drawTexture() {
   ctx2d.clearRect(0, 0, TEX_W, TEX_H);
   const op = CFG.gobelet_opacity !== undefined ? CFG.gobelet_opacity : 0.88;
@@ -909,6 +1055,7 @@ function drawTexture() {
     const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
     if (txt && txt.trim()) drawArchZone(zone, txt);
   });
+  KZ_drawMention(ctx2d, TEX_W, TEX_H);
   if (window._gobeletTexture) window._gobeletTexture.needsUpdate = true;
   var zoneInfos = (CFG.text_zones || []).map(function(zone) {
     var txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
@@ -1669,7 +1816,18 @@ window.addEventListener('message', function(e) {
     return;
   }
 
+  if (data.type === 'SET_KZ_MENTION') {
+    const v = !!data.value;
+    if (v !== state.kzMention) {
+      state.kzMention = v;
+      if (v) { document.fonts.load(KZM_FONT).then(function () { drawTexture(); }).catch(function () {}); }
+      drawTexture();
+    }
+    return;
+  }
+
   if (data.type === 'REQUEST_PRINT_PNG') {
+    if (typeof data.kzMention === 'boolean') state.kzMention = data.kzMention;
     (async function() {
       // P6-06 : pre=1 → PNG pré-généré par kz-express-guard (durée de vie
       // courte côté proxy tant qu'il n'est pas confirmé). Si une vraie
@@ -1814,6 +1972,8 @@ window.addEventListener('message', function(e) {
           }
           pctx.restore();
         });
+        // KZ_MENTION v1 : « kuztom.fr » si le client a coché l'option.
+        if (kzmActive()) { try { await document.fonts.load(KZM_FONT); } catch (e) {} KZ_drawMention(pctx, W, H); }
         // ── PNG en binaire (même qualité, plus léger que le base64) ──
         const blob = await new Promise(function (res) { printCanvas.toBlob(res, 'image/png'); });
         if (!blob) throw new Error('Génération du PNG impossible');
