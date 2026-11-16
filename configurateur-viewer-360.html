@@ -952,7 +952,7 @@ function kzmPlace(W, H, longueurTexte) {
   {
     const MARGE = 6;                                 // mm (1 case = 1 mm)
     const lignes = [GH - MARGE - bh, MARGE, Math.round((GH - bh) / 2)];
-    let basX = 0, basY = null;
+    let basY = null;
     for (let k = 0; k < lignes.length; k++) {
       const y = lignes[k];
       if (y < 0 || y + bh > GH) continue;
@@ -965,12 +965,13 @@ function kzmPlace(W, H, longueurTexte) {
         if (m > bestB) { bestB = m; bxB = x; }
       }
       if (bestB >= 3 * 2) return { x: (bxB + bw / 2) * C, y: (y + bh / 2) * C };
-      if (k === 0) { basX = bestB > 0 ? bxB : Math.round(GW / 4 - bw / 2); basY = y; }
+      if (k === 0) basY = y;
     }
     // Aucun espace libre (design qui couvre tout le gobelet, souvent les
-    // designs IA / Canva du client) : on reste EN BAS, à 6 mm du bord,
-    // sur la colonne la moins chargée de la moitié arrière.
-    if (basY !== null) return { x: (basX + bw / 2) * C, y: (basY + bh / 2) * C, surDecor: true };
+    // designs IA / Canva du client) : on reste EN BAS, à 6 mm du bord.
+    // Décision d'Allan (16/11) : l'étiquette va tout en bas À GAUCHE du
+    // PNG, collée au bord, pour tomber sur la jonction du gobelet.
+    if (basY !== null) return { x: KZM_FS * 1.3 / 2 + 4, y: (basY + bh / 2) * C, surDecor: true };
   }
   let best = -1, bx = 0, by = 0;
   for (let y = 0; y + bh <= GH; y++) for (let x = 0; x <= xMax; x++) {
