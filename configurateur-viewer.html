@@ -144,6 +144,26 @@ try {
 function kzPost(msg) {
   try { window.parent.postMessage(msg, KZ_PARENT_ORIGIN || '*'); } catch (e) {}
 }
+// KZ_PRENOMS v1 — texte d'une zone à l'écran, et zone « prénom » telle
+// qu'elle sera dessinée (police, couleur et contour réellement utilisés).
+function kzpEstZonePrenom(zone) { return !!(state.kzPrenoms && zone && zone.id === state.kzPrenoms.zoneId); }
+function kzpTexteEcran(zone) {
+  if (kzpEstZonePrenom(zone)) {
+    const p = state.kzPrenoms, n = p.noms.length ? p.noms[Math.min(p.idx, p.noms.length - 1)] : '';
+    return n || 'Prénom';
+  }
+  return state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
+}
+function kzpZoneEffective() {
+  const z = state.kzPrenoms && (CFG.text_zones || []).find(t => t.id === state.kzPrenoms.zoneId);
+  if (!z) return null;
+  const o = JSON.parse(JSON.stringify(z));
+  o.color = z._colorOverride || z.color || '#7a5c2e';
+  delete o._colorOverride; delete o.placeholder;
+  o.stroke_print = (z.stroke_print !== undefined ? z.stroke_print : 2.5);
+  o.tex_w = TEX_W; o.tex_h = TEX_H; o.layout_version = KZ_LAYOUT_VERSION;
+  return o;
+}
 // ══════════════════════════════════════════════════════════════════
 //  KZ_MODELES v1 — MODÈLES 3D DISPONIBLES
 //  ⚠️ Bloc MIROIR de celui de kuztomadmin (KZ_STUDIO). Toute modif ici
@@ -204,6 +224,7 @@ const state = {
   designImage: null,
   fontsReady: false,
   kzMention: false,
+  kzPrenoms: null,   // KZ_PRENOMS v1 : { zoneId, noms:[], idx }
 };
 
 const textureCanvas  = document.createElement('canvas');
@@ -1104,7 +1125,7 @@ function drawTexture() {
     ctx2d.drawImage(state.designImage, d.x||0, d.y||0, TEX_W, TEX_H);
   }
   (CFG.text_zones || []).forEach(zone => {
-    const txt = state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder || '');
+    const txt = kzpTexteEcran(zone);
     drawTextZone(zone, txt);
   });
   (CFG.arch_zones || []).forEach(zone => {
@@ -1872,6 +1893,22 @@ window.addEventListener('message', function(e) {
     return;
   }
 
+  // KZ_PRENOMS v1 (16/11/2026) — personnalisation unitaire : le thème
+  // envoie la liste des prénoms et l'index affiché. Le prénom remplace le
+  // texte de la zone du dos À L'ÉCRAN ; le PNG imprimeur laisse cette zone
+  // VIDE (l'admin y pose chaque prénom, une page par gobelet).
+  // { type:'SET_KZ_PRENOMS', zoneId, noms:[...], idx } — zoneId vide = arrêt.
+  if (data.type === 'SET_KZ_PRENOMS') {
+    const z = data.zoneId && (CFG.text_zones || []).find(t => t.id === data.zoneId);
+    state.kzPrenoms = z ? { zoneId: z.id, noms: Array.isArray(data.noms) ? data.noms.map(String) : [], idx: Math.max(0, data.idx | 0) } : null;
+    drawTexture();
+    return;
+  }
+  if (data.type === 'REQUEST_PRENOM_ZONE') {
+    kzPost({ type: 'PRENOM_ZONE', zone: kzpZoneEffective() });
+    return;
+  }
+
   if (data.type === 'SET_KZ_MENTION') {
     const v = !!data.value;
     if (v !== state.kzMention) {
@@ -1945,6 +1982,7 @@ window.addEventListener('message', function(e) {
         document.body.removeChild(fontForcer);
         const STROKE_WIDTH = 2.5;
         (CFG.text_zones||[]).forEach(zone => {
+          if (kzpEstZonePrenom(zone)) return;   // KZ_PRENOMS : chaque prénom est posé par l'admin
           const brut = (state.texts[zone.id] !== undefined ? state.texts[zone.id] : (zone.placeholder||''));
           const txt = brut.trim();
           if (!txt) return;
@@ -2080,8 +2118,11 @@ window.addEventListener('message', function(e) {
         }
         window.__kzPrinting = false;
         window.__kzPrintConfirmer = false;
-        kzPost(kzResteePre ? { type: 'PRINT_PNG_READY', url: pngUrl, pre: true }
-                           : { type: 'PRINT_PNG_READY', url: pngUrl });
+        const kzpZ = kzpZoneEffective();   // KZ_PRENOMS : zone à remplir par l'admin
+        const kzMsg = kzResteePre ? { type: 'PRINT_PNG_READY', url: pngUrl, pre: true }
+                                  : { type: 'PRINT_PNG_READY', url: pngUrl };
+        if (kzpZ) kzMsg.prenomZone = kzpZ;
+        kzPost(kzMsg);
       } catch(e) {
         window.__kzPrinting = false;
         window.__kzPrintConfirmer = false;
