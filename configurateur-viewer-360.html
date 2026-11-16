@@ -1900,6 +1900,8 @@ window.addEventListener('message', function(e) {
   // { type:'SET_KZ_PRENOMS', zoneId, noms:[...], idx } — zoneId vide = arrêt.
   if (data.type === 'SET_KZ_PRENOMS') {
     const z = data.zoneId && (CFG.text_zones || []).find(t => t.id === data.zoneId);
+    const kzpAvant = state.kzPrenoms && state.kzPrenoms.zoneId;
+    if (window.__kzPrinting && kzpAvant !== (z ? z.id : null)) window.__kzPrintPerime = true;
     state.kzPrenoms = z ? { zoneId: z.id, noms: Array.isArray(data.noms) ? data.noms.map(String) : [], idx: Math.max(0, data.idx | 0) } : null;
     drawTexture();
     return;
@@ -1921,7 +1923,7 @@ window.addEventListener('message', function(e) {
 
   if (data.type === 'REQUEST_PRINT_PNG') {
     if (typeof data.kzMention === 'boolean') state.kzMention = data.kzMention;
-    (async function() {
+    const kzImprimer = async function(data) {
       // P6-06 : pre=1 → PNG pré-généré par kz-express-guard (durée de vie
       // courte côté proxy tant qu'il n'est pas confirmé). Si une vraie
       // demande (sans pre) arrive pendant une génération pré-générée, le
@@ -1931,6 +1933,7 @@ window.addEventListener('message', function(e) {
       try {
         window.__kzPrinting = true;
         window.__kzPrintConfirmer = false;
+        window.__kzPrintPerime = false;   // KZ_PRENOMS : l'option change pendant la fabrication
         const W = TEX_W, H = TEX_H;
         const printCanvas = document.createElement('canvas');
         printCanvas.width = W; printCanvas.height = H;
@@ -2112,6 +2115,13 @@ window.addEventListener('message', function(e) {
         // Toujours l'URL du Worker (fini le lien github périmé qui tombait en 404).
         const pngUrl = uploadData.url;
         let kzResteePre = kzPre;
+        // KZ_PRENOMS : PNG pré-généré devenu faux (option prénoms cochée ou
+        // décochée pendant sa fabrication) alors qu'une commande l'attend :
+        // on en refabrique un, à jour, au lieu de le confirmer.
+        if (kzPre && window.__kzPrintConfirmer && window.__kzPrintPerime) {
+          window.__kzPrinting = false; window.__kzPrintConfirmer = false; window.__kzPrintPerime = false;
+          return kzImprimer(Object.assign({}, data, { pre: 0 }));
+        }
         if (kzPre && window.__kzPrintConfirmer) {
           // Une commande attend ce PNG : on le rend permanent tout de suite.
           if (await kzConfirmeFichier(filename)) kzResteePre = false;
@@ -2129,7 +2139,8 @@ window.addEventListener('message', function(e) {
         console.error('generatePrintPNG error:', e);
         kzPost({ type: 'PRINT_PNG_ERROR', error: e.message });
       }
-    })();
+    };
+    kzImprimer(data);
     return;
   }
 
