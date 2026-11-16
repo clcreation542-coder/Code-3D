@@ -944,23 +944,27 @@ function kzmPlace(W, H, longueurTexte) {
   // 4. Cadre vertical : largeur = hauteur des lettres, hauteur = longueur.
   const bw = Math.max(1, Math.ceil(KZM_FS * 1.1 / C)), bh = Math.max(1, Math.ceil(longueurTexte / C));
   const xMax = Math.floor(GW / 2) - bw;           // moitié arrière du PNG
-  // 4a. Règle d'Allan (16/11) : la mention descend presque en bas du
-  //     gobelet — bas du texte à 6 mm du bord bas de l'impression. On
-  //     choisit la colonne la plus éloignée du décor sur cette hauteur.
+  // 4a. Règles d'Allan (16/11) : 1) EN BAS, bas du texte à 6 mm du bord
+  //     bas de l'impression ; 2) sinon EN HAUT, haut du texte à 6 mm du
+  //     bord haut ; 3) sinon AU MILIEU de la hauteur. Sur chaque hauteur on
+  //     prend la colonne la plus éloignée du décor, et on n'accepte que si
+  //     la mention reste à au moins 2 mm de tout décor ou zone.
   {
-    const BAS = 6;                                   // mm (1 case = 1 mm)
-    const y = GH - BAS - bh;
-    let bestB = -1, bxB = 0;
-    if (y >= 0) for (let x = 0; x <= xMax; x++) {
-      let m = INF;
-      for (let yy = y; yy < y + bh; yy++) for (let xx = x; xx < x + bw; xx++) {
-        if (occ[yy * GW + xx]) { m = 0; break; }
-        const v = distLR[yy * GW + xx]; if (v < m) m = v;
+    const MARGE = 6;                                 // mm (1 case = 1 mm)
+    const lignes = [GH - MARGE - bh, MARGE, Math.round((GH - bh) / 2)];
+    for (let k = 0; k < lignes.length; k++) {
+      const y = lignes[k];
+      if (y < 0 || y + bh > GH) continue;
+      let bestB = -1, bxB = 0;
+      for (let x = 0; x <= xMax; x++) {
+        let m = INF;
+        for (let yy = y; yy < y + bh && m > bestB; yy++) for (let xx = x; xx < x + bw; xx++) {
+          const v = distLR[yy * GW + xx]; if (v < m) m = v;
+        }
+        if (m > bestB) { bestB = m; bxB = x; }
       }
-      // distance au décor seulement (le bord bas, volontairement proche, ne compte pas)
-      if (m > bestB) { bestB = m; bxB = x; }
+      if (bestB >= 3 * 2) return { x: (bxB + bw / 2) * C, y: (y + bh / 2) * C };
     }
-    if (bestB >= 3 * 2) return { x: (bxB + bw / 2) * C, y: (y + bh / 2) * C };   // ≥ 2 mm du décor
   }
   let best = -1, bx = 0, by = 0;
   for (let y = 0; y + bh <= GH; y++) for (let x = 0; x <= xMax; x++) {
