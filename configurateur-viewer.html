@@ -1904,6 +1904,13 @@ window.addEventListener('message', function(e) {
     if (window.__kzPrinting && kzpAvant !== (z ? z.id : null)) window.__kzPrintPerime = true;
     state.kzPrenoms = z ? { zoneId: z.id, noms: Array.isArray(data.noms) ? data.noms.map(String) : [], idx: Math.max(0, data.idx | 0) } : null;
     drawTexture();
+    // dos:true → on tourne le gobelet pour montrer le dos (le prénom).
+    if (z && data.dos && typeof gobeletGroup !== 'undefined' && gobeletGroup) {
+      rotY = ((CFG.rotation_y !== undefined) ? (Math.PI + CFG.rotation_y) : Math.PI) + Math.PI;
+      gobeletGroup.rotation.y = rotY;
+      try { lastInteraction = Date.now(); } catch (e) {}
+      kzActivite();
+    }
     return;
   }
   if (data.type === 'REQUEST_PRENOM_ZONE') {
